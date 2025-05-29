@@ -1,0 +1,3316 @@
+
+
+Microchip MPLAB XC8 Assembler V2.41 build 20230208172133 
+                                                                                               Fri May 23 20:43:21 2025
+
+Microchip MPLAB XC8 C Compiler v2.41 (Pro license) build 20230208172133 Og9s 
+     1                           	processor	16F628A
+     2                           	pagewidth 120
+     3                           	opt	plic
+     4                           	psect	strings,global,class=STRING,delta=2,noexec
+     5                           	psect	cinit,global,class=CODE,merge=1,delta=2
+     6                           	psect	bssCOMMON,global,class=COMMON,space=1,delta=1,noexec
+     7                           	psect	bssBANK0,global,class=BANK0,space=1,delta=1,noexec
+     8                           	psect	clrtext,global,class=CODE,delta=2
+     9                           	psect	cstackCOMMON,global,class=COMMON,space=1,delta=1,noexec
+    10                           	psect	cstackBANK0,global,class=BANK0,space=1,delta=1,noexec
+    11                           	psect	maintext,global,class=CODE,split=1,delta=2
+    12                           	psect	text1,local,class=CODE,merge=1,delta=2
+    13                           	psect	text2,local,class=CODE,merge=1,delta=2
+    14                           	psect	text3,local,class=CODE,merge=1,delta=2
+    15                           	psect	text4,local,class=CODE,merge=1,delta=2,group=1
+    16                           	psect	text5,local,class=CODE,merge=1,delta=2
+    17                           	psect	text6,local,class=CODE,merge=1,delta=2
+    18                           	psect	text7,local,class=CODE,merge=1,delta=2
+    19                           	psect	text8,local,class=CODE,merge=1,delta=2
+    20                           	psect	text9,local,class=CODE,merge=1,delta=2
+    21                           	psect	text10,local,class=CODE,merge=1,delta=2
+    22                           	psect	text11,local,class=CODE,merge=1,delta=2
+    23                           	psect	text12,local,class=CODE,merge=1,delta=2
+    24                           	psect	text13,local,class=CODE,merge=1,delta=2
+    25                           	psect	text14,local,class=CODE,merge=1,delta=2
+    26                           	psect	text15,local,class=CODE,merge=1,delta=2
+    27                           	psect	text16,local,class=CODE,merge=1,delta=2
+    28                           	psect	text17,local,class=CODE,merge=1,delta=2
+    29                           	psect	text18,local,class=CODE,merge=1,delta=2
+    30                           	psect	text19,local,class=CODE,merge=1,delta=2
+    31                           	psect	text20,local,class=CODE,merge=1,delta=2
+    32                           	psect	text21,local,class=CODE,merge=1,delta=2
+    33                           	psect	text22,local,class=CODE,merge=1,delta=2
+    34                           	psect	text23,local,class=CODE,merge=1,delta=2
+    35                           	psect	text24,local,class=CODE,merge=1,delta=2
+    36                           	psect	idloc,global,abs,ovrld,class=IDLOC,space=5,delta=2,noexec
+    37                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=2,noexec
+    38                           	psect	pa_nodes0,global,class=CODE,delta=2
+    39                           	dabs	1,0x7E,2
+    40     0000                     
+    41                           ; Generated 12/10/2023 GMT
+    42                           ; 
+    43                           ; Copyright © 2023, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    44                           ; All rights reserved.
+    45                           ; 
+    46                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    47                           ; 
+    48                           ; Redistribution and use in source and binary forms, with or without modification, are
+    49                           ; permitted provided that the following conditions are met:
+    50                           ; 
+    51                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    52                           ;        conditions and the following disclaimer.
+    53                           ; 
+    54                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    55                           ;        of conditions and the following disclaimer in the documentation and/or other
+    56                           ;        materials provided with the distribution. Publication is not required when
+    57                           ;        this file is used in an embedded application.
+    58                           ; 
+    59                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    60                           ;        software without specific prior written permission.
+    61                           ; 
+    62                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    63                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    64                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    65                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    66                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    67                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    68                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    69                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    70                           ; 
+    71                           ; 
+    72                           ; Code-generator required, PIC16F628A Definitions
+    73                           ; 
+    74                           ; SFR Addresses
+    75     0000                     	;# 
+    76     0001                     	;# 
+    77     0002                     	;# 
+    78     0003                     	;# 
+    79     0004                     	;# 
+    80     0005                     	;# 
+    81     0006                     	;# 
+    82     000A                     	;# 
+    83     000B                     	;# 
+    84     000C                     	;# 
+    85     000E                     	;# 
+    86     000E                     	;# 
+    87     000F                     	;# 
+    88     0010                     	;# 
+    89     0011                     	;# 
+    90     0012                     	;# 
+    91     0015                     	;# 
+    92     0015                     	;# 
+    93     0016                     	;# 
+    94     0017                     	;# 
+    95     0018                     	;# 
+    96     0019                     	;# 
+    97     001A                     	;# 
+    98     001F                     	;# 
+    99     0081                     	;# 
+   100     0085                     	;# 
+   101     0086                     	;# 
+   102     008C                     	;# 
+   103     008E                     	;# 
+   104     0092                     	;# 
+   105     0098                     	;# 
+   106     0099                     	;# 
+   107     009A                     	;# 
+   108     009B                     	;# 
+   109     009C                     	;# 
+   110     009D                     	;# 
+   111     009F                     	;# 
+   112     0000                     	;# 
+   113     0001                     	;# 
+   114     0002                     	;# 
+   115     0003                     	;# 
+   116     0004                     	;# 
+   117     0005                     	;# 
+   118     0006                     	;# 
+   119     000A                     	;# 
+   120     000B                     	;# 
+   121     000C                     	;# 
+   122     000E                     	;# 
+   123     000E                     	;# 
+   124     000F                     	;# 
+   125     0010                     	;# 
+   126     0011                     	;# 
+   127     0012                     	;# 
+   128     0015                     	;# 
+   129     0015                     	;# 
+   130     0016                     	;# 
+   131     0017                     	;# 
+   132     0018                     	;# 
+   133     0019                     	;# 
+   134     001A                     	;# 
+   135     001F                     	;# 
+   136     0081                     	;# 
+   137     0085                     	;# 
+   138     0086                     	;# 
+   139     008C                     	;# 
+   140     008E                     	;# 
+   141     0092                     	;# 
+   142     0098                     	;# 
+   143     0099                     	;# 
+   144     009A                     	;# 
+   145     009B                     	;# 
+   146     009C                     	;# 
+   147     009D                     	;# 
+   148     009F                     	;# 
+   149     0000                     	;# 
+   150     0001                     	;# 
+   151     0002                     	;# 
+   152     0003                     	;# 
+   153     0004                     	;# 
+   154     0005                     	;# 
+   155     0006                     	;# 
+   156     000A                     	;# 
+   157     000B                     	;# 
+   158     000C                     	;# 
+   159     000E                     	;# 
+   160     000E                     	;# 
+   161     000F                     	;# 
+   162     0010                     	;# 
+   163     0011                     	;# 
+   164     0012                     	;# 
+   165     0015                     	;# 
+   166     0015                     	;# 
+   167     0016                     	;# 
+   168     0017                     	;# 
+   169     0018                     	;# 
+   170     0019                     	;# 
+   171     001A                     	;# 
+   172     001F                     	;# 
+   173     0081                     	;# 
+   174     0085                     	;# 
+   175     0086                     	;# 
+   176     008C                     	;# 
+   177     008E                     	;# 
+   178     0092                     	;# 
+   179     0098                     	;# 
+   180     0099                     	;# 
+   181     009A                     	;# 
+   182     009B                     	;# 
+   183     009C                     	;# 
+   184     009D                     	;# 
+   185     009F                     	;# 
+   186     0000                     	;# 
+   187     0001                     	;# 
+   188     0002                     	;# 
+   189     0003                     	;# 
+   190     0004                     	;# 
+   191     0005                     	;# 
+   192     0006                     	;# 
+   193     000A                     	;# 
+   194     000B                     	;# 
+   195     000C                     	;# 
+   196     000E                     	;# 
+   197     000E                     	;# 
+   198     000F                     	;# 
+   199     0010                     	;# 
+   200     0011                     	;# 
+   201     0012                     	;# 
+   202     0015                     	;# 
+   203     0015                     	;# 
+   204     0016                     	;# 
+   205     0017                     	;# 
+   206     0018                     	;# 
+   207     0019                     	;# 
+   208     001A                     	;# 
+   209     001F                     	;# 
+   210     0081                     	;# 
+   211     0085                     	;# 
+   212     0086                     	;# 
+   213     008C                     	;# 
+   214     008E                     	;# 
+   215     0092                     	;# 
+   216     0098                     	;# 
+   217     0099                     	;# 
+   218     009A                     	;# 
+   219     009B                     	;# 
+   220     009C                     	;# 
+   221     009D                     	;# 
+   222     009F                     	;# 
+   223     0000                     	;# 
+   224     0001                     	;# 
+   225     0002                     	;# 
+   226     0003                     	;# 
+   227     0004                     	;# 
+   228     0005                     	;# 
+   229     0006                     	;# 
+   230     000A                     	;# 
+   231     000B                     	;# 
+   232     000C                     	;# 
+   233     000E                     	;# 
+   234     000E                     	;# 
+   235     000F                     	;# 
+   236     0010                     	;# 
+   237     0011                     	;# 
+   238     0012                     	;# 
+   239     0015                     	;# 
+   240     0015                     	;# 
+   241     0016                     	;# 
+   242     0017                     	;# 
+   243     0018                     	;# 
+   244     0019                     	;# 
+   245     001A                     	;# 
+   246     001F                     	;# 
+   247     0081                     	;# 
+   248     0085                     	;# 
+   249     0086                     	;# 
+   250     008C                     	;# 
+   251     008E                     	;# 
+   252     0092                     	;# 
+   253     0098                     	;# 
+   254     0099                     	;# 
+   255     009A                     	;# 
+   256     009B                     	;# 
+   257     009C                     	;# 
+   258     009D                     	;# 
+   259     009F                     	;# 
+   260     0000                     	;# 
+   261     0001                     	;# 
+   262     0002                     	;# 
+   263     0003                     	;# 
+   264     0004                     	;# 
+   265     0005                     	;# 
+   266     0006                     	;# 
+   267     000A                     	;# 
+   268     000B                     	;# 
+   269     000C                     	;# 
+   270     000E                     	;# 
+   271     000E                     	;# 
+   272     000F                     	;# 
+   273     0010                     	;# 
+   274     0011                     	;# 
+   275     0012                     	;# 
+   276     0015                     	;# 
+   277     0015                     	;# 
+   278     0016                     	;# 
+   279     0017                     	;# 
+   280     0018                     	;# 
+   281     0019                     	;# 
+   282     001A                     	;# 
+   283     001F                     	;# 
+   284     0081                     	;# 
+   285     0085                     	;# 
+   286     0086                     	;# 
+   287     008C                     	;# 
+   288     008E                     	;# 
+   289     0092                     	;# 
+   290     0098                     	;# 
+   291     0099                     	;# 
+   292     009A                     	;# 
+   293     009B                     	;# 
+   294     009C                     	;# 
+   295     009D                     	;# 
+   296     009F                     	;# 
+   297     0000                     	;# 
+   298     0001                     	;# 
+   299     0002                     	;# 
+   300     0003                     	;# 
+   301     0004                     	;# 
+   302     0005                     	;# 
+   303     0006                     	;# 
+   304     000A                     	;# 
+   305     000B                     	;# 
+   306     000C                     	;# 
+   307     000E                     	;# 
+   308     000E                     	;# 
+   309     000F                     	;# 
+   310     0010                     	;# 
+   311     0011                     	;# 
+   312     0012                     	;# 
+   313     0015                     	;# 
+   314     0015                     	;# 
+   315     0016                     	;# 
+   316     0017                     	;# 
+   317     0018                     	;# 
+   318     0019                     	;# 
+   319     001A                     	;# 
+   320     001F                     	;# 
+   321     0081                     	;# 
+   322     0085                     	;# 
+   323     0086                     	;# 
+   324     008C                     	;# 
+   325     008E                     	;# 
+   326     0092                     	;# 
+   327     0098                     	;# 
+   328     0099                     	;# 
+   329     009A                     	;# 
+   330     009B                     	;# 
+   331     009C                     	;# 
+   332     009D                     	;# 
+   333     009F                     	;# 
+   334                           
+   335                           	psect	strings
+   336     0001                     __pstrings:
+   337     0001                     stringtab:
+   338     0001                     __stringtab:
+   339                           
+   340                           ;	String table - string pointers are 1 byte each
+   341     0001  1BFF               	btfsc	btemp+1,7
+   342     0002  280B               	ljmp	stringcode
+   343     0003  1383               	bcf	3,7
+   344     0004  187F               	btfsc	btemp+1,0
+   345     0005  1783               	bsf	3,7
+   346     0006  0800               	movf	0,w
+   347     0007  0A84               	incf	4,f
+   348     0008  1903               	skipnz
+   349     0009  0AFF               	incf	btemp+1,f
+   350     000A  0008               	return
+   351     000B                     stringcode:
+   352     000B                     stringdir:
+   353     000B  3000               	movlw	high stringdir
+   354     000C  008A               	movwf	10
+   355     000D  0804               	movf	4,w
+   356     000E  0A84               	incf	4,f
+   357     000F  0782               	addwf	2,f
+   358     0010                     __stringbase:
+   359     0010  3400               	retlw	0
+   360     0011                     __end_of__stringtab:
+   361     0011                     _fract:
+   362     0011  3400               	retlw	0
+   363     0012  3401               	retlw	1
+   364     0013  3401               	retlw	1
+   365     0014  3402               	retlw	2
+   366     0015  3402               	retlw	2
+   367     0016  3403               	retlw	3
+   368     0017  3404               	retlw	4
+   369     0018  3404               	retlw	4
+   370     0019  3405               	retlw	5
+   371     001A  3406               	retlw	6
+   372     001B  3406               	retlw	6
+   373     001C  3407               	retlw	7
+   374     001D  3407               	retlw	7
+   375     001E  3408               	retlw	8
+   376     001F  3409               	retlw	9
+   377     0020  3409               	retlw	9
+   378     0021                     __end_of_fract:
+   379     0021                     _nrf_rx_address:
+   380     0021  3420               	retlw	32
+   381     0022  3401               	retlw	1
+   382     0023  3424               	retlw	36
+   383     0024  3405               	retlw	5
+   384     0025  3405               	retlw	5
+   385     0026                     __end_of_nrf_rx_address:
+   386     0026                     _nrf_tx_address:
+   387     0026  3420               	retlw	32
+   388     0027  3401               	retlw	1
+   389     0028  3424               	retlw	36
+   390     0029  3405               	retlw	5
+   391     002A  3405               	retlw	5
+   392     002B                     __end_of_nrf_tx_address:
+   393     0018                     _RCSTAbits	set	24
+   394     0006                     _PORTBbits	set	6
+   395     001F                     _CMCON	set	31
+   396     0005                     _PORTA	set	5
+   397     0006                     _PORTB	set	6
+   398     0005                     _PORTAbits	set	5
+   399     0099                     _SPBRG	set	153
+   400     0098                     _TXSTAbits	set	152
+   401     0085                     _TRISAbits	set	133
+   402     0086                     _TRISBbits	set	134
+   403     0081                     _OPTION_REGbits	set	129
+   404     0085                     _TRISA	set	133
+   405     0086                     _TRISB	set	134
+   406                           
+   407                           	psect	cinit
+   408     07F7                     start_initialization:	
+   409                           ; #config settings
+   410                           
+   411     07F7                     __initialization:
+   412     07F7  3020               	movlw	low __pbssBANK0
+   413                           
+   414                           ; Clear objects allocated to COMMON
+   415     07F8  01FC               	clrf	__pbssCOMMON& (0+127)
+   416     07F9  01FD               	clrf	(__pbssCOMMON+1)& (0+127)
+   417                           
+   418                           ; Clear objects allocated to BANK0
+   419     07FA  1383               	bcf	3,7	;select IRP bank0
+   420     07FB  0084               	movwf	4
+   421     07FC  3031               	movlw	low (__pbssBANK0+17)
+   422     07FD  2589               	fcall	clear_ram0
+   423     07FE                     end_of_initialization:	
+   424                           ;End of C runtime variable initialization code
+   425                           
+   426     07FE                     __end_of__initialization:
+   427     07FE  0183               	clrf	3
+   428     07FF  2F74               	ljmp	l1569	;jump to C main() function
+   429                           
+   430                           	psect	bssCOMMON
+   431     007C                     __pbssCOMMON:
+   432     007C                     _temp:
+   433     007C                     	ds	1
+   434     007D                     _minus:
+   435     007D                     	ds	1
+   436                           
+   437                           	psect	bssBANK0
+   438     0020                     __pbssBANK0:
+   439     0020                     _scratch:
+   440     0020                     	ds	9
+   441     0029                     _pay_len:
+   442     0029                     	ds	1
+   443     002A                     _count:
+   444     002A                     	ds	1
+   445     002B                     _data_array:
+   446     002B                     	ds	4
+   447     002F                     _temperature:
+   448     002F                     	ds	2
+   449                           
+   450                           	psect	clrtext
+   451     0589                     clear_ram0:	
+   452                           ;	Called with FSR containing the base address, and
+   453                           ;	W with the last address+1
+   454                           
+   455     0589  0064               	clrwdt	;clear the watchdog before getting into this loop
+   456     058A                     clrloop0:
+   457     058A  0180               	clrf	0	;clear RAM location pointed to by FSR
+   458     058B  0A84               	incf	4,f	;increment pointer
+   459     058C  0604               	xorwf	4,w	;XOR with final address
+   460     058D  1903               	btfsc	3,2	;have we reached the end yet?
+   461     058E  3400               	retlw	0	;all done for this memory range, return
+   462     058F  0604               	xorwf	4,w	;XOR again to restore value
+   463     0590  2D8A               	goto	clrloop0	;do the next byte
+   464                           
+   465                           	psect	cstackCOMMON
+   466     0070                     __pcstackCOMMON:
+   467     0070                     ?_init_Cpu:
+   468     0070                     ?_nrf24_send:	
+   469                           ; 1 bytes @ 0x0
+   470                           
+   471     0070                     ?_nrf24_isSending:	
+   472                           ; 1 bytes @ 0x0
+   473                           
+   474     0070                     ?_nrf24_messageStatus:	
+   475                           ; 1 bytes @ 0x0
+   476                           
+   477     0070                     ?_nrf24_powerDown:	
+   478                           ; 1 bytes @ 0x0
+   479                           
+   480     0070                     ?_spi_init:	
+   481                           ; 1 bytes @ 0x0
+   482                           
+   483     0070                     ??_spi_init:	
+   484                           ; 1 bytes @ 0x0
+   485                           
+   486     0070                     ?_init_ds18b20:	
+   487                           ; 1 bytes @ 0x0
+   488                           
+   489     0070                     ?_init_uart:	
+   490                           ; 1 bytes @ 0x0
+   491                           
+   492     0070                     ??_init_uart:	
+   493                           ; 1 bytes @ 0x0
+   494                           
+   495     0070                     ?_nrf24_tx_address:	
+   496                           ; 1 bytes @ 0x0
+   497                           
+   498     0070                     ?_nrf24_rx_address:	
+   499                           ; 1 bytes @ 0x0
+   500                           
+   501     0070                     ?_nrf24_powerUpRx:	
+   502                           ; 1 bytes @ 0x0
+   503                           
+   504     0070                     ?_spi_rw:	
+   505                           ; 1 bytes @ 0x0
+   506                           
+   507     0070                     ??_spi_rw:	
+   508                           ; 1 bytes @ 0x0
+   509                           
+   510     0070                     ?_nrf24_getStatus:	
+   511                           ; 1 bytes @ 0x0
+   512                           
+   513     0070                     ?_ow_reset:	
+   514                           ; 1 bytes @ 0x0
+   515                           
+   516     0070                     ??_ow_reset:	
+   517                           ; 1 bytes @ 0x0
+   518                           
+   519     0070                     ?_write_byte:	
+   520                           ; 1 bytes @ 0x0
+   521                           
+   522     0070                     ?_read_byte:	
+   523                           ; 1 bytes @ 0x0
+   524                           
+   525     0070                     ?_main:	
+   526                           ; 1 bytes @ 0x0
+   527                           
+   528     0070                     ?_nrf24_powerUpTx:	
+   529                           ; 1 bytes @ 0x0
+   530                           
+   531     0070                     ?_read_bit:	
+   532                           ; 1 bytes @ 0x0
+   533                           
+   534     0070                     ??_read_bit:	
+   535                           ; 1 bytes @ 0x0
+   536                           
+   537     0070                     ?_write_bit:	
+   538                           ; 1 bytes @ 0x0
+   539                           
+   540     0070                     ??_write_bit:	
+   541                           ; 1 bytes @ 0x0
+   542                           
+   543     0070                     ?___wmul:	
+   544                           ; 1 bytes @ 0x0
+   545                           
+   546     0070                     spi_rw@value:	
+   547                           ; 2 bytes @ 0x0
+   548                           
+   549     0070                     ___wmul@multiplier:	
+   550                           ; 1 bytes @ 0x0
+   551                           
+   552                           
+   553                           ; 2 bytes @ 0x0
+   554     0070                     	ds	1
+   555     0071                     ??_read_byte:
+   556     0071                     spi_rw@i:	
+   557                           ; 1 bytes @ 0x1
+   558                           
+   559     0071                     ow_reset@presence:	
+   560                           ; 1 bytes @ 0x1
+   561                           
+   562     0071                     write_bit@bitval:	
+   563                           ; 1 bytes @ 0x1
+   564                           
+   565                           
+   566                           ; 1 bytes @ 0x1
+   567     0071                     	ds	1
+   568     0072                     ?_nrf24_write_reg:
+   569     0072                     ??_nrf24_getStatus:	
+   570                           ; 1 bytes @ 0x2
+   571                           
+   572     0072                     ??_write_byte:	
+   573                           ; 1 bytes @ 0x2
+   574                           
+   575     0072                     ?_nrf24_write_buf:	
+   576                           ; 1 bytes @ 0x2
+   577                           
+   578     0072                     nrf24_write_reg@value:	
+   579                           ; 1 bytes @ 0x2
+   580                           
+   581     0072                     nrf24_getStatus@r_status:	
+   582                           ; 1 bytes @ 0x2
+   583                           
+   584     0072                     read_byte@val:	
+   585                           ; 1 bytes @ 0x2
+   586                           
+   587     0072                     nrf24_write_buf@pBuf:	
+   588                           ; 1 bytes @ 0x2
+   589                           
+   590     0072                     ___wmul@multiplicand:	
+   591                           ; 2 bytes @ 0x2
+   592                           
+   593                           
+   594                           ; 2 bytes @ 0x2
+   595     0072                     	ds	1
+   596     0073                     ??_nrf24_isSending:
+   597     0073                     ??_nrf24_messageStatus:	
+   598                           ; 1 bytes @ 0x3
+   599                           
+   600     0073                     ??_nrf24_write_reg:	
+   601                           ; 1 bytes @ 0x3
+   602                           
+   603     0073                     nrf24_write_reg@reg:	
+   604                           ; 1 bytes @ 0x3
+   605                           
+   606     0073                     nrf24_isSending@status:	
+   607                           ; 1 bytes @ 0x3
+   608                           
+   609     0073                     nrf24_messageStatus@r_status:	
+   610                           ; 1 bytes @ 0x3
+   611                           
+   612     0073                     read_byte@i:	
+   613                           ; 1 bytes @ 0x3
+   614                           
+   615     0073                     write_byte@val:	
+   616                           ; 1 bytes @ 0x3
+   617                           
+   618                           
+   619                           ; 1 bytes @ 0x3
+   620     0073                     	ds	1
+   621     0074                     ??_nrf24_powerDown:
+   622     0074                     ??_nrf24_powerUpRx:	
+   623                           ; 1 bytes @ 0x4
+   624                           
+   625     0074                     ??_nrf24_powerUpTx:	
+   626                           ; 1 bytes @ 0x4
+   627                           
+   628     0074                     ??___wmul:	
+   629                           ; 1 bytes @ 0x4
+   630                           
+   631     0074                     nrf24_write_buf@length:	
+   632                           ; 1 bytes @ 0x4
+   633                           
+   634     0074                     write_byte@temp:	
+   635                           ; 1 bytes @ 0x4
+   636                           
+   637     0074                     ___wmul@product:	
+   638                           ; 1 bytes @ 0x4
+   639                           
+   640                           
+   641                           ; 2 bytes @ 0x4
+   642     0074                     	ds	1
+   643     0075                     ??_nrf24_write_buf:
+   644     0075                     nrf24_write_buf@reg:	
+   645                           ; 1 bytes @ 0x5
+   646                           
+   647     0075                     write_byte@i:	
+   648                           ; 1 bytes @ 0x5
+   649                           
+   650                           
+   651                           ; 1 bytes @ 0x5
+   652     0075                     	ds	1
+   653     0076                     ?_readTemp_Single:
+   654     0076                     ??_init_ds18b20:	
+   655                           ; 1 bytes @ 0x6
+   656                           
+   657     0076                     nrf24_write_buf@i:	
+   658                           ; 1 bytes @ 0x6
+   659                           
+   660     0076                     readTemp_Single@minus:	
+   661                           ; 1 bytes @ 0x6
+   662                           
+   663                           
+   664                           ; 1 bytes @ 0x6
+   665     0076                     	ds	1
+   666     0077                     ??_readTemp_Single:
+   667     0077                     ??_nrf24_send:	
+   668                           ; 1 bytes @ 0x7
+   669                           
+   670     0077                     ??_nrf24_tx_address:	
+   671                           ; 1 bytes @ 0x7
+   672                           
+   673     0077                     ??_nrf24_rx_address:	
+   674                           ; 1 bytes @ 0x7
+   675                           
+   676     0077                     nrf24_tx_address@adr:	
+   677                           ; 1 bytes @ 0x7
+   678                           
+   679     0077                     nrf24_rx_address@adr:	
+   680                           ; 1 bytes @ 0x7
+   681                           
+   682     0077                     nrf24_send@value:	
+   683                           ; 1 bytes @ 0x7
+   684                           
+   685                           
+   686                           ; 1 bytes @ 0x7
+   687     0077                     	ds	1
+   688     0078                     ?_nrf24_init:
+   689     0078                     nrf24_init@pay_length:	
+   690                           ; 1 bytes @ 0x8
+   691                           
+   692                           
+   693                           ; 1 bytes @ 0x8
+   694     0078                     	ds	1
+   695     0079                     ??_nrf24_init:
+   696     0079                     nrf24_init@channel:	
+   697                           ; 1 bytes @ 0x9
+   698                           
+   699                           
+   700                           ; 1 bytes @ 0x9
+   701     0079                     	ds	1
+   702     007A                     ??_init_Cpu:
+   703     007A                     ??_main:	
+   704                           ; 1 bytes @ 0xA
+   705                           
+   706                           
+   707                           ; 1 bytes @ 0xA
+   708     007A                     	ds	2
+   709                           
+   710                           	psect	cstackBANK0
+   711     0031                     __pcstackBANK0:
+   712     0031                     readTemp_Single@buf:
+   713                           
+   714                           ; 1 bytes @ 0x0
+   715     0031                     	ds	1
+   716     0032                     readTemp_Single@tmp:
+   717                           
+   718                           ; 1 bytes @ 0x1
+   719     0032                     	ds	1
+   720     0033                     readTemp_Single@i:
+   721                           
+   722                           ; 1 bytes @ 0x2
+   723     0033                     	ds	1
+   724     0034                     readTemp_Single@temp:
+   725                           
+   726                           ; 2 bytes @ 0x3
+   727     0034                     	ds	2
+   728                           
+   729                           	psect	maintext
+   730     0774                     __pmaintext:	
+   731 ;;
+   732 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   733 ;;
+   734 ;; *************** function _main *****************
+   735 ;; Defined at:
+   736 ;;		line 19 in file "main.c"
+   737 ;; Parameters:    Size  Location     Type
+   738 ;;		None
+   739 ;; Auto vars:     Size  Location     Type
+   740 ;;  temp_flag       1    0        unsigned char 
+   741 ;; Return value:  Size  Location     Type
+   742 ;;                  1    wreg      void 
+   743 ;; Registers used:
+   744 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+   745 ;; Tracked objects:
+   746 ;;		On entry : B00/0
+   747 ;;		On exit  : 300/0
+   748 ;;		Unchanged: 0/0
+   749 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   750 ;;      Params:         0       0       0       0
+   751 ;;      Locals:         0       0       0       0
+   752 ;;      Temps:          2       0       0       0
+   753 ;;      Totals:         2       0       0       0
+   754 ;;Total ram usage:        2 bytes
+   755 ;; Hardware stack levels required when called: 5
+   756 ;; This function calls:
+   757 ;;		_init_Cpu
+   758 ;;		_nrf24_isSending
+   759 ;;		_nrf24_messageStatus
+   760 ;;		_nrf24_powerDown
+   761 ;;		_nrf24_send
+   762 ;;		_readTemp_Single
+   763 ;;		_spi_init
+   764 ;; This function is called by:
+   765 ;;		Startup code after reset
+   766 ;; This function uses a non-reentrant model
+   767 ;;
+   768                           
+   769     0774                     _main:	
+   770                           ;psect for function _main
+   771                           
+   772     0774                     l1569:	
+   773                           ;incstack = 0
+   774                           ; Regs used in _main: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
+   775                           
+   776                           
+   777                           ;main.c: 20: uint8_t temp_flag;;main.c: 21: init_Cpu();
+   778     0774  25E9               	fcall	_init_Cpu
+   779                           
+   780                           ;main.c: 22: data_array[0] = 0x75;
+   781     0775  3075               	movlw	117
+   782     0776  1283               	bcf	3,5	;RP0=0, select bank0
+   783     0777  00AB               	movwf	_data_array
+   784                           
+   785                           ;main.c: 23: data_array[1] = 0xDC;
+   786     0778  30DC               	movlw	220
+   787     0779  00AC               	movwf	_data_array+1
+   788                           
+   789                           ;main.c: 24: data_array[2] = 0x19;
+   790     077A  3019               	movlw	25
+   791     077B  00AD               	movwf	_data_array+2
+   792                           
+   793                           ;main.c: 25: data_array[3] = 0x79;
+   794     077C  3079               	movlw	121
+   795     077D  00AE               	movwf	_data_array+3
+   796     077E                     l53:	
+   797                           ;main.c: 26: while (1) {
+   798                           
+   799     077E  0064               	clrwdt	;# 
+   800                           
+   801                           ;main.c: 29: if (readTemp_Single(&temperature, &minus)) {
+   802     077F  307D               	movlw	(low (_minus| 0))& (0+255)
+   803     0780  00F6               	movwf	readTemp_Single@minus
+   804     0781  302F               	movlw	(low (_temperature| 0))& (0+255)
+   805     0782  270B               	fcall	_readTemp_Single
+   806     0783  3A00               	xorlw	0
+   807     0784  1903               	skipnz
+   808     0785  2F8E               	goto	l1583
+   809                           
+   810                           ;main.c: 31: data_array[0] = minus;
+   811     0786  087D               	movf	_minus,w
+   812     0787  1283               	bcf	3,5	;RP0=0, select bank0
+   813     0788  1303               	bcf	3,6	;RP1=0, select bank0
+   814     0789  00AB               	movwf	_data_array
+   815                           
+   816                           ;main.c: 32: data_array[1] = temperature & 0xFF;
+   817     078A  082F               	movf	_temperature,w
+   818     078B  00AC               	movwf	_data_array+1
+   819                           
+   820                           ;main.c: 33: data_array[2] = (uint8_t) (temperature >> 8);
+   821     078C  0830               	movf	_temperature+1,w
+   822     078D  2F93               	goto	L1
+   823     078E                     l1583:	
+   824                           ;main.c: 34: } else {
+   825                           
+   826                           
+   827                           ;main.c: 36: data_array[0] = 0xFF;
+   828     078E  30FF               	movlw	255
+   829     078F  1283               	bcf	3,5	;RP0=0, select bank0
+   830     0790  1303               	bcf	3,6	;RP1=0, select bank0
+   831     0791  00AB               	movwf	_data_array
+   832                           
+   833                           ;main.c: 37: data_array[1] = 0xFF;
+   834     0792  00AC               	movwf	_data_array+1
+   835     0793                     L1:
+   836                           
+   837                           ;main.c: 38: data_array[2] = 0xFF;
+   838     0793  00AD               	movwf	_data_array+2
+   839                           
+   840                           ;main.c: 39: };main.c: 41: data_array[3] = 0x79;
+   841     0794  3079               	movlw	121
+   842     0795  00AE               	movwf	_data_array+3
+   843     0796  0064               	clrwdt	;# 
+   844                           
+   845                           ;main.c: 44: nrf24_send(&data_array);
+   846     0797  302B               	movlw	(low (_data_array| 0))& (0+255)
+   847     0798  2610               	fcall	_nrf24_send
+   848     0799                     l1587:	
+   849                           ;main.c: 46: while (nrf24_isSending());
+   850                           
+   851     0799  256D               	fcall	_nrf24_isSending
+   852     079A  3A00               	xorlw	0
+   853     079B  1D03               	skipz
+   854     079C  2F99               	goto	l1587
+   855                           
+   856                           ;main.c: 49: temp = nrf24_messageStatus();
+   857     079D  2573               	fcall	_nrf24_messageStatus
+   858     079E  00FC               	movwf	_temp
+   859                           
+   860                           ;main.c: 51: if (temp == 0) {
+   861     079F  087C               	movf	_temp,w
+   862     07A0  1D03               	btfss	3,2
+   863     07A1  2FB0               	goto	l1599
+   864                           
+   865                           ;main.c: 52: PORTAbits.RA0 = 0;
+   866     07A2  1005               	bcf	5,0	;volatile
+   867                           
+   868                           ;main.c: 53: _delay((unsigned long)((8)*(4000000/4000.0)));
+   869     07A3  300B               	movlw	11
+   870     07A4  00FB               	movwf	??_main+1
+   871     07A5  3062               	movlw	98
+   872     07A6  00FA               	movwf	??_main
+   873     07A7                     u477:
+   874     07A7  0BFA               	decfsz	??_main,f
+   875     07A8  2FA7               	goto	u477
+   876     07A9  0BFB               	decfsz	??_main+1,f
+   877     07AA  2FA7               	goto	u477
+   878     07AB  0000               	nop
+   879                           
+   880                           ;main.c: 54: PORTAbits.RA0 = 1;
+   881     07AC  1283               	bcf	3,5	;RP0=0, select bank0
+   882     07AD  1303               	bcf	3,6	;RP1=0, select bank0
+   883     07AE  1405               	bsf	5,0	;volatile
+   884                           
+   885                           ;main.c: 56: } else if (temp == 1) {
+   886     07AF  2FE0               	goto	l1611
+   887     07B0                     l1599:
+   888     07B0  037C               	decf	_temp,w
+   889     07B1  1D03               	btfss	3,2
+   890     07B2  2FE0               	goto	l1611
+   891                           
+   892                           ;main.c: 57: PORTAbits.RA0 = 0;
+   893     07B3  1005               	bcf	5,0	;volatile
+   894                           
+   895                           ;main.c: 58: _delay((unsigned long)((2)*(4000000/4000.0)));
+   896     07B4  3003               	movlw	3
+   897     07B5  00FB               	movwf	??_main+1
+   898     07B6  3097               	movlw	151
+   899     07B7  00FA               	movwf	??_main
+   900     07B8                     u487:
+   901     07B8  0BFA               	decfsz	??_main,f
+   902     07B9  2FB8               	goto	u487
+   903     07BA  0BFB               	decfsz	??_main+1,f
+   904     07BB  2FB8               	goto	u487
+   905     07BC  2FBD               	nop2
+   906                           
+   907                           ;main.c: 59: PORTAbits.RA0 = 1;
+   908     07BD  1283               	bcf	3,5	;RP0=0, select bank0
+   909     07BE  1303               	bcf	3,6	;RP1=0, select bank0
+   910     07BF  1405               	bsf	5,0	;volatile
+   911                           
+   912                           ;main.c: 60: _delay((unsigned long)((150)*(4000000/4000.0)));
+   913     07C0  30C3               	movlw	195
+   914     07C1  00FB               	movwf	??_main+1
+   915     07C2  30CD               	movlw	205
+   916     07C3  00FA               	movwf	??_main
+   917     07C4                     u497:
+   918     07C4  0BFA               	decfsz	??_main,f
+   919     07C5  2FC4               	goto	u497
+   920     07C6  0BFB               	decfsz	??_main+1,f
+   921     07C7  2FC4               	goto	u497
+   922                           
+   923                           ;main.c: 61: PORTAbits.RA0 = 0;
+   924     07C8  1283               	bcf	3,5	;RP0=0, select bank0
+   925     07C9  1303               	bcf	3,6	;RP1=0, select bank0
+   926     07CA  1005               	bcf	5,0	;volatile
+   927                           
+   928                           ;main.c: 62: _delay((unsigned long)((2)*(4000000/4000.0)));
+   929     07CB  3003               	movlw	3
+   930     07CC  00FB               	movwf	??_main+1
+   931     07CD  3097               	movlw	151
+   932     07CE  00FA               	movwf	??_main
+   933     07CF                     u507:
+   934     07CF  0BFA               	decfsz	??_main,f
+   935     07D0  2FCF               	goto	u507
+   936     07D1  0BFB               	decfsz	??_main+1,f
+   937     07D2  2FCF               	goto	u507
+   938     07D3  2FD4               	nop2
+   939                           
+   940                           ;main.c: 63: PORTAbits.RA0 = 1;
+   941     07D4  1283               	bcf	3,5	;RP0=0, select bank0
+   942     07D5  1303               	bcf	3,6	;RP1=0, select bank0
+   943     07D6  1405               	bsf	5,0	;volatile
+   944                           
+   945                           ;main.c: 64: _delay((unsigned long)((20)*(4000000/4000.0)));
+   946     07D7  301A               	movlw	26
+   947     07D8  00FB               	movwf	??_main+1
+   948     07D9  30F8               	movlw	248
+   949     07DA  00FA               	movwf	??_main
+   950     07DB                     u517:
+   951     07DB  0BFA               	decfsz	??_main,f
+   952     07DC  2FDB               	goto	u517
+   953     07DD  0BFB               	decfsz	??_main+1,f
+   954     07DE  2FDB               	goto	u517
+   955     07DF  0000               	nop
+   956     07E0                     l1611:
+   957                           
+   958                           ;main.c: 66: };main.c: 79: nrf24_powerDown();
+   959     07E0  257A               	fcall	_nrf24_powerDown
+   960                           
+   961                           ;main.c: 81: PORTAbits.RA0 = 1;
+   962     07E1  1405               	bsf	5,0	;volatile
+   963                           
+   964                           ;main.c: 82: TRISB = 0;
+   965     07E2  1683               	bsf	3,5	;RP0=1, select bank1
+   966     07E3  0186               	clrf	6	;volatile
+   967                           
+   968                           ;main.c: 83: PORTB = 0;
+   969     07E4  1283               	bcf	3,5	;RP0=0, select bank0
+   970     07E5  0186               	clrf	6	;volatile
+   971                           
+   972                           ;main.c: 84: TRISA = 0b00001000;
+   973     07E6  3008               	movlw	8
+   974     07E7  1683               	bsf	3,5	;RP0=1, select bank1
+   975     07E8  0085               	movwf	5	;volatile
+   976                           
+   977                           ;main.c: 85: PORTA = 0b00000001;
+   978     07E9  3001               	movlw	1
+   979     07EA  1283               	bcf	3,5	;RP0=0, select bank0
+   980     07EB  0085               	movwf	5	;volatile
+   981     07EC                     l62:	
+   982                           ;main.c: 86: loop:
+   983                           
+   984     07EC  0063               	sleep	;# 
+   985     07ED  300F               	movlw	15
+   986                           
+   987                           ;main.c: 88: count++;
+   988     07EE  1283               	bcf	3,5	;RP0=0, select bank0
+   989     07EF  1303               	bcf	3,6	;RP1=0, select bank0
+   990     07F0  0AAA               	incf	_count,f
+   991                           
+   992                           ;main.c: 89: if (count < 15) goto loop;
+   993     07F1  022A               	subwf	_count,w
+   994     07F2  1C03               	btfss	3,0
+   995     07F3  2FEC               	goto	l62
+   996                           
+   997                           ;main.c: 90: count = 0;
+   998     07F4  01AA               	clrf	_count
+   999                           
+  1000                           ;main.c: 93: spi_init();
+  1001     07F5  2591               	fcall	_spi_init
+  1002     07F6  2F7E               	goto	l53
+  1003     07F7                     __end_of_main:
+  1004                           
+  1005                           	psect	text1
+  1006     070B                     __ptext1:	
+  1007 ;; *************** function _readTemp_Single *****************
+  1008 ;; Defined at:
+  1009 ;;		line 31 in file "ds18b20.c"
+  1010 ;; Parameters:    Size  Location     Type
+  1011 ;;  buf             1    wreg     PTR unsigned int 
+  1012 ;;		 -> temperature(2), 
+  1013 ;;  minus           1    6[COMMON] PTR unsigned char 
+  1014 ;;		 -> minus(1), 
+  1015 ;; Auto vars:     Size  Location     Type
+  1016 ;;  buf             1    0[BANK0 ] PTR unsigned int 
+  1017 ;;		 -> temperature(2), 
+  1018 ;;  temp            2    3[BANK0 ] unsigned int 
+  1019 ;;  i               1    2[BANK0 ] unsigned char 
+  1020 ;;  tmp             1    1[BANK0 ] unsigned char 
+  1021 ;;  fptmp           1    0        unsigned char 
+  1022 ;; Return value:  Size  Location     Type
+  1023 ;;                  1    wreg      unsigned char 
+  1024 ;; Registers used:
+  1025 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+  1026 ;; Tracked objects:
+  1027 ;;		On entry : 0/0
+  1028 ;;		On exit  : 0/0
+  1029 ;;		Unchanged: 0/0
+  1030 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1031 ;;      Params:         1       0       0       0
+  1032 ;;      Locals:         0       5       0       0
+  1033 ;;      Temps:          3       0       0       0
+  1034 ;;      Totals:         4       5       0       0
+  1035 ;;Total ram usage:        9 bytes
+  1036 ;; Hardware stack levels used: 1
+  1037 ;; Hardware stack levels required when called: 2
+  1038 ;; This function calls:
+  1039 ;;		___wmul
+  1040 ;;		_ow_reset
+  1041 ;;		_read_byte
+  1042 ;;		_write_byte
+  1043 ;; This function is called by:
+  1044 ;;		_main
+  1045 ;; This function uses a non-reentrant model
+  1046 ;;
+  1047                           
+  1048     070B                     _readTemp_Single:	
+  1049                           ;psect for function _readTemp_Single
+  1050                           
+  1051                           
+  1052                           ;incstack = 0
+  1053                           ; Regs used in _readTemp_Single: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+  1054                           ;readTemp_Single@buf stored from wreg
+  1055     070B  1283               	bcf	3,5	;RP0=0, select bank0
+  1056     070C  1303               	bcf	3,6	;RP1=0, select bank0
+  1057     070D  00B1               	movwf	readTemp_Single@buf
+  1058                           
+  1059                           ;ds18b20.c: 34: uint8_t i, tmp, fptmp;;ds18b20.c: 36: *minus = '+';
+  1060     070E  0876               	movf	readTemp_Single@minus,w
+  1061     070F  0084               	movwf	4
+  1062     0710  302B               	movlw	43
+  1063     0711  0080               	movwf	0
+  1064                           
+  1065                           ;ds18b20.c: 39: if (!ow_reset())
+  1066     0712  264E               	fcall	_ow_reset
+  1067     0713  3A00               	xorlw	0
+  1068     0714  1D03               	skipz
+  1069     0715  3400               	retlw	0
+  1070                           
+  1071                           ;ds18b20.c: 40: {;ds18b20.c: 41: write_byte(0xCC);
+  1072     0716  30CC               	movlw	204
+  1073     0717  2698               	fcall	_write_byte
+  1074                           
+  1075                           ;ds18b20.c: 42: write_byte(0x44);
+  1076     0718  3044               	movlw	68
+  1077     0719  2698               	fcall	_write_byte
+  1078                           
+  1079                           ;ds18b20.c: 48: _delay((unsigned long)((750)*(4000000/4000.0)));
+  1080                           
+  1081                           ;ds18b20.c: 45: return 0;
+  1082                           
+  1083                           ;ds18b20.c: 44: } else
+  1084     071A  3004               	movlw	4
+  1085     071B  00F9               	movwf	??_readTemp_Single+2
+  1086     071C  30CF               	movlw	207
+  1087     071D  00F8               	movwf	??_readTemp_Single+1
+  1088     071E  3001               	movlw	1
+  1089     071F  00F7               	movwf	??_readTemp_Single
+  1090     0720                     u527:
+  1091     0720  0BF7               	decfsz	??_readTemp_Single,f
+  1092     0721  2F20               	goto	u527
+  1093     0722  0BF8               	decfsz	??_readTemp_Single+1,f
+  1094     0723  2F20               	goto	u527
+  1095     0724  0BF9               	decfsz	??_readTemp_Single+2,f
+  1096     0725  2F20               	goto	u527
+  1097     0726  2F27               	nop2
+  1098                           
+  1099                           ;ds18b20.c: 49: ow_reset();
+  1100     0727  264E               	fcall	_ow_reset
+  1101                           
+  1102                           ;ds18b20.c: 50: write_byte(0xCC);
+  1103     0728  30CC               	movlw	204
+  1104     0729  2698               	fcall	_write_byte
+  1105                           
+  1106                           ;ds18b20.c: 51: write_byte(0xBE);
+  1107     072A  30BE               	movlw	190
+  1108     072B  2698               	fcall	_write_byte
+  1109                           
+  1110                           ;ds18b20.c: 52: for (i = 0; i < 2; i++)
+  1111     072C  1283               	bcf	3,5	;RP0=0, select bank0
+  1112     072D  1303               	bcf	3,6	;RP1=0, select bank0
+  1113     072E  01B3               	clrf	readTemp_Single@i
+  1114     072F                     l1489:
+  1115                           
+  1116                           ;ds18b20.c: 53: {;ds18b20.c: 54: scratch[i] = read_byte();
+  1117     072F  0833               	movf	readTemp_Single@i,w
+  1118     0730  3E20               	addlw	(low (_scratch| 0))& (0+255)
+  1119     0731  0084               	movwf	4
+  1120     0732  26B4               	fcall	_read_byte
+  1121     0733  1383               	bcf	3,7	;select IRP bank0
+  1122     0734  0080               	movwf	0
+  1123     0735  3002               	movlw	2
+  1124     0736  1283               	bcf	3,5	;RP0=0, select bank0
+  1125     0737  1303               	bcf	3,6	;RP1=0, select bank0
+  1126     0738  0AB3               	incf	readTemp_Single@i,f
+  1127     0739  0233               	subwf	readTemp_Single@i,w
+  1128     073A  1C03               	skipc
+  1129     073B  2F2F               	goto	l1489
+  1130                           
+  1131                           ;ds18b20.c: 55: };ds18b20.c: 57: temp = (((uint16_t) scratch[1]) << 8) | ((uint16_t) scr
+      +                          atch[0]);
+  1132     073C  0821               	movf	_scratch+1,w
+  1133     073D  00B5               	movwf	readTemp_Single@temp+1
+  1134     073E  0820               	movf	_scratch,w
+  1135     073F  00B4               	movwf	readTemp_Single@temp
+  1136                           
+  1137                           ;ds18b20.c: 60: if (temp & 0x8000) {
+  1138     0740  1FB5               	btfss	readTemp_Single@temp+1,7
+  1139     0741  2F4B               	goto	l1503
+  1140                           
+  1141                           ;ds18b20.c: 61: temp = -temp;
+  1142     0742  09B4               	comf	readTemp_Single@temp,f
+  1143     0743  09B5               	comf	readTemp_Single@temp+1,f
+  1144     0744  0AB4               	incf	readTemp_Single@temp,f
+  1145     0745  1903               	skipnz
+  1146     0746  0AB5               	incf	readTemp_Single@temp+1,f
+  1147                           
+  1148                           ;ds18b20.c: 62: *minus = '-';
+  1149     0747  0876               	movf	readTemp_Single@minus,w
+  1150     0748  0084               	movwf	4
+  1151     0749  302D               	movlw	45
+  1152     074A  0080               	movwf	0
+  1153     074B                     l1503:
+  1154                           
+  1155                           ;ds18b20.c: 63: };ds18b20.c: 65: tmp = temp & 0x0f;
+  1156     074B  0834               	movf	readTemp_Single@temp,w
+  1157     074C  00B2               	movwf	readTemp_Single@tmp
+  1158     074D  300F               	movlw	15
+  1159     074E  05B2               	andwf	readTemp_Single@tmp,f
+  1160                           
+  1161                           ;ds18b20.c: 66: tmp = fract[tmp];
+  1162     074F  0832               	movf	readTemp_Single@tmp,w
+  1163     0750  3E01               	addlw	low ((_fract-__stringbase)| (0+32768))
+  1164     0751  0084               	movwf	4
+  1165     0752  200B               	fcall	stringdir
+  1166     0753  00B2               	movwf	readTemp_Single@tmp
+  1167     0754  300F               	movlw	15
+  1168                           
+  1169                           ;ds18b20.c: 67: temp = temp >> 4;
+  1170     0755  0EB4               	swapf	readTemp_Single@temp,f
+  1171     0756  0EB5               	swapf	readTemp_Single@temp+1,f
+  1172     0757  05B4               	andwf	readTemp_Single@temp,f
+  1173     0758  0835               	movf	readTemp_Single@temp+1,w
+  1174     0759  39F0               	andlw	240
+  1175     075A  04B4               	iorwf	readTemp_Single@temp,f
+  1176     075B  300F               	movlw	15
+  1177     075C  05B5               	andwf	readTemp_Single@temp+1,f
+  1178                           
+  1179                           ;ds18b20.c: 68: temp = (temp & 0x00ff) * 10;
+  1180     075D  0834               	movf	readTemp_Single@temp,w
+  1181     075E  00F0               	movwf	___wmul@multiplier
+  1182     075F  300A               	movlw	10
+  1183     0760  01F1               	clrf	___wmul@multiplier+1
+  1184     0761  00F2               	movwf	___wmul@multiplicand
+  1185     0762  01F3               	clrf	___wmul@multiplicand+1
+  1186     0763  2665               	fcall	___wmul
+  1187     0764  0871               	movf	?___wmul+1,w
+  1188     0765  00B5               	movwf	readTemp_Single@temp+1
+  1189     0766  0870               	movf	?___wmul,w
+  1190     0767  00B4               	movwf	readTemp_Single@temp
+  1191                           
+  1192                           ;ds18b20.c: 69: temp = temp + tmp;
+  1193     0768  0832               	movf	readTemp_Single@tmp,w
+  1194     0769  07B4               	addwf	readTemp_Single@temp,f
+  1195     076A  1803               	skipnc
+  1196     076B  0AB5               	incf	readTemp_Single@temp+1,f
+  1197                           
+  1198                           ;ds18b20.c: 81: *buf = temp;
+  1199     076C  0831               	movf	readTemp_Single@buf,w
+  1200     076D  0084               	movwf	4
+  1201     076E  0834               	movf	readTemp_Single@temp,w
+  1202     076F  0080               	movwf	0
+  1203     0770  0A84               	incf	4,f
+  1204     0771  0835               	movf	readTemp_Single@temp+1,w
+  1205     0772  0080               	movwf	0
+  1206                           
+  1207                           ;ds18b20.c: 82: return 1;
+  1208     0773  3401               	retlw	1
+  1209     0774                     __end_of_readTemp_Single:
+  1210                           
+  1211                           	psect	text2
+  1212     06B4                     __ptext2:	
+  1213 ;; *************** function _read_byte *****************
+  1214 ;; Defined at:
+  1215 ;;		line 50 in file "onewire.c"
+  1216 ;; Parameters:    Size  Location     Type
+  1217 ;;		None
+  1218 ;; Auto vars:     Size  Location     Type
+  1219 ;;  i               1    3[COMMON] unsigned char 
+  1220 ;;  val             1    2[COMMON] unsigned char 
+  1221 ;; Return value:  Size  Location     Type
+  1222 ;;                  1    wreg      unsigned char 
+  1223 ;; Registers used:
+  1224 ;;		wreg, status,2, status,0, pclath, cstack
+  1225 ;; Tracked objects:
+  1226 ;;		On entry : 300/0
+  1227 ;;		On exit  : 0/0
+  1228 ;;		Unchanged: 0/0
+  1229 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1230 ;;      Params:         0       0       0       0
+  1231 ;;      Locals:         2       0       0       0
+  1232 ;;      Temps:          1       0       0       0
+  1233 ;;      Totals:         3       0       0       0
+  1234 ;;Total ram usage:        3 bytes
+  1235 ;; Hardware stack levels used: 1
+  1236 ;; Hardware stack levels required when called: 1
+  1237 ;; This function calls:
+  1238 ;;		_read_bit
+  1239 ;; This function is called by:
+  1240 ;;		_readTemp_Single
+  1241 ;; This function uses a non-reentrant model
+  1242 ;;
+  1243                           
+  1244     06B4                     _read_byte:	
+  1245                           ;psect for function _read_byte
+  1246                           
+  1247                           
+  1248                           ;onewire.c: 52: uint8_t i;;onewire.c: 53: uint8_t val = 0;
+  1249                           
+  1250                           ;incstack = 0
+  1251                           ; Regs used in _read_byte: [wreg+status,2+status,0+pclath+cstack]
+  1252     06B4  01F2               	clrf	read_byte@val
+  1253                           
+  1254                           ;onewire.c: 55: for(i=0;i<8;i++)
+  1255     06B5  01F3               	clrf	read_byte@i
+  1256     06B6                     l1413:
+  1257                           
+  1258                           ;onewire.c: 56: {;onewire.c: 57: if(read_bit()) val |= (0x01 << i);
+  1259     06B6  25D7               	fcall	_read_bit
+  1260     06B7  3A00               	xorlw	0
+  1261     06B8  1903               	skipnz
+  1262     06B9  2EC5               	goto	l1417
+  1263     06BA  3001               	movlw	1
+  1264     06BB  00F1               	movwf	??_read_byte
+  1265     06BC  0A73               	incf	read_byte@i,w
+  1266     06BD  2EC0               	goto	u324
+  1267     06BE                     u325:
+  1268     06BE  1003               	clrc
+  1269     06BF  0DF1               	rlf	??_read_byte,f
+  1270     06C0                     u324:
+  1271     06C0  3EFF               	addlw	-1
+  1272     06C1  1D03               	skipz
+  1273     06C2  2EBE               	goto	u325
+  1274     06C3  0871               	movf	??_read_byte,w
+  1275     06C4  04F2               	iorwf	read_byte@val,f
+  1276     06C5                     l1417:
+  1277                           
+  1278                           ;onewire.c: 58: _delay((unsigned long)((120)*(4000000/4000000.0)));
+  1279     06C5  3027               	movlw	39
+  1280     06C6  00F1               	movwf	??_read_byte
+  1281     06C7                     u537:
+  1282     06C7  0BF1               	decfsz	??_read_byte,f
+  1283     06C8  2EC7               	goto	u537
+  1284     06C9  2ECA               	nop2
+  1285     06CA  3008               	movlw	8
+  1286     06CB  0AF3               	incf	read_byte@i,f
+  1287     06CC  0273               	subwf	read_byte@i,w
+  1288     06CD  1C03               	skipc
+  1289     06CE  2EB6               	goto	l1413
+  1290                           
+  1291                           ;onewire.c: 59: };onewire.c: 61: return val;
+  1292     06CF  0872               	movf	read_byte@val,w
+  1293     06D0  0008               	return
+  1294     06D1                     __end_of_read_byte:
+  1295                           
+  1296                           	psect	text3
+  1297     05D7                     __ptext3:	
+  1298 ;; *************** function _read_bit *****************
+  1299 ;; Defined at:
+  1300 ;;		line 22 in file "onewire.c"
+  1301 ;; Parameters:    Size  Location     Type
+  1302 ;;		None
+  1303 ;; Auto vars:     Size  Location     Type
+  1304 ;;		None
+  1305 ;; Return value:  Size  Location     Type
+  1306 ;;                  1    wreg      unsigned char 
+  1307 ;; Registers used:
+  1308 ;;		wreg, status,2, status,0
+  1309 ;; Tracked objects:
+  1310 ;;		On entry : 0/0
+  1311 ;;		On exit  : 300/0
+  1312 ;;		Unchanged: 0/0
+  1313 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1314 ;;      Params:         0       0       0       0
+  1315 ;;      Locals:         0       0       0       0
+  1316 ;;      Temps:          1       0       0       0
+  1317 ;;      Totals:         1       0       0       0
+  1318 ;;Total ram usage:        1 bytes
+  1319 ;; Hardware stack levels used: 1
+  1320 ;; This function calls:
+  1321 ;;		Nothing
+  1322 ;; This function is called by:
+  1323 ;;		_read_byte
+  1324 ;; This function uses a non-reentrant model
+  1325 ;;
+  1326                           
+  1327     05D7                     _read_bit:	
+  1328                           ;psect for function _read_bit
+  1329                           
+  1330                           
+  1331                           ;onewire.c: 24: PORTAbits.RA3 = 0;
+  1332                           
+  1333                           ;incstack = 0
+  1334                           ; Regs used in _read_bit: [wreg+status,2+status,0]
+  1335     05D7  1283               	bcf	3,5	;RP0=0, select bank0
+  1336     05D8  1303               	bcf	3,6	;RP1=0, select bank0
+  1337     05D9  1185               	bcf	5,3	;volatile
+  1338                           
+  1339                           ;onewire.c: 25: TRISAbits.TRISA3 = 0;
+  1340     05DA  1683               	bsf	3,5	;RP0=1, select bank1
+  1341     05DB  1185               	bcf	5,3	;volatile
+  1342                           
+  1343                           ;onewire.c: 26: _delay((unsigned long)((1)*(4000000/4000000.0)));
+  1344     05DC  0000               	nop
+  1345                           
+  1346                           ;onewire.c: 27: PORTAbits.RA3 = 1;
+  1347                           
+  1348                           ;onewire.c: 28: TRISAbits.TRISA3 = 1;
+  1349     05DD  268C               	fcall	PL4	;call to abstracted procedure
+  1350                           
+  1351                           ;onewire.c: 29: _delay((unsigned long)((6)*(4000000/4000000.0)));
+  1352     05DE  2DDF               	nop2	;2 cycle nop
+  1353     05DF  2DE0               	nop2	;2 cycle nop
+  1354     05E0  2DE1               	nop2	;2 cycle nop
+  1355                           
+  1356                           ;onewire.c: 30: return(PORTAbits.RA3);
+  1357     05E1  1283               	bcf	3,5	;RP0=0, select bank0
+  1358     05E2  1303               	bcf	3,6	;RP1=0, select bank0
+  1359     05E3  0C05               	rrf	5,w	;volatile
+  1360     05E4  00F0               	movwf	??_read_bit
+  1361     05E5  0CF0               	rrf	??_read_bit,f
+  1362     05E6  0C70               	rrf	??_read_bit,w
+  1363     05E7  3901               	andlw	1
+  1364     05E8  0008               	return
+  1365     05E9                     __end_of_read_bit:
+  1366                           
+  1367                           	psect	text4
+  1368     0665                     __ptext4:	
+  1369 ;; *************** function ___wmul *****************
+  1370 ;; Defined at:
+  1371 ;;		line 15 in file "C:\Program Files\Microchip\xc8\v2.41\pic\sources\c90\common\Umul16.c"
+  1372 ;; Parameters:    Size  Location     Type
+  1373 ;;  multiplier      2    0[COMMON] unsigned int 
+  1374 ;;  multiplicand    2    2[COMMON] unsigned int 
+  1375 ;; Auto vars:     Size  Location     Type
+  1376 ;;  product         2    4[COMMON] unsigned int 
+  1377 ;; Return value:  Size  Location     Type
+  1378 ;;                  2    0[COMMON] unsigned int 
+  1379 ;; Registers used:
+  1380 ;;		wreg, status,2, status,0
+  1381 ;; Tracked objects:
+  1382 ;;		On entry : B00/0
+  1383 ;;		On exit  : B00/0
+  1384 ;;		Unchanged: B00/0
+  1385 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1386 ;;      Params:         4       0       0       0
+  1387 ;;      Locals:         2       0       0       0
+  1388 ;;      Temps:          0       0       0       0
+  1389 ;;      Totals:         6       0       0       0
+  1390 ;;Total ram usage:        6 bytes
+  1391 ;; Hardware stack levels used: 1
+  1392 ;; This function calls:
+  1393 ;;		Nothing
+  1394 ;; This function is called by:
+  1395 ;;		_readTemp_Single
+  1396 ;; This function uses a non-reentrant model
+  1397 ;;
+  1398                           
+  1399     0665                     ___wmul:	
+  1400                           ;psect for function ___wmul
+  1401                           
+  1402                           
+  1403                           ;incstack = 0
+  1404                           ; Regs used in ___wmul: [wreg+status,2+status,0]
+  1405     0665  01F4               	clrf	___wmul@product
+  1406     0666  01F5               	clrf	___wmul@product+1
+  1407     0667                     l1427:
+  1408     0667  1C70               	btfss	___wmul@multiplier,0
+  1409     0668  2E6F               	goto	l1431
+  1410     0669  0872               	movf	___wmul@multiplicand,w
+  1411     066A  07F4               	addwf	___wmul@product,f
+  1412     066B  1803               	skipnc
+  1413     066C  0AF5               	incf	___wmul@product+1,f
+  1414     066D  0873               	movf	___wmul@multiplicand+1,w
+  1415     066E  07F5               	addwf	___wmul@product+1,f
+  1416     066F                     l1431:
+  1417     066F  1003               	clrc
+  1418     0670  0DF2               	rlf	___wmul@multiplicand,f
+  1419     0671  0DF3               	rlf	___wmul@multiplicand+1,f
+  1420     0672  1003               	clrc
+  1421     0673  0CF1               	rrf	___wmul@multiplier+1,f
+  1422     0674  0CF0               	rrf	___wmul@multiplier,f
+  1423     0675  0870               	movf	___wmul@multiplier,w
+  1424     0676  0471               	iorwf	___wmul@multiplier+1,w
+  1425     0677  1D03               	btfss	3,2
+  1426     0678  2E67               	goto	l1427
+  1427     0679  0875               	movf	___wmul@product+1,w
+  1428     067A  00F1               	movwf	?___wmul+1
+  1429     067B  0874               	movf	___wmul@product,w
+  1430     067C  00F0               	movwf	?___wmul
+  1431     067D  0008               	return
+  1432     067E                     __end_of___wmul:
+  1433                           
+  1434                           	psect	text5
+  1435     0610                     __ptext5:	
+  1436 ;; *************** function _nrf24_send *****************
+  1437 ;; Defined at:
+  1438 ;;		line 157 in file "nrf24l01p.c"
+  1439 ;; Parameters:    Size  Location     Type
+  1440 ;;  value           1    wreg     PTR unsigned char 
+  1441 ;;		 -> data_array(4), 
+  1442 ;; Auto vars:     Size  Location     Type
+  1443 ;;  value           1    7[COMMON] PTR unsigned char 
+  1444 ;;		 -> data_array(4), 
+  1445 ;; Return value:  Size  Location     Type
+  1446 ;;                  1    wreg      void 
+  1447 ;; Registers used:
+  1448 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+  1449 ;; Tracked objects:
+  1450 ;;		On entry : 0/0
+  1451 ;;		On exit  : 300/0
+  1452 ;;		Unchanged: 0/0
+  1453 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1454 ;;      Params:         0       0       0       0
+  1455 ;;      Locals:         1       0       0       0
+  1456 ;;      Temps:          0       0       0       0
+  1457 ;;      Totals:         1       0       0       0
+  1458 ;;Total ram usage:        1 bytes
+  1459 ;; Hardware stack levels used: 1
+  1460 ;; Hardware stack levels required when called: 3
+  1461 ;; This function calls:
+  1462 ;;		_nrf24_powerUpTx
+  1463 ;;		_nrf24_write_buf
+  1464 ;;		_spi_rw
+  1465 ;; This function is called by:
+  1466 ;;		_main
+  1467 ;; This function uses a non-reentrant model
+  1468 ;;
+  1469                           
+  1470     0610                     _nrf24_send:	
+  1471                           ;psect for function _nrf24_send
+  1472                           
+  1473                           
+  1474                           ;incstack = 0
+  1475                           ; Regs used in _nrf24_send: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
+  1476                           ;nrf24_send@value stored from wreg
+  1477     0610  00F7               	movwf	nrf24_send@value
+  1478                           
+  1479                           ;nrf24l01p.c: 159: PORTAbits.RA2 = 0;
+  1480     0611  1283               	bcf	3,5	;RP0=0, select bank0
+  1481     0612  1303               	bcf	3,6	;RP1=0, select bank0
+  1482     0613  1105               	bcf	5,2	;volatile
+  1483                           
+  1484                           ;nrf24l01p.c: 160: nrf24_powerUpTx();
+  1485     0614  25A9               	fcall	_nrf24_powerUpTx
+  1486                           
+  1487                           ;nrf24l01p.c: 161: PORTBbits.RB3 = 0;
+  1488     0615  1283               	bcf	3,5	;RP0=0, select bank0
+  1489     0616  1303               	bcf	3,6	;RP1=0, select bank0
+  1490     0617  1186               	bcf	6,3	;volatile
+  1491                           
+  1492                           ;nrf24l01p.c: 162: spi_rw(0b11100001);
+  1493     0618  30E1               	movlw	225
+  1494     0619  2624               	fcall	_spi_rw
+  1495                           
+  1496                           ;nrf24l01p.c: 163: PORTBbits.RB3 = 1;
+  1497     061A  1586               	bsf	6,3	;volatile
+  1498                           
+  1499                           ;nrf24l01p.c: 165: nrf24_write_buf(0b10100000, value, pay_len);
+  1500     061B  0877               	movf	nrf24_send@value,w
+  1501     061C  00F2               	movwf	nrf24_write_buf@pBuf
+  1502     061D  01F3               	clrf	nrf24_write_buf@pBuf+1
+  1503     061E  0829               	movf	_pay_len,w
+  1504     061F  00F4               	movwf	nrf24_write_buf@length
+  1505     0620  30A0               	movlw	160
+  1506     0621  2639               	fcall	_nrf24_write_buf
+  1507                           
+  1508                           ;nrf24l01p.c: 167: PORTAbits.RA2 = 1;
+  1509     0622  1505               	bsf	5,2	;volatile
+  1510     0623  0008               	return
+  1511     0624                     __end_of_nrf24_send:
+  1512                           
+  1513                           	psect	text6
+  1514     05A9                     __ptext6:	
+  1515 ;; *************** function _nrf24_powerUpTx *****************
+  1516 ;; Defined at:
+  1517 ;;		line 74 in file "nrf24l01p.c"
+  1518 ;; Parameters:    Size  Location     Type
+  1519 ;;		None
+  1520 ;; Auto vars:     Size  Location     Type
+  1521 ;;		None
+  1522 ;; Return value:  Size  Location     Type
+  1523 ;;                  1    wreg      void 
+  1524 ;; Registers used:
+  1525 ;;		wreg, status,2, status,0, pclath, cstack
+  1526 ;; Tracked objects:
+  1527 ;;		On entry : 300/0
+  1528 ;;		On exit  : 0/0
+  1529 ;;		Unchanged: 0/0
+  1530 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1531 ;;      Params:         0       0       0       0
+  1532 ;;      Locals:         0       0       0       0
+  1533 ;;      Temps:          1       0       0       0
+  1534 ;;      Totals:         1       0       0       0
+  1535 ;;Total ram usage:        1 bytes
+  1536 ;; Hardware stack levels used: 1
+  1537 ;; Hardware stack levels required when called: 2
+  1538 ;; This function calls:
+  1539 ;;		_nrf24_write_reg
+  1540 ;; This function is called by:
+  1541 ;;		_nrf24_send
+  1542 ;; This function uses a non-reentrant model
+  1543 ;;
+  1544                           
+  1545     05A9                     _nrf24_powerUpTx:	
+  1546                           ;psect for function _nrf24_powerUpTx
+  1547                           
+  1548                           
+  1549                           ;nrf24l01p.c: 77: nrf24_write_reg(0x07, (1 << 6) | (1 << 5) | (1 << 4));
+  1550                           
+  1551                           ;incstack = 0
+  1552                           ; Regs used in _nrf24_powerUpTx: [wreg+status,2+status,0+pclath+cstack]
+  1553     05A9  3070               	movlw	112
+  1554     05AA  00F2               	movwf	nrf24_write_reg@value
+  1555     05AB  3007               	movlw	7
+  1556     05AC  2581               	fcall	_nrf24_write_reg
+  1557                           
+  1558                           ;nrf24l01p.c: 79: nrf24_write_reg(0x00, ((1 << 3) | (0 << 2)) | ((1 << 1) | (0 << 0)));
+  1559     05AD  300A               	movlw	10
+  1560     05AE  00F2               	movwf	nrf24_write_reg@value
+  1561     05AF  3000               	movlw	0
+  1562     05B0  2581               	fcall	_nrf24_write_reg
+  1563                           
+  1564                           ;nrf24l01p.c: 80: _delay((unsigned long)((135)*(4000000/4000000.0)));
+  1565     05B1  302C               	movlw	44
+  1566     05B2  00F4               	movwf	??_nrf24_powerUpTx
+  1567     05B3                     u547:
+  1568     05B3  0BF4               	decfsz	??_nrf24_powerUpTx,f
+  1569     05B4  2DB3               	goto	u547
+  1570     05B5  2DB6               	nop2
+  1571     05B6  0008               	return
+  1572     05B7                     __end_of_nrf24_powerUpTx:
+  1573                           
+  1574                           	psect	text7
+  1575     057A                     __ptext7:	
+  1576 ;; *************** function _nrf24_powerDown *****************
+  1577 ;; Defined at:
+  1578 ;;		line 83 in file "nrf24l01p.c"
+  1579 ;; Parameters:    Size  Location     Type
+  1580 ;;		None
+  1581 ;; Auto vars:     Size  Location     Type
+  1582 ;;		None
+  1583 ;; Return value:  Size  Location     Type
+  1584 ;;                  1    wreg      void 
+  1585 ;; Registers used:
+  1586 ;;		wreg, status,2, status,0, pclath, cstack
+  1587 ;; Tracked objects:
+  1588 ;;		On entry : 0/0
+  1589 ;;		On exit  : 300/0
+  1590 ;;		Unchanged: 0/0
+  1591 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1592 ;;      Params:         0       0       0       0
+  1593 ;;      Locals:         0       0       0       0
+  1594 ;;      Temps:          0       0       0       0
+  1595 ;;      Totals:         0       0       0       0
+  1596 ;;Total ram usage:        0 bytes
+  1597 ;; Hardware stack levels used: 1
+  1598 ;; Hardware stack levels required when called: 2
+  1599 ;; This function calls:
+  1600 ;;		_nrf24_write_reg
+  1601 ;; This function is called by:
+  1602 ;;		_main
+  1603 ;; This function uses a non-reentrant model
+  1604 ;;
+  1605                           
+  1606     057A                     _nrf24_powerDown:	
+  1607                           ;psect for function _nrf24_powerDown
+  1608                           
+  1609                           
+  1610                           ;nrf24l01p.c: 84: PORTAbits.RA2 = 0;
+  1611                           
+  1612                           ;incstack = 0
+  1613                           ; Regs used in _nrf24_powerDown: [wreg+status,2+status,0+pclath+cstack]
+  1614     057A  1283               	bcf	3,5	;RP0=0, select bank0
+  1615     057B  1303               	bcf	3,6	;RP1=0, select bank0
+  1616     057C  1105               	bcf	5,2	;volatile
+  1617                           
+  1618                           ;nrf24l01p.c: 85: nrf24_write_reg(0x00, ((1 << 3) | (0 << 2)));
+  1619     057D  3008               	movlw	8
+  1620     057E  00F2               	movwf	nrf24_write_reg@value
+  1621     057F  3000               	movlw	0
+  1622     0580  2D81               	ljmp	_nrf24_write_reg
+  1623     0581                     __end_of_nrf24_powerDown:
+  1624                           
+  1625                           	psect	text8
+  1626     0573                     __ptext8:	
+  1627 ;; *************** function _nrf24_messageStatus *****************
+  1628 ;; Defined at:
+  1629 ;;		line 204 in file "nrf24l01p.c"
+  1630 ;; Parameters:    Size  Location     Type
+  1631 ;;		None
+  1632 ;; Auto vars:     Size  Location     Type
+  1633 ;;  r_status        1    3[COMMON] unsigned char 
+  1634 ;; Return value:  Size  Location     Type
+  1635 ;;                  1    wreg      unsigned char 
+  1636 ;; Registers used:
+  1637 ;;		wreg, status,2, status,0, pclath, cstack
+  1638 ;; Tracked objects:
+  1639 ;;		On entry : 300/0
+  1640 ;;		On exit  : 300/0
+  1641 ;;		Unchanged: 0/0
+  1642 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1643 ;;      Params:         0       0       0       0
+  1644 ;;      Locals:         1       0       0       0
+  1645 ;;      Temps:          0       0       0       0
+  1646 ;;      Totals:         1       0       0       0
+  1647 ;;Total ram usage:        1 bytes
+  1648 ;; Hardware stack levels used: 1
+  1649 ;; Hardware stack levels required when called: 2
+  1650 ;; This function calls:
+  1651 ;;		_nrf24_getStatus
+  1652 ;; This function is called by:
+  1653 ;;		_main
+  1654 ;; This function uses a non-reentrant model
+  1655 ;;
+  1656                           
+  1657     0573                     _nrf24_messageStatus:	
+  1658                           ;psect for function _nrf24_messageStatus
+  1659                           
+  1660                           
+  1661                           ;nrf24l01p.c: 205: uint8_t r_status;;nrf24l01p.c: 207: r_status = nrf24_getStatus();
+  1662                           
+  1663                           ;incstack = 0
+  1664                           ; Regs used in _nrf24_messageStatus: [wreg+status,2+status,0+pclath+cstack]
+  1665     0573  2567               	fcall	_nrf24_getStatus
+  1666     0574  00F3               	movwf	nrf24_messageStatus@r_status
+  1667                           
+  1668                           ;nrf24l01p.c: 210: if ((r_status & ((1 << 5)))) {
+  1669     0575  1AF3               	btfsc	nrf24_messageStatus@r_status,5
+  1670                           
+  1671                           ;nrf24l01p.c: 211: return 0;
+  1672     0576  3400               	retlw	0
+  1673                           
+  1674                           ;nrf24l01p.c: 214: else if ((r_status & ((1 << 4)))) {
+  1675     0577  1A73               	btfsc	nrf24_messageStatus@r_status,4
+  1676                           
+  1677                           ;nrf24l01p.c: 215: return 1;
+  1678     0578  3401               	retlw	1
+  1679                           
+  1680                           ;nrf24l01p.c: 217: else {;nrf24l01p.c: 218: return 0xFF;
+  1681     0579  34FF               	retlw	255
+  1682     057A                     __end_of_nrf24_messageStatus:
+  1683                           
+  1684                           	psect	text9
+  1685     056D                     __ptext9:	
+  1686 ;; *************** function _nrf24_isSending *****************
+  1687 ;; Defined at:
+  1688 ;;		line 175 in file "nrf24l01p.c"
+  1689 ;; Parameters:    Size  Location     Type
+  1690 ;;		None
+  1691 ;; Auto vars:     Size  Location     Type
+  1692 ;;  status          1    3[COMMON] unsigned char 
+  1693 ;; Return value:  Size  Location     Type
+  1694 ;;                  1    wreg      unsigned char 
+  1695 ;; Registers used:
+  1696 ;;		wreg, status,2, status,0, pclath, cstack
+  1697 ;; Tracked objects:
+  1698 ;;		On entry : 300/0
+  1699 ;;		On exit  : 300/0
+  1700 ;;		Unchanged: 0/0
+  1701 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1702 ;;      Params:         0       0       0       0
+  1703 ;;      Locals:         1       0       0       0
+  1704 ;;      Temps:          0       0       0       0
+  1705 ;;      Totals:         1       0       0       0
+  1706 ;;Total ram usage:        1 bytes
+  1707 ;; Hardware stack levels used: 1
+  1708 ;; Hardware stack levels required when called: 2
+  1709 ;; This function calls:
+  1710 ;;		_nrf24_getStatus
+  1711 ;; This function is called by:
+  1712 ;;		_main
+  1713 ;; This function uses a non-reentrant model
+  1714 ;;
+  1715                           
+  1716     056D                     _nrf24_isSending:	
+  1717                           ;psect for function _nrf24_isSending
+  1718                           
+  1719                           
+  1720                           ;nrf24l01p.c: 176: uint8_t status;;nrf24l01p.c: 179: status = nrf24_getStatus();
+  1721                           
+  1722                           ;incstack = 0
+  1723                           ; Regs used in _nrf24_isSending: [wreg+status,2+status,0+pclath+cstack]
+  1724     056D  2567               	fcall	_nrf24_getStatus
+  1725     056E  00F3               	movwf	nrf24_isSending@status
+  1726                           
+  1727                           ;nrf24l01p.c: 181: if ((status & ((1 << 5) | (1 << 4)))) {
+  1728     056F  3930               	andlw	48
+  1729     0570  1D03               	btfss	3,2
+  1730                           
+  1731                           ;nrf24l01p.c: 182: return 0;
+  1732     0571  3400               	retlw	0
+  1733                           
+  1734                           ;nrf24l01p.c: 183: };nrf24l01p.c: 185: return 1;
+  1735     0572  3401               	retlw	1
+  1736     0573                     __end_of_nrf24_isSending:
+  1737                           
+  1738                           	psect	text10
+  1739     0567                     __ptext10:	
+  1740 ;; *************** function _nrf24_getStatus *****************
+  1741 ;; Defined at:
+  1742 ;;		line 192 in file "nrf24l01p.c"
+  1743 ;; Parameters:    Size  Location     Type
+  1744 ;;		None
+  1745 ;; Auto vars:     Size  Location     Type
+  1746 ;;  r_status        1    2[COMMON] unsigned char 
+  1747 ;; Return value:  Size  Location     Type
+  1748 ;;                  1    wreg      unsigned char 
+  1749 ;; Registers used:
+  1750 ;;		wreg, status,2, status,0, pclath, cstack
+  1751 ;; Tracked objects:
+  1752 ;;		On entry : 300/0
+  1753 ;;		On exit  : 300/0
+  1754 ;;		Unchanged: 0/0
+  1755 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1756 ;;      Params:         0       0       0       0
+  1757 ;;      Locals:         1       0       0       0
+  1758 ;;      Temps:          0       0       0       0
+  1759 ;;      Totals:         1       0       0       0
+  1760 ;;Total ram usage:        1 bytes
+  1761 ;; Hardware stack levels used: 1
+  1762 ;; Hardware stack levels required when called: 1
+  1763 ;; This function calls:
+  1764 ;;		_spi_rw
+  1765 ;; This function is called by:
+  1766 ;;		_nrf24_isSending
+  1767 ;;		_nrf24_messageStatus
+  1768 ;; This function uses a non-reentrant model
+  1769 ;;
+  1770                           
+  1771     0567                     _nrf24_getStatus:	
+  1772                           ;psect for function _nrf24_getStatus
+  1773                           
+  1774                           
+  1775                           ;nrf24l01p.c: 193: uint8_t r_status;;nrf24l01p.c: 194: PORTBbits.RB3 = 0;
+  1776                           
+  1777                           ;incstack = 0
+  1778                           ; Regs used in _nrf24_getStatus: [wreg+status,2+status,0+pclath+cstack]
+  1779     0567  1186               	bcf	6,3	;volatile
+  1780                           
+  1781                           ;nrf24l01p.c: 195: r_status = spi_rw(0b11111111);
+  1782     0568  30FF               	movlw	255
+  1783     0569  2624               	fcall	_spi_rw
+  1784     056A  00F2               	movwf	nrf24_getStatus@r_status
+  1785                           
+  1786                           ;nrf24l01p.c: 196: PORTBbits.RB3 = 1;
+  1787     056B  1586               	bsf	6,3	;volatile
+  1788                           
+  1789                           ;nrf24l01p.c: 197: return r_status;
+  1790     056C  0008               	return
+  1791     056D                     __end_of_nrf24_getStatus:
+  1792                           
+  1793                           	psect	text11
+  1794     05E9                     __ptext11:	
+  1795 ;; *************** function _init_Cpu *****************
+  1796 ;; Defined at:
+  1797 ;;		line 107 in file "main.c"
+  1798 ;; Parameters:    Size  Location     Type
+  1799 ;;		None
+  1800 ;; Auto vars:     Size  Location     Type
+  1801 ;;		None
+  1802 ;; Return value:  Size  Location     Type
+  1803 ;;                  1    wreg      void 
+  1804 ;; Registers used:
+  1805 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+  1806 ;; Tracked objects:
+  1807 ;;		On entry : B00/0
+  1808 ;;		On exit  : 300/100
+  1809 ;;		Unchanged: 0/0
+  1810 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1811 ;;      Params:         0       0       0       0
+  1812 ;;      Locals:         0       0       0       0
+  1813 ;;      Temps:          0       0       0       0
+  1814 ;;      Totals:         0       0       0       0
+  1815 ;;Total ram usage:        0 bytes
+  1816 ;; Hardware stack levels used: 1
+  1817 ;; Hardware stack levels required when called: 4
+  1818 ;; This function calls:
+  1819 ;;		_init_ds18b20
+  1820 ;;		_init_uart
+  1821 ;;		_nrf24_init
+  1822 ;;		_spi_init
+  1823 ;; This function is called by:
+  1824 ;;		_main
+  1825 ;; This function uses a non-reentrant model
+  1826 ;;
+  1827                           
+  1828     05E9                     _init_Cpu:	
+  1829                           ;psect for function _init_Cpu
+  1830                           
+  1831                           
+  1832                           ;main.c: 108: PORTA = 0b00000001;
+  1833                           
+  1834                           ;incstack = 0
+  1835                           ; Regs used in _init_Cpu: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
+  1836     05E9  3001               	movlw	1
+  1837     05EA  0085               	movwf	5	;volatile
+  1838                           
+  1839                           ;main.c: 109: CMCON = 0x07;
+  1840     05EB  3007               	movlw	7
+  1841     05EC  009F               	movwf	31	;volatile
+  1842                           
+  1843                           ;main.c: 110: TRISA = 0;
+  1844     05ED  1683               	bsf	3,5	;RP0=1, select bank1
+  1845     05EE  0185               	clrf	5	;volatile
+  1846                           
+  1847                           ;main.c: 111: OPTION_REGbits.PSA = 1;
+  1848     05EF  1581               	bsf	1,3	;volatile
+  1849                           
+  1850                           ;main.c: 112: OPTION_REGbits.PS0 = 1;
+  1851     05F0  1401               	bsf	1,0	;volatile
+  1852                           
+  1853                           ;main.c: 113: OPTION_REGbits.PS1 = 1;
+  1854     05F1  1481               	bsf	1,1	;volatile
+  1855                           
+  1856                           ;main.c: 114: OPTION_REGbits.PS2 = 1;
+  1857     05F2  1501               	bsf	1,2	;volatile
+  1858                           
+  1859                           ;main.c: 116: PORTAbits.RA3 = 1;
+  1860     05F3  1283               	bcf	3,5	;RP0=0, select bank0
+  1861     05F4  1585               	bsf	5,3	;volatile
+  1862                           
+  1863                           ;main.c: 118: spi_init();
+  1864     05F5  2591               	fcall	_spi_init
+  1865                           
+  1866                           ;main.c: 119: init_ds18b20();
+  1867     05F6  259B               	fcall	_init_ds18b20
+  1868                           
+  1869                           ;main.c: 120: nrf24_init(100, 4);
+  1870     05F7  3004               	movlw	4
+  1871     05F8  00F8               	movwf	nrf24_init@pay_length
+  1872     05F9  3064               	movlw	100
+  1873     05FA  26D1               	fcall	_nrf24_init
+  1874                           
+  1875                           ;main.c: 121: init_uart();
+  1876     05FB  2DB7               	ljmp	l1389
+  1877     05FC                     __end_of_init_Cpu:
+  1878                           
+  1879                           	psect	text12
+  1880     0591                     __ptext12:	
+  1881 ;; *************** function _spi_init *****************
+  1882 ;; Defined at:
+  1883 ;;		line 3 in file "spi.c"
+  1884 ;; Parameters:    Size  Location     Type
+  1885 ;;		None
+  1886 ;; Auto vars:     Size  Location     Type
+  1887 ;;		None
+  1888 ;; Return value:  Size  Location     Type
+  1889 ;;                  1    wreg      void 
+  1890 ;; Registers used:
+  1891 ;;		None
+  1892 ;; Tracked objects:
+  1893 ;;		On entry : 300/0
+  1894 ;;		On exit  : 300/0
+  1895 ;;		Unchanged: 0/0
+  1896 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1897 ;;      Params:         0       0       0       0
+  1898 ;;      Locals:         0       0       0       0
+  1899 ;;      Temps:          0       0       0       0
+  1900 ;;      Totals:         0       0       0       0
+  1901 ;;Total ram usage:        0 bytes
+  1902 ;; Hardware stack levels used: 1
+  1903 ;; This function calls:
+  1904 ;;		Nothing
+  1905 ;; This function is called by:
+  1906 ;;		_main
+  1907 ;;		_init_Cpu
+  1908 ;; This function uses a non-reentrant model
+  1909 ;;
+  1910                           
+  1911     0591                     _spi_init:	
+  1912                           ;psect for function _spi_init
+  1913                           
+  1914                           
+  1915                           ;spi.c: 4: TRISBbits.TRISB0 = 1;
+  1916                           
+  1917                           ;incstack = 0
+  1918                           ; Regs used in _spi_init: []
+  1919     0591  1683               	bsf	3,5	;RP0=1, select bank1
+  1920     0592  1406               	bsf	6,0	;volatile
+  1921                           
+  1922                           ;spi.c: 5: TRISAbits.TRISA1 = 0;
+  1923     0593  1085               	bcf	5,1	;volatile
+  1924                           
+  1925                           ;spi.c: 6: TRISAbits.TRISA2 = 0;
+  1926     0594  1105               	bcf	5,2	;volatile
+  1927                           
+  1928                           ;spi.c: 7: TRISBbits.TRISB3 = 0;
+  1929     0595  1186               	bcf	6,3	;volatile
+  1930                           
+  1931                           ;spi.c: 8: TRISBbits.TRISB4 = 0;
+  1932     0596  1206               	bcf	6,4	;volatile
+  1933                           
+  1934                           ;spi.c: 9: TRISBbits.TRISB5 = 1;
+  1935     0597  1686               	bsf	6,5	;volatile
+  1936                           
+  1937                           ;spi.c: 10: PORTBbits.RB3 = 1;
+  1938     0598  1283               	bcf	3,5	;RP0=0, select bank0
+  1939     0599  1586               	bsf	6,3	;volatile
+  1940     059A  0008               	return
+  1941     059B                     __end_of_spi_init:
+  1942                           
+  1943                           	psect	text13
+  1944     06D1                     __ptext13:	
+  1945 ;; *************** function _nrf24_init *****************
+  1946 ;; Defined at:
+  1947 ;;		line 13 in file "nrf24l01p.c"
+  1948 ;; Parameters:    Size  Location     Type
+  1949 ;;  channel         1    wreg     unsigned char 
+  1950 ;;  pay_length      1    8[COMMON] unsigned char 
+  1951 ;; Auto vars:     Size  Location     Type
+  1952 ;;  channel         1    9[COMMON] unsigned char 
+  1953 ;; Return value:  Size  Location     Type
+  1954 ;;                  1    wreg      void 
+  1955 ;; Registers used:
+  1956 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+  1957 ;; Tracked objects:
+  1958 ;;		On entry : 0/0
+  1959 ;;		On exit  : 0/0
+  1960 ;;		Unchanged: 0/0
+  1961 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1962 ;;      Params:         1       0       0       0
+  1963 ;;      Locals:         1       0       0       0
+  1964 ;;      Temps:          0       0       0       0
+  1965 ;;      Totals:         2       0       0       0
+  1966 ;;Total ram usage:        2 bytes
+  1967 ;; Hardware stack levels used: 1
+  1968 ;; Hardware stack levels required when called: 3
+  1969 ;; This function calls:
+  1970 ;;		_nrf24_powerUpRx
+  1971 ;;		_nrf24_rx_address
+  1972 ;;		_nrf24_tx_address
+  1973 ;;		_nrf24_write_reg
+  1974 ;; This function is called by:
+  1975 ;;		_init_Cpu
+  1976 ;; This function uses a non-reentrant model
+  1977 ;;
+  1978                           
+  1979     06D1                     _nrf24_init:	
+  1980                           ;psect for function _nrf24_init
+  1981                           
+  1982                           
+  1983                           ;incstack = 0
+  1984                           ; Regs used in _nrf24_init: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
+  1985                           ;nrf24_init@channel stored from wreg
+  1986     06D1  00F9               	movwf	nrf24_init@channel
+  1987                           
+  1988                           ;nrf24l01p.c: 15: PORTBbits.RB3 = 1;
+  1989     06D2  1283               	bcf	3,5	;RP0=0, select bank0
+  1990     06D3  1303               	bcf	3,6	;RP1=0, select bank0
+  1991     06D4  1586               	bsf	6,3	;volatile
+  1992                           
+  1993                           ;nrf24l01p.c: 16: PORTAbits.RA2 = 0;
+  1994     06D5  1105               	bcf	5,2	;volatile
+  1995                           
+  1996                           ;nrf24l01p.c: 17: pay_len = pay_length;
+  1997     06D6  0878               	movf	nrf24_init@pay_length,w
+  1998     06D7  00A9               	movwf	_pay_len
+  1999                           
+  2000                           ;nrf24l01p.c: 19: nrf24_tx_address(&nrf_tx_address);
+  2001     06D8  3016               	movlw	(low ((_nrf_tx_address-__stringbase)| (0+32768)))& (0+255)
+  2002     06D9  25C6               	fcall	_nrf24_tx_address
+  2003                           
+  2004                           ;nrf24l01p.c: 20: nrf24_rx_address(&nrf_rx_address);
+  2005     06DA  3011               	movlw	(low ((_nrf_rx_address-__stringbase)| (0+32768)))& (0+255)
+  2006     06DB  2562               	fcall	_nrf24_rx_address
+  2007                           
+  2008                           ;nrf24l01p.c: 22: nrf24_write_reg(0x05, channel);
+  2009     06DC  0879               	movf	nrf24_init@channel,w
+  2010     06DD  00F2               	movwf	nrf24_write_reg@value
+  2011     06DE  3005               	movlw	5
+  2012     06DF  2581               	fcall	_nrf24_write_reg
+  2013     06E0  3011               	movlw	17
+  2014                           
+  2015                           ;nrf24l01p.c: 24: nrf24_write_reg(0x11, 0x00);
+  2016     06E1  01F2               	clrf	nrf24_write_reg@value
+  2017     06E2  2581               	fcall	_nrf24_write_reg
+  2018                           
+  2019                           ;nrf24l01p.c: 25: nrf24_write_reg(0x12, pay_length);
+  2020     06E3  0878               	movf	nrf24_init@pay_length,w
+  2021     06E4  00F2               	movwf	nrf24_write_reg@value
+  2022     06E5  3012               	movlw	18
+  2023     06E6  2581               	fcall	_nrf24_write_reg
+  2024     06E7  3013               	movlw	19
+  2025                           
+  2026                           ;nrf24l01p.c: 26: nrf24_write_reg(0x13, 0x00);
+  2027     06E8  01F2               	clrf	nrf24_write_reg@value
+  2028     06E9  2581               	fcall	_nrf24_write_reg
+  2029     06EA  3014               	movlw	20
+  2030                           
+  2031                           ;nrf24l01p.c: 27: nrf24_write_reg(0x14, 0x00);
+  2032     06EB  01F2               	clrf	nrf24_write_reg@value
+  2033     06EC  2581               	fcall	_nrf24_write_reg
+  2034     06ED  3015               	movlw	21
+  2035                           
+  2036                           ;nrf24l01p.c: 28: nrf24_write_reg(0x15, 0x00);
+  2037     06EE  01F2               	clrf	nrf24_write_reg@value
+  2038     06EF  2581               	fcall	_nrf24_write_reg
+  2039     06F0  3016               	movlw	22
+  2040                           
+  2041                           ;nrf24l01p.c: 29: nrf24_write_reg(0x16, 0x00);
+  2042     06F1  01F2               	clrf	nrf24_write_reg@value
+  2043     06F2  2581               	fcall	_nrf24_write_reg
+  2044                           
+  2045                           ;nrf24l01p.c: 32: nrf24_write_reg(0x06, (1 << 5) | (0 << 3) | ((0x03) << 1));
+  2046     06F3  3026               	movlw	38
+  2047     06F4  00F2               	movwf	nrf24_write_reg@value
+  2048     06F5  3006               	movlw	6
+  2049     06F6  2581               	fcall	_nrf24_write_reg
+  2050                           
+  2051                           ;nrf24l01p.c: 35: nrf24_write_reg(0x00, ((1 << 3) | (0 << 2)));
+  2052     06F7  3008               	movlw	8
+  2053     06F8  00F2               	movwf	nrf24_write_reg@value
+  2054     06F9  3000               	movlw	0
+  2055     06FA  2581               	fcall	_nrf24_write_reg
+  2056                           
+  2057                           ;nrf24l01p.c: 38: nrf24_write_reg(0x01, (1 << 0) | (1 << 1) | (0 << 2) | (0 << 3) | (0 <
+      +                          < 4) | (0 << 5));
+  2058     06FB  3003               	movlw	3
+  2059     06FC  00F2               	movwf	nrf24_write_reg@value
+  2060     06FD  3001               	movlw	1
+  2061     06FE  2581               	fcall	_nrf24_write_reg
+  2062                           
+  2063                           ;nrf24l01p.c: 41: nrf24_write_reg(0x02, (1 << 0) | (1 << 1) | (0 << 2) | (0 << 3) | (0 <
+      +                          < 4) | (0 << 5));
+  2064     06FF  3003               	movlw	3
+  2065     0700  00F2               	movwf	nrf24_write_reg@value
+  2066     0701  3002               	movlw	2
+  2067     0702  2581               	fcall	_nrf24_write_reg
+  2068                           
+  2069                           ;nrf24l01p.c: 44: nrf24_write_reg(0x04, (0x0F << 4) | (0x0F << 0));
+  2070     0703  30FF               	movlw	255
+  2071     0704  00F2               	movwf	nrf24_write_reg@value
+  2072     0705  3004               	movlw	4
+  2073     0706  2581               	fcall	_nrf24_write_reg
+  2074     0707  301C               	movlw	28
+  2075                           
+  2076                           ;nrf24l01p.c: 47: nrf24_write_reg(0x1C, (0 << 0) | (0 << 1) | (0 << 2) | (0 << 3) | (0 <
+      +                          < 4) | (0 << 5));
+  2077     0708  01F2               	clrf	nrf24_write_reg@value
+  2078     0709  2581               	fcall	_nrf24_write_reg
+  2079                           
+  2080                           ;nrf24l01p.c: 50: nrf24_powerUpRx();
+  2081     070A  2DFC               	ljmp	l1297
+  2082     070B                     __end_of_nrf24_init:
+  2083                           
+  2084                           	psect	text14
+  2085     05C6                     __ptext14:	
+  2086 ;; *************** function _nrf24_tx_address *****************
+  2087 ;; Defined at:
+  2088 ;;		line 142 in file "nrf24l01p.c"
+  2089 ;; Parameters:    Size  Location     Type
+  2090 ;;  adr             1    wreg     PTR unsigned char 
+  2091 ;;		 -> nrf_tx_address(5), 
+  2092 ;; Auto vars:     Size  Location     Type
+  2093 ;;  adr             1    7[COMMON] PTR unsigned char 
+  2094 ;;		 -> nrf_tx_address(5), 
+  2095 ;; Return value:  Size  Location     Type
+  2096 ;;                  1    wreg      void 
+  2097 ;; Registers used:
+  2098 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+  2099 ;; Tracked objects:
+  2100 ;;		On entry : 300/0
+  2101 ;;		On exit  : 300/0
+  2102 ;;		Unchanged: 0/0
+  2103 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2104 ;;      Params:         0       0       0       0
+  2105 ;;      Locals:         1       0       0       0
+  2106 ;;      Temps:          0       0       0       0
+  2107 ;;      Totals:         1       0       0       0
+  2108 ;;Total ram usage:        1 bytes
+  2109 ;; Hardware stack levels used: 1
+  2110 ;; Hardware stack levels required when called: 2
+  2111 ;; This function calls:
+  2112 ;;		_nrf24_write_buf
+  2113 ;; This function is called by:
+  2114 ;;		_nrf24_init
+  2115 ;; This function uses a non-reentrant model
+  2116 ;;
+  2117                           
+  2118     05C6                     _nrf24_tx_address:	
+  2119                           ;psect for function _nrf24_tx_address
+  2120                           
+  2121                           
+  2122                           ;incstack = 0
+  2123                           ; Regs used in _nrf24_tx_address: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
+  2124                           ;nrf24_tx_address@adr stored from wreg
+  2125     05C6  00F7               	movwf	nrf24_tx_address@adr
+  2126                           
+  2127                           ;nrf24l01p.c: 144: nrf24_write_buf(0b00100000 | 0x0A, adr, 5);
+  2128     05C7  0877               	movf	nrf24_tx_address@adr,w
+  2129     05C8  25CF               	fcall	PL2	;call to abstracted procedure
+  2130     05C9  302A               	movlw	42
+  2131     05CA  2639               	fcall	_nrf24_write_buf
+  2132                           
+  2133                           ;nrf24l01p.c: 145: nrf24_write_buf(0b00100000 | 0x10, adr, 5);
+  2134     05CB  0877               	movf	nrf24_tx_address@adr,w
+  2135     05CC  25CF               	fcall	PL2	;call to abstracted procedure
+  2136     05CD  3030               	movlw	48
+  2137     05CE  2E39               	ljmp	_nrf24_write_buf
+  2138     05CF                     __end_of_nrf24_tx_address:
+  2139     05CF                     PL2:
+  2140     05CF  00F2               	movwf	nrf24_write_buf@pBuf
+  2141     05D0  3000               	movlw	0
+  2142     05D1  1D03               	btfss	3,2
+  2143     05D2  3080               	movlw	128
+  2144     05D3  00F3               	movwf	nrf24_write_buf@pBuf+1
+  2145     05D4  3005               	movlw	5
+  2146     05D5  00F4               	movwf	nrf24_write_buf@length
+  2147     05D6  0008               	return
+  2148     05D7                     __end_ofPL2:
+  2149                           
+  2150                           	psect	text15
+  2151     0562                     __ptext15:	
+  2152 ;; *************** function _nrf24_rx_address *****************
+  2153 ;; Defined at:
+  2154 ;;		line 149 in file "nrf24l01p.c"
+  2155 ;; Parameters:    Size  Location     Type
+  2156 ;;  adr             1    wreg     PTR unsigned char 
+  2157 ;;		 -> nrf_rx_address(5), 
+  2158 ;; Auto vars:     Size  Location     Type
+  2159 ;;  adr             1    7[COMMON] PTR unsigned char 
+  2160 ;;		 -> nrf_rx_address(5), 
+  2161 ;; Return value:  Size  Location     Type
+  2162 ;;                  1    wreg      void 
+  2163 ;; Registers used:
+  2164 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+  2165 ;; Tracked objects:
+  2166 ;;		On entry : 300/0
+  2167 ;;		On exit  : 300/0
+  2168 ;;		Unchanged: 0/0
+  2169 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2170 ;;      Params:         0       0       0       0
+  2171 ;;      Locals:         1       0       0       0
+  2172 ;;      Temps:          0       0       0       0
+  2173 ;;      Totals:         1       0       0       0
+  2174 ;;Total ram usage:        1 bytes
+  2175 ;; Hardware stack levels used: 1
+  2176 ;; Hardware stack levels required when called: 2
+  2177 ;; This function calls:
+  2178 ;;		_nrf24_write_buf
+  2179 ;; This function is called by:
+  2180 ;;		_nrf24_init
+  2181 ;; This function uses a non-reentrant model
+  2182 ;;
+  2183                           
+  2184     0562                     _nrf24_rx_address:	
+  2185                           ;psect for function _nrf24_rx_address
+  2186                           
+  2187                           
+  2188                           ;incstack = 0
+  2189                           ; Regs used in _nrf24_rx_address: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
+  2190                           ;nrf24_rx_address@adr stored from wreg
+  2191     0562  00F7               	movwf	nrf24_rx_address@adr
+  2192                           
+  2193                           ;nrf24l01p.c: 151: nrf24_write_buf(0b00100000 | 0x0B, adr, 5);
+  2194     0563  0877               	movf	nrf24_rx_address@adr,w
+  2195     0564  25CF               	fcall	PL2	;call to abstracted procedure
+  2196     0565  302B               	movlw	43
+  2197     0566  2E39               	ljmp	_nrf24_write_buf
+  2198     0567                     __end_of_nrf24_rx_address:
+  2199                           
+  2200                           	psect	text16
+  2201     0639                     __ptext16:	
+  2202 ;; *************** function _nrf24_write_buf *****************
+  2203 ;; Defined at:
+  2204 ;;		line 114 in file "nrf24l01p.c"
+  2205 ;; Parameters:    Size  Location     Type
+  2206 ;;  reg             1    wreg     unsigned char 
+  2207 ;;  pBuf            2    2[COMMON] PTR unsigned char 
+  2208 ;;		 -> nrf_rx_address(5), nrf_tx_address(5), data_array(4), 
+  2209 ;;  length          1    4[COMMON] unsigned char 
+  2210 ;; Auto vars:     Size  Location     Type
+  2211 ;;  reg             1    5[COMMON] unsigned char 
+  2212 ;;  i               1    6[COMMON] unsigned char 
+  2213 ;; Return value:  Size  Location     Type
+  2214 ;;                  1    wreg      void 
+  2215 ;; Registers used:
+  2216 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+  2217 ;; Tracked objects:
+  2218 ;;		On entry : 300/0
+  2219 ;;		On exit  : 300/0
+  2220 ;;		Unchanged: 0/0
+  2221 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2222 ;;      Params:         3       0       0       0
+  2223 ;;      Locals:         2       0       0       0
+  2224 ;;      Temps:          0       0       0       0
+  2225 ;;      Totals:         5       0       0       0
+  2226 ;;Total ram usage:        5 bytes
+  2227 ;; Hardware stack levels used: 1
+  2228 ;; Hardware stack levels required when called: 1
+  2229 ;; This function calls:
+  2230 ;;		_spi_rw
+  2231 ;; This function is called by:
+  2232 ;;		_nrf24_tx_address
+  2233 ;;		_nrf24_rx_address
+  2234 ;;		_nrf24_send
+  2235 ;; This function uses a non-reentrant model
+  2236 ;;
+  2237                           
+  2238     0639                     _nrf24_write_buf:	
+  2239                           ;psect for function _nrf24_write_buf
+  2240                           
+  2241                           
+  2242                           ;incstack = 0
+  2243                           ; Regs used in _nrf24_write_buf: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
+  2244                           ;nrf24_write_buf@reg stored from wreg
+  2245     0639  00F5               	movwf	nrf24_write_buf@reg
+  2246                           
+  2247                           ;nrf24l01p.c: 115: uint8_t i;;nrf24l01p.c: 117: PORTBbits.RB3 = 0;
+  2248     063A  1186               	bcf	6,3	;volatile
+  2249                           
+  2250                           ;nrf24l01p.c: 118: spi_rw(reg);
+  2251     063B  2624               	fcall	_spi_rw
+  2252                           
+  2253                           ;nrf24l01p.c: 119: for (i = 0; i < length; i++)
+  2254     063C  01F6               	clrf	nrf24_write_buf@i
+  2255     063D                     l1279:
+  2256     063D  0874               	movf	nrf24_write_buf@length,w
+  2257     063E  0276               	subwf	nrf24_write_buf@i,w
+  2258     063F  1803               	btfsc	3,0
+  2259     0640  2E4C               	goto	l118
+  2260                           
+  2261                           ;nrf24l01p.c: 120: spi_rw(*pBuf++);
+  2262     0641  0873               	movf	nrf24_write_buf@pBuf+1,w
+  2263     0642  00FF               	movwf	127
+  2264     0643  0872               	movf	nrf24_write_buf@pBuf,w
+  2265     0644  0084               	movwf	4
+  2266     0645  2001               	fcall	stringtab
+  2267     0646  2624               	fcall	_spi_rw
+  2268     0647  0AF2               	incf	nrf24_write_buf@pBuf,f
+  2269     0648  1903               	skipnz
+  2270     0649  0AF3               	incf	nrf24_write_buf@pBuf+1,f
+  2271     064A  0AF6               	incf	nrf24_write_buf@i,f
+  2272     064B  2E3D               	goto	l1279
+  2273     064C                     l118:
+  2274                           
+  2275                           ;nrf24l01p.c: 121: PORTBbits.RB3 = 1;
+  2276     064C  1586               	bsf	6,3	;volatile
+  2277     064D  0008               	return
+  2278     064E                     __end_of_nrf24_write_buf:
+  2279                           
+  2280                           	psect	text17
+  2281     05FC                     __ptext17:	
+  2282 ;; *************** function _nrf24_powerUpRx *****************
+  2283 ;; Defined at:
+  2284 ;;		line 58 in file "nrf24l01p.c"
+  2285 ;; Parameters:    Size  Location     Type
+  2286 ;;		None
+  2287 ;; Auto vars:     Size  Location     Type
+  2288 ;;		None
+  2289 ;; Return value:  Size  Location     Type
+  2290 ;;                  1    wreg      void 
+  2291 ;; Registers used:
+  2292 ;;		wreg, status,2, status,0, pclath, cstack
+  2293 ;; Tracked objects:
+  2294 ;;		On entry : 300/0
+  2295 ;;		On exit  : 0/0
+  2296 ;;		Unchanged: 0/0
+  2297 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2298 ;;      Params:         0       0       0       0
+  2299 ;;      Locals:         0       0       0       0
+  2300 ;;      Temps:          1       0       0       0
+  2301 ;;      Totals:         1       0       0       0
+  2302 ;;Total ram usage:        1 bytes
+  2303 ;; Hardware stack levels used: 1
+  2304 ;; Hardware stack levels required when called: 2
+  2305 ;; This function calls:
+  2306 ;;		_nrf24_write_reg
+  2307 ;;		_spi_rw
+  2308 ;; This function is called by:
+  2309 ;;		_nrf24_init
+  2310 ;; This function uses a non-reentrant model
+  2311 ;;
+  2312                           
+  2313     05FC                     _nrf24_powerUpRx:	
+  2314                           ;psect for function _nrf24_powerUpRx
+  2315                           
+  2316     05FC                     l1297:	
+  2317                           ;incstack = 0
+  2318                           ; Regs used in _nrf24_powerUpRx: [wreg+status,2+status,0+pclath+cstack]
+  2319                           
+  2320                           
+  2321                           ;nrf24l01p.c: 59: PORTBbits.RB3 = 0;
+  2322     05FC  1186               	bcf	6,3	;volatile
+  2323                           
+  2324                           ;nrf24l01p.c: 60: spi_rw(0b11100010);
+  2325     05FD  30E2               	movlw	226
+  2326     05FE  2624               	fcall	_spi_rw
+  2327                           
+  2328                           ;nrf24l01p.c: 61: PORTBbits.RB3 = 1;
+  2329     05FF  1586               	bsf	6,3	;volatile
+  2330                           
+  2331                           ;nrf24l01p.c: 63: nrf24_write_reg(0x07, (1 << 6) | (1 << 5) | (1 << 4));
+  2332     0600  3070               	movlw	112
+  2333     0601  00F2               	movwf	nrf24_write_reg@value
+  2334     0602  3007               	movlw	7
+  2335     0603  2581               	fcall	_nrf24_write_reg
+  2336                           
+  2337                           ;nrf24l01p.c: 65: PORTAbits.RA2 = 0;
+  2338     0604  1105               	bcf	5,2	;volatile
+  2339                           
+  2340                           ;nrf24l01p.c: 66: nrf24_write_reg(0x00, ((1 << 3) | (0 << 2)) | ((1 << 1) | (1 << 0)));
+  2341     0605  300B               	movlw	11
+  2342     0606  00F2               	movwf	nrf24_write_reg@value
+  2343     0607  3000               	movlw	0
+  2344     0608  2581               	fcall	_nrf24_write_reg
+  2345                           
+  2346                           ;nrf24l01p.c: 67: PORTAbits.RA2 = 1;
+  2347     0609  1505               	bsf	5,2	;volatile
+  2348                           
+  2349                           ;nrf24l01p.c: 68: _delay((unsigned long)((135)*(4000000/4000000.0)));
+  2350     060A  302C               	movlw	44
+  2351     060B  00F4               	movwf	??_nrf24_powerUpRx
+  2352     060C                     u557:
+  2353     060C  0BF4               	decfsz	??_nrf24_powerUpRx,f
+  2354     060D  2E0C               	goto	u557
+  2355     060E  2E0F               	nop2
+  2356     060F  0008               	return
+  2357     0610                     __end_of_nrf24_powerUpRx:
+  2358                           
+  2359                           	psect	text18
+  2360     0581                     __ptext18:	
+  2361 ;; *************** function _nrf24_write_reg *****************
+  2362 ;; Defined at:
+  2363 ;;		line 91 in file "nrf24l01p.c"
+  2364 ;; Parameters:    Size  Location     Type
+  2365 ;;  reg             1    wreg     unsigned char 
+  2366 ;;  value           1    2[COMMON] unsigned char 
+  2367 ;; Auto vars:     Size  Location     Type
+  2368 ;;  reg             1    3[COMMON] unsigned char 
+  2369 ;; Return value:  Size  Location     Type
+  2370 ;;                  1    wreg      void 
+  2371 ;; Registers used:
+  2372 ;;		wreg, status,2, status,0, pclath, cstack
+  2373 ;; Tracked objects:
+  2374 ;;		On entry : 300/0
+  2375 ;;		On exit  : 300/0
+  2376 ;;		Unchanged: 0/0
+  2377 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2378 ;;      Params:         1       0       0       0
+  2379 ;;      Locals:         1       0       0       0
+  2380 ;;      Temps:          0       0       0       0
+  2381 ;;      Totals:         2       0       0       0
+  2382 ;;Total ram usage:        2 bytes
+  2383 ;; Hardware stack levels used: 1
+  2384 ;; Hardware stack levels required when called: 1
+  2385 ;; This function calls:
+  2386 ;;		_spi_rw
+  2387 ;; This function is called by:
+  2388 ;;		_nrf24_init
+  2389 ;;		_nrf24_powerUpRx
+  2390 ;;		_nrf24_powerUpTx
+  2391 ;;		_nrf24_powerDown
+  2392 ;; This function uses a non-reentrant model
+  2393 ;;
+  2394                           
+  2395     0581                     _nrf24_write_reg:	
+  2396                           ;psect for function _nrf24_write_reg
+  2397                           
+  2398                           
+  2399                           ;incstack = 0
+  2400                           ; Regs used in _nrf24_write_reg: [wreg+status,2+status,0+pclath+cstack]
+  2401                           ;nrf24_write_reg@reg stored from wreg
+  2402     0581  00F3               	movwf	nrf24_write_reg@reg
+  2403                           
+  2404                           ;nrf24l01p.c: 92: PORTBbits.RB3 = 0;
+  2405     0582  1186               	bcf	6,3	;volatile
+  2406                           
+  2407                           ;nrf24l01p.c: 93: spi_rw(0b00100000 | reg);
+  2408     0583  3820               	iorlw	32
+  2409     0584  2624               	fcall	_spi_rw
+  2410                           
+  2411                           ;nrf24l01p.c: 94: spi_rw(value);
+  2412     0585  0872               	movf	nrf24_write_reg@value,w
+  2413     0586  2624               	fcall	_spi_rw
+  2414                           
+  2415                           ;nrf24l01p.c: 95: PORTBbits.RB3 = 1;
+  2416     0587  1586               	bsf	6,3	;volatile
+  2417     0588  0008               	return
+  2418     0589                     __end_of_nrf24_write_reg:
+  2419                           
+  2420                           	psect	text19
+  2421     0624                     __ptext19:	
+  2422 ;; *************** function _spi_rw *****************
+  2423 ;; Defined at:
+  2424 ;;		line 22 in file "spi.c"
+  2425 ;; Parameters:    Size  Location     Type
+  2426 ;;  value           1    wreg     unsigned char 
+  2427 ;; Auto vars:     Size  Location     Type
+  2428 ;;  value           1    0[COMMON] unsigned char 
+  2429 ;;  i               1    1[COMMON] unsigned char 
+  2430 ;; Return value:  Size  Location     Type
+  2431 ;;                  1    wreg      unsigned char 
+  2432 ;; Registers used:
+  2433 ;;		wreg, status,2, status,0
+  2434 ;; Tracked objects:
+  2435 ;;		On entry : 300/0
+  2436 ;;		On exit  : 300/0
+  2437 ;;		Unchanged: 0/0
+  2438 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2439 ;;      Params:         0       0       0       0
+  2440 ;;      Locals:         2       0       0       0
+  2441 ;;      Temps:          0       0       0       0
+  2442 ;;      Totals:         2       0       0       0
+  2443 ;;Total ram usage:        2 bytes
+  2444 ;; Hardware stack levels used: 1
+  2445 ;; This function calls:
+  2446 ;;		Nothing
+  2447 ;; This function is called by:
+  2448 ;;		_nrf24_powerUpRx
+  2449 ;;		_nrf24_write_reg
+  2450 ;;		_nrf24_write_buf
+  2451 ;;		_nrf24_send
+  2452 ;;		_nrf24_getStatus
+  2453 ;; This function uses a non-reentrant model
+  2454 ;;
+  2455                           
+  2456     0624                     _spi_rw:	
+  2457                           ;psect for function _spi_rw
+  2458                           
+  2459                           
+  2460                           ;incstack = 0
+  2461                           ; Regs used in _spi_rw: [wreg+status,2+status,0]
+  2462                           ;spi_rw@value stored from wreg
+  2463     0624  00F0               	movwf	spi_rw@value
+  2464                           
+  2465                           ;spi.c: 23: uint8_t i;;spi.c: 24: for (i = 0; i < 8; i++)
+  2466     0625  01F1               	clrf	spi_rw@i
+  2467     0626                     l178:
+  2468                           
+  2469                           ;spi.c: 25: {;spi.c: 26: if (value & 0x80) {
+  2470     0626  1FF0               	btfss	spi_rw@value,7
+  2471     0627  2E2A               	goto	l180
+  2472                           
+  2473                           ;spi.c: 27: PORTAbits.RA1 = 1;
+  2474     0628  1485               	bsf	5,1	;volatile
+  2475                           
+  2476                           ;spi.c: 28: } else {
+  2477     0629  2E2B               	goto	l181
+  2478     062A                     l180:
+  2479                           
+  2480                           ;spi.c: 29: PORTAbits.RA1 = 0;
+  2481     062A  1085               	bcf	5,1	;volatile
+  2482     062B                     l181:
+  2483                           
+  2484                           ;spi.c: 30: };spi.c: 32: value = (value << 1);
+  2485     062B  1003               	clrc
+  2486     062C  0DF0               	rlf	spi_rw@value,f
+  2487                           
+  2488                           ;spi.c: 33: PORTBbits.RB4 = 1;
+  2489     062D  1606               	bsf	6,4	;volatile
+  2490                           
+  2491                           ;spi.c: 34: value |= PORTBbits.RB0;
+  2492     062E  0806               	movf	6,w	;volatile
+  2493     062F  3901               	andlw	1
+  2494     0630  04F0               	iorwf	spi_rw@value,f
+  2495                           
+  2496                           ;spi.c: 35: PORTBbits.RB4 = 0;
+  2497     0631  1206               	bcf	6,4	;volatile
+  2498     0632  3008               	movlw	8
+  2499     0633  0AF1               	incf	spi_rw@i,f
+  2500     0634  0271               	subwf	spi_rw@i,w
+  2501     0635  1C03               	skipc
+  2502     0636  2E26               	goto	l178
+  2503                           
+  2504                           ;spi.c: 36: };spi.c: 37: return (value);
+  2505     0637  0870               	movf	spi_rw@value,w
+  2506     0638  0008               	return
+  2507     0639                     __end_of_spi_rw:
+  2508                           
+  2509                           	psect	text20
+  2510     05B7                     __ptext20:	
+  2511 ;; *************** function _init_uart *****************
+  2512 ;; Defined at:
+  2513 ;;		line 13 in file "usart.c"
+  2514 ;; Parameters:    Size  Location     Type
+  2515 ;;		None
+  2516 ;; Auto vars:     Size  Location     Type
+  2517 ;;		None
+  2518 ;; Return value:  Size  Location     Type
+  2519 ;;                  1    wreg      void 
+  2520 ;; Registers used:
+  2521 ;;		wreg
+  2522 ;; Tracked objects:
+  2523 ;;		On entry : 0/0
+  2524 ;;		On exit  : 300/100
+  2525 ;;		Unchanged: 0/0
+  2526 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2527 ;;      Params:         0       0       0       0
+  2528 ;;      Locals:         0       0       0       0
+  2529 ;;      Temps:          0       0       0       0
+  2530 ;;      Totals:         0       0       0       0
+  2531 ;;Total ram usage:        0 bytes
+  2532 ;; Hardware stack levels used: 1
+  2533 ;; This function calls:
+  2534 ;;		Nothing
+  2535 ;; This function is called by:
+  2536 ;;		_init_Cpu
+  2537 ;; This function uses a non-reentrant model
+  2538 ;;
+  2539                           
+  2540     05B7                     _init_uart:	
+  2541                           ;psect for function _init_uart
+  2542                           
+  2543     05B7                     l1389:	
+  2544                           ;incstack = 0
+  2545                           ; Regs used in _init_uart: [wreg]
+  2546                           
+  2547                           
+  2548                           ;usart.c: 15: TRISBbits.TRISB1 = 1;
+  2549     05B7  1683               	bsf	3,5	;RP0=1, select bank1
+  2550     05B8  1303               	bcf	3,6	;RP1=0, select bank1
+  2551     05B9  1486               	bsf	6,1	;volatile
+  2552                           
+  2553                           ;usart.c: 16: TRISBbits.TRISB2 = 1;
+  2554     05BA  1506               	bsf	6,2	;volatile
+  2555                           
+  2556                           ;usart.c: 17: TXSTAbits.BRGH = 0;
+  2557     05BB  1118               	bcf	24,2	;volatile
+  2558                           
+  2559                           ;usart.c: 18: TXSTAbits.SYNC = 0;
+  2560     05BC  1218               	bcf	24,4	;volatile
+  2561                           
+  2562                           ;usart.c: 19: TXSTAbits.TXEN = 1;
+  2563     05BD  1698               	bsf	24,5	;volatile
+  2564                           
+  2565                           ;usart.c: 20: TXSTAbits.CSRC = 1;
+  2566     05BE  1798               	bsf	24,7	;volatile
+  2567                           
+  2568                           ;usart.c: 21: RCSTAbits.CREN = 1;
+  2569     05BF  1283               	bcf	3,5	;RP0=0, select bank0
+  2570     05C0  1618               	bsf	24,4	;volatile
+  2571                           
+  2572                           ;usart.c: 22: RCSTAbits.SPEN = 1;
+  2573     05C1  1798               	bsf	24,7	;volatile
+  2574                           
+  2575                           ;usart.c: 30: SPBRG = 12;
+  2576     05C2  300C               	movlw	12
+  2577     05C3  1683               	bsf	3,5	;RP0=1, select bank1
+  2578     05C4  0099               	movwf	25	;volatile
+  2579     05C5  0008               	return
+  2580     05C6                     __end_of_init_uart:
+  2581                           
+  2582                           	psect	text21
+  2583     059B                     __ptext21:	
+  2584 ;; *************** function _init_ds18b20 *****************
+  2585 ;; Defined at:
+  2586 ;;		line 11 in file "ds18b20.c"
+  2587 ;; Parameters:    Size  Location     Type
+  2588 ;;		None
+  2589 ;; Auto vars:     Size  Location     Type
+  2590 ;;		None
+  2591 ;; Return value:  Size  Location     Type
+  2592 ;;                  1    wreg      void 
+  2593 ;; Registers used:
+  2594 ;;		wreg, status,2, status,0, pclath, cstack
+  2595 ;; Tracked objects:
+  2596 ;;		On entry : 300/0
+  2597 ;;		On exit  : 0/0
+  2598 ;;		Unchanged: 0/0
+  2599 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2600 ;;      Params:         0       0       0       0
+  2601 ;;      Locals:         0       0       0       0
+  2602 ;;      Temps:          0       0       0       0
+  2603 ;;      Totals:         0       0       0       0
+  2604 ;;Total ram usage:        0 bytes
+  2605 ;; Hardware stack levels used: 1
+  2606 ;; Hardware stack levels required when called: 2
+  2607 ;; This function calls:
+  2608 ;;		_ow_reset
+  2609 ;;		_write_byte
+  2610 ;; This function is called by:
+  2611 ;;		_init_Cpu
+  2612 ;; This function uses a non-reentrant model
+  2613 ;;
+  2614                           
+  2615     059B                     _init_ds18b20:	
+  2616                           ;psect for function _init_ds18b20
+  2617                           
+  2618                           
+  2619                           ;ds18b20.c: 14: if (!ow_reset())
+  2620                           
+  2621                           ;incstack = 0
+  2622                           ; Regs used in _init_ds18b20: [wreg+status,2+status,0+pclath+cstack]
+  2623     059B  264E               	fcall	_ow_reset
+  2624     059C  3A00               	xorlw	0
+  2625     059D  1D03               	skipz
+  2626     059E  0008               	return
+  2627                           
+  2628                           ;ds18b20.c: 15: {;ds18b20.c: 17: write_byte(0xCC);
+  2629     059F  30CC               	movlw	204
+  2630     05A0  2698               	fcall	_write_byte
+  2631                           
+  2632                           ;ds18b20.c: 18: write_byte(0x4E);
+  2633     05A1  304E               	movlw	78
+  2634     05A2  2698               	fcall	_write_byte
+  2635                           
+  2636                           ;ds18b20.c: 19: write_byte(0x00);
+  2637     05A3  3000               	movlw	0
+  2638     05A4  2698               	fcall	_write_byte
+  2639                           
+  2640                           ;ds18b20.c: 20: write_byte(0x00);
+  2641     05A5  3000               	movlw	0
+  2642     05A6  2698               	fcall	_write_byte
+  2643                           
+  2644                           ;ds18b20.c: 21: write_byte(0x7F);
+  2645     05A7  307F               	movlw	127
+  2646     05A8  2E98               	ljmp	_write_byte
+  2647     05A9                     __end_of_init_ds18b20:
+  2648                           
+  2649                           	psect	text22
+  2650     0698                     __ptext22:	
+  2651 ;; *************** function _write_byte *****************
+  2652 ;; Defined at:
+  2653 ;;		line 66 in file "onewire.c"
+  2654 ;; Parameters:    Size  Location     Type
+  2655 ;;  val             1    wreg     unsigned char 
+  2656 ;; Auto vars:     Size  Location     Type
+  2657 ;;  val             1    3[COMMON] unsigned char 
+  2658 ;;  i               1    5[COMMON] unsigned char 
+  2659 ;;  temp            1    4[COMMON] unsigned char 
+  2660 ;; Return value:  Size  Location     Type
+  2661 ;;                  1    wreg      void 
+  2662 ;; Registers used:
+  2663 ;;		wreg, status,2, status,0, pclath, cstack
+  2664 ;; Tracked objects:
+  2665 ;;		On entry : 0/0
+  2666 ;;		On exit  : 0/0
+  2667 ;;		Unchanged: 0/0
+  2668 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2669 ;;      Params:         0       0       0       0
+  2670 ;;      Locals:         3       0       0       0
+  2671 ;;      Temps:          1       0       0       0
+  2672 ;;      Totals:         4       0       0       0
+  2673 ;;Total ram usage:        4 bytes
+  2674 ;; Hardware stack levels used: 1
+  2675 ;; Hardware stack levels required when called: 1
+  2676 ;; This function calls:
+  2677 ;;		_write_bit
+  2678 ;; This function is called by:
+  2679 ;;		_init_ds18b20
+  2680 ;;		_readTemp_Single
+  2681 ;; This function uses a non-reentrant model
+  2682 ;;
+  2683                           
+  2684     0698                     _write_byte:	
+  2685                           ;psect for function _write_byte
+  2686                           
+  2687                           
+  2688                           ;incstack = 0
+  2689                           ; Regs used in _write_byte: [wreg+status,2+status,0+pclath+cstack]
+  2690                           ;write_byte@val stored from wreg
+  2691     0698  00F3               	movwf	write_byte@val
+  2692                           
+  2693                           ;onewire.c: 68: uint8_t i;;onewire.c: 69: uint8_t temp;;onewire.c: 71: for (i=0;i<8;i++)
+  2694     0699  01F5               	clrf	write_byte@i
+  2695     069A                     l1331:
+  2696                           
+  2697                           ;onewire.c: 72: {;onewire.c: 73: temp = val >> i;
+  2698     069A  0873               	movf	write_byte@val,w
+  2699     069B  00F2               	movwf	??_write_byte
+  2700     069C  0A75               	incf	write_byte@i,w
+  2701     069D  2EA0               	goto	u284
+  2702     069E                     u285:
+  2703     069E  1003               	clrc
+  2704     069F  0CF2               	rrf	??_write_byte,f
+  2705     06A0                     u284:
+  2706     06A0  3EFF               	addlw	-1
+  2707     06A1  1D03               	skipz
+  2708     06A2  2E9E               	goto	u285
+  2709     06A3  0872               	movf	??_write_byte,w
+  2710     06A4  00F4               	movwf	write_byte@temp
+  2711                           
+  2712                           ;onewire.c: 74: temp &= 0x01;
+  2713     06A5  3001               	movlw	1
+  2714     06A6  05F4               	andwf	write_byte@temp,f
+  2715                           
+  2716                           ;onewire.c: 75: write_bit(temp);
+  2717     06A7  0874               	movf	write_byte@temp,w
+  2718     06A8  267E               	fcall	_write_bit
+  2719     06A9  3008               	movlw	8
+  2720     06AA  0AF5               	incf	write_byte@i,f
+  2721     06AB  0275               	subwf	write_byte@i,w
+  2722     06AC  1C03               	skipc
+  2723     06AD  2E9A               	goto	l1331
+  2724                           
+  2725                           ;onewire.c: 76: };onewire.c: 78: _delay((unsigned long)((105)*(4000000/4000000.0)));
+  2726     06AE  3022               	movlw	34
+  2727     06AF  00F2               	movwf	??_write_byte
+  2728     06B0                     u567:
+  2729     06B0  0BF2               	decfsz	??_write_byte,f
+  2730     06B1  2EB0               	goto	u567
+  2731     06B2  2EB3               	nop2
+  2732     06B3  0008               	return
+  2733     06B4                     __end_of_write_byte:
+  2734                           
+  2735                           	psect	text23
+  2736     067E                     __ptext23:	
+  2737 ;; *************** function _write_bit *****************
+  2738 ;; Defined at:
+  2739 ;;		line 34 in file "onewire.c"
+  2740 ;; Parameters:    Size  Location     Type
+  2741 ;;  bitval          1    wreg     unsigned char 
+  2742 ;; Auto vars:     Size  Location     Type
+  2743 ;;  bitval          1    1[COMMON] unsigned char 
+  2744 ;; Return value:  Size  Location     Type
+  2745 ;;                  1    wreg      void 
+  2746 ;; Registers used:
+  2747 ;;		wreg, status,2, status,0
+  2748 ;; Tracked objects:
+  2749 ;;		On entry : 0/0
+  2750 ;;		On exit  : 300/100
+  2751 ;;		Unchanged: 0/0
+  2752 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2753 ;;      Params:         0       0       0       0
+  2754 ;;      Locals:         1       0       0       0
+  2755 ;;      Temps:          1       0       0       0
+  2756 ;;      Totals:         2       0       0       0
+  2757 ;;Total ram usage:        2 bytes
+  2758 ;; Hardware stack levels used: 1
+  2759 ;; This function calls:
+  2760 ;;		Nothing
+  2761 ;; This function is called by:
+  2762 ;;		_write_byte
+  2763 ;; This function uses a non-reentrant model
+  2764 ;;
+  2765                           
+  2766     067E                     _write_bit:	
+  2767                           ;psect for function _write_bit
+  2768                           
+  2769                           
+  2770                           ;incstack = 0
+  2771                           ; Regs used in _write_bit: [wreg+status,2+status,0]
+  2772                           ;write_bit@bitval stored from wreg
+  2773     067E  00F1               	movwf	write_bit@bitval
+  2774                           
+  2775                           ;onewire.c: 36: PORTAbits.RA3 = 0;
+  2776                           
+  2777                           ;onewire.c: 37: TRISAbits.TRISA3 = 0;
+  2778     067F  2692               	fcall	PL6	;call to abstracted procedure
+  2779                           
+  2780                           ;onewire.c: 38: if(bitval == 1) {
+  2781     0680  0371               	decf	write_bit@bitval,w
+  2782     0681  1D03               	btfss	3,2
+  2783     0682  2E85               	goto	l1287
+  2784                           
+  2785                           ;onewire.c: 39: _delay((unsigned long)((2)*(4000000/4000000.0)));
+  2786     0683  2E84               	nop2	;2 cycle nop
+  2787                           
+  2788                           ;onewire.c: 40: PORTAbits.RA3 = 1;
+  2789                           
+  2790                           ;onewire.c: 41: TRISAbits.TRISA3 = 1;
+  2791     0684  268C               	fcall	PL4	;call to abstracted procedure
+  2792     0685                     l1287:
+  2793                           
+  2794                           ;onewire.c: 42: };onewire.c: 43: _delay((unsigned long)((105)*(4000000/4000000.0)));
+  2795     0685  3022               	movlw	34
+  2796     0686  00F0               	movwf	??_write_bit
+  2797     0687                     u577:
+  2798     0687  0BF0               	decfsz	??_write_bit,f
+  2799     0688  2E87               	goto	u577
+  2800     0689  2E8A               	nop2
+  2801                           
+  2802                           ;onewire.c: 44: PORTAbits.RA3 = 1;
+  2803                           
+  2804                           ;onewire.c: 45: TRISAbits.TRISA3 = 1;
+  2805     068A  268C               	fcall	PL4	;call to abstracted procedure
+  2806     068B  0008               	return
+  2807     068C                     __end_of_write_bit:
+  2808     068C                     PL4:
+  2809     068C  1283               	bcf	3,5	;RP0=0, select bank0
+  2810     068D  1303               	bcf	3,6	;RP1=0, select bank0
+  2811     068E  1585               	bsf	5,3	;volatile
+  2812     068F  1683               	bsf	3,5	;RP0=1, select bank1
+  2813     0690  1585               	bsf	5,3	;volatile
+  2814     0691  0008               	return
+  2815     0692                     __end_ofPL4:
+  2816     0692                     PL6:
+  2817     0692  1283               	bcf	3,5	;RP0=0, select bank0
+  2818     0693  1303               	bcf	3,6	;RP1=0, select bank0
+  2819     0694  1185               	bcf	5,3	;volatile
+  2820     0695  1683               	bsf	3,5	;RP0=1, select bank1
+  2821     0696  1185               	bcf	5,3	;volatile
+  2822     0697  0008               	return
+  2823     0698                     __end_ofPL6:
+  2824                           
+  2825                           	psect	text24
+  2826     064E                     __ptext24:	
+  2827 ;; *************** function _ow_reset *****************
+  2828 ;; Defined at:
+  2829 ;;		line 5 in file "onewire.c"
+  2830 ;; Parameters:    Size  Location     Type
+  2831 ;;		None
+  2832 ;; Auto vars:     Size  Location     Type
+  2833 ;;  presence        1    1[COMMON] unsigned char 
+  2834 ;; Return value:  Size  Location     Type
+  2835 ;;                  1    wreg      unsigned char 
+  2836 ;; Registers used:
+  2837 ;;		wreg, status,2
+  2838 ;; Tracked objects:
+  2839 ;;		On entry : 0/0
+  2840 ;;		On exit  : 0/0
+  2841 ;;		Unchanged: 0/0
+  2842 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2843 ;;      Params:         0       0       0       0
+  2844 ;;      Locals:         1       0       0       0
+  2845 ;;      Temps:          1       0       0       0
+  2846 ;;      Totals:         2       0       0       0
+  2847 ;;Total ram usage:        2 bytes
+  2848 ;; Hardware stack levels used: 1
+  2849 ;; This function calls:
+  2850 ;;		Nothing
+  2851 ;; This function is called by:
+  2852 ;;		_init_ds18b20
+  2853 ;;		_readTemp_Single
+  2854 ;; This function uses a non-reentrant model
+  2855 ;;
+  2856                           
+  2857     064E                     _ow_reset:	
+  2858                           ;psect for function _ow_reset
+  2859                           
+  2860                           
+  2861                           ;onewire.c: 7: uint8_t presence;;onewire.c: 8: PORTAbits.RA3 = 0;
+  2862                           
+  2863                           ;incstack = 0
+  2864                           ; Regs used in _ow_reset: [wreg+status,2]
+  2865                           
+  2866                           ;onewire.c: 9: TRISAbits.TRISA3 = 0;
+  2867     064E  2692               	fcall	PL6	;call to abstracted procedure
+  2868                           
+  2869                           ;onewire.c: 10: _delay((unsigned long)((500)*(4000000/4000000.0)));
+  2870     064F  30A6               	movlw	166
+  2871     0650  00F0               	movwf	??_ow_reset
+  2872     0651                     u587:
+  2873     0651  0BF0               	decfsz	??_ow_reset,f
+  2874     0652  2E51               	goto	u587
+  2875     0653  0000               	nop
+  2876                           
+  2877                           ;onewire.c: 11: PORTAbits.RA3 = 1;
+  2878                           
+  2879                           ;onewire.c: 12: TRISAbits.TRISA3 = 1;
+  2880     0654  268C               	fcall	PL4	;call to abstracted procedure
+  2881                           
+  2882                           ;onewire.c: 13: _delay((unsigned long)((100)*(4000000/4000000.0)));
+  2883     0655  3021               	movlw	33
+  2884     0656  00F0               	movwf	??_ow_reset
+  2885     0657                     u597:
+  2886     0657  0BF0               	decfsz	??_ow_reset,f
+  2887     0658  2E57               	goto	u597
+  2888                           
+  2889                           ;onewire.c: 14: presence = PORTAbits.RA3;
+  2890     0659  3000               	movlw	0
+  2891     065A  1283               	bcf	3,5	;RP0=0, select bank0
+  2892     065B  1303               	bcf	3,6	;RP1=0, select bank0
+  2893     065C  1985               	btfsc	5,3	;volatile
+  2894     065D  3001               	movlw	1
+  2895     065E  00F1               	movwf	ow_reset@presence
+  2896                           
+  2897                           ;onewire.c: 15: _delay((unsigned long)((424)*(4000000/4000000.0)));
+  2898     065F  308D               	movlw	141
+  2899     0660  00F0               	movwf	??_ow_reset
+  2900     0661                     u607:
+  2901     0661  0BF0               	decfsz	??_ow_reset,f
+  2902     0662  2E61               	goto	u607
+  2903                           
+  2904                           ;onewire.c: 16: return(presence);
+  2905     0663  0871               	movf	ow_reset@presence,w
+  2906     0664  0008               	return
+  2907     0665                     __end_of_ow_reset:
+  2908     007E                     btemp	set	126	;btemp
+  2909     007E                     wtemp0	set	126
+  2910                           
+  2911                           	psect	idloc
+  2912                           
+  2913                           ;Config register IDLOC0 @ 0x2000
+  2914                           ;	unspecified, using default values
+  2915     2000                     	org	8192
+  2916     2000  3FFF               	dw	16383
+  2917                           
+  2918                           ;Config register IDLOC1 @ 0x2001
+  2919                           ;	unspecified, using default values
+  2920     2001                     	org	8193
+  2921     2001  3FFF               	dw	16383
+  2922                           
+  2923                           ;Config register IDLOC2 @ 0x2002
+  2924                           ;	unspecified, using default values
+  2925     2002                     	org	8194
+  2926     2002  3FFF               	dw	16383
+  2927                           
+  2928                           ;Config register IDLOC3 @ 0x2003
+  2929                           ;	unspecified, using default values
+  2930     2003                     	org	8195
+  2931     2003  3FFF               	dw	16383
+  2932                           
+  2933                           	psect	config
+  2934                           
+  2935                           ;Config register CONFIG @ 0x2007
+  2936                           ;	Oscillator Selection bits
+  2937                           ;	FOSC = INTOSCIO, INTOSC oscillator: I/O function on RA6/OSC2/CLKOUT pin, I/O function 
+      +                          on RA7/OSC1/CLKIN
+  2938                           ;	Watchdog Timer Enable bit
+  2939                           ;	WDTE = ON, WDT enabled
+  2940                           ;	Power-up Timer Enable bit
+  2941                           ;	PWRTE = ON, PWRT enabled
+  2942                           ;	RA5/MCLR/VPP Pin Function Select bit
+  2943                           ;	MCLRE = ON, RA5/MCLR/VPP pin function is MCLR
+  2944                           ;	Brown-out Detect Enable bit
+  2945                           ;	BOREN = OFF, BOD disabled
+  2946                           ;	Low-Voltage Programming Enable bit
+  2947                           ;	LVP = OFF, RB4/PGM pin has digital I/O function, HV on MCLR must be used for programmi
+      +                          ng
+  2948                           ;	Data EE Memory Code Protection bit
+  2949                           ;	CPD = OFF, Data memory code protection off
+  2950                           ;	Flash Program Memory Code Protection bit
+  2951                           ;	CP = OFF, Code protection off
+  2952     2007                     	org	8199
+  2953     2007  3F34               	dw	16180
+
+Data Sizes:
+    Strings     0
+    Constant    26
+    Data        0
+    BSS         19
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMMON           14     12      14
+    BANK0            80      5      22
+    BANK1            80      0       0
+    BANK2            48      0       0
+
+Pointer List with Targets:
+
+    readTemp_Single@buf	PTR unsigned int  size(1) Largest target is 2
+		 -> temperature(BANK0[2]), 
+
+    readTemp_Single@minus	PTR unsigned char  size(1) Largest target is 1
+		 -> minus(COMMON[1]), 
+
+    nrf24_send@value	PTR unsigned char  size(1) Largest target is 4
+		 -> data_array(BANK0[4]), 
+
+    nrf24_rx_address@adr	PTR unsigned char  size(1) Largest target is 5
+		 -> nrf_rx_address(CODE[5]), 
+
+    nrf24_tx_address@adr	PTR unsigned char  size(1) Largest target is 5
+		 -> nrf_tx_address(CODE[5]), 
+
+    nrf24_write_buf@pBuf	PTR unsigned char  size(2) Largest target is 5
+		 -> nrf_rx_address(CODE[5]), nrf_tx_address(CODE[5]), data_array(BANK0[4]), 
+
+
+Critical Paths under _main in COMMON
+
+    _main->_readTemp_Single
+    _readTemp_Single->___wmul
+    _readTemp_Single->_write_byte
+    _read_byte->_read_bit
+    _nrf24_send->_nrf24_write_buf
+    _nrf24_powerUpTx->_nrf24_write_reg
+    _nrf24_powerDown->_nrf24_write_reg
+    _nrf24_messageStatus->_nrf24_getStatus
+    _nrf24_isSending->_nrf24_getStatus
+    _nrf24_getStatus->_spi_rw
+    _init_Cpu->_nrf24_init
+    _nrf24_init->_nrf24_rx_address
+    _nrf24_init->_nrf24_tx_address
+    _nrf24_tx_address->_nrf24_write_buf
+    _nrf24_rx_address->_nrf24_write_buf
+    _nrf24_write_buf->_spi_rw
+    _nrf24_powerUpRx->_nrf24_write_reg
+    _nrf24_write_reg->_spi_rw
+    _init_ds18b20->_write_byte
+    _write_byte->_write_bit
+
+Critical Paths under _main in BANK0
+
+    _main->_readTemp_Single
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 3     3      0   10512
+                                             10 COMMON     2     2      0
+                           _init_Cpu
+                    _nrf24_isSending
+                _nrf24_messageStatus
+                    _nrf24_powerDown
+                         _nrf24_send
+                    _readTemp_Single
+                           _spi_init
+ ---------------------------------------------------------------------------------
+ (1) _readTemp_Single                                     10     9      1     901
+                                              6 COMMON     4     3      1
+                                              0 BANK0      5     5      0
+                             ___wmul
+                           _ow_reset
+                          _read_byte
+                         _write_byte
+ ---------------------------------------------------------------------------------
+ (2) _read_byte                                            3     3      0      92
+                                              1 COMMON     3     3      0
+                           _read_bit
+ ---------------------------------------------------------------------------------
+ (3) _read_bit                                             1     1      0       0
+                                              0 COMMON     1     1      0
+ ---------------------------------------------------------------------------------
+ (2) ___wmul                                               6     2      4     244
+                                              0 COMMON     6     2      4
+ ---------------------------------------------------------------------------------
+ (1) _nrf24_send                                           1     1      0    2505
+                                              7 COMMON     1     1      0
+                    _nrf24_powerUpTx
+                    _nrf24_write_buf
+                             _spi_rw
+ ---------------------------------------------------------------------------------
+ (2) _nrf24_powerUpTx                                      1     1      0    1567
+                                              4 COMMON     1     1      0
+                    _nrf24_write_reg
+ ---------------------------------------------------------------------------------
+ (1) _nrf24_powerDown                                      0     0      0    1567
+                    _nrf24_write_reg
+ ---------------------------------------------------------------------------------
+ (1) _nrf24_messageStatus                                  1     1      0     160
+                                              3 COMMON     1     1      0
+                    _nrf24_getStatus
+ ---------------------------------------------------------------------------------
+ (1) _nrf24_isSending                                      1     1      0     138
+                                              3 COMMON     1     1      0
+                    _nrf24_getStatus
+ ---------------------------------------------------------------------------------
+ (2) _nrf24_getStatus                                      1     1      0     115
+                                              2 COMMON     1     1      0
+                             _spi_rw
+ ---------------------------------------------------------------------------------
+ (1) _init_Cpu                                             0     0      0    5241
+                       _init_ds18b20
+                          _init_uart
+                         _nrf24_init
+                           _spi_init
+ ---------------------------------------------------------------------------------
+ (1) _spi_init                                             0     0      0       0
+ ---------------------------------------------------------------------------------
+ (2) _nrf24_init                                           2     1      1    5082
+                                              8 COMMON     2     1      1
+                    _nrf24_powerUpRx
+                   _nrf24_rx_address
+                   _nrf24_tx_address
+                    _nrf24_write_reg
+ ---------------------------------------------------------------------------------
+ (3) _nrf24_tx_address                                     1     1      0     868
+                                              7 COMMON     1     1      0
+                    _nrf24_write_buf
+ ---------------------------------------------------------------------------------
+ (3) _nrf24_rx_address                                     1     1      0     846
+                                              7 COMMON     1     1      0
+                    _nrf24_write_buf
+ ---------------------------------------------------------------------------------
+ (2) _nrf24_write_buf                                      5     2      3     791
+                                              2 COMMON     5     2      3
+                             _spi_rw
+ ---------------------------------------------------------------------------------
+ (3) _nrf24_powerUpRx                                      1     1      0    1659
+                                              4 COMMON     1     1      0
+                    _nrf24_write_reg
+                             _spi_rw
+ ---------------------------------------------------------------------------------
+ (3) _nrf24_write_reg                                      2     1      1    1567
+                                              2 COMMON     2     1      1
+                             _spi_rw
+ ---------------------------------------------------------------------------------
+ (2) _spi_rw                                               2     2      0      92
+                                              0 COMMON     2     2      0
+ ---------------------------------------------------------------------------------
+ (2) _init_uart                                            0     0      0       0
+ ---------------------------------------------------------------------------------
+ (2) _init_ds18b20                                         0     0      0     159
+                           _ow_reset
+                         _write_byte
+ ---------------------------------------------------------------------------------
+ (2) _write_byte                                           4     4      0     136
+                                              2 COMMON     4     4      0
+                          _write_bit
+ ---------------------------------------------------------------------------------
+ (3) _write_bit                                            2     2      0      22
+                                              0 COMMON     2     2      0
+ ---------------------------------------------------------------------------------
+ (2) _ow_reset                                             2     2      0      23
+                                              0 COMMON     2     2      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _init_Cpu
+     _init_ds18b20
+       _ow_reset
+       _write_byte
+         _write_bit
+     _init_uart
+     _nrf24_init
+       _nrf24_powerUpRx
+         _nrf24_write_reg
+           _spi_rw
+         _spi_rw
+       _nrf24_rx_address
+         _nrf24_write_buf
+           _spi_rw
+       _nrf24_tx_address
+         _nrf24_write_buf
+       _nrf24_write_reg
+     _spi_init
+   _nrf24_isSending
+     _nrf24_getStatus
+       _spi_rw
+   _nrf24_messageStatus
+     _nrf24_getStatus
+   _nrf24_powerDown
+     _nrf24_write_reg
+   _nrf24_send
+     _nrf24_powerUpTx
+       _nrf24_write_reg
+     _nrf24_write_buf
+     _spi_rw
+   _readTemp_Single
+     ___wmul
+     _ow_reset
+     _read_byte
+       _read_bit
+     _write_byte
+   _spi_init
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BITCOMMON            E      0       0       0        0.0%
+EEDATA              80      0       0       0        0.0%
+NULL                 0      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+COMMON               E      C       E       1      100.0%
+BITSFR0              0      0       0       1        0.0%
+SFR0                 0      0       0       1        0.0%
+BITSFR1              0      0       0       2        0.0%
+SFR1                 0      0       0       2        0.0%
+STACK                0      0       0       2        0.0%
+BANK0               50      5      16       3       27.5%
+BITSFR3              0      0       0       4        0.0%
+SFR3                 0      0       0       4        0.0%
+ABS                  0      0      24       4        0.0%
+BITBANK0            50      0       0       5        0.0%
+BITSFR2              0      0       0       5        0.0%
+SFR2                 0      0       0       5        0.0%
+BITBANK1            50      0       0       6        0.0%
+BANK1               50      0       0       7        0.0%
+BITBANK2            30      0       0       8        0.0%
+BANK2               30      0       0       9        0.0%
+DATA                 0      0      24      10        0.0%
+
+
+Microchip Technology PIC Macro Assembler V2.41 build 20230208172133 
+Symbol Table                                                                                   Fri May 23 20:43:21 2025
+
+                          pc 0002                           PL2 05CF                           PL4 068C  
+                         PL6 0692                           l53 077E                           l62 07EC  
+       nrf24_write_reg@value 0072                           fsr 0004          ___wmul@multiplicand 0072  
+                        l118 064C                          l180 062A                          l181 062B  
+                        l178 0626                          u324 06C0                          u325 06BE  
+                        u507 07CF                          u284 06A0                          u285 069E  
+                        u517 07DB                          u607 0661                          u527 0720  
+                        u537 06C7                          u547 05B3                          u557 060C  
+                        u477 07A7                          u567 06B0                          u487 07B8  
+                        u577 0687                          u497 07C4                          u587 0651  
+                        u597 0657                          fsr0 0004                          indf 0000  
+    __end_of_nrf24_powerDown 0581      __end_of_nrf24_powerUpRx 0610      __end_of_nrf24_powerUpTx 05B7  
+                       l1331 069A                         l1413 06B6                         l1431 066F  
+                       l1503 074B                         l1417 06C5                         l1427 0667  
+                       l1611 07E0                         l1287 0685                         l1279 063D  
+                       l1297 05FC                         l1389 05B7                         l1583 078E  
+                       l1489 072F                         l1569 0774                         l1587 0799  
+                       l1599 07B0             ow_reset@presence 0071                         _main 0774  
+                       _temp 007C                         btemp 007E                write_byte@val 0073  
+                       start 0000      __end_of_nrf24_write_buf 064E      __end_of_nrf24_write_reg 0589  
+   __end_of_nrf24_rx_address 0567        nrf24_isSending@status 0073     __end_of_nrf24_tx_address 05CF  
+                      ?_main 0070                        _CMCON 001F                        _SPBRG 0099  
+                      _PORTA 0005                        _PORTB 0006                        _TRISA 0085  
+                      _TRISB 0086             ?_nrf24_getStatus 0070                        _fract 0011  
+                      _count 002A                        _minus 007D             ?_nrf24_isSending 0070  
+             write_byte@temp 0074                        pclath 000A                        status 0003  
+                      wtemp0 007E              write_bit@bitval 0071              __initialization 07F7  
+               __end_of_main 07F7          _nrf24_messageStatus 0573              _readTemp_Single 070B  
+                     ??_main 007A                ?_init_ds18b20 0070             ?_nrf24_powerDown 0070  
+           ?_nrf24_powerUpRx 0070             ?_nrf24_powerUpTx 0070         ?_nrf24_messageStatus 0070  
+       nrf24_init@pay_length 0078             ?_nrf24_write_buf 0072             ?_nrf24_write_reg 0072  
+                     ___wmul 0665             __end_of_init_Cpu 05FC             __end_of_read_bit 05E9  
+                     _spi_rw 0624               ??_init_ds18b20 0076             __end_of_ow_reset 0665  
+           __end_of_spi_init 059B        ??_nrf24_messageStatus 0073      __end_of__initialization 07FE  
+          nrf24_init@channel 0079      __end_of_readTemp_Single 0774               __pcstackCOMMON 0070  
+              __end_of_fract 0021                   __end_ofPL2 05D7                   __end_ofPL4 0692  
+                 __end_ofPL6 0698               _nrf_rx_address 0021               _OPTION_REGbits 0081  
+             _nrf_tx_address 0026                   __pbssBANK0 0020                   _data_array 002B  
+                 __pmaintext 0774            ?_nrf24_rx_address 0070                      ?___wmul 0070  
+         ??_nrf24_rx_address 0077       __end_of_nrf_rx_address 0026                      ?_spi_rw 0070  
+          ?_nrf24_tx_address 0070           ??_nrf24_tx_address 0077       __end_of_nrf_tx_address 002B  
+                 _nrf24_init 06D1                   _nrf24_send 0610                   __stringtab 0001  
+                  ?_init_Cpu 0070                    ?_read_bit 0070         __end_of_init_ds18b20 05A9  
+           ?_readTemp_Single 0076                    ?_ow_reset 0070                    ?_spi_init 0070  
+                    __ptext1 070B                      __ptext2 06B4                      __ptext3 05D7  
+                    __ptext4 0665                      __ptext5 0610                      __ptext6 05A9  
+                    __ptext7 057A                      __ptext8 0573                      __ptext9 056D  
+          __end_of_init_uart 05C6                      _pay_len 0029            __end_of_read_byte 06D1  
+                    _scratch 0020                      clrloop0 058A         end_of_initialization 07FE  
+                 ??_init_Cpu 007A                   ??_read_bit 0070                    _RCSTAbits 0018  
+                 ??_ow_reset 0070                      spi_rw@i 0071                   ??_spi_init 0070  
+               read_byte@val 0072                    _PORTAbits 0005          nrf24_write_buf@pBuf 0072  
+                  _PORTBbits 0006            __end_of_write_bit 068C                    _TRISAbits 0085  
+                  _TRISBbits 0086                  ?_nrf24_init 0078                  ?_nrf24_send 0070  
+                  _TXSTAbits 0098                  spi_rw@value 0070               __end_of___wmul 067E  
+                 _write_byte 0698  nrf24_messageStatus@r_status 0073  __end_of_nrf24_messageStatus 057A  
+             __end_of_spi_rw 0639          start_initialization 07F7          nrf24_rx_address@adr 0077  
+          ??_nrf24_getStatus 0072                     ??___wmul 0074            ??_nrf24_isSending 0073  
+                   ??_spi_rw 0070                   read_byte@i 0073                 _init_ds18b20 059B  
+                __pbssCOMMON 007C                    ___latbits 0000                __pcstackBANK0 0031  
+       readTemp_Single@minus 0076            ??_nrf24_powerDown 0074            ??_nrf24_powerUpRx 0074  
+          ??_nrf24_powerUpTx 0074                  ?_write_byte 0070                    __pstrings 0001  
+          ??_nrf24_write_buf 0075            ??_nrf24_write_reg 0073                    _init_uart 05B7  
+                  _read_byte 06B4               ___wmul@product 0074                    clear_ram0 0589  
+           readTemp_Single@i 0033           nrf24_write_buf@reg 0075           nrf24_write_reg@reg 0073  
+                __stringbase 0010            ___wmul@multiplier 0070                  write_byte@i 0075  
+               ??_nrf24_init 0079                 ??_nrf24_send 0077                    _write_bit 067E  
+                 ?_init_uart 0070                   ?_read_byte 0070           __end_of_nrf24_init 070B  
+         __end_of_nrf24_send 0624           __end_of__stringtab 0011          readTemp_Single@temp 0034  
+           _nrf24_rx_address 0562                     __ptext10 0567                     __ptext11 05E9  
+                   __ptext20 05B7                     __ptext12 0591                     __ptext21 059B  
+                   __ptext13 06D1                     __ptext22 0698                     __ptext14 05C6  
+                   __ptext23 067E                     __ptext15 0562                     __ptext24 064E  
+                   __ptext16 0639                     __ptext17 05FC                     __ptext18 0581  
+                   __ptext19 0624                   ?_write_bit 0070              _nrf24_getStatus 0567  
+           _nrf24_tx_address 05C6                     _init_Cpu 05E9                     _read_bit 05D7  
+            _nrf24_isSending 056D              nrf24_send@value 0077          nrf24_tx_address@adr 0077  
+                   _ow_reset 064E                     _spi_init 0591            ??_readTemp_Single 0077  
+                ??_init_uart 0070                  ??_read_byte 0071           readTemp_Single@buf 0031  
+         readTemp_Single@tmp 0032              _nrf24_powerDown 057A              _nrf24_powerUpRx 05FC  
+            _nrf24_powerUpTx 05A9                    stringcode 000B             nrf24_write_buf@i 0076  
+            _nrf24_write_buf 0639              _nrf24_write_reg 0581                 ??_write_byte 0072  
+      nrf24_write_buf@length 0074                  _temperature 002F      nrf24_getStatus@r_status 0072  
+                   stringdir 000B                     stringtab 0001      __end_of_nrf24_getStatus 056D  
+                ??_write_bit 0070      __end_of_nrf24_isSending 0573           __end_of_write_byte 06B4  

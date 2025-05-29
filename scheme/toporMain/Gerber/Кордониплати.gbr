@@ -1,0 +1,21 @@
+G04 DipTrace 5.1.0.1*
+G04 Кордониплати.gbr*
+%MOMM*%
+G04 #@! TF.FileFunction,Profile*
+G04 #@! TF.Part,Single*
+%ADD12C,0.1524*%
+%FSLAX35Y35*%
+G04*
+G71*
+G90*
+G75*
+G01*
+G04 BoardOutline*
+%LPD*%
+X24896500Y1000000D2*
+D12*
+X1000000D1*
+Y6773000D1*
+X24896500D1*
+Y1000000D1*
+M02*

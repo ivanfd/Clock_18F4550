@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--*****************************************-->
+<!--   File    : MainNew.fsproj              -->
+<!--   Format  : TopoR Project file          -->
+<!--   Version : 2                           -->
+<!--   Program : TopoR Lite 7.0.18699        -->
+<!--   Date    : Saturday, February 01, 2025 -->
+<!--   Time    : 10:13                       -->
+<!--*****************************************-->
+
+<Project>
+   <Version current="2"/>
+   <GUID>{49DB9EA3-1085-4093-8F96-7089A573D2A1}</GUID>
+   <Documents>
+      <Section name="PCB" isExpanded="true">
+         <File path=".\main.fsx" isopened="1" dateChange="2024-10-11 09:13:40"/>
+         <File path=".\main_3948-36sa_3968-38sa.fsx" isopened="0" dateChange="2024-10-07 12:05:16"/>
+      </Section>
+      <Section name="AutoRouting" isExpanded="true">
+         <File path=".\autoroute_241010165648\main_3951-42sa.fsb" isopened="0" dateChange="2024-10-10 16:58:36"/>
+         <File path=".\autoroute_241010165648\main_3976-40sa.fsb" isopened="0" dateChange="2024-10-10 16:58:34"/>
+         <File path=".\autoroute_241010165648\main_4227-37sa.fsb" isopened="0" dateChange="2024-10-10 16:58:23"/>
+      </Section>
+   </Documents>
+   <Import>
+      <Specctra>
+         <Path name="D:\Ivan\Electro\XC8\18F4525\4550\scheme\MainNew\main.dsn"/>
+      </Specctra>
+   </Import>
+</Project>

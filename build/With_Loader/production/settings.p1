@@ -1,0 +1,6382 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"34 ./display.h
+[; ;./display.h: 34: {
+[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr ]
+"144 ./common.h
+[; ;./common.h: 144: extern __bit show_digit;
+[v _show_digit `b ~T0 @X0 0 e ]
+[v F3781 `(v ~T0 @X0 0 tf ]
+"27 ./dispatcher.h
+[; ;./dispatcher.h: 27: void RTOS_DeleteTask (void (*taskFunc)(void));
+[v _RTOS_DeleteTask `(v ~T0 @X0 0 ef1`*F3781 ]
+[v F3775 `(v ~T0 @X0 0 tf ]
+"26
+[; ;./dispatcher.h: 26: void RTOS_SetTask (void (*taskFunc)(void), uint16_t taskDelay, uint16_t taskPeriod);
+[v _RTOS_SetTask `(v ~T0 @X0 0 ef3`*F3775`us`us ]
+"16 ./settings.h
+[; ;./settings.h: 16: void time_set_hr(void);
+[v _time_set_hr `(v ~T0 @X0 0 ef ]
+"27
+[; ;./settings.h: 27: void default_state(void);
+[v _default_state `(v ~T0 @X0 0 ef ]
+"131 ./common.h
+[; ;./common.h: 131: extern uint8_t setting_Val[NUM_VALUES];
+[v _setting_Val `uc ~T0 @X0 -> 0 `x e ]
+"37 settings.c
+[; ;settings.c: 37:             if (setting_Val[TYPE_CLK] == 1) {
+[c E3968 0 1 2 3 4 5 6 7 8 9 10 11 12 .. ]
+[n E3968 setIdx TYPE_FONT TYPE_CLK TYPE_BRG VAL_BRG ENABLE_SND_HOUR ENABLE_DS_1 ENABLE_DS_2 ENABLE_BMP ENABLE_DST TYPE_TEMP ENABLE_ESP ENABLE_DHT NUM_VALUES  ]
+[v F3640 `Cuc ~T0 @X0 -> 5 `i t ]
+"63 ./display.h
+[; ;./display.h: 63: void putchar_b_buf(uint8_t x, uint8_t symbol, const uint8_t(*pF)[5], uint8_t *buf);
+[v _putchar_b_buf `(v ~T0 @X0 0 ef4`uc`uc`*F3640`*uc ]
+[v F3621 `Cuc ~T0 @X0 -> 5 `i t ]
+"29
+[; ;./display.h: 29: extern const uint8_t(*pFont)[5];
+[v _pFont `*F3621 ~T0 @X0 0 e ]
+"28
+[; ;./display.h: 28: extern uint8_t Dis_Buff[];
+[v _Dis_Buff `uc ~T0 @X0 -> 0 `x e ]
+"142 ./common.h
+[; ;./common.h: 142: extern uint8_t events;
+[v _events `uc ~T0 @X0 0 e ]
+"141
+[; ;./common.h: 141: extern __bit en_put;
+[v _en_put `b ~T0 @X0 0 e ]
+[v F4052 `(v ~T0 @X0 0 tf ]
+"35 ./settings.h
+[; ;./settings.h: 35: void exitButSet (void (*taskFunc)(void));
+[v _exitButSet `(v ~T0 @X0 0 ef1`*F4052 ]
+"60 ./ds3231.h
+[; ;./ds3231.h: 60: void setTime(uint8_t hSet, uint8_t mSet, uint8_t sSet);
+[v _setTime `(v ~T0 @X0 0 ef3`uc`uc`uc ]
+"24 ./max7221.h
+[; ;./max7221.h: 24: void Update_Matrix(uint8_t *buf);
+[v _Update_Matrix `(v ~T0 @X0 0 ef1`*uc ]
+[v F4056 `(v ~T0 @X0 0 tf ]
+[v F4057 `(v ~T0 @X0 0 tf ]
+"36 ./settings.h
+[; ;./settings.h: 36: void okButSet(void (*DeleteFunc)(void), void (*setFunc)(void));
+[v _okButSet `(v ~T0 @X0 0 ef2`*F4056`*F4057 ]
+"17
+[; ;./settings.h: 17: void time_set_yr(void);
+[v _time_set_yr `(v ~T0 @X0 0 ef ]
+"135 ./common.h
+[; ;./common.h: 135: extern uint8_t dst_flag;
+[v _dst_flag `uc ~T0 @X0 0 e ]
+"18 ./settings.h
+[; ;./settings.h: 18: void time_set_mt(void);
+[v _time_set_mt `(v ~T0 @X0 0 ef ]
+"61 ./ds3231.h
+[; ;./ds3231.h: 61: void setDate(uint8_t daySet, uint8_t dateSet, uint8_t monthSet, uint8_t yearSet);
+[v _setDate `(v ~T0 @X0 0 ef4`uc`uc`uc`uc ]
+"19 ./settings.h
+[; ;./settings.h: 19: void time_set_dt(void);
+[v _time_set_dt `(v ~T0 @X0 0 ef ]
+"20
+[; ;./settings.h: 20: void time_set_dy(void);
+[v _time_set_dy `(v ~T0 @X0 0 ef ]
+"14 ./time.h
+[; ;./time.h: 14: extern uint8_t day_in_m[];
+[v _day_in_m `uc ~T0 @X0 -> 0 `x e ]
+"21 ./settings.h
+[; ;./settings.h: 21: void set_font_set(void);
+[v _set_font_set `(v ~T0 @X0 0 ef ]
+"22
+[; ;./settings.h: 22: void set_type_clk(void);
+[v _set_type_clk `(v ~T0 @X0 0 ef ]
+"518 settings.c
+[; ;settings.c: 518:             if (setting_Val[TYPE_FONT] > 5) setting_Val[TYPE_FONT] = FONT_1;
+[c E3982 1 2 3 4 5 .. ]
+[n E3982 fontNum FONT_1 FONT_2 FONT_3 FONT_4 FONT_5  ]
+"7 ./eeprom.h
+[; ;./eeprom.h: 7: void write_eep( uint8_t address, uint8_t data );
+[v _write_eep `(v ~T0 @X0 0 ef2`uc`uc ]
+"163 ./common.h
+[; ;./common.h: 163:  void set_font(void);
+[v _set_font `(v ~T0 @X0 0 ef ]
+"23 ./settings.h
+[; ;./settings.h: 23: void brg_set();
+[v _brg_set `(v ~T0 @X0 0 e? ]
+[v F4235 `(v ~T0 @X0 0 tf ]
+[v F4249 `(v ~T0 @X0 0 tf ]
+"25
+[; ;./settings.h: 25: void set_sound_h(void);
+[v _set_sound_h `(v ~T0 @X0 0 ef ]
+[v F4252 `(v ~T0 @X0 0 tf ]
+"24
+[; ;./settings.h: 24: void set_brg_manual();
+[v _set_brg_manual `(v ~T0 @X0 0 e? ]
+[v F4254 `(v ~T0 @X0 0 tf ]
+"8 ./eeprom.h
+[; ;./eeprom.h: 8: unsigned char read_eep( uint8_t address );
+[v _read_eep `(uc ~T0 @X0 0 ef1`uc ]
+"23 ./max7221.h
+[; ;./max7221.h: 23: void Cmd7221(uint8_t adr, uint8_t val );
+[v _Cmd7221 `(v ~T0 @X0 0 ef2`uc`uc ]
+[v F4256 `(v ~T0 @X0 0 tf ]
+[v F4275 `(v ~T0 @X0 0 tf ]
+[v F4278 `(v ~T0 @X0 0 tf ]
+"704 settings.c
+[; ;settings.c: 704:             if (setting_Val[VAL_BRG] > VAL_BRG_NUM_8) setting_Val[VAL_BRG] = VAL_BRG_NUM_1;
+[c E3988 0 1 2 3 4 5 6 7 .. ]
+[n E3988 brgMan VAL_BRG_NUM_1 VAL_BRG_NUM_2 VAL_BRG_NUM_3 VAL_BRG_NUM_4 VAL_BRG_NUM_5 VAL_BRG_NUM_6 VAL_BRG_NUM_7 VAL_BRG_NUM_8  ]
+"26 ./settings.h
+[; ;./settings.h: 26: void set_en_ds1(void);
+[v _set_en_ds1 `(v ~T0 @X0 0 ef ]
+"28
+[; ;./settings.h: 28: void set_en_ds2(void);
+[v _set_en_ds2 `(v ~T0 @X0 0 ef ]
+"29
+[; ;./settings.h: 29: void set_en_bmp(void);
+[v _set_en_bmp `(v ~T0 @X0 0 ef ]
+"30
+[; ;./settings.h: 30: void set_en_dst(void);
+[v _set_en_dst `(v ~T0 @X0 0 ef ]
+"31
+[; ;./settings.h: 31: void set_type_temp(void);
+[v _set_type_temp `(v ~T0 @X0 0 ef ]
+"32
+[; ;./settings.h: 32: void set_en_am2302(void);
+[v _set_en_am2302 `(v ~T0 @X0 0 ef ]
+"33
+[; ;./settings.h: 33: void ip_esp(void);
+[v _ip_esp `(v ~T0 @X0 0 ef ]
+"27 C:\Program Files\Microchip\xc8\v3.00\pic\include\c99/string.h
+[; ;C:\Program Files\Microchip\xc8\v3.00\pic\include\c99/string.h: 27: void *memcpy (void *restrict, const void *restrict, size_t);
+[v _memcpy `(*v ~T0 @X0 0 ef3`*v`*Cv`ui ]
+"149 ./common.h
+[; ;./common.h: 149: extern uint8_t ip_buf[16];
+[v _ip_buf `uc ~T0 @X0 -> 0 `x e ]
+"69 ./display.h
+[; ;./display.h: 69: uint8_t scroll_text(uint8_t *buf);
+[v _scroll_text `(uc ~T0 @X0 0 ef1`*uc ]
+"34 ./settings.h
+[; ;./settings.h: 34: void en_esp(void);
+[v _en_esp `(v ~T0 @X0 0 ef ]
+"159 ./common.h
+[; ;./common.h: 159:  void time_led();
+[v _time_led `(v ~T0 @X0 0 e? ]
+[v F4412 `(v ~T0 @X0 0 tf ]
+"4947 C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4947:     struct {
+[s S196 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S196 . RX9D OERR FERR ADDEN CREN SREN RX9 SPEN ]
+"4957
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4957:     struct {
+[s S197 :3 `uc 1 :1 `uc 1 ]
+[n S197 . . ADEN ]
+"4961
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4961:     struct {
+[s S198 :5 `uc 1 :1 `uc 1 ]
+[n S198 . . SRENA ]
+"4965
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4965:     struct {
+[s S199 :6 `uc 1 :1 `uc 1 ]
+[n S199 . . RC8_9 ]
+"4969
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4969:     struct {
+[s S200 :6 `uc 1 :1 `uc 1 ]
+[n S200 . . RC9 ]
+"4973
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4973:     struct {
+[s S201 :1 `uc 1 ]
+[n S201 . RCD8 ]
+"4946
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4946: typedef union {
+[u S195 `S196 1 `S197 1 `S198 1 `S199 1 `S200 1 `S201 1 ]
+[n S195 . . . . . . . ]
+"4977
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4977: extern volatile RCSTAbits_t RCSTAbits __attribute__((address(0xFAB)));
+[v _RCSTAbits `VS195 ~T0 @X0 0 e@4011 ]
+"3858
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3858:     struct {
+[s S154 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S154 . TRISC0 TRISC1 TRISC2 . TRISC6 TRISC7 ]
+"3866
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3866:     struct {
+[s S155 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S155 . RC0 RC1 RC2 . RC6 RC7 ]
+"3857
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3857: typedef union {
+[u S153 `S154 1 `S155 1 ]
+[n S153 . . . ]
+"3875
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3875: extern volatile TRISCbits_t TRISCbits __attribute__((address(0xF94)));
+[v _TRISCbits `VS153 ~T0 @X0 0 e@3988 ]
+"2569
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2569:     struct {
+[s S111 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S111 . RC0 RC1 RC2 . RC4 RC5 RC6 RC7 ]
+"2579
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2579:     struct {
+[s S112 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S112 . T1OSO T1OSI CCP1 . TX RX ]
+"2587
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2587:     struct {
+[s S113 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S113 . T13CKI . P1A . CK DT ]
+"2595
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2595:     struct {
+[s S114 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S114 . . CCP2 PA1 ]
+"2600
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2600:     struct {
+[s S115 :1 `uc 1 :1 `uc 1 ]
+[n S115 . . PA2 ]
+"2568
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2568: typedef union {
+[u S110 `S111 1 `S112 1 `S113 1 `S114 1 `S115 1 ]
+[n S110 . . . . . . ]
+"2605
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2605: extern volatile PORTCbits_t PORTCbits __attribute__((address(0xF82)));
+[v _PORTCbits `VS110 ~T0 @X0 0 e@3970 ]
+[v F205 `(v ~T0 @X0 1 tf1`ul ]
+"20 C:\Program Files\Microchip\xc8\v3.00\pic\include/builtins.h
+[v __delay `JF205 ~T0 @X0 0 e ]
+[p i __delay ]
+"3381 C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3381:     struct {
+[s S139 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S139 . LATE0 LATE1 LATE2 ]
+"3386
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3386:     struct {
+[s S140 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S140 . LE0 LE1 LE2 ]
+"3380
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3380: typedef union {
+[u S138 `S139 1 `S140 1 ]
+[n S138 . . . ]
+"3392
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3392: extern volatile LATEbits_t LATEbits __attribute__((address(0xF8D)));
+[v _LATEbits `VS138 ~T0 @X0 0 e@3981 ]
+"22 ./eusart.h
+[; ;./eusart.h: 22: void init_uart(void);
+[v _init_uart `(v ~T0 @X0 0 ef ]
+[v F4431 `(v ~T0 @X0 0 tf ]
+[v F4433 `(v ~T0 @X0 0 tf ]
+[v F4434 `(v ~T0 @X0 0 tf ]
+"68 ./display.h
+[; ;./display.h: 68: void clear_matrix(void);
+[v _clear_matrix `(v ~T0 @X0 0 ef ]
+"132 ./common.h
+[; ;./common.h: 132: extern uint8_t blk_dot;
+[v _blk_dot `uc ~T0 @X0 0 e ]
+[v F4438 `(v ~T0 @X0 0 tf ]
+[v F4439 `(v ~T0 @X0 0 tf ]
+[v F4441 `(v ~T0 @X0 0 tf ]
+[v F4443 `(v ~T0 @X0 0 tf ]
+"54 C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 54: __asm("SPPDATA equ 0F62h");
+[; <" SPPDATA equ 0F62h ;# ">
+"74
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 74: __asm("SPPCFG equ 0F63h");
+[; <" SPPCFG equ 0F63h ;# ">
+"151
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 151: __asm("SPPEPS equ 0F64h");
+[; <" SPPEPS equ 0F64h ;# ">
+"225
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 225: __asm("SPPCON equ 0F65h");
+[; <" SPPCON equ 0F65h ;# ">
+"251
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 251: __asm("UFRM equ 0F66h");
+[; <" UFRM equ 0F66h ;# ">
+"258
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 258: __asm("UFRML equ 0F66h");
+[; <" UFRML equ 0F66h ;# ">
+"336
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 336: __asm("UFRMH equ 0F67h");
+[; <" UFRMH equ 0F67h ;# ">
+"376
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 376: __asm("UIR equ 0F68h");
+[; <" UIR equ 0F68h ;# ">
+"432
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 432: __asm("UIE equ 0F69h");
+[; <" UIE equ 0F69h ;# ">
+"488
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 488: __asm("UEIR equ 0F6Ah");
+[; <" UEIR equ 0F6Ah ;# ">
+"539
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 539: __asm("UEIE equ 0F6Bh");
+[; <" UEIE equ 0F6Bh ;# ">
+"590
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 590: __asm("USTAT equ 0F6Ch");
+[; <" USTAT equ 0F6Ch ;# ">
+"650
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 650: __asm("UCON equ 0F6Dh");
+[; <" UCON equ 0F6Dh ;# ">
+"701
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 701: __asm("UADDR equ 0F6Eh");
+[; <" UADDR equ 0F6Eh ;# ">
+"765
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 765: __asm("UCFG equ 0F6Fh");
+[; <" UCFG equ 0F6Fh ;# ">
+"844
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 844: __asm("UEP0 equ 0F70h");
+[; <" UEP0 equ 0F70h ;# ">
+"952
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 952: __asm("UEP1 equ 0F71h");
+[; <" UEP1 equ 0F71h ;# ">
+"1060
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 1060: __asm("UEP2 equ 0F72h");
+[; <" UEP2 equ 0F72h ;# ">
+"1168
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 1168: __asm("UEP3 equ 0F73h");
+[; <" UEP3 equ 0F73h ;# ">
+"1276
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 1276: __asm("UEP4 equ 0F74h");
+[; <" UEP4 equ 0F74h ;# ">
+"1384
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 1384: __asm("UEP5 equ 0F75h");
+[; <" UEP5 equ 0F75h ;# ">
+"1492
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 1492: __asm("UEP6 equ 0F76h");
+[; <" UEP6 equ 0F76h ;# ">
+"1600
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 1600: __asm("UEP7 equ 0F77h");
+[; <" UEP7 equ 0F77h ;# ">
+"1708
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 1708: __asm("UEP8 equ 0F78h");
+[; <" UEP8 equ 0F78h ;# ">
+"1784
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 1784: __asm("UEP9 equ 0F79h");
+[; <" UEP9 equ 0F79h ;# ">
+"1860
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 1860: __asm("UEP10 equ 0F7Ah");
+[; <" UEP10 equ 0F7Ah ;# ">
+"1936
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 1936: __asm("UEP11 equ 0F7Bh");
+[; <" UEP11 equ 0F7Bh ;# ">
+"2012
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2012: __asm("UEP12 equ 0F7Ch");
+[; <" UEP12 equ 0F7Ch ;# ">
+"2088
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2088: __asm("UEP13 equ 0F7Dh");
+[; <" UEP13 equ 0F7Dh ;# ">
+"2164
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2164: __asm("UEP14 equ 0F7Eh");
+[; <" UEP14 equ 0F7Eh ;# ">
+"2240
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2240: __asm("UEP15 equ 0F7Fh");
+[; <" UEP15 equ 0F7Fh ;# ">
+"2316
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2316: __asm("PORTA equ 0F80h");
+[; <" PORTA equ 0F80h ;# ">
+"2455
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2455: __asm("PORTB equ 0F81h");
+[; <" PORTB equ 0F81h ;# ">
+"2565
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2565: __asm("PORTC equ 0F82h");
+[; <" PORTC equ 0F82h ;# ">
+"2707
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2707: __asm("PORTD equ 0F83h");
+[; <" PORTD equ 0F83h ;# ">
+"2828
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2828: __asm("PORTE equ 0F84h");
+[; <" PORTE equ 0F84h ;# ">
+"2975
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2975: __asm("LATA equ 0F89h");
+[; <" LATA equ 0F89h ;# ">
+"3075
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3075: __asm("LATB equ 0F8Ah");
+[; <" LATB equ 0F8Ah ;# ">
+"3187
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3187: __asm("LATC equ 0F8Bh");
+[; <" LATC equ 0F8Bh ;# ">
+"3265
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3265: __asm("LATD equ 0F8Ch");
+[; <" LATD equ 0F8Ch ;# ">
+"3377
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3377: __asm("LATE equ 0F8Dh");
+[; <" LATE equ 0F8Dh ;# ">
+"3429
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3429: __asm("TRISA equ 0F92h");
+[; <" TRISA equ 0F92h ;# ">
+"3434
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3434: __asm("DDRA equ 0F92h");
+[; <" DDRA equ 0F92h ;# ">
+"3627
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3627: __asm("TRISB equ 0F93h");
+[; <" TRISB equ 0F93h ;# ">
+"3632
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3632: __asm("DDRB equ 0F93h");
+[; <" DDRB equ 0F93h ;# ">
+"3849
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3849: __asm("TRISC equ 0F94h");
+[; <" TRISC equ 0F94h ;# ">
+"3854
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3854: __asm("DDRC equ 0F94h");
+[; <" DDRC equ 0F94h ;# ">
+"4003
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4003: __asm("TRISD equ 0F95h");
+[; <" TRISD equ 0F95h ;# ">
+"4008
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4008: __asm("DDRD equ 0F95h");
+[; <" DDRD equ 0F95h ;# ">
+"4225
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4225: __asm("TRISE equ 0F96h");
+[; <" TRISE equ 0F96h ;# ">
+"4230
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4230: __asm("DDRE equ 0F96h");
+[; <" DDRE equ 0F96h ;# ">
+"4327
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4327: __asm("OSCTUNE equ 0F9Bh");
+[; <" OSCTUNE equ 0F9Bh ;# ">
+"4386
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4386: __asm("PIE1 equ 0F9Dh");
+[; <" PIE1 equ 0F9Dh ;# ">
+"4470
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4470: __asm("PIR1 equ 0F9Eh");
+[; <" PIR1 equ 0F9Eh ;# ">
+"4554
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4554: __asm("IPR1 equ 0F9Fh");
+[; <" IPR1 equ 0F9Fh ;# ">
+"4638
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4638: __asm("PIE2 equ 0FA0h");
+[; <" PIE2 equ 0FA0h ;# ">
+"4709
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4709: __asm("PIR2 equ 0FA1h");
+[; <" PIR2 equ 0FA1h ;# ">
+"4780
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4780: __asm("IPR2 equ 0FA2h");
+[; <" IPR2 equ 0FA2h ;# ">
+"4851
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4851: __asm("EECON1 equ 0FA6h");
+[; <" EECON1 equ 0FA6h ;# ">
+"4917
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4917: __asm("EECON2 equ 0FA7h");
+[; <" EECON2 equ 0FA7h ;# ">
+"4924
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4924: __asm("EEDATA equ 0FA8h");
+[; <" EEDATA equ 0FA8h ;# ">
+"4931
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4931: __asm("EEADR equ 0FA9h");
+[; <" EEADR equ 0FA9h ;# ">
+"4938
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4938: __asm("RCSTA equ 0FABh");
+[; <" RCSTA equ 0FABh ;# ">
+"4943
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 4943: __asm("RCSTA1 equ 0FABh");
+[; <" RCSTA1 equ 0FABh ;# ">
+"5148
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5148: __asm("TXSTA equ 0FACh");
+[; <" TXSTA equ 0FACh ;# ">
+"5153
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5153: __asm("TXSTA1 equ 0FACh");
+[; <" TXSTA1 equ 0FACh ;# ">
+"5404
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5404: __asm("TXREG equ 0FADh");
+[; <" TXREG equ 0FADh ;# ">
+"5409
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5409: __asm("TXREG1 equ 0FADh");
+[; <" TXREG1 equ 0FADh ;# ">
+"5416
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5416: __asm("RCREG equ 0FAEh");
+[; <" RCREG equ 0FAEh ;# ">
+"5421
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5421: __asm("RCREG1 equ 0FAEh");
+[; <" RCREG1 equ 0FAEh ;# ">
+"5428
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5428: __asm("SPBRG equ 0FAFh");
+[; <" SPBRG equ 0FAFh ;# ">
+"5433
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5433: __asm("SPBRG1 equ 0FAFh");
+[; <" SPBRG1 equ 0FAFh ;# ">
+"5440
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5440: __asm("SPBRGH equ 0FB0h");
+[; <" SPBRGH equ 0FB0h ;# ">
+"5447
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5447: __asm("T3CON equ 0FB1h");
+[; <" T3CON equ 0FB1h ;# ">
+"5568
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5568: __asm("TMR3 equ 0FB2h");
+[; <" TMR3 equ 0FB2h ;# ">
+"5575
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5575: __asm("TMR3L equ 0FB2h");
+[; <" TMR3L equ 0FB2h ;# ">
+"5582
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5582: __asm("TMR3H equ 0FB3h");
+[; <" TMR3H equ 0FB3h ;# ">
+"5589
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5589: __asm("CMCON equ 0FB4h");
+[; <" CMCON equ 0FB4h ;# ">
+"5679
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5679: __asm("CVRCON equ 0FB5h");
+[; <" CVRCON equ 0FB5h ;# ">
+"5764
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5764: __asm("ECCP1AS equ 0FB6h");
+[; <" ECCP1AS equ 0FB6h ;# ">
+"5769
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5769: __asm("CCP1AS equ 0FB6h");
+[; <" CCP1AS equ 0FB6h ;# ">
+"5926
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5926: __asm("ECCP1DEL equ 0FB7h");
+[; <" ECCP1DEL equ 0FB7h ;# ">
+"5931
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 5931: __asm("CCP1DEL equ 0FB7h");
+[; <" CCP1DEL equ 0FB7h ;# ">
+"6064
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6064: __asm("BAUDCON equ 0FB8h");
+[; <" BAUDCON equ 0FB8h ;# ">
+"6069
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6069: __asm("BAUDCTL equ 0FB8h");
+[; <" BAUDCTL equ 0FB8h ;# ">
+"6244
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6244: __asm("CCP2CON equ 0FBAh");
+[; <" CCP2CON equ 0FBAh ;# ">
+"6308
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6308: __asm("CCPR2 equ 0FBBh");
+[; <" CCPR2 equ 0FBBh ;# ">
+"6315
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6315: __asm("CCPR2L equ 0FBBh");
+[; <" CCPR2L equ 0FBBh ;# ">
+"6322
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6322: __asm("CCPR2H equ 0FBCh");
+[; <" CCPR2H equ 0FBCh ;# ">
+"6329
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6329: __asm("CCP1CON equ 0FBDh");
+[; <" CCP1CON equ 0FBDh ;# ">
+"6334
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6334: __asm("ECCP1CON equ 0FBDh");
+[; <" ECCP1CON equ 0FBDh ;# ">
+"6491
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6491: __asm("CCPR1 equ 0FBEh");
+[; <" CCPR1 equ 0FBEh ;# ">
+"6498
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6498: __asm("CCPR1L equ 0FBEh");
+[; <" CCPR1L equ 0FBEh ;# ">
+"6505
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6505: __asm("CCPR1H equ 0FBFh");
+[; <" CCPR1H equ 0FBFh ;# ">
+"6512
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6512: __asm("ADCON2 equ 0FC0h");
+[; <" ADCON2 equ 0FC0h ;# ">
+"6583
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6583: __asm("ADCON1 equ 0FC1h");
+[; <" ADCON1 equ 0FC1h ;# ">
+"6668
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6668: __asm("ADCON0 equ 0FC2h");
+[; <" ADCON0 equ 0FC2h ;# ">
+"6787
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6787: __asm("ADRES equ 0FC3h");
+[; <" ADRES equ 0FC3h ;# ">
+"6794
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6794: __asm("ADRESL equ 0FC3h");
+[; <" ADRESL equ 0FC3h ;# ">
+"6801
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6801: __asm("ADRESH equ 0FC4h");
+[; <" ADRESH equ 0FC4h ;# ">
+"6808
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6808: __asm("SSPCON2 equ 0FC5h");
+[; <" SSPCON2 equ 0FC5h ;# ">
+"6870
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6870: __asm("SSPCON1 equ 0FC6h");
+[; <" SSPCON1 equ 0FC6h ;# ">
+"6940
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 6940: __asm("SSPSTAT equ 0FC7h");
+[; <" SSPSTAT equ 0FC7h ;# ">
+"7188
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7188: __asm("SSPADD equ 0FC8h");
+[; <" SSPADD equ 0FC8h ;# ">
+"7195
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7195: __asm("SSPBUF equ 0FC9h");
+[; <" SSPBUF equ 0FC9h ;# ">
+"7202
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7202: __asm("T2CON equ 0FCAh");
+[; <" T2CON equ 0FCAh ;# ">
+"7300
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7300: __asm("PR2 equ 0FCBh");
+[; <" PR2 equ 0FCBh ;# ">
+"7305
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7305: __asm("MEMCON equ 0FCBh");
+[; <" MEMCON equ 0FCBh ;# ">
+"7410
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7410: __asm("TMR2 equ 0FCCh");
+[; <" TMR2 equ 0FCCh ;# ">
+"7417
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7417: __asm("T1CON equ 0FCDh");
+[; <" T1CON equ 0FCDh ;# ">
+"7520
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7520: __asm("TMR1 equ 0FCEh");
+[; <" TMR1 equ 0FCEh ;# ">
+"7527
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7527: __asm("TMR1L equ 0FCEh");
+[; <" TMR1L equ 0FCEh ;# ">
+"7534
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7534: __asm("TMR1H equ 0FCFh");
+[; <" TMR1H equ 0FCFh ;# ">
+"7541
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7541: __asm("RCON equ 0FD0h");
+[; <" RCON equ 0FD0h ;# ">
+"7690
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7690: __asm("WDTCON equ 0FD1h");
+[; <" WDTCON equ 0FD1h ;# ">
+"7718
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7718: __asm("HLVDCON equ 0FD2h");
+[; <" HLVDCON equ 0FD2h ;# ">
+"7723
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7723: __asm("LVDCON equ 0FD2h");
+[; <" LVDCON equ 0FD2h ;# ">
+"7988
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 7988: __asm("OSCCON equ 0FD3h");
+[; <" OSCCON equ 0FD3h ;# ">
+"8071
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8071: __asm("T0CON equ 0FD5h");
+[; <" T0CON equ 0FD5h ;# ">
+"8141
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8141: __asm("TMR0 equ 0FD6h");
+[; <" TMR0 equ 0FD6h ;# ">
+"8148
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8148: __asm("TMR0L equ 0FD6h");
+[; <" TMR0L equ 0FD6h ;# ">
+"8155
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8155: __asm("TMR0H equ 0FD7h");
+[; <" TMR0H equ 0FD7h ;# ">
+"8162
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8162: __asm("STATUS equ 0FD8h");
+[; <" STATUS equ 0FD8h ;# ">
+"8233
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8233: __asm("FSR2 equ 0FD9h");
+[; <" FSR2 equ 0FD9h ;# ">
+"8240
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8240: __asm("FSR2L equ 0FD9h");
+[; <" FSR2L equ 0FD9h ;# ">
+"8247
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8247: __asm("FSR2H equ 0FDAh");
+[; <" FSR2H equ 0FDAh ;# ">
+"8254
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8254: __asm("PLUSW2 equ 0FDBh");
+[; <" PLUSW2 equ 0FDBh ;# ">
+"8261
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8261: __asm("PREINC2 equ 0FDCh");
+[; <" PREINC2 equ 0FDCh ;# ">
+"8268
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8268: __asm("POSTDEC2 equ 0FDDh");
+[; <" POSTDEC2 equ 0FDDh ;# ">
+"8275
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8275: __asm("POSTINC2 equ 0FDEh");
+[; <" POSTINC2 equ 0FDEh ;# ">
+"8282
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8282: __asm("INDF2 equ 0FDFh");
+[; <" INDF2 equ 0FDFh ;# ">
+"8289
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8289: __asm("BSR equ 0FE0h");
+[; <" BSR equ 0FE0h ;# ">
+"8296
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8296: __asm("FSR1 equ 0FE1h");
+[; <" FSR1 equ 0FE1h ;# ">
+"8303
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8303: __asm("FSR1L equ 0FE1h");
+[; <" FSR1L equ 0FE1h ;# ">
+"8310
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8310: __asm("FSR1H equ 0FE2h");
+[; <" FSR1H equ 0FE2h ;# ">
+"8317
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8317: __asm("PLUSW1 equ 0FE3h");
+[; <" PLUSW1 equ 0FE3h ;# ">
+"8324
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8324: __asm("PREINC1 equ 0FE4h");
+[; <" PREINC1 equ 0FE4h ;# ">
+"8331
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8331: __asm("POSTDEC1 equ 0FE5h");
+[; <" POSTDEC1 equ 0FE5h ;# ">
+"8338
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8338: __asm("POSTINC1 equ 0FE6h");
+[; <" POSTINC1 equ 0FE6h ;# ">
+"8345
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8345: __asm("INDF1 equ 0FE7h");
+[; <" INDF1 equ 0FE7h ;# ">
+"8352
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8352: __asm("WREG equ 0FE8h");
+[; <" WREG equ 0FE8h ;# ">
+"8359
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8359: __asm("FSR0 equ 0FE9h");
+[; <" FSR0 equ 0FE9h ;# ">
+"8366
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8366: __asm("FSR0L equ 0FE9h");
+[; <" FSR0L equ 0FE9h ;# ">
+"8373
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8373: __asm("FSR0H equ 0FEAh");
+[; <" FSR0H equ 0FEAh ;# ">
+"8380
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8380: __asm("PLUSW0 equ 0FEBh");
+[; <" PLUSW0 equ 0FEBh ;# ">
+"8387
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8387: __asm("PREINC0 equ 0FECh");
+[; <" PREINC0 equ 0FECh ;# ">
+"8394
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8394: __asm("POSTDEC0 equ 0FEDh");
+[; <" POSTDEC0 equ 0FEDh ;# ">
+"8401
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8401: __asm("POSTINC0 equ 0FEEh");
+[; <" POSTINC0 equ 0FEEh ;# ">
+"8408
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8408: __asm("INDF0 equ 0FEFh");
+[; <" INDF0 equ 0FEFh ;# ">
+"8415
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8415: __asm("INTCON3 equ 0FF0h");
+[; <" INTCON3 equ 0FF0h ;# ">
+"8507
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8507: __asm("INTCON2 equ 0FF1h");
+[; <" INTCON2 equ 0FF1h ;# ">
+"8584
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8584: __asm("INTCON equ 0FF2h");
+[; <" INTCON equ 0FF2h ;# ">
+"8701
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8701: __asm("PROD equ 0FF3h");
+[; <" PROD equ 0FF3h ;# ">
+"8708
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8708: __asm("PRODL equ 0FF3h");
+[; <" PRODL equ 0FF3h ;# ">
+"8715
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8715: __asm("PRODH equ 0FF4h");
+[; <" PRODH equ 0FF4h ;# ">
+"8722
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8722: __asm("TABLAT equ 0FF5h");
+[; <" TABLAT equ 0FF5h ;# ">
+"8731
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8731: __asm("TBLPTR equ 0FF6h");
+[; <" TBLPTR equ 0FF6h ;# ">
+"8738
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8738: __asm("TBLPTRL equ 0FF6h");
+[; <" TBLPTRL equ 0FF6h ;# ">
+"8745
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8745: __asm("TBLPTRH equ 0FF7h");
+[; <" TBLPTRH equ 0FF7h ;# ">
+"8752
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8752: __asm("TBLPTRU equ 0FF8h");
+[; <" TBLPTRU equ 0FF8h ;# ">
+"8761
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8761: __asm("PCLAT equ 0FF9h");
+[; <" PCLAT equ 0FF9h ;# ">
+"8768
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8768: __asm("PC equ 0FF9h");
+[; <" PC equ 0FF9h ;# ">
+"8775
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8775: __asm("PCL equ 0FF9h");
+[; <" PCL equ 0FF9h ;# ">
+"8782
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8782: __asm("PCLATH equ 0FFAh");
+[; <" PCLATH equ 0FFAh ;# ">
+"8789
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8789: __asm("PCLATU equ 0FFBh");
+[; <" PCLATU equ 0FFBh ;# ">
+"8796
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8796: __asm("STKPTR equ 0FFCh");
+[; <" STKPTR equ 0FFCh ;# ">
+"8872
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8872: __asm("TOS equ 0FFDh");
+[; <" TOS equ 0FFDh ;# ">
+"8879
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8879: __asm("TOSL equ 0FFDh");
+[; <" TOSL equ 0FFDh ;# ">
+"8886
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8886: __asm("TOSH equ 0FFEh");
+[; <" TOSH equ 0FFEh ;# ">
+"8893
+[; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8893: __asm("TOSU equ 0FFFh");
+[; <" TOSU equ 0FFFh ;# ">
+[v F3536 `Cuc ~T0 @X0 -> 5 `i t ]
+"12 ./Font.h
+[; ;./Font.h: 12: const uint8_t Font[][5] = {
+[v _Font `F3536 ~T0 @X0 -> 256 `i e ]
+[i _Font
+:U ..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 69 `i `uc
+-> -> 81 `i `uc
+-> -> 69 `i `uc
+-> -> 62 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 107 `i `uc
+-> -> 111 `i `uc
+-> -> 107 `i `uc
+-> -> 62 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 124 `i `uc
+-> -> 62 `i `uc
+-> -> 28 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 60 `i `uc
+-> -> 126 `i `uc
+-> -> 60 `i `uc
+-> -> 24 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 54 `i `uc
+-> -> 127 `i `uc
+-> -> 54 `i `uc
+-> -> 48 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 54 `i `uc
+-> -> 54 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 36 `i `uc
+-> -> 54 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 36 `i `uc
+-> -> 36 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 36 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 18 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 18 `i `uc
+-> -> 18 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 18 `i `uc
+-> -> 54 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 18 `i `uc
+-> -> 54 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 95 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 7 `i `uc
+-> -> 0 `i `uc
+-> -> 7 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 20 `i `uc
+-> -> 127 `i `uc
+-> -> 20 `i `uc
+-> -> 127 `i `uc
+-> -> 20 `i `uc
+..
+:U ..
+-> -> 36 `i `uc
+-> -> 42 `i `uc
+-> -> 127 `i `uc
+-> -> 42 `i `uc
+-> -> 18 `i `uc
+..
+:U ..
+-> -> 35 `i `uc
+-> -> 19 `i `uc
+-> -> 8 `i `uc
+-> -> 100 `i `uc
+-> -> 98 `i `uc
+..
+:U ..
+-> -> 54 `i `uc
+-> -> 73 `i `uc
+-> -> 86 `i `uc
+-> -> 32 `i `uc
+-> -> 80 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 8 `i `uc
+-> -> 7 `i `uc
+-> -> 3 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 28 `i `uc
+-> -> 34 `i `uc
+-> -> 65 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 65 `i `uc
+-> -> 34 `i `uc
+-> -> 28 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 42 `i `uc
+-> -> 28 `i `uc
+-> -> 127 `i `uc
+-> -> 28 `i `uc
+-> -> 42 `i `uc
+..
+:U ..
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 62 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 128 `i `uc
+-> -> 112 `i `uc
+-> -> 48 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+..
+:U ..
+-> -> 96 `i `uc
+-> -> 96 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 32 `i `uc
+-> -> 16 `i `uc
+-> -> 8 `i `uc
+-> -> 4 `i `uc
+-> -> 2 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 81 `i `uc
+-> -> 73 `i `uc
+-> -> 69 `i `uc
+-> -> 62 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 66 `i `uc
+-> -> 127 `i `uc
+-> -> 64 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 66 `i `uc
+-> -> 97 `i `uc
+-> -> 81 `i `uc
+-> -> 73 `i `uc
+-> -> 70 `i `uc
+..
+:U ..
+-> -> 33 `i `uc
+-> -> 65 `i `uc
+-> -> 69 `i `uc
+-> -> 75 `i `uc
+-> -> 49 `i `uc
+..
+:U ..
+-> -> 24 `i `uc
+-> -> 20 `i `uc
+-> -> 18 `i `uc
+-> -> 127 `i `uc
+-> -> 16 `i `uc
+..
+:U ..
+-> -> 39 `i `uc
+-> -> 69 `i `uc
+-> -> 69 `i `uc
+-> -> 69 `i `uc
+-> -> 57 `i `uc
+..
+:U ..
+-> -> 60 `i `uc
+-> -> 74 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 48 `i `uc
+..
+:U ..
+-> -> 1 `i `uc
+-> -> 113 `i `uc
+-> -> 9 `i `uc
+-> -> 5 `i `uc
+-> -> 3 `i `uc
+..
+:U ..
+-> -> 54 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 54 `i `uc
+..
+:U ..
+-> -> 6 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 41 `i `uc
+-> -> 30 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 54 `i `uc
+-> -> 54 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 64 `i `uc
+-> -> 52 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 8 `i `uc
+-> -> 20 `i `uc
+-> -> 34 `i `uc
+-> -> 65 `i `uc
+..
+:U ..
+-> -> 20 `i `uc
+-> -> 20 `i `uc
+-> -> 20 `i `uc
+-> -> 20 `i `uc
+-> -> 20 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 65 `i `uc
+-> -> 34 `i `uc
+-> -> 20 `i `uc
+-> -> 8 `i `uc
+..
+:U ..
+-> -> 2 `i `uc
+-> -> 1 `i `uc
+-> -> 89 `i `uc
+-> -> 9 `i `uc
+-> -> 6 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 65 `i `uc
+-> -> 93 `i `uc
+-> -> 89 `i `uc
+-> -> 78 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 18 `i `uc
+-> -> 17 `i `uc
+-> -> 18 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 54 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 34 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 62 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 65 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 9 `i `uc
+-> -> 9 `i `uc
+-> -> 9 `i `uc
+-> -> 1 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 81 `i `uc
+-> -> 114 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 65 `i `uc
+-> -> 127 `i `uc
+-> -> 65 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 32 `i `uc
+-> -> 64 `i `uc
+-> -> 65 `i `uc
+-> -> 63 `i `uc
+-> -> 1 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 8 `i `uc
+-> -> 20 `i `uc
+-> -> 34 `i `uc
+-> -> 65 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 2 `i `uc
+-> -> 4 `i `uc
+-> -> 2 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 4 `i `uc
+-> -> 8 `i `uc
+-> -> 16 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 62 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 9 `i `uc
+-> -> 9 `i `uc
+-> -> 9 `i `uc
+-> -> 6 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 65 `i `uc
+-> -> 81 `i `uc
+-> -> 33 `i `uc
+-> -> 94 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 9 `i `uc
+-> -> 25 `i `uc
+-> -> 41 `i `uc
+-> -> 70 `i `uc
+..
+:U ..
+-> -> 38 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 50 `i `uc
+..
+:U ..
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 127 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+..
+:U ..
+-> -> 63 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 63 `i `uc
+..
+:U ..
+-> -> 31 `i `uc
+-> -> 32 `i `uc
+-> -> 64 `i `uc
+-> -> 32 `i `uc
+-> -> 31 `i `uc
+..
+:U ..
+-> -> 63 `i `uc
+-> -> 64 `i `uc
+-> -> 56 `i `uc
+-> -> 64 `i `uc
+-> -> 63 `i `uc
+..
+:U ..
+-> -> 99 `i `uc
+-> -> 20 `i `uc
+-> -> 8 `i `uc
+-> -> 20 `i `uc
+-> -> 99 `i `uc
+..
+:U ..
+-> -> 3 `i `uc
+-> -> 4 `i `uc
+-> -> 120 `i `uc
+-> -> 4 `i `uc
+-> -> 3 `i `uc
+..
+:U ..
+-> -> 97 `i `uc
+-> -> 81 `i `uc
+-> -> 73 `i `uc
+-> -> 69 `i `uc
+-> -> 67 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 127 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 2 `i `uc
+-> -> 4 `i `uc
+-> -> 8 `i `uc
+-> -> 16 `i `uc
+-> -> 32 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 127 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 4 `i `uc
+-> -> 2 `i `uc
+-> -> 1 `i `uc
+-> -> 2 `i `uc
+-> -> 4 `i `uc
+..
+:U ..
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 3 `i `uc
+-> -> 7 `i `uc
+-> -> 8 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 32 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 120 `i `uc
+-> -> 64 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 40 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 56 `i `uc
+..
+:U ..
+-> -> 56 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 40 `i `uc
+..
+:U ..
+-> -> 56 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 40 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 56 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 24 `i `uc
+..
+:U ..
+-> -> 8 `i `uc
+-> -> 126 `i `uc
+-> -> 9 `i `uc
+-> -> 2 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 24 `i `uc
+-> -> 164 `i `uc
+-> -> 164 `i `uc
+-> -> 156 `i `uc
+-> -> 120 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 8 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 120 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 68 `i `uc
+-> -> 125 `i `uc
+-> -> 64 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 32 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 61 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 16 `i `uc
+-> -> 40 `i `uc
+-> -> 68 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 65 `i `uc
+-> -> 127 `i `uc
+-> -> 64 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 4 `i `uc
+-> -> 120 `i `uc
+-> -> 4 `i `uc
+-> -> 120 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 8 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 120 `i `uc
+..
+:U ..
+-> -> 56 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 56 `i `uc
+..
+:U ..
+-> -> 252 `i `uc
+-> -> 24 `i `uc
+-> -> 36 `i `uc
+-> -> 36 `i `uc
+-> -> 24 `i `uc
+..
+:U ..
+-> -> 24 `i `uc
+-> -> 36 `i `uc
+-> -> 36 `i `uc
+-> -> 24 `i `uc
+-> -> 252 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 8 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 72 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 36 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 4 `i `uc
+-> -> 63 `i `uc
+-> -> 68 `i `uc
+-> -> 32 `i `uc
+..
+:U ..
+-> -> 60 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 32 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 28 `i `uc
+-> -> 32 `i `uc
+-> -> 64 `i `uc
+-> -> 32 `i `uc
+-> -> 28 `i `uc
+..
+:U ..
+-> -> 60 `i `uc
+-> -> 64 `i `uc
+-> -> 48 `i `uc
+-> -> 64 `i `uc
+-> -> 60 `i `uc
+..
+:U ..
+-> -> 68 `i `uc
+-> -> 40 `i `uc
+-> -> 16 `i `uc
+-> -> 40 `i `uc
+-> -> 68 `i `uc
+..
+:U ..
+-> -> 76 `i `uc
+-> -> 144 `i `uc
+-> -> 144 `i `uc
+-> -> 144 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 68 `i `uc
+-> -> 100 `i `uc
+-> -> 84 `i `uc
+-> -> 76 `i `uc
+-> -> 68 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 8 `i `uc
+-> -> 54 `i `uc
+-> -> 65 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 119 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 65 `i `uc
+-> -> 54 `i `uc
+-> -> 8 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 2 `i `uc
+-> -> 1 `i `uc
+-> -> 2 `i `uc
+-> -> 4 `i `uc
+-> -> 2 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 64 `i `uc
+-> -> 0 `i `uc
+-> -> 64 `i `uc
+-> -> 0 `i `uc
+-> -> 64 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 85 `i `uc
+-> -> 85 `i `uc
+-> -> 65 `i `uc
+-> -> 34 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 12 `i `uc
+-> -> 30 `i `uc
+-> -> 30 `i `uc
+-> -> 12 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 126 `i `uc
+-> -> 2 `i `uc
+-> -> 2 `i `uc
+-> -> 2 `i `uc
+-> -> 3 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 126 `i `uc
+-> -> 75 `i `uc
+-> -> 74 `i `uc
+-> -> 75 `i `uc
+-> -> 66 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 34 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 65 `i `uc
+-> -> 126 `i `uc
+-> -> 65 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 6 `i `uc
+-> -> 9 `i `uc
+-> -> 9 `i `uc
+-> -> 6 `i `uc
+..
+:U ..
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 95 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 65 `i `uc
+-> -> 127 `i `uc
+-> -> 65 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 68 `i `uc
+-> -> 125 `i `uc
+-> -> 64 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 124 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 6 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 56 `i `uc
+-> -> 85 `i `uc
+-> -> 84 `i `uc
+-> -> 85 `i `uc
+-> -> 24 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 56 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 68 `i `uc
+..
+:U ..
+-> -> 34 `i `uc
+-> -> 20 `i `uc
+-> -> 42 `i `uc
+-> -> 20 `i `uc
+-> -> 8 `i `uc
+..
+:U ..
+-> -> 32 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 61 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 69 `i `uc
+-> -> 124 `i `uc
+-> -> 65 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 126 `i `uc
+-> -> 17 `i `uc
+-> -> 17 `i `uc
+-> -> 17 `i `uc
+-> -> 126 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 49 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 54 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+..
+:U ..
+-> -> 192 `i `uc
+-> -> 126 `i `uc
+-> -> 65 `i `uc
+-> -> 126 `i `uc
+-> -> 192 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 65 `i `uc
+..
+:U ..
+-> -> 119 `i `uc
+-> -> 8 `i `uc
+-> -> 127 `i `uc
+-> -> 8 `i `uc
+-> -> 119 `i `uc
+..
+:U ..
+-> -> 34 `i `uc
+-> -> 65 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 54 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 16 `i `uc
+-> -> 8 `i `uc
+-> -> 4 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 126 `i `uc
+-> -> 17 `i `uc
+-> -> 9 `i `uc
+-> -> 5 `i `uc
+-> -> 126 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 8 `i `uc
+-> -> 20 `i `uc
+-> -> 34 `i `uc
+-> -> 65 `i `uc
+..
+:U ..
+-> -> 64 `i `uc
+-> -> 126 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 2 `i `uc
+-> -> 12 `i `uc
+-> -> 2 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 62 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 9 `i `uc
+-> -> 9 `i `uc
+-> -> 9 `i `uc
+-> -> 6 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 34 `i `uc
+..
+:U ..
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 127 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+..
+:U ..
+-> -> 39 `i `uc
+-> -> 72 `i `uc
+-> -> 72 `i `uc
+-> -> 72 `i `uc
+-> -> 63 `i `uc
+..
+:U ..
+-> -> 14 `i `uc
+-> -> 17 `i `uc
+-> -> 127 `i `uc
+-> -> 17 `i `uc
+-> -> 14 `i `uc
+..
+:U ..
+-> -> 99 `i `uc
+-> -> 20 `i `uc
+-> -> 8 `i `uc
+-> -> 20 `i `uc
+-> -> 99 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 127 `i `uc
+-> -> 192 `i `uc
+..
+:U ..
+-> -> 7 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 8 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 64 `i `uc
+-> -> 126 `i `uc
+-> -> 64 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 64 `i `uc
+-> -> 126 `i `uc
+-> -> 64 `i `uc
+-> -> 255 `i `uc
+..
+:U ..
+-> -> 1 `i `uc
+-> -> 127 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 56 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 68 `i `uc
+-> -> 56 `i `uc
+-> -> 0 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 56 `i `uc
+..
+:U ..
+-> -> 34 `i `uc
+-> -> 65 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 62 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 8 `i `uc
+-> -> 62 `i `uc
+-> -> 65 `i `uc
+-> -> 62 `i `uc
+..
+:U ..
+-> -> 70 `i `uc
+-> -> 41 `i `uc
+-> -> 25 `i `uc
+-> -> 9 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 32 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 120 `i `uc
+..
+:U ..
+-> -> 60 `i `uc
+-> -> 74 `i `uc
+-> -> 74 `i `uc
+-> -> 74 `i `uc
+-> -> 49 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 40 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 124 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+..
+:U ..
+-> -> 192 `i `uc
+-> -> 120 `i `uc
+-> -> 68 `i `uc
+-> -> 124 `i `uc
+-> -> 192 `i `uc
+..
+:U ..
+-> -> 56 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 24 `i `uc
+..
+:U ..
+-> -> 108 `i `uc
+-> -> 16 `i `uc
+-> -> 124 `i `uc
+-> -> 16 `i `uc
+-> -> 108 `i `uc
+..
+:U ..
+-> -> 40 `i `uc
+-> -> 68 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 40 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 32 `i `uc
+-> -> 16 `i `uc
+-> -> 8 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 33 `i `uc
+-> -> 17 `i `uc
+-> -> 9 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 16 `i `uc
+-> -> 16 `i `uc
+-> -> 40 `i `uc
+-> -> 68 `i `uc
+..
+:U ..
+-> -> 64 `i `uc
+-> -> 56 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 8 `i `uc
+-> -> 16 `i `uc
+-> -> 8 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 16 `i `uc
+-> -> 16 `i `uc
+-> -> 16 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 56 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 56 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 20 `i `uc
+-> -> 20 `i `uc
+-> -> 20 `i `uc
+-> -> 8 `i `uc
+..
+:U ..
+-> -> 56 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 68 `i `uc
+-> -> 40 `i `uc
+..
+:U ..
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 124 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+..
+:U ..
+-> -> 76 `i `uc
+-> -> 80 `i `uc
+-> -> 80 `i `uc
+-> -> 80 `i `uc
+-> -> 60 `i `uc
+..
+:U ..
+-> -> 24 `i `uc
+-> -> 36 `i `uc
+-> -> 124 `i `uc
+-> -> 36 `i `uc
+-> -> 24 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 108 `i `uc
+-> -> 16 `i `uc
+-> -> 16 `i `uc
+-> -> 108 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 64 `i `uc
+-> -> 64 `i `uc
+-> -> 124 `i `uc
+-> -> 192 `i `uc
+..
+:U ..
+-> -> 12 `i `uc
+-> -> 16 `i `uc
+-> -> 16 `i `uc
+-> -> 16 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 64 `i `uc
+-> -> 120 `i `uc
+-> -> 64 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 64 `i `uc
+-> -> 120 `i `uc
+-> -> 64 `i `uc
+-> -> 252 `i `uc
+..
+:U ..
+-> -> 4 `i `uc
+-> -> 124 `i `uc
+-> -> 80 `i `uc
+-> -> 80 `i `uc
+-> -> 32 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 80 `i `uc
+-> -> 32 `i `uc
+-> -> 0 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 124 `i `uc
+-> -> 80 `i `uc
+-> -> 80 `i `uc
+-> -> 32 `i `uc
+..
+:U ..
+-> -> 68 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 56 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 16 `i `uc
+-> -> 56 `i `uc
+-> -> 68 `i `uc
+-> -> 56 `i `uc
+..
+:U ..
+-> -> 72 `i `uc
+-> -> 84 `i `uc
+-> -> 52 `i `uc
+-> -> 20 `i `uc
+-> -> 124 `i `uc
+..
+..
+]
+[v F3580 `Cuc ~T0 @X0 -> 3 `i t ]
+"3 ./FontS.h
+[; ;./FontS.h: 3: const unsigned char FontS[][3] = {
+[v _FontS `F3580 ~T0 @X0 -> 11 `i e ]
+[i _FontS
+:U ..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 68 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 124 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 116 `i `uc
+-> -> 84 `i `uc
+-> -> 92 `i `uc
+..
+:U ..
+-> -> 84 `i `uc
+-> -> 84 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 28 `i `uc
+-> -> 16 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 92 `i `uc
+-> -> 84 `i `uc
+-> -> 116 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 84 `i `uc
+-> -> 116 `i `uc
+..
+:U ..
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 124 `i `uc
+-> -> 84 `i `uc
+-> -> 124 `i `uc
+..
+:U ..
+-> -> 92 `i `uc
+-> -> 84 `i `uc
+-> -> 124 `i `uc
+..
+..
+]
+[v F3582 `Cuc ~T0 @X0 -> 8 `i t ]
+"3 ./pict.h
+[; ;./pict.h: 3: const unsigned char pic7x8[][8]=
+[v _pic7x8 `F3582 ~T0 @X0 -> 8 `i e ]
+[i _pic7x8
+:U ..
+:U ..
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 8 `i `uc
+-> -> 124 `i `uc
+-> -> 78 `i `uc
+-> -> 79 `i `uc
+-> -> 78 `i `uc
+-> -> 124 `i `uc
+-> -> 8 `i `uc
+..
+:U ..
+-> -> 4 `i `uc
+-> -> 38 `i `uc
+-> -> 71 `i `uc
+-> -> 63 `i `uc
+-> -> 7 `i `uc
+-> -> 6 `i `uc
+-> -> 4 `i `uc
+..
+:U ..
+-> -> 32 `i `uc
+-> -> 62 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 63 `i `uc
+-> -> 62 `i `uc
+-> -> 32 `i `uc
+..
+:U ..
+-> -> 126 `i `uc
+-> -> 18 `i `uc
+-> -> 30 `i `uc
+-> -> 0 `i `uc
+-> -> 112 `i `uc
+-> -> 16 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 76 `i `uc
+-> -> 108 `i `uc
+-> -> 48 `i `uc
+-> -> 24 `i `uc
+-> -> 108 `i `uc
+-> -> 100 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 119 `i `uc
+-> -> 17 `i `uc
+-> -> 102 `i `uc
+-> -> 17 `i `uc
+-> -> 102 `i `uc
+-> -> 0 `i `uc
+-> -> 68 `i `uc
+..
+:U ..
+-> -> 65 `i `uc
+-> -> 81 `i `uc
+-> -> 107 `i `uc
+-> -> 69 `i `uc
+-> -> 65 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+..
+]
+[v F3584 `Cuc ~T0 @X0 -> 5 `i t ]
+"10 ./digits_f.h
+[; ;./digits_f.h: 10: const uint8_t dFont1[][5] = {
+[v _dFont1 `F3584 ~T0 @X0 -> 10 `i e ]
+[i _dFont1
+:U ..
+:U ..
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 65 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 113 `i `uc
+-> -> 113 `i `uc
+-> -> 81 `i `uc
+-> -> 95 `i `uc
+-> -> 95 `i `uc
+..
+:U ..
+-> -> 65 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 31 `i `uc
+-> -> 31 `i `uc
+-> -> 16 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 79 `i `uc
+-> -> 79 `i `uc
+-> -> 73 `i `uc
+-> -> 121 `i `uc
+-> -> 121 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 121 `i `uc
+-> -> 121 `i `uc
+..
+:U ..
+-> -> 1 `i `uc
+-> -> 113 `i `uc
+-> -> 121 `i `uc
+-> -> 15 `i `uc
+-> -> 7 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 95 `i `uc
+-> -> 95 `i `uc
+-> -> 81 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+..
+]
+[v F3586 `Cuc ~T0 @X0 -> 5 `i t ]
+"23
+[; ;./digits_f.h: 23: const uint8_t dFont2[][5] = {
+[v _dFont2 `F3586 ~T0 @X0 -> 10 `i e ]
+[i _dFont2
+:U ..
+:U ..
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 65 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 115 `i `uc
+-> -> 115 `i `uc
+-> -> 81 `i `uc
+-> -> 95 `i `uc
+-> -> 95 `i `uc
+..
+:U ..
+-> -> 99 `i `uc
+-> -> 107 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 31 `i `uc
+-> -> 31 `i `uc
+-> -> 16 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 111 `i `uc
+-> -> 111 `i `uc
+-> -> 73 `i `uc
+-> -> 121 `i `uc
+-> -> 121 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 123 `i `uc
+-> -> 123 `i `uc
+..
+:U ..
+-> -> 3 `i `uc
+-> -> 115 `i `uc
+-> -> 121 `i `uc
+-> -> 15 `i `uc
+-> -> 7 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 111 `i `uc
+-> -> 111 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+..
+]
+[v F3588 `Cuc ~T0 @X0 -> 5 `i t ]
+"36
+[; ;./digits_f.h: 36: const uint8_t dFont3[][5] = {
+[v _dFont3 `F3588 ~T0 @X0 -> 10 `i e ]
+[i _dFont3
+:U ..
+:U ..
+-> -> 127 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 0 `i `uc
+..
+:U ..
+-> -> 113 `i `uc
+-> -> 81 `i `uc
+-> -> 81 `i `uc
+-> -> 95 `i `uc
+-> -> 95 `i `uc
+..
+:U ..
+-> -> 65 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 31 `i `uc
+-> -> 16 `i `uc
+-> -> 16 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 79 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 121 `i `uc
+-> -> 121 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 121 `i `uc
+-> -> 121 `i `uc
+..
+:U ..
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 79 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+..
+]
+[v F3590 `Cuc ~T0 @X0 -> 5 `i t ]
+"49
+[; ;./digits_f.h: 49: const uint8_t dFont4[][5] = {
+[v _dFont4 `F3590 ~T0 @X0 -> 10 `i e ]
+[i _dFont4
+:U ..
+:U ..
+-> -> 62 `i `uc
+-> -> 127 `i `uc
+-> -> 65 `i `uc
+-> -> 127 `i `uc
+-> -> 62 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 66 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 64 `i `uc
+..
+:U ..
+-> -> 98 `i `uc
+-> -> 115 `i `uc
+-> -> 89 `i `uc
+-> -> 79 `i `uc
+-> -> 70 `i `uc
+..
+:U ..
+-> -> 34 `i `uc
+-> -> 99 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 54 `i `uc
+..
+:U ..
+-> -> 24 `i `uc
+-> -> 20 `i `uc
+-> -> 18 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 47 `i `uc
+-> -> 111 `i `uc
+-> -> 69 `i `uc
+-> -> 125 `i `uc
+-> -> 57 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 123 `i `uc
+-> -> 50 `i `uc
+..
+:U ..
+-> -> 3 `i `uc
+-> -> 115 `i `uc
+-> -> 121 `i `uc
+-> -> 15 `i `uc
+-> -> 7 `i `uc
+..
+:U ..
+-> -> 54 `i `uc
+-> -> 127 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 54 `i `uc
+..
+:U ..
+-> -> 38 `i `uc
+-> -> 111 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 62 `i `uc
+..
+..
+]
+[v F3592 `Cuc ~T0 @X0 -> 5 `i t ]
+"62
+[; ;./digits_f.h: 62: const uint8_t dFont5[][5] = {
+[v _dFont5 `F3592 ~T0 @X0 -> 10 `i e ]
+[i _dFont5
+:U ..
+:U ..
+-> -> 62 `i `uc
+-> -> 65 `i `uc
+-> -> 65 `i `uc
+-> -> 127 `i `uc
+-> -> 62 `i `uc
+..
+:U ..
+-> -> 0 `i `uc
+-> -> 66 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+-> -> 64 `i `uc
+..
+:U ..
+-> -> 98 `i `uc
+-> -> 115 `i `uc
+-> -> 89 `i `uc
+-> -> 79 `i `uc
+-> -> 70 `i `uc
+..
+:U ..
+-> -> 34 `i `uc
+-> -> 99 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 54 `i `uc
+..
+:U ..
+-> -> 24 `i `uc
+-> -> 20 `i `uc
+-> -> 18 `i `uc
+-> -> 127 `i `uc
+-> -> 127 `i `uc
+..
+:U ..
+-> -> 47 `i `uc
+-> -> 69 `i `uc
+-> -> 69 `i `uc
+-> -> 125 `i `uc
+-> -> 57 `i `uc
+..
+:U ..
+-> -> 62 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 123 `i `uc
+-> -> 50 `i `uc
+..
+:U ..
+-> -> 3 `i `uc
+-> -> 113 `i `uc
+-> -> 121 `i `uc
+-> -> 15 `i `uc
+-> -> 7 `i `uc
+..
+:U ..
+-> -> 54 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 54 `i `uc
+..
+:U ..
+-> -> 38 `i `uc
+-> -> 73 `i `uc
+-> -> 73 `i `uc
+-> -> 127 `i `uc
+-> -> 62 `i `uc
+..
+..
+]
+"31 ./display.h
+[; ;./display.h: 31: uint8_t i_char, i_bchar;
+[v _i_char `uc ~T0 @X0 1 e ]
+[v _i_bchar `uc ~T0 @X0 1 e ]
+"42
+[; ;./display.h: 42: } TTime, TSTime;
+[v _TTime `S370 ~T0 @X0 1 e ]
+[v _TSTime `S370 ~T0 @X0 1 e ]
+"70 ./init.h
+[p x PLLDIV      =  5          ]
+"71
+[p x CPUDIV      =  OSC1_PLL2 ]
+"72
+[p x USBDIV      =  2          ]
+"73
+[p x FOSC          =  HSPLL_HS ]
+"74
+[p x FCMEN        =  OFF ]
+"75
+[p x IESO          =  OFF ]
+"76
+[p x PWRT          =  ON ]
+"77
+[p x BOR            =  ON ]
+"78
+[p x BORV          =  2 ]
+"79
+[p x VREGEN      =  ON   ]
+"80
+[p x WDT            =  OFF ]
+"81
+[p x WDTPS        =  32768 ]
+"82
+[p x MCLRE        =  ON ]
+"83
+[p x LPT1OSC    =  OFF ]
+"84
+[p x PBADEN      =  OFF   ]
+"92
+[p x STVREN      =  ON ]
+"93
+[p x LVP            =  OFF ]
+"95
+[p x XINST        =  OFF        ]
+"96
+[p x CP0            =  OFF ]
+"97
+[p x CP1            =  OFF ]
+"100
+[p x CPB            =  OFF ]
+"102
+[p x WRT0          =  OFF ]
+"103
+[p x WRT1          =  OFF ]
+"106
+[p x WRTB          =  OFF        ]
+"107
+[p x WRTC          =  OFF ]
+"109
+[p x EBTR0        =  OFF ]
+"110
+[p x EBTR1        =  OFF ]
+"113
+[p x EBTRB        =  OFF ]
+"26 settings.c
+[; ;settings.c: 26: void time_set_min(void) {
+[v _time_set_min `(v ~T0 @X0 1 ef ]
+{
+[e :U _time_set_min ]
+[f ]
+"27
+[; ;settings.c: 27:     show_digit = ~show_digit;
+[e = _show_digit -> ~ -> _show_digit `ui `b ]
+"28
+[; ;settings.c: 28:     switch (events) {
+[e $U 376  ]
+{
+"29
+[; ;settings.c: 29:         case 5:
+[e :U 377 ]
+"31
+[; ;settings.c: 31:             break;
+[e $U 375  ]
+"32
+[; ;settings.c: 32:         case 1:
+[e :U 378 ]
+"34
+[; ;settings.c: 34:             RTOS_DeleteTask(time_set_min);
+[e ( _RTOS_DeleteTask (1 &U _time_set_min ]
+"35
+[; ;settings.c: 35:             RTOS_SetTask(time_set_hr, 0, 50);
+[e ( _RTOS_SetTask (3 , , &U _time_set_hr -> -> 0 `i `us -> -> 50 `i `us ]
+"36
+[; ;settings.c: 36:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"37
+[; ;settings.c: 37:             if (setting_Val[TYPE_CLK] == 1) {
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 1 `i 379  ]
+{
+"38
+[; ;settings.c: 38:                 putchar_b_buf(13, (unsigned) (TSTime.Tmin / 10) % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 13 `i `uc -> % -> / -> . _TSTime 1 `i -> 10 `i `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"39
+[; ;settings.c: 39:                 putchar_b_buf(19, (unsigned) TSTime.Tmin % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 19 `i `uc -> % -> . _TSTime 1 `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"40
+[; ;settings.c: 40:             } else {
+}
+[e $U 380  ]
+[e :U 379 ]
+{
+"41
+[; ;settings.c: 41:                 putchar_b_buf(19, (unsigned) (TTime.Tmin / 10) % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 19 `i `uc -> % -> / -> . _TTime 1 `i -> 10 `i `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"42
+[; ;settings.c: 42:                 putchar_b_buf(25, (unsigned) TTime.Tmin % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 25 `i `uc -> % -> . _TTime 1 `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"43
+[; ;settings.c: 43:             }
+}
+[e :U 380 ]
+"44
+[; ;settings.c: 44:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"45
+[; ;settings.c: 45:             en_put = 0;
+[e = _en_put -> -> 0 `i `b ]
+"46
+[; ;settings.c: 46:             break;
+[e $U 375  ]
+"48
+[; ;settings.c: 48:         case 4:
+[e :U 381 ]
+"49
+[; ;settings.c: 49:             exitButSet(time_set_min);
+[e ( _exitButSet (1 &U _time_set_min ]
+"55
+[; ;settings.c: 55:             break;
+[e $U 375  ]
+"56
+[; ;settings.c: 56:         case 2:
+[e :U 382 ]
+"57
+[; ;settings.c: 57:             TSTime.Tmin++;
+[e ++ . _TSTime 1 -> -> 1 `i `uc ]
+"58
+[; ;settings.c: 58:             if (TSTime.Tmin > 59) TSTime.Tmin = 0;
+[e $ ! > -> . _TSTime 1 `i -> 59 `i 383  ]
+[e = . _TSTime 1 -> -> 0 `i `uc ]
+[e :U 383 ]
+"59
+[; ;settings.c: 59:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"60
+[; ;settings.c: 60:             setTime(TSTime.Thr, TSTime.Tmin, 0);
+[e ( _setTime (3 , , . _TSTime 2 . _TSTime 1 -> -> 0 `i `uc ]
+"61
+[; ;settings.c: 61:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"62
+[; ;settings.c: 62:             break;
+[e $U 375  ]
+"63
+[; ;settings.c: 63:         case 3:
+[e :U 384 ]
+"64
+[; ;settings.c: 64:             TSTime.Tmin--;
+[e -- . _TSTime 1 -> -> 1 `i `uc ]
+"65
+[; ;settings.c: 65:             if (TSTime.Tmin == 255) TSTime.Tmin = 59;
+[e $ ! == -> . _TSTime 1 `i -> 255 `i 385  ]
+[e = . _TSTime 1 -> -> 59 `i `uc ]
+[e :U 385 ]
+"66
+[; ;settings.c: 66:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"67
+[; ;settings.c: 67:             setTime(TSTime.Thr, TSTime.Tmin, 0);
+[e ( _setTime (3 , , . _TSTime 2 . _TSTime 1 -> -> 0 `i `uc ]
+"68
+[; ;settings.c: 68:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"69
+[; ;settings.c: 69:             break;
+[e $U 375  ]
+"70
+[; ;settings.c: 70:     }
+}
+[e $U 375  ]
+[e :U 376 ]
+[e [\ _events , $ -> 5 `i 377
+ , $ -> 1 `i 378
+ , $ -> 4 `i 381
+ , $ -> 2 `i 382
+ , $ -> 3 `i 384
+ 375 ]
+[e :U 375 ]
+"71
+[; ;settings.c: 71:     if (en_put) {
+[e $ ! _en_put 386  ]
+{
+"72
+[; ;settings.c: 72:         if (show_digit)
+[e $ ! _show_digit 387  ]
+"73
+[; ;settings.c: 73:         {
+{
+"74
+[; ;settings.c: 74:             if (setting_Val[TYPE_CLK] == 1) {
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 1 `i 388  ]
+{
+"75
+[; ;settings.c: 75:                 putchar_b_buf(13, (unsigned) (TSTime.Tmin / 10) % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 13 `i `uc -> % -> / -> . _TSTime 1 `i -> 10 `i `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"76
+[; ;settings.c: 76:                 putchar_b_buf(19, (unsigned) TSTime.Tmin % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 19 `i `uc -> % -> . _TSTime 1 `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"77
+[; ;settings.c: 77:             } else {
+}
+[e $U 389  ]
+[e :U 388 ]
+{
+"78
+[; ;settings.c: 78:                 putchar_b_buf(19, (unsigned) (TSTime.Tmin / 10) % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 19 `i `uc -> % -> / -> . _TSTime 1 `i -> 10 `i `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"79
+[; ;settings.c: 79:                 putchar_b_buf(25, (unsigned) TSTime.Tmin % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 25 `i `uc -> % -> . _TSTime 1 `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"80
+[; ;settings.c: 80:             }
+}
+[e :U 389 ]
+"81
+[; ;settings.c: 81:         } else {
+}
+[e $U 390  ]
+[e :U 387 ]
+{
+"82
+[; ;settings.c: 82:             if (setting_Val[TYPE_CLK] == 1) {
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 1 `i 391  ]
+{
+[v F4069 `Cuc ~T0 @X0 -> 5 `i t ]
+"83
+[; ;settings.c: 83:                 putchar_b_buf(13, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 13 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4069 &U _Dis_Buff ]
+[v F4071 `Cuc ~T0 @X0 -> 5 `i t ]
+"84
+[; ;settings.c: 84:                 putchar_b_buf(19, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 19 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4071 &U _Dis_Buff ]
+"85
+[; ;settings.c: 85:             } else {
+}
+[e $U 392  ]
+[e :U 391 ]
+{
+[v F4073 `Cuc ~T0 @X0 -> 5 `i t ]
+"86
+[; ;settings.c: 86:                 putchar_b_buf(19, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 19 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4073 &U _Dis_Buff ]
+[v F4075 `Cuc ~T0 @X0 -> 5 `i t ]
+"87
+[; ;settings.c: 87:                 putchar_b_buf(25, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 25 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4075 &U _Dis_Buff ]
+"88
+[; ;settings.c: 88:             }
+}
+[e :U 392 ]
+"89
+[; ;settings.c: 89:         }
+}
+[e :U 390 ]
+"90
+[; ;settings.c: 90:     }
+}
+[e :U 386 ]
+"91
+[; ;settings.c: 91:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"92
+[; ;settings.c: 92:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"93
+[; ;settings.c: 93: }
+[e :UE 374 ]
+}
+"99
+[; ;settings.c: 99: void time_set_hr(void) {
+[v _time_set_hr `(v ~T0 @X0 1 ef ]
+{
+[e :U _time_set_hr ]
+[f ]
+"100
+[; ;settings.c: 100:     show_digit = ~show_digit;
+[e = _show_digit -> ~ -> _show_digit `ui `b ]
+"101
+[; ;settings.c: 101:     switch (events) {
+[e $U 395  ]
+{
+"102
+[; ;settings.c: 102:         case 5:
+[e :U 396 ]
+"104
+[; ;settings.c: 104:             break;
+[e $U 394  ]
+"105
+[; ;settings.c: 105:         case 1:
+[e :U 397 ]
+"106
+[; ;settings.c: 106:             okButSet(time_set_hr, time_set_yr);
+[e ( _okButSet (2 , &U _time_set_hr &U _time_set_yr ]
+"114
+[; ;settings.c: 114:             break;
+[e $U 394  ]
+"115
+[; ;settings.c: 115:         case 4:
+[e :U 398 ]
+"116
+[; ;settings.c: 116:             exitButSet(time_set_hr);
+[e ( _exitButSet (1 &U _time_set_hr ]
+"122
+[; ;settings.c: 122:             break;
+[e $U 394  ]
+"123
+[; ;settings.c: 123:         case 2:
+[e :U 399 ]
+"124
+[; ;settings.c: 124:             TSTime.Thr++;
+[e ++ . _TSTime 2 -> -> 1 `i `uc ]
+"125
+[; ;settings.c: 125:             if (TSTime.Thr > 23) TSTime.Thr = 0;
+[e $ ! > -> . _TSTime 2 `i -> 23 `i 400  ]
+[e = . _TSTime 2 -> -> 0 `i `uc ]
+[e :U 400 ]
+"126
+[; ;settings.c: 126:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"127
+[; ;settings.c: 127:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"128
+[; ;settings.c: 128:             if (dst_flag) {
+[e $ ! != -> _dst_flag `i -> 0 `i 401  ]
+{
+"129
+[; ;settings.c: 129:                 if (TSTime.Thr == 0)
+[e $ ! == -> . _TSTime 2 `i -> 0 `i 402  ]
+"130
+[; ;settings.c: 130:                     setTime(23, TSTime.Tmin, 0);
+[e ( _setTime (3 , , -> -> 23 `i `uc . _TSTime 1 -> -> 0 `i `uc ]
+[e $U 403  ]
+"131
+[; ;settings.c: 131:                 else
+[e :U 402 ]
+"132
+[; ;settings.c: 132:                     setTime((uint8_t) (TSTime.Thr - 1), TSTime.Tmin, 0);
+[e ( _setTime (3 , , -> - -> . _TSTime 2 `i -> 1 `i `uc . _TSTime 1 -> -> 0 `i `uc ]
+[e :U 403 ]
+"133
+[; ;settings.c: 133:             } else
+}
+[e $U 404  ]
+[e :U 401 ]
+"134
+[; ;settings.c: 134:                 setTime(TSTime.Thr, TSTime.Tmin, 0);
+[e ( _setTime (3 , , . _TSTime 2 . _TSTime 1 -> -> 0 `i `uc ]
+[e :U 404 ]
+"135
+[; ;settings.c: 135:             break;
+[e $U 394  ]
+"136
+[; ;settings.c: 136:         case 3:
+[e :U 405 ]
+"137
+[; ;settings.c: 137:             TSTime.Thr--;
+[e -- . _TSTime 2 -> -> 1 `i `uc ]
+"139
+[; ;settings.c: 139:             if (TSTime.Thr == 255) TSTime.Thr = 23;
+[e $ ! == -> . _TSTime 2 `i -> 255 `i 406  ]
+[e = . _TSTime 2 -> -> 23 `i `uc ]
+[e :U 406 ]
+"140
+[; ;settings.c: 140:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"141
+[; ;settings.c: 141:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"142
+[; ;settings.c: 142:             if (dst_flag) {
+[e $ ! != -> _dst_flag `i -> 0 `i 407  ]
+{
+"143
+[; ;settings.c: 143:                 if (TSTime.Thr == 0)
+[e $ ! == -> . _TSTime 2 `i -> 0 `i 408  ]
+"144
+[; ;settings.c: 144:                     setTime(23, TSTime.Tmin, 0);
+[e ( _setTime (3 , , -> -> 23 `i `uc . _TSTime 1 -> -> 0 `i `uc ]
+[e $U 409  ]
+"145
+[; ;settings.c: 145:                 else
+[e :U 408 ]
+"146
+[; ;settings.c: 146:                     setTime((uint8_t) (TSTime.Thr - 1), TSTime.Tmin, 0);
+[e ( _setTime (3 , , -> - -> . _TSTime 2 `i -> 1 `i `uc . _TSTime 1 -> -> 0 `i `uc ]
+[e :U 409 ]
+"147
+[; ;settings.c: 147:             } else
+}
+[e $U 410  ]
+[e :U 407 ]
+"148
+[; ;settings.c: 148:                 setTime(TSTime.Thr, TSTime.Tmin, 0);
+[e ( _setTime (3 , , . _TSTime 2 . _TSTime 1 -> -> 0 `i `uc ]
+[e :U 410 ]
+"149
+[; ;settings.c: 149:             break;
+[e $U 394  ]
+"150
+[; ;settings.c: 150:     }
+}
+[e $U 394  ]
+[e :U 395 ]
+[e [\ _events , $ -> 5 `i 396
+ , $ -> 1 `i 397
+ , $ -> 4 `i 398
+ , $ -> 2 `i 399
+ , $ -> 3 `i 405
+ 394 ]
+[e :U 394 ]
+"151
+[; ;settings.c: 151:     if (en_put) {
+[e $ ! _en_put 411  ]
+{
+"152
+[; ;settings.c: 152:         if (show_digit)
+[e $ ! _show_digit 412  ]
+"153
+[; ;settings.c: 153:         {
+{
+"157
+[; ;settings.c: 157:             if (setting_Val[TYPE_CLK] == 1) {
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 1 `i 413  ]
+{
+"158
+[; ;settings.c: 158:                 if ((TSTime.Thr / 10) % 10)
+[e $ ! != % / -> . _TSTime 2 `i -> 10 `i -> 10 `i -> 0 `i 414  ]
+"159
+[; ;settings.c: 159:                     putchar_b_buf(0, (unsigned) (TSTime.Thr / 10) % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> % -> / -> . _TSTime 2 `i -> 10 `i `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+[e $U 415  ]
+"160
+[; ;settings.c: 160:                 else
+[e :U 414 ]
+[v F4083 `Cuc ~T0 @X0 -> 5 `i t ]
+"161
+[; ;settings.c: 161:                     putchar_b_buf(0, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4083 &U _Dis_Buff ]
+[e :U 415 ]
+"162
+[; ;settings.c: 162:                 putchar_b_buf(6, (unsigned) TSTime.Thr % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> % -> . _TSTime 2 `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"163
+[; ;settings.c: 163:             } else {
+}
+[e $U 416  ]
+[e :U 413 ]
+{
+"164
+[; ;settings.c: 164:                 if ((TSTime.Thr / 10) % 10)
+[e $ ! != % / -> . _TSTime 2 `i -> 10 `i -> 10 `i -> 0 `i 417  ]
+"165
+[; ;settings.c: 165:                     putchar_b_buf(1, (unsigned) (TSTime.Thr / 10) % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 1 `i `uc -> % -> / -> . _TSTime 2 `i -> 10 `i `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+[e $U 418  ]
+"166
+[; ;settings.c: 166:                 else
+[e :U 417 ]
+[v F4085 `Cuc ~T0 @X0 -> 5 `i t ]
+"167
+[; ;settings.c: 167:                     putchar_b_buf(1, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 1 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4085 &U _Dis_Buff ]
+[e :U 418 ]
+"168
+[; ;settings.c: 168:                 putchar_b_buf(7, (unsigned) TSTime.Thr % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 7 `i `uc -> % -> . _TSTime 2 `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"169
+[; ;settings.c: 169:             }
+}
+[e :U 416 ]
+"170
+[; ;settings.c: 170:         } else {
+}
+[e $U 419  ]
+[e :U 412 ]
+{
+"171
+[; ;settings.c: 171:             if (setting_Val[TYPE_CLK] == 1) {
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 1 `i 420  ]
+{
+[v F4087 `Cuc ~T0 @X0 -> 5 `i t ]
+"172
+[; ;settings.c: 172:                 putchar_b_buf(0, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4087 &U _Dis_Buff ]
+[v F4089 `Cuc ~T0 @X0 -> 5 `i t ]
+"173
+[; ;settings.c: 173:                 putchar_b_buf(6, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4089 &U _Dis_Buff ]
+"174
+[; ;settings.c: 174:             } else {
+}
+[e $U 421  ]
+[e :U 420 ]
+{
+[v F4091 `Cuc ~T0 @X0 -> 5 `i t ]
+"176
+[; ;settings.c: 176:                 putchar_b_buf(1, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 1 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4091 &U _Dis_Buff ]
+[v F4093 `Cuc ~T0 @X0 -> 5 `i t ]
+"177
+[; ;settings.c: 177:                 putchar_b_buf(7, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 7 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4093 &U _Dis_Buff ]
+"178
+[; ;settings.c: 178:             }
+}
+[e :U 421 ]
+"179
+[; ;settings.c: 179:         }
+}
+[e :U 419 ]
+"180
+[; ;settings.c: 180:     }
+}
+[e :U 411 ]
+"181
+[; ;settings.c: 181:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"182
+[; ;settings.c: 182:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"183
+[; ;settings.c: 183: }
+[e :UE 393 ]
+}
+"188
+[; ;settings.c: 188: void time_set_yr(void) {
+[v _time_set_yr `(v ~T0 @X0 1 ef ]
+{
+[e :U _time_set_yr ]
+[f ]
+"189
+[; ;settings.c: 189:     switch (events) {
+[e $U 424  ]
+{
+"190
+[; ;settings.c: 190:         case 5:
+[e :U 425 ]
+"192
+[; ;settings.c: 192:             break;
+[e $U 423  ]
+"193
+[; ;settings.c: 193:         case 1:
+[e :U 426 ]
+"194
+[; ;settings.c: 194:             okButSet(time_set_yr, time_set_mt);
+[e ( _okButSet (2 , &U _time_set_yr &U _time_set_mt ]
+"200
+[; ;settings.c: 200:             break;
+[e $U 423  ]
+"201
+[; ;settings.c: 201:         case 4:
+[e :U 427 ]
+"202
+[; ;settings.c: 202:             exitButSet(time_set_yr);
+[e ( _exitButSet (1 &U _time_set_yr ]
+"209
+[; ;settings.c: 209:             break;
+[e $U 423  ]
+"210
+[; ;settings.c: 210:         case 2:
+[e :U 428 ]
+"211
+[; ;settings.c: 211:             TSTime.Tyr++;
+[e ++ . _TSTime 6 -> -> 1 `i `uc ]
+"212
+[; ;settings.c: 212:             if (TSTime.Tyr > 99) TSTime.Tyr = 0;
+[e $ ! > -> . _TSTime 6 `i -> 99 `i 429  ]
+[e = . _TSTime 6 -> -> 0 `i `uc ]
+[e :U 429 ]
+"213
+[; ;settings.c: 213:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"214
+[; ;settings.c: 214:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"215
+[; ;settings.c: 215:             setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+[e ( _setDate (4 , , , . _TSTime 3 . _TSTime 4 . _TSTime 5 . _TSTime 6 ]
+"216
+[; ;settings.c: 216:             break;
+[e $U 423  ]
+"217
+[; ;settings.c: 217:         case 3:
+[e :U 430 ]
+"218
+[; ;settings.c: 218:             TSTime.Tyr--;
+[e -- . _TSTime 6 -> -> 1 `i `uc ]
+"219
+[; ;settings.c: 219:             if (TSTime.Tyr == 255) TSTime.Tyr = 99;
+[e $ ! == -> . _TSTime 6 `i -> 255 `i 431  ]
+[e = . _TSTime 6 -> -> 99 `i `uc ]
+[e :U 431 ]
+"220
+[; ;settings.c: 220:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"221
+[; ;settings.c: 221:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"222
+[; ;settings.c: 222:             setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+[e ( _setDate (4 , , , . _TSTime 3 . _TSTime 4 . _TSTime 5 . _TSTime 6 ]
+"223
+[; ;settings.c: 223:             break;
+[e $U 423  ]
+"224
+[; ;settings.c: 224:     }
+}
+[e $U 423  ]
+[e :U 424 ]
+[e [\ _events , $ -> 5 `i 425
+ , $ -> 1 `i 426
+ , $ -> 4 `i 427
+ , $ -> 2 `i 428
+ , $ -> 3 `i 430
+ 423 ]
+[e :U 423 ]
+"225
+[; ;settings.c: 225:     if (en_put) {
+[e $ ! _en_put 432  ]
+{
+[v F4101 `Cuc ~T0 @X0 -> 5 `i t ]
+"226
+[; ;settings.c: 226:         putchar_b_buf(0, "Ðê:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 1C * -> -> 0 `i `x -> -> # *U :s 1C `i `x `uc -> -> &U _Font `*v `*F4101 &U _Dis_Buff ]
+[v F4103 `Cuc ~T0 @X0 -> 5 `i t ]
+"227
+[; ;settings.c: 227:         putchar_b_buf(6, "Ðê:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 2C * -> -> 1 `i `x -> -> # *U :s 2C `i `x `uc -> -> &U _Font `*v `*F4103 &U _Dis_Buff ]
+[v F4105 `Cuc ~T0 @X0 -> 5 `i t ]
+"228
+[; ;settings.c: 228:         putchar_b_buf(12, "Ðê:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 3C * -> -> 2 `i `x -> -> # *U :s 3C `i `x `uc -> -> &U _Font `*v `*F4105 &U _Dis_Buff ]
+"229
+[; ;settings.c: 229:         putchar_b_buf(18, (unsigned) (TSTime.Tyr / 10) % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> % -> / -> . _TSTime 6 `i -> 10 `i `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"230
+[; ;settings.c: 230:         putchar_b_buf(24, (unsigned) TSTime.Tyr % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> % -> . _TSTime 6 `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"231
+[; ;settings.c: 231:     }
+}
+[e :U 432 ]
+"232
+[; ;settings.c: 232:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"233
+[; ;settings.c: 233:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"234
+[; ;settings.c: 234: }
+[e :UE 422 ]
+}
+"241
+[; ;settings.c: 241: void time_set_mt(void) {
+[v _time_set_mt `(v ~T0 @X0 1 ef ]
+{
+[e :U _time_set_mt ]
+[f ]
+"242
+[; ;settings.c: 242:     switch (events) {
+[e $U 435  ]
+{
+"243
+[; ;settings.c: 243:         case 5:
+[e :U 436 ]
+"245
+[; ;settings.c: 245:             break;
+[e $U 434  ]
+"246
+[; ;settings.c: 246:         case 1:
+[e :U 437 ]
+"247
+[; ;settings.c: 247:             okButSet(time_set_mt, time_set_dt);
+[e ( _okButSet (2 , &U _time_set_mt &U _time_set_dt ]
+"253
+[; ;settings.c: 253:             break;
+[e $U 434  ]
+"254
+[; ;settings.c: 254:         case 4:
+[e :U 438 ]
+"255
+[; ;settings.c: 255:             exitButSet(time_set_mt);
+[e ( _exitButSet (1 &U _time_set_mt ]
+"262
+[; ;settings.c: 262:             break;
+[e $U 434  ]
+"263
+[; ;settings.c: 263:         case 2:
+[e :U 439 ]
+"264
+[; ;settings.c: 264:             TSTime.Tmt++;
+[e ++ . _TSTime 5 -> -> 1 `i `uc ]
+"265
+[; ;settings.c: 265:             if (TSTime.Tmt > 12) TSTime.Tmt = 1;
+[e $ ! > -> . _TSTime 5 `i -> 12 `i 440  ]
+[e = . _TSTime 5 -> -> 1 `i `uc ]
+[e :U 440 ]
+"266
+[; ;settings.c: 266:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"267
+[; ;settings.c: 267:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"268
+[; ;settings.c: 268:             setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+[e ( _setDate (4 , , , . _TSTime 3 . _TSTime 4 . _TSTime 5 . _TSTime 6 ]
+"269
+[; ;settings.c: 269:             break;
+[e $U 434  ]
+"270
+[; ;settings.c: 270:         case 3:
+[e :U 441 ]
+"271
+[; ;settings.c: 271:             TSTime.Tmt--;
+[e -- . _TSTime 5 -> -> 1 `i `uc ]
+"272
+[; ;settings.c: 272:             if (TSTime.Tmt == 0) TSTime.Tmt = 12;
+[e $ ! == -> . _TSTime 5 `i -> 0 `i 442  ]
+[e = . _TSTime 5 -> -> 12 `i `uc ]
+[e :U 442 ]
+"273
+[; ;settings.c: 273:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"274
+[; ;settings.c: 274:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"275
+[; ;settings.c: 275:             setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+[e ( _setDate (4 , , , . _TSTime 3 . _TSTime 4 . _TSTime 5 . _TSTime 6 ]
+"276
+[; ;settings.c: 276:             break;
+[e $U 434  ]
+"277
+[; ;settings.c: 277:     }
+}
+[e $U 434  ]
+[e :U 435 ]
+[e [\ _events , $ -> 5 `i 436
+ , $ -> 1 `i 437
+ , $ -> 4 `i 438
+ , $ -> 2 `i 439
+ , $ -> 3 `i 441
+ 434 ]
+[e :U 434 ]
+"278
+[; ;settings.c: 278:     if (en_put) {
+[e $ ! _en_put 443  ]
+{
+[v F4113 `Cuc ~T0 @X0 -> 5 `i t ]
+"279
+[; ;settings.c: 279:         putchar_b_buf(0, "Ìñ:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 4C * -> -> 0 `i `x -> -> # *U :s 4C `i `x `uc -> -> &U _Font `*v `*F4113 &U _Dis_Buff ]
+[v F4115 `Cuc ~T0 @X0 -> 5 `i t ]
+"280
+[; ;settings.c: 280:         putchar_b_buf(6, "Ìñ:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 5C * -> -> 1 `i `x -> -> # *U :s 5C `i `x `uc -> -> &U _Font `*v `*F4115 &U _Dis_Buff ]
+[v F4117 `Cuc ~T0 @X0 -> 5 `i t ]
+"281
+[; ;settings.c: 281:         putchar_b_buf(12, "Ìñ:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 6C * -> -> 2 `i `x -> -> # *U :s 6C `i `x `uc -> -> &U _Font `*v `*F4117 &U _Dis_Buff ]
+"282
+[; ;settings.c: 282:         switch (TSTime.Tmt) {
+[e $U 445  ]
+{
+"283
+[; ;settings.c: 283:             case 1:
+[e :U 446 ]
+[v F4119 `Cuc ~T0 @X0 -> 5 `i t ]
+"284
+[; ;settings.c: 284:                 putchar_b_buf(18, "Ñ÷"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 7C * -> -> 0 `i `x -> -> # *U :s 7C `i `x `uc -> -> &U _Font `*v `*F4119 &U _Dis_Buff ]
+[v F4121 `Cuc ~T0 @X0 -> 5 `i t ]
+"285
+[; ;settings.c: 285:                 putchar_b_buf(24, "Ñ÷"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 8C * -> -> 1 `i `x -> -> # *U :s 8C `i `x `uc -> -> &U _Font `*v `*F4121 &U _Dis_Buff ]
+"286
+[; ;settings.c: 286:                 break;
+[e $U 444  ]
+"287
+[; ;settings.c: 287:             case 2:
+[e :U 447 ]
+[v F4123 `Cuc ~T0 @X0 -> 5 `i t ]
+"288
+[; ;settings.c: 288:                 putchar_b_buf(18, "Ëò"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 9C * -> -> 0 `i `x -> -> # *U :s 9C `i `x `uc -> -> &U _Font `*v `*F4123 &U _Dis_Buff ]
+[v F4125 `Cuc ~T0 @X0 -> 5 `i t ]
+"289
+[; ;settings.c: 289:                 putchar_b_buf(24, "Ëò"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 10C * -> -> 1 `i `x -> -> # *U :s 10C `i `x `uc -> -> &U _Font `*v `*F4125 &U _Dis_Buff ]
+"290
+[; ;settings.c: 290:                 break;
+[e $U 444  ]
+"291
+[; ;settings.c: 291:             case 3:
+[e :U 448 ]
+[v F4127 `Cuc ~T0 @X0 -> 5 `i t ]
+"292
+[; ;settings.c: 292:                 putchar_b_buf(18, "Áð"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 11C * -> -> 0 `i `x -> -> # *U :s 11C `i `x `uc -> -> &U _Font `*v `*F4127 &U _Dis_Buff ]
+[v F4129 `Cuc ~T0 @X0 -> 5 `i t ]
+"293
+[; ;settings.c: 293:                 putchar_b_buf(24, "Áð"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 12C * -> -> 1 `i `x -> -> # *U :s 12C `i `x `uc -> -> &U _Font `*v `*F4129 &U _Dis_Buff ]
+"294
+[; ;settings.c: 294:                 break;
+[e $U 444  ]
+"295
+[; ;settings.c: 295:             case 4:
+[e :U 449 ]
+[v F4131 `Cuc ~T0 @X0 -> 5 `i t ]
+"296
+[; ;settings.c: 296:                 putchar_b_buf(18, "Êâ"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 13C * -> -> 0 `i `x -> -> # *U :s 13C `i `x `uc -> -> &U _Font `*v `*F4131 &U _Dis_Buff ]
+[v F4133 `Cuc ~T0 @X0 -> 5 `i t ]
+"297
+[; ;settings.c: 297:                 putchar_b_buf(24, "Êâ"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 14C * -> -> 1 `i `x -> -> # *U :s 14C `i `x `uc -> -> &U _Font `*v `*F4133 &U _Dis_Buff ]
+"298
+[; ;settings.c: 298:                 break;
+[e $U 444  ]
+"299
+[; ;settings.c: 299:             case 5:
+[e :U 450 ]
+[v F4135 `Cuc ~T0 @X0 -> 5 `i t ]
+"300
+[; ;settings.c: 300:                 putchar_b_buf(18, "Òð"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 15C * -> -> 0 `i `x -> -> # *U :s 15C `i `x `uc -> -> &U _Font `*v `*F4135 &U _Dis_Buff ]
+[v F4137 `Cuc ~T0 @X0 -> 5 `i t ]
+"301
+[; ;settings.c: 301:                 putchar_b_buf(24, "Òð"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 16C * -> -> 1 `i `x -> -> # *U :s 16C `i `x `uc -> -> &U _Font `*v `*F4137 &U _Dis_Buff ]
+"302
+[; ;settings.c: 302:                 break;
+[e $U 444  ]
+"303
+[; ;settings.c: 303:             case 6:
+[e :U 451 ]
+[v F4139 `Cuc ~T0 @X0 -> 5 `i t ]
+"304
+[; ;settings.c: 304:                 putchar_b_buf(18, "×ð"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 17C * -> -> 0 `i `x -> -> # *U :s 17C `i `x `uc -> -> &U _Font `*v `*F4139 &U _Dis_Buff ]
+[v F4141 `Cuc ~T0 @X0 -> 5 `i t ]
+"305
+[; ;settings.c: 305:                 putchar_b_buf(24, "×ð"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 18C * -> -> 1 `i `x -> -> # *U :s 18C `i `x `uc -> -> &U _Font `*v `*F4141 &U _Dis_Buff ]
+"306
+[; ;settings.c: 306:                 break;
+[e $U 444  ]
+"307
+[; ;settings.c: 307:             case 7:
+[e :U 452 ]
+[v F4143 `Cuc ~T0 @X0 -> 5 `i t ]
+"308
+[; ;settings.c: 308:                 putchar_b_buf(18, "Ëï"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 19C * -> -> 0 `i `x -> -> # *U :s 19C `i `x `uc -> -> &U _Font `*v `*F4143 &U _Dis_Buff ]
+[v F4145 `Cuc ~T0 @X0 -> 5 `i t ]
+"309
+[; ;settings.c: 309:                 putchar_b_buf(24, "Ëï"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 20C * -> -> 1 `i `x -> -> # *U :s 20C `i `x `uc -> -> &U _Font `*v `*F4145 &U _Dis_Buff ]
+"310
+[; ;settings.c: 310:                 break;
+[e $U 444  ]
+"311
+[; ;settings.c: 311:             case 8:
+[e :U 453 ]
+[v F4147 `Cuc ~T0 @X0 -> 5 `i t ]
+"312
+[; ;settings.c: 312:                 putchar_b_buf(18, "Ñð"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 21C * -> -> 0 `i `x -> -> # *U :s 21C `i `x `uc -> -> &U _Font `*v `*F4147 &U _Dis_Buff ]
+[v F4149 `Cuc ~T0 @X0 -> 5 `i t ]
+"313
+[; ;settings.c: 313:                 putchar_b_buf(24, "Ñð"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 22C * -> -> 1 `i `x -> -> # *U :s 22C `i `x `uc -> -> &U _Font `*v `*F4149 &U _Dis_Buff ]
+"314
+[; ;settings.c: 314:                 break;
+[e $U 444  ]
+"315
+[; ;settings.c: 315:             case 9:
+[e :U 454 ]
+[v F4151 `Cuc ~T0 @X0 -> 5 `i t ]
+"316
+[; ;settings.c: 316:                 putchar_b_buf(18, "Âð"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 23C * -> -> 0 `i `x -> -> # *U :s 23C `i `x `uc -> -> &U _Font `*v `*F4151 &U _Dis_Buff ]
+[v F4153 `Cuc ~T0 @X0 -> 5 `i t ]
+"317
+[; ;settings.c: 317:                 putchar_b_buf(24, "Âð"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 24C * -> -> 1 `i `x -> -> # *U :s 24C `i `x `uc -> -> &U _Font `*v `*F4153 &U _Dis_Buff ]
+"318
+[; ;settings.c: 318:                 break;
+[e $U 444  ]
+"319
+[; ;settings.c: 319:             case 10:
+[e :U 455 ]
+[v F4155 `Cuc ~T0 @X0 -> 5 `i t ]
+"320
+[; ;settings.c: 320:                 putchar_b_buf(18, "Æâ"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 25C * -> -> 0 `i `x -> -> # *U :s 25C `i `x `uc -> -> &U _Font `*v `*F4155 &U _Dis_Buff ]
+[v F4157 `Cuc ~T0 @X0 -> 5 `i t ]
+"321
+[; ;settings.c: 321:                 putchar_b_buf(24, "Æâ"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 26C * -> -> 1 `i `x -> -> # *U :s 26C `i `x `uc -> -> &U _Font `*v `*F4157 &U _Dis_Buff ]
+"322
+[; ;settings.c: 322:                 break;
+[e $U 444  ]
+"323
+[; ;settings.c: 323:             case 11:
+[e :U 456 ]
+[v F4159 `Cuc ~T0 @X0 -> 5 `i t ]
+"324
+[; ;settings.c: 324:                 putchar_b_buf(18, "Ëñ"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 27C * -> -> 0 `i `x -> -> # *U :s 27C `i `x `uc -> -> &U _Font `*v `*F4159 &U _Dis_Buff ]
+[v F4161 `Cuc ~T0 @X0 -> 5 `i t ]
+"325
+[; ;settings.c: 325:                 putchar_b_buf(24, "Ëñ"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 28C * -> -> 1 `i `x -> -> # *U :s 28C `i `x `uc -> -> &U _Font `*v `*F4161 &U _Dis_Buff ]
+"326
+[; ;settings.c: 326:                 break;
+[e $U 444  ]
+"327
+[; ;settings.c: 327:             case 12:
+[e :U 457 ]
+[v F4163 `Cuc ~T0 @X0 -> 5 `i t ]
+"328
+[; ;settings.c: 328:                 putchar_b_buf(18, "Ãð"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 29C * -> -> 0 `i `x -> -> # *U :s 29C `i `x `uc -> -> &U _Font `*v `*F4163 &U _Dis_Buff ]
+[v F4165 `Cuc ~T0 @X0 -> 5 `i t ]
+"329
+[; ;settings.c: 329:                 putchar_b_buf(24, "Ãð"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 30C * -> -> 1 `i `x -> -> # *U :s 30C `i `x `uc -> -> &U _Font `*v `*F4165 &U _Dis_Buff ]
+"330
+[; ;settings.c: 330:                 break;
+[e $U 444  ]
+"332
+[; ;settings.c: 332:         }
+}
+[e $U 444  ]
+[e :U 445 ]
+[e [\ . _TSTime 5 , $ -> 1 `i 446
+ , $ -> 2 `i 447
+ , $ -> 3 `i 448
+ , $ -> 4 `i 449
+ , $ -> 5 `i 450
+ , $ -> 6 `i 451
+ , $ -> 7 `i 452
+ , $ -> 8 `i 453
+ , $ -> 9 `i 454
+ , $ -> 10 `i 455
+ , $ -> 11 `i 456
+ , $ -> 12 `i 457
+ 444 ]
+[e :U 444 ]
+"333
+[; ;settings.c: 333:     }
+}
+[e :U 443 ]
+"334
+[; ;settings.c: 334:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"335
+[; ;settings.c: 335:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"336
+[; ;settings.c: 336: }
+[e :UE 433 ]
+}
+"342
+[; ;settings.c: 342: void time_set_dt(void) {
+[v _time_set_dt `(v ~T0 @X0 1 ef ]
+{
+[e :U _time_set_dt ]
+[f ]
+"343
+[; ;settings.c: 343:     switch (events) {
+[e $U 460  ]
+{
+"344
+[; ;settings.c: 344:         case 5:
+[e :U 461 ]
+"346
+[; ;settings.c: 346:             break;
+[e $U 459  ]
+"347
+[; ;settings.c: 347:         case 1:
+[e :U 462 ]
+"348
+[; ;settings.c: 348:             okButSet(time_set_dt, time_set_dy);
+[e ( _okButSet (2 , &U _time_set_dt &U _time_set_dy ]
+"354
+[; ;settings.c: 354:             break;
+[e $U 459  ]
+"355
+[; ;settings.c: 355:         case 4:
+[e :U 463 ]
+"356
+[; ;settings.c: 356:             exitButSet(time_set_dt);
+[e ( _exitButSet (1 &U _time_set_dt ]
+"363
+[; ;settings.c: 363:             break;
+[e $U 459  ]
+"364
+[; ;settings.c: 364:         case 2:
+[e :U 464 ]
+"365
+[; ;settings.c: 365:             TSTime.Tdt++;
+[e ++ . _TSTime 4 -> -> 1 `i `uc ]
+"366
+[; ;settings.c: 366:             if (TSTime.Tyr % 4) {
+[e $ ! != % -> . _TSTime 6 `i -> 4 `i -> 0 `i 465  ]
+{
+"367
+[; ;settings.c: 367:                 if ((TSTime.Tdt > day_in_m[TSTime.Tmt - (unsigned) 1]) | ((TSTime.Tmt == 2) && (TSTime.Tdt > (day_in_m[TSTime.Tmt - (unsigned) 1]) - 1)))
+[e $ ! | > -> . _TSTime 4 `i -> *U + &U _day_in_m * -> - -> . _TSTime 5 `ui -> -> 1 `i `ui `ux -> -> # *U &U _day_in_m `ui `ux `i && == -> . _TSTime 5 `i -> 2 `i > -> . _TSTime 4 `i - -> *U + &U _day_in_m * -> - -> . _TSTime 5 `ui -> -> 1 `i `ui `ux -> -> # *U &U _day_in_m `ui `ux `i -> 1 `i 466  ]
+"368
+[; ;settings.c: 368:                     TSTime.Tdt = 1;
+[e = . _TSTime 4 -> -> 1 `i `uc ]
+[e :U 466 ]
+"369
+[; ;settings.c: 369:             } else {
+}
+[e $U 467  ]
+[e :U 465 ]
+{
+"370
+[; ;settings.c: 370:                 if (TSTime.Tdt > day_in_m[TSTime.Tmt - (unsigned) 1])
+[e $ ! > -> . _TSTime 4 `i -> *U + &U _day_in_m * -> - -> . _TSTime 5 `ui -> -> 1 `i `ui `ux -> -> # *U &U _day_in_m `ui `ux `i 468  ]
+"371
+[; ;settings.c: 371:                     TSTime.Tdt = 1;
+[e = . _TSTime 4 -> -> 1 `i `uc ]
+[e :U 468 ]
+"372
+[; ;settings.c: 372:             }
+}
+[e :U 467 ]
+"374
+[; ;settings.c: 374:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"375
+[; ;settings.c: 375:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"376
+[; ;settings.c: 376:             setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+[e ( _setDate (4 , , , . _TSTime 3 . _TSTime 4 . _TSTime 5 . _TSTime 6 ]
+"377
+[; ;settings.c: 377:             break;
+[e $U 459  ]
+"378
+[; ;settings.c: 378:         case 3:
+[e :U 469 ]
+"379
+[; ;settings.c: 379:             TSTime.Tdt--;
+[e -- . _TSTime 4 -> -> 1 `i `uc ]
+"380
+[; ;settings.c: 380:             if (TSTime.Tyr % 4) {
+[e $ ! != % -> . _TSTime 6 `i -> 4 `i -> 0 `i 470  ]
+{
+"381
+[; ;settings.c: 381:                 if ((TSTime.Tdt == 0) && (TSTime.Tmt != 2)) {
+[e $ ! && == -> . _TSTime 4 `i -> 0 `i != -> . _TSTime 5 `i -> 2 `i 471  ]
+{
+"382
+[; ;settings.c: 382:                     TSTime.Tdt = day_in_m[TSTime.Tmt - (unsigned) 1];
+[e = . _TSTime 4 *U + &U _day_in_m * -> - -> . _TSTime 5 `ui -> -> 1 `i `ui `ux -> -> # *U &U _day_in_m `ui `ux ]
+"383
+[; ;settings.c: 383:                 } else {
+}
+[e $U 472  ]
+[e :U 471 ]
+{
+"384
+[; ;settings.c: 384:                     if ((TSTime.Tmt == 2) && (TSTime.Tdt == 0))
+[e $ ! && == -> . _TSTime 5 `i -> 2 `i == -> . _TSTime 4 `i -> 0 `i 473  ]
+"385
+[; ;settings.c: 385:                         TSTime.Tdt = (day_in_m[TSTime.Tmt - (unsigned) 1]) - (unsigned) 1;
+[e = . _TSTime 4 -> - -> *U + &U _day_in_m * -> - -> . _TSTime 5 `ui -> -> 1 `i `ui `ux -> -> # *U &U _day_in_m `ui `ux `ui -> -> 1 `i `ui `uc ]
+[e :U 473 ]
+"386
+[; ;settings.c: 386:                 }
+}
+[e :U 472 ]
+"387
+[; ;settings.c: 387:             } else {
+}
+[e $U 474  ]
+[e :U 470 ]
+{
+"388
+[; ;settings.c: 388:                 if (TSTime.Tdt == 0)
+[e $ ! == -> . _TSTime 4 `i -> 0 `i 475  ]
+"389
+[; ;settings.c: 389:                     TSTime.Tdt = day_in_m[TSTime.Tmt - (unsigned) 1];
+[e = . _TSTime 4 *U + &U _day_in_m * -> - -> . _TSTime 5 `ui -> -> 1 `i `ui `ux -> -> # *U &U _day_in_m `ui `ux ]
+[e :U 475 ]
+"390
+[; ;settings.c: 390:             }
+}
+[e :U 474 ]
+"392
+[; ;settings.c: 392:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"393
+[; ;settings.c: 393:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"394
+[; ;settings.c: 394:             setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+[e ( _setDate (4 , , , . _TSTime 3 . _TSTime 4 . _TSTime 5 . _TSTime 6 ]
+"395
+[; ;settings.c: 395:             break;
+[e $U 459  ]
+"396
+[; ;settings.c: 396:     }
+}
+[e $U 459  ]
+[e :U 460 ]
+[e [\ _events , $ -> 5 `i 461
+ , $ -> 1 `i 462
+ , $ -> 4 `i 463
+ , $ -> 2 `i 464
+ , $ -> 3 `i 469
+ 459 ]
+[e :U 459 ]
+"397
+[; ;settings.c: 397:     if (en_put) {
+[e $ ! _en_put 476  ]
+{
+[v F4173 `Cuc ~T0 @X0 -> 5 `i t ]
+"398
+[; ;settings.c: 398:         putchar_b_buf(0, "×ñ:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 31C * -> -> 0 `i `x -> -> # *U :s 31C `i `x `uc -> -> &U _Font `*v `*F4173 &U _Dis_Buff ]
+[v F4175 `Cuc ~T0 @X0 -> 5 `i t ]
+"399
+[; ;settings.c: 399:         putchar_b_buf(6, "×ñ:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 32C * -> -> 1 `i `x -> -> # *U :s 32C `i `x `uc -> -> &U _Font `*v `*F4175 &U _Dis_Buff ]
+[v F4177 `Cuc ~T0 @X0 -> 5 `i t ]
+"400
+[; ;settings.c: 400:         putchar_b_buf(12, "×ñ:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 33C * -> -> 2 `i `x -> -> # *U :s 33C `i `x `uc -> -> &U _Font `*v `*F4177 &U _Dis_Buff ]
+"401
+[; ;settings.c: 401:         putchar_b_buf(18, (unsigned) (TSTime.Tdt / 10) % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> % -> / -> . _TSTime 4 `i -> 10 `i `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"402
+[; ;settings.c: 402:         putchar_b_buf(24, (unsigned) TSTime.Tdt % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> % -> . _TSTime 4 `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+"403
+[; ;settings.c: 403:     }
+}
+[e :U 476 ]
+"404
+[; ;settings.c: 404:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"405
+[; ;settings.c: 405:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"406
+[; ;settings.c: 406: }
+[e :UE 458 ]
+}
+"413
+[; ;settings.c: 413: void time_set_dy(void) {
+[v _time_set_dy `(v ~T0 @X0 1 ef ]
+{
+[e :U _time_set_dy ]
+[f ]
+"414
+[; ;settings.c: 414:     switch (events) {
+[e $U 479  ]
+{
+"415
+[; ;settings.c: 415:         case 5:
+[e :U 480 ]
+"417
+[; ;settings.c: 417:             break;
+[e $U 478  ]
+"418
+[; ;settings.c: 418:         case 1:
+[e :U 481 ]
+"419
+[; ;settings.c: 419:             okButSet(time_set_dy, set_font_set);
+[e ( _okButSet (2 , &U _time_set_dy &U _set_font_set ]
+"425
+[; ;settings.c: 425:             break;
+[e $U 478  ]
+"426
+[; ;settings.c: 426:         case 4:
+[e :U 482 ]
+"427
+[; ;settings.c: 427:             exitButSet(time_set_dy);
+[e ( _exitButSet (1 &U _time_set_dy ]
+"434
+[; ;settings.c: 434:             break;
+[e $U 478  ]
+"435
+[; ;settings.c: 435:         case 2:
+[e :U 483 ]
+"436
+[; ;settings.c: 436:             TSTime.Tdy++;
+[e ++ . _TSTime 3 -> -> 1 `i `uc ]
+"437
+[; ;settings.c: 437:             if (TSTime.Tdy > 7) TSTime.Tdy = 1;
+[e $ ! > -> . _TSTime 3 `i -> 7 `i 484  ]
+[e = . _TSTime 3 -> -> 1 `i `uc ]
+[e :U 484 ]
+"438
+[; ;settings.c: 438:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"439
+[; ;settings.c: 439:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"440
+[; ;settings.c: 440:             setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+[e ( _setDate (4 , , , . _TSTime 3 . _TSTime 4 . _TSTime 5 . _TSTime 6 ]
+"441
+[; ;settings.c: 441:             break;
+[e $U 478  ]
+"442
+[; ;settings.c: 442:         case 3:
+[e :U 485 ]
+"443
+[; ;settings.c: 443:             TSTime.Tdy--;
+[e -- . _TSTime 3 -> -> 1 `i `uc ]
+"444
+[; ;settings.c: 444:             if (TSTime.Tdy == 0) TSTime.Tdy = 7;
+[e $ ! == -> . _TSTime 3 `i -> 0 `i 486  ]
+[e = . _TSTime 3 -> -> 7 `i `uc ]
+[e :U 486 ]
+"445
+[; ;settings.c: 445:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"446
+[; ;settings.c: 446:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"447
+[; ;settings.c: 447:             setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+[e ( _setDate (4 , , , . _TSTime 3 . _TSTime 4 . _TSTime 5 . _TSTime 6 ]
+"448
+[; ;settings.c: 448:             break;
+[e $U 478  ]
+"449
+[; ;settings.c: 449:     }
+}
+[e $U 478  ]
+[e :U 479 ]
+[e [\ _events , $ -> 5 `i 480
+ , $ -> 1 `i 481
+ , $ -> 4 `i 482
+ , $ -> 2 `i 483
+ , $ -> 3 `i 485
+ 478 ]
+[e :U 478 ]
+"450
+[; ;settings.c: 450:     if (en_put) {
+[e $ ! _en_put 487  ]
+{
+[v F4185 `Cuc ~T0 @X0 -> 5 `i t ]
+"451
+[; ;settings.c: 451:         putchar_b_buf(0, "Äí:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 34C * -> -> 0 `i `x -> -> # *U :s 34C `i `x `uc -> -> &U _Font `*v `*F4185 &U _Dis_Buff ]
+[v F4187 `Cuc ~T0 @X0 -> 5 `i t ]
+"452
+[; ;settings.c: 452:         putchar_b_buf(6, "Äí:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 35C * -> -> 1 `i `x -> -> # *U :s 35C `i `x `uc -> -> &U _Font `*v `*F4187 &U _Dis_Buff ]
+[v F4189 `Cuc ~T0 @X0 -> 5 `i t ]
+"453
+[; ;settings.c: 453:         putchar_b_buf(12, "Äí:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 36C * -> -> 2 `i `x -> -> # *U :s 36C `i `x `uc -> -> &U _Font `*v `*F4189 &U _Dis_Buff ]
+"454
+[; ;settings.c: 454:         switch (TSTime.Tdy) {
+[e $U 489  ]
+{
+"455
+[; ;settings.c: 455:             case 2:
+[e :U 490 ]
+[v F4191 `Cuc ~T0 @X0 -> 5 `i t ]
+"456
+[; ;settings.c: 456:                 putchar_b_buf(18, "Ïí"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 37C * -> -> 0 `i `x -> -> # *U :s 37C `i `x `uc -> -> &U _Font `*v `*F4191 &U _Dis_Buff ]
+[v F4193 `Cuc ~T0 @X0 -> 5 `i t ]
+"457
+[; ;settings.c: 457:                 putchar_b_buf(24, "Ïí"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 38C * -> -> 1 `i `x -> -> # *U :s 38C `i `x `uc -> -> &U _Font `*v `*F4193 &U _Dis_Buff ]
+"458
+[; ;settings.c: 458:                 break;
+[e $U 488  ]
+"459
+[; ;settings.c: 459:             case 3:
+[e :U 491 ]
+[v F4195 `Cuc ~T0 @X0 -> 5 `i t ]
+"460
+[; ;settings.c: 460:                 putchar_b_buf(18, "Âò"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 39C * -> -> 0 `i `x -> -> # *U :s 39C `i `x `uc -> -> &U _Font `*v `*F4195 &U _Dis_Buff ]
+[v F4197 `Cuc ~T0 @X0 -> 5 `i t ]
+"461
+[; ;settings.c: 461:                 putchar_b_buf(24, "Âò"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 40C * -> -> 1 `i `x -> -> # *U :s 40C `i `x `uc -> -> &U _Font `*v `*F4197 &U _Dis_Buff ]
+"462
+[; ;settings.c: 462:                 break;
+[e $U 488  ]
+"463
+[; ;settings.c: 463:             case 4:
+[e :U 492 ]
+[v F4199 `Cuc ~T0 @X0 -> 5 `i t ]
+"464
+[; ;settings.c: 464:                 putchar_b_buf(18, "Ñð"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 41C * -> -> 0 `i `x -> -> # *U :s 41C `i `x `uc -> -> &U _Font `*v `*F4199 &U _Dis_Buff ]
+[v F4201 `Cuc ~T0 @X0 -> 5 `i t ]
+"465
+[; ;settings.c: 465:                 putchar_b_buf(24, "Ñð"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 42C * -> -> 1 `i `x -> -> # *U :s 42C `i `x `uc -> -> &U _Font `*v `*F4201 &U _Dis_Buff ]
+"466
+[; ;settings.c: 466:                 break;
+[e $U 488  ]
+"467
+[; ;settings.c: 467:             case 5:
+[e :U 493 ]
+[v F4203 `Cuc ~T0 @X0 -> 5 `i t ]
+"468
+[; ;settings.c: 468:                 putchar_b_buf(18, "×ò"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 43C * -> -> 0 `i `x -> -> # *U :s 43C `i `x `uc -> -> &U _Font `*v `*F4203 &U _Dis_Buff ]
+[v F4205 `Cuc ~T0 @X0 -> 5 `i t ]
+"469
+[; ;settings.c: 469:                 putchar_b_buf(24, "×ò"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 44C * -> -> 1 `i `x -> -> # *U :s 44C `i `x `uc -> -> &U _Font `*v `*F4205 &U _Dis_Buff ]
+"470
+[; ;settings.c: 470:                 break;
+[e $U 488  ]
+"471
+[; ;settings.c: 471:             case 6:
+[e :U 494 ]
+[v F4207 `Cuc ~T0 @X0 -> 5 `i t ]
+"472
+[; ;settings.c: 472:                 putchar_b_buf(18, "Ïò"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 45C * -> -> 0 `i `x -> -> # *U :s 45C `i `x `uc -> -> &U _Font `*v `*F4207 &U _Dis_Buff ]
+[v F4209 `Cuc ~T0 @X0 -> 5 `i t ]
+"473
+[; ;settings.c: 473:                 putchar_b_buf(24, "Ïò"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 46C * -> -> 1 `i `x -> -> # *U :s 46C `i `x `uc -> -> &U _Font `*v `*F4209 &U _Dis_Buff ]
+"474
+[; ;settings.c: 474:                 break;
+[e $U 488  ]
+"475
+[; ;settings.c: 475:             case 7:
+[e :U 495 ]
+[v F4211 `Cuc ~T0 @X0 -> 5 `i t ]
+"476
+[; ;settings.c: 476:                 putchar_b_buf(18, "Ñá"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 47C * -> -> 0 `i `x -> -> # *U :s 47C `i `x `uc -> -> &U _Font `*v `*F4211 &U _Dis_Buff ]
+[v F4213 `Cuc ~T0 @X0 -> 5 `i t ]
+"477
+[; ;settings.c: 477:                 putchar_b_buf(24, "Ñá"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 48C * -> -> 1 `i `x -> -> # *U :s 48C `i `x `uc -> -> &U _Font `*v `*F4213 &U _Dis_Buff ]
+"478
+[; ;settings.c: 478:                 break;
+[e $U 488  ]
+"479
+[; ;settings.c: 479:             case 1:
+[e :U 496 ]
+[v F4215 `Cuc ~T0 @X0 -> 5 `i t ]
+"480
+[; ;settings.c: 480:                 putchar_b_buf(18, "Íä"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 49C * -> -> 0 `i `x -> -> # *U :s 49C `i `x `uc -> -> &U _Font `*v `*F4215 &U _Dis_Buff ]
+[v F4217 `Cuc ~T0 @X0 -> 5 `i t ]
+"481
+[; ;settings.c: 481:                 putchar_b_buf(24, "Íä"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 50C * -> -> 1 `i `x -> -> # *U :s 50C `i `x `uc -> -> &U _Font `*v `*F4217 &U _Dis_Buff ]
+"482
+[; ;settings.c: 482:                 break;
+[e $U 488  ]
+"483
+[; ;settings.c: 483:         }
+}
+[e $U 488  ]
+[e :U 489 ]
+[e [\ . _TSTime 3 , $ -> 2 `i 490
+ , $ -> 3 `i 491
+ , $ -> 4 `i 492
+ , $ -> 5 `i 493
+ , $ -> 6 `i 494
+ , $ -> 7 `i 495
+ , $ -> 1 `i 496
+ 488 ]
+[e :U 488 ]
+"484
+[; ;settings.c: 484:     }
+}
+[e :U 487 ]
+"485
+[; ;settings.c: 485:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"486
+[; ;settings.c: 486:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"487
+[; ;settings.c: 487: }
+[e :UE 477 ]
+}
+"493
+[; ;settings.c: 493: void set_font_set(void) {
+[v _set_font_set `(v ~T0 @X0 1 ef ]
+{
+[e :U _set_font_set ]
+[f ]
+"494
+[; ;settings.c: 494:     switch (events) {
+[e $U 499  ]
+{
+"495
+[; ;settings.c: 495:         case 5:
+[e :U 500 ]
+"497
+[; ;settings.c: 497:             break;
+[e $U 498  ]
+"498
+[; ;settings.c: 498:         case 1:
+[e :U 501 ]
+"499
+[; ;settings.c: 499:             okButSet(set_font_set, set_type_clk);
+[e ( _okButSet (2 , &U _set_font_set &U _set_type_clk ]
+"506
+[; ;settings.c: 506:             break;
+[e $U 498  ]
+"507
+[; ;settings.c: 507:         case 4:
+[e :U 502 ]
+"508
+[; ;settings.c: 508:             exitButSet(set_font_set);
+[e ( _exitButSet (1 &U _set_font_set ]
+"515
+[; ;settings.c: 515:             break;
+[e $U 498  ]
+"516
+[; ;settings.c: 516:         case 2:
+[e :U 503 ]
+"517
+[; ;settings.c: 517:             setting_Val[TYPE_FONT]++;
+[e ++ *U + &U _setting_Val * -> . `E3968 0 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+"518
+[; ;settings.c: 518:             if (setting_Val[TYPE_FONT] > 5) setting_Val[TYPE_FONT] = FONT_1;
+[e $ ! > -> *U + &U _setting_Val * -> . `E3968 0 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 5 `i 504  ]
+[e = *U + &U _setting_Val * -> . `E3968 0 `ux -> -> # *U &U _setting_Val `ui `ux -> . `E3982 0 `uc ]
+[e :U 504 ]
+"519
+[; ;settings.c: 519:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"520
+[; ;settings.c: 520:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"521
+[; ;settings.c: 521:             write_eep(0, setting_Val[TYPE_FONT]);
+[e ( _write_eep (2 , -> -> 0 `i `uc *U + &U _setting_Val * -> . `E3968 0 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"522
+[; ;settings.c: 522:             set_font();
+[e ( _set_font ..  ]
+"523
+[; ;settings.c: 523:             break;
+[e $U 498  ]
+"524
+[; ;settings.c: 524:         case 3:
+[e :U 505 ]
+"525
+[; ;settings.c: 525:             setting_Val[TYPE_FONT]--;
+[e -- *U + &U _setting_Val * -> . `E3968 0 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+"526
+[; ;settings.c: 526:             if (setting_Val[TYPE_FONT] == 0) setting_Val[TYPE_FONT] = FONT_5;
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 0 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 506  ]
+[e = *U + &U _setting_Val * -> . `E3968 0 `ux -> -> # *U &U _setting_Val `ui `ux -> . `E3982 4 `uc ]
+[e :U 506 ]
+"527
+[; ;settings.c: 527:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"528
+[; ;settings.c: 528:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"529
+[; ;settings.c: 529:             write_eep(0, setting_Val[TYPE_FONT]);
+[e ( _write_eep (2 , -> -> 0 `i `uc *U + &U _setting_Val * -> . `E3968 0 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"530
+[; ;settings.c: 530:             set_font();
+[e ( _set_font ..  ]
+"531
+[; ;settings.c: 531:             break;
+[e $U 498  ]
+"532
+[; ;settings.c: 532:     }
+}
+[e $U 498  ]
+[e :U 499 ]
+[e [\ _events , $ -> 5 `i 500
+ , $ -> 1 `i 501
+ , $ -> 4 `i 502
+ , $ -> 2 `i 503
+ , $ -> 3 `i 505
+ 498 ]
+[e :U 498 ]
+"533
+[; ;settings.c: 533:     if (en_put) {
+[e $ ! _en_put 507  ]
+{
+[v F4225 `Cuc ~T0 @X0 -> 5 `i t ]
+"534
+[; ;settings.c: 534:         putchar_b_buf(0, "Øð:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 51C * -> -> 0 `i `x -> -> # *U :s 51C `i `x `uc -> -> &U _Font `*v `*F4225 &U _Dis_Buff ]
+[v F4227 `Cuc ~T0 @X0 -> 5 `i t ]
+"535
+[; ;settings.c: 535:         putchar_b_buf(6, "Øð:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 52C * -> -> 1 `i `x -> -> # *U :s 52C `i `x `uc -> -> &U _Font `*v `*F4227 &U _Dis_Buff ]
+[v F4229 `Cuc ~T0 @X0 -> 5 `i t ]
+"536
+[; ;settings.c: 536:         putchar_b_buf(12, "Øð:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 53C * -> -> 2 `i `x -> -> # *U :s 53C `i `x `uc -> -> &U _Font `*v `*F4229 &U _Dis_Buff ]
+"537
+[; ;settings.c: 537:         putchar_b_buf(18, (unsigned) setting_Val[TYPE_FONT] % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> % -> *U + &U _setting_Val * -> . `E3968 0 `ux -> -> # *U &U _setting_Val `ui `ux `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+[v F4231 `Cuc ~T0 @X0 -> 5 `i t ]
+"538
+[; ;settings.c: 538:         putchar_b_buf(24, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4231 &U _Dis_Buff ]
+"539
+[; ;settings.c: 539:     }
+}
+[e :U 507 ]
+"540
+[; ;settings.c: 540:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"541
+[; ;settings.c: 541:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"542
+[; ;settings.c: 542: }
+[e :UE 497 ]
+}
+"548
+[; ;settings.c: 548: void set_type_clk(void) {
+[v _set_type_clk `(v ~T0 @X0 1 ef ]
+{
+[e :U _set_type_clk ]
+[f ]
+"549
+[; ;settings.c: 549:     switch (events) {
+[e $U 510  ]
+{
+"550
+[; ;settings.c: 550:         case 5:
+[e :U 511 ]
+"552
+[; ;settings.c: 552:             break;
+[e $U 509  ]
+"553
+[; ;settings.c: 553:         case 1:
+[e :U 512 ]
+"554
+[; ;settings.c: 554:             okButSet(set_type_clk, brg_set);
+[e ( _okButSet (2 , &U _set_type_clk -> &U _brg_set `*F4235 ]
+"561
+[; ;settings.c: 561:             break;
+[e $U 509  ]
+"562
+[; ;settings.c: 562:         case 4:
+[e :U 513 ]
+"563
+[; ;settings.c: 563:             exitButSet(set_type_clk);
+[e ( _exitButSet (1 &U _set_type_clk ]
+"575
+[; ;settings.c: 575:             break;
+[e $U 509  ]
+"576
+[; ;settings.c: 576:         case 2:
+[e :U 514 ]
+"577
+[; ;settings.c: 577:             setting_Val[TYPE_CLK]++;
+[e ++ *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+"578
+[; ;settings.c: 578:             if (setting_Val[TYPE_CLK] > 2) setting_Val[TYPE_CLK] = 1;
+[e $ ! > -> *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 2 `i 515  ]
+[e = *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+[e :U 515 ]
+"579
+[; ;settings.c: 579:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"580
+[; ;settings.c: 580:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"581
+[; ;settings.c: 581:             write_eep(1, setting_Val[TYPE_CLK]);
+[e ( _write_eep (2 , -> -> 1 `i `uc *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"582
+[; ;settings.c: 582:             break;
+[e $U 509  ]
+"583
+[; ;settings.c: 583:         case 3:
+[e :U 516 ]
+"584
+[; ;settings.c: 584:             setting_Val[TYPE_CLK]--;
+[e -- *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+"585
+[; ;settings.c: 585:             if (setting_Val[TYPE_CLK] == 0) setting_Val[TYPE_CLK] = 2;
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 517  ]
+[e = *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 2 `i `uc ]
+[e :U 517 ]
+"586
+[; ;settings.c: 586:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"587
+[; ;settings.c: 587:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"588
+[; ;settings.c: 588:             write_eep(1, setting_Val[TYPE_CLK]);
+[e ( _write_eep (2 , -> -> 1 `i `uc *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"589
+[; ;settings.c: 589:             break;
+[e $U 509  ]
+"590
+[; ;settings.c: 590:     }
+}
+[e $U 509  ]
+[e :U 510 ]
+[e [\ _events , $ -> 5 `i 511
+ , $ -> 1 `i 512
+ , $ -> 4 `i 513
+ , $ -> 2 `i 514
+ , $ -> 3 `i 516
+ 509 ]
+[e :U 509 ]
+"591
+[; ;settings.c: 591:     if (en_put) {
+[e $ ! _en_put 518  ]
+{
+[v F4240 `Cuc ~T0 @X0 -> 5 `i t ]
+"592
+[; ;settings.c: 592:         putchar_b_buf(0, "Òï:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 54C * -> -> 0 `i `x -> -> # *U :s 54C `i `x `uc -> -> &U _Font `*v `*F4240 &U _Dis_Buff ]
+[v F4242 `Cuc ~T0 @X0 -> 5 `i t ]
+"593
+[; ;settings.c: 593:         putchar_b_buf(6, "Òï:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 55C * -> -> 1 `i `x -> -> # *U :s 55C `i `x `uc -> -> &U _Font `*v `*F4242 &U _Dis_Buff ]
+[v F4244 `Cuc ~T0 @X0 -> 5 `i t ]
+"594
+[; ;settings.c: 594:         putchar_b_buf(12, "Òï:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 56C * -> -> 2 `i `x -> -> # *U :s 56C `i `x `uc -> -> &U _Font `*v `*F4244 &U _Dis_Buff ]
+"595
+[; ;settings.c: 595:         putchar_b_buf(18, (unsigned) setting_Val[TYPE_CLK] % 10, pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> % -> *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux `ui -> -> 10 `i `ui `uc _pFont &U _Dis_Buff ]
+[v F4246 `Cuc ~T0 @X0 -> 5 `i t ]
+"596
+[; ;settings.c: 596:         putchar_b_buf(24, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4246 &U _Dis_Buff ]
+"597
+[; ;settings.c: 597:     }
+}
+[e :U 518 ]
+"598
+[; ;settings.c: 598:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"599
+[; ;settings.c: 599:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"601
+[; ;settings.c: 601: }
+[e :UE 508 ]
+}
+"607
+[; ;settings.c: 607: void brg_set() {
+[v _brg_set `(v ~T0 @X0 1 ef ]
+{
+[e :U _brg_set ]
+[f ]
+"608
+[; ;settings.c: 608:     switch (events) {
+[e $U 521  ]
+{
+"609
+[; ;settings.c: 609:         case 5:
+[e :U 522 ]
+"611
+[; ;settings.c: 611:             break;
+[e $U 520  ]
+"612
+[; ;settings.c: 612:         case 1:
+[e :U 523 ]
+"613
+[; ;settings.c: 613:             if (setting_Val[TYPE_BRG]) {
+[e $ ! != -> *U + &U _setting_Val * -> . `E3968 2 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 524  ]
+{
+"614
+[; ;settings.c: 614:                 okButSet(brg_set, set_sound_h);
+[e ( _okButSet (2 , -> &U _brg_set `*F4249 &U _set_sound_h ]
+"621
+[; ;settings.c: 621:             } else {
+}
+[e $U 525  ]
+[e :U 524 ]
+{
+"622
+[; ;settings.c: 622:                 okButSet(brg_set, set_brg_manual);
+[e ( _okButSet (2 , -> &U _brg_set `*F4252 -> &U _set_brg_manual `*F4254 ]
+"625
+[; ;settings.c: 625:                 setting_Val[VAL_BRG] = read_eep(3);
+[e = *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux ( _read_eep (1 -> -> 3 `i `uc ]
+"626
+[; ;settings.c: 626:                 Cmd7221(0x0A, setting_Val[VAL_BRG]);
+[e ( _Cmd7221 (2 , -> -> 10 `i `uc *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"631
+[; ;settings.c: 631:             }
+}
+[e :U 525 ]
+"633
+[; ;settings.c: 633:             break;
+[e $U 520  ]
+"634
+[; ;settings.c: 634:         case 4:
+[e :U 526 ]
+"635
+[; ;settings.c: 635:             exitButSet(brg_set);
+[e ( _exitButSet (1 -> &U _brg_set `*F4256 ]
+"642
+[; ;settings.c: 642:             break;
+[e $U 520  ]
+"643
+[; ;settings.c: 643:         case 2:
+[e :U 527 ]
+"644
+[; ;settings.c: 644:             setting_Val[TYPE_BRG] = !setting_Val[TYPE_BRG];
+[e = *U + &U _setting_Val * -> . `E3968 2 `ux -> -> # *U &U _setting_Val `ui `ux -> -> ! != -> *U + &U _setting_Val * -> . `E3968 2 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i `i `uc ]
+"645
+[; ;settings.c: 645:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"646
+[; ;settings.c: 646:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"647
+[; ;settings.c: 647:             write_eep(2, (uint8_t) setting_Val[TYPE_BRG]);
+[e ( _write_eep (2 , -> -> 2 `i `uc *U + &U _setting_Val * -> . `E3968 2 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"648
+[; ;settings.c: 648:             break;
+[e $U 520  ]
+"649
+[; ;settings.c: 649:         case 3:
+[e :U 528 ]
+"650
+[; ;settings.c: 650:             setting_Val[TYPE_BRG] = !setting_Val[TYPE_BRG];
+[e = *U + &U _setting_Val * -> . `E3968 2 `ux -> -> # *U &U _setting_Val `ui `ux -> -> ! != -> *U + &U _setting_Val * -> . `E3968 2 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i `i `uc ]
+"651
+[; ;settings.c: 651:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"652
+[; ;settings.c: 652:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"653
+[; ;settings.c: 653:             write_eep(2, (uint8_t) setting_Val[TYPE_BRG]);
+[e ( _write_eep (2 , -> -> 2 `i `uc *U + &U _setting_Val * -> . `E3968 2 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"654
+[; ;settings.c: 654:             break;
+[e $U 520  ]
+"655
+[; ;settings.c: 655:     }
+}
+[e $U 520  ]
+[e :U 521 ]
+[e [\ _events , $ -> 5 `i 522
+ , $ -> 1 `i 523
+ , $ -> 4 `i 526
+ , $ -> 2 `i 527
+ , $ -> 3 `i 528
+ 520 ]
+[e :U 520 ]
+"656
+[; ;settings.c: 656:     if (en_put) {
+[e $ ! _en_put 529  ]
+{
+[v F4260 `Cuc ~T0 @X0 -> 5 `i t ]
+"657
+[; ;settings.c: 657:         putchar_b_buf(0, "ßñ:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 57C * -> -> 0 `i `x -> -> # *U :s 57C `i `x `uc -> -> &U _Font `*v `*F4260 &U _Dis_Buff ]
+[v F4262 `Cuc ~T0 @X0 -> 5 `i t ]
+"658
+[; ;settings.c: 658:         putchar_b_buf(6, "ßñ:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 58C * -> -> 1 `i `x -> -> # *U :s 58C `i `x `uc -> -> &U _Font `*v `*F4262 &U _Dis_Buff ]
+[v F4264 `Cuc ~T0 @X0 -> 5 `i t ]
+"659
+[; ;settings.c: 659:         putchar_b_buf(12, "ßñ:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 59C * -> -> 2 `i `x -> -> # *U :s 59C `i `x `uc -> -> &U _Font `*v `*F4264 &U _Dis_Buff ]
+"660
+[; ;settings.c: 660:         if (setting_Val[TYPE_BRG]) {
+[e $ ! != -> *U + &U _setting_Val * -> . `E3968 2 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 530  ]
+{
+[v F4266 `Cuc ~T0 @X0 -> 5 `i t ]
+"661
+[; ;settings.c: 661:             putchar_b_buf(18, "Àâ"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 60C * -> -> 0 `i `x -> -> # *U :s 60C `i `x `uc -> -> &U _Font `*v `*F4266 &U _Dis_Buff ]
+[v F4268 `Cuc ~T0 @X0 -> 5 `i t ]
+"662
+[; ;settings.c: 662:             putchar_b_buf(24, "Àâ"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 61C * -> -> 1 `i `x -> -> # *U :s 61C `i `x `uc -> -> &U _Font `*v `*F4268 &U _Dis_Buff ]
+"663
+[; ;settings.c: 663:         } else {
+}
+[e $U 531  ]
+[e :U 530 ]
+{
+[v F4270 `Cuc ~T0 @X0 -> 5 `i t ]
+"664
+[; ;settings.c: 664:             putchar_b_buf(18, "Ïñ"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 62C * -> -> 0 `i `x -> -> # *U :s 62C `i `x `uc -> -> &U _Font `*v `*F4270 &U _Dis_Buff ]
+[v F4272 `Cuc ~T0 @X0 -> 5 `i t ]
+"665
+[; ;settings.c: 665:             putchar_b_buf(24, "Ïñ"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> *U + :s 63C * -> -> 1 `i `x -> -> # *U :s 63C `i `x `uc -> -> &U _Font `*v `*F4272 &U _Dis_Buff ]
+"666
+[; ;settings.c: 666:         }
+}
+[e :U 531 ]
+"668
+[; ;settings.c: 668:     }
+}
+[e :U 529 ]
+"669
+[; ;settings.c: 669:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"670
+[; ;settings.c: 670:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"672
+[; ;settings.c: 672: }
+[e :UE 519 ]
+}
+"679
+[; ;settings.c: 679: void set_brg_manual() {
+[v _set_brg_manual `(v ~T0 @X0 1 ef ]
+{
+[e :U _set_brg_manual ]
+[f ]
+"680
+[; ;settings.c: 680:     switch (events) {
+[e $U 534  ]
+{
+"681
+[; ;settings.c: 681:         case 5:
+[e :U 535 ]
+"683
+[; ;settings.c: 683:             break;
+[e $U 533  ]
+"684
+[; ;settings.c: 684:         case 1:
+[e :U 536 ]
+"685
+[; ;settings.c: 685:             okButSet(set_brg_manual, set_sound_h);
+[e ( _okButSet (2 , -> &U _set_brg_manual `*F4275 &U _set_sound_h ]
+"692
+[; ;settings.c: 692:             break;
+[e $U 533  ]
+"693
+[; ;settings.c: 693:         case 4:
+[e :U 537 ]
+"694
+[; ;settings.c: 694:             exitButSet(set_brg_manual);
+[e ( _exitButSet (1 -> &U _set_brg_manual `*F4278 ]
+"701
+[; ;settings.c: 701:             break;
+[e $U 533  ]
+"702
+[; ;settings.c: 702:         case 2:
+[e :U 538 ]
+"703
+[; ;settings.c: 703:             setting_Val[VAL_BRG]++;
+[e ++ *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+"704
+[; ;settings.c: 704:             if (setting_Val[VAL_BRG] > VAL_BRG_NUM_8) setting_Val[VAL_BRG] = VAL_BRG_NUM_1;
+[e $ ! > -> *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux `i -> . `E3988 7 `i 539  ]
+[e = *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux -> . `E3988 0 `uc ]
+[e :U 539 ]
+"705
+[; ;settings.c: 705:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"706
+[; ;settings.c: 706:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"707
+[; ;settings.c: 707:             write_eep(3, setting_Val[VAL_BRG]);
+[e ( _write_eep (2 , -> -> 3 `i `uc *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"708
+[; ;settings.c: 708:             Cmd7221(0x0A, setting_Val[VAL_BRG]);
+[e ( _Cmd7221 (2 , -> -> 10 `i `uc *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"709
+[; ;settings.c: 709:             break;
+[e $U 533  ]
+"710
+[; ;settings.c: 710:         case 3:
+[e :U 540 ]
+"711
+[; ;settings.c: 711:             setting_Val[VAL_BRG]--;
+[e -- *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+"712
+[; ;settings.c: 712:             if (setting_Val[VAL_BRG] == 255) setting_Val[VAL_BRG] = VAL_BRG_NUM_8;
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 255 `i 541  ]
+[e = *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux -> . `E3988 7 `uc ]
+[e :U 541 ]
+"713
+[; ;settings.c: 713:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"714
+[; ;settings.c: 714:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"715
+[; ;settings.c: 715:             write_eep(3, setting_Val[VAL_BRG]);
+[e ( _write_eep (2 , -> -> 3 `i `uc *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"716
+[; ;settings.c: 716:             Cmd7221(0x0A, setting_Val[VAL_BRG]);
+[e ( _Cmd7221 (2 , -> -> 10 `i `uc *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"717
+[; ;settings.c: 717:             break;
+[e $U 533  ]
+"718
+[; ;settings.c: 718:     }
+}
+[e $U 533  ]
+[e :U 534 ]
+[e [\ _events , $ -> 5 `i 535
+ , $ -> 1 `i 536
+ , $ -> 4 `i 537
+ , $ -> 2 `i 538
+ , $ -> 3 `i 540
+ 533 ]
+[e :U 533 ]
+"719
+[; ;settings.c: 719:     if (en_put) {
+[e $ ! _en_put 542  ]
+{
+[v F4282 `Cuc ~T0 @X0 -> 5 `i t ]
+"720
+[; ;settings.c: 720:         putchar_b_buf(0, "ßñ:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 64C * -> -> 0 `i `x -> -> # *U :s 64C `i `x `uc -> -> &U _Font `*v `*F4282 &U _Dis_Buff ]
+[v F4284 `Cuc ~T0 @X0 -> 5 `i t ]
+"721
+[; ;settings.c: 721:         putchar_b_buf(6, "ßñ:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 65C * -> -> 1 `i `x -> -> # *U :s 65C `i `x `uc -> -> &U _Font `*v `*F4284 &U _Dis_Buff ]
+[v F4286 `Cuc ~T0 @X0 -> 5 `i t ]
+"722
+[; ;settings.c: 722:         putchar_b_buf(12, "ßñ:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 66C * -> -> 2 `i `x -> -> # *U :s 66C `i `x `uc -> -> &U _Font `*v `*F4286 &U _Dis_Buff ]
+[v F4288 `Cuc ~T0 @X0 -> 5 `i t ]
+"723
+[; ;settings.c: 723:         putchar_b_buf(18, (unsigned) setting_Val[VAL_BRG] % 10, (void *) pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> % -> *U + &U _setting_Val * -> . `E3968 3 `ux -> -> # *U &U _setting_Val `ui `ux `ui -> -> 10 `i `ui `uc -> -> _pFont `*v `*F4288 &U _Dis_Buff ]
+[v F4289 `Cuc ~T0 @X0 -> 5 `i t ]
+"724
+[; ;settings.c: 724:         putchar_b_buf(24, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4289 &U _Dis_Buff ]
+"725
+[; ;settings.c: 725:     }
+}
+[e :U 542 ]
+"726
+[; ;settings.c: 726:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"727
+[; ;settings.c: 727:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"729
+[; ;settings.c: 729: }
+[e :UE 532 ]
+}
+"736
+[; ;settings.c: 736: void set_sound_h(void) {
+[v _set_sound_h `(v ~T0 @X0 1 ef ]
+{
+[e :U _set_sound_h ]
+[f ]
+"737
+[; ;settings.c: 737:     switch (events) {
+[e $U 545  ]
+{
+"738
+[; ;settings.c: 738:         case 5:
+[e :U 546 ]
+"740
+[; ;settings.c: 740:             break;
+[e $U 544  ]
+"741
+[; ;settings.c: 741:         case 1:
+[e :U 547 ]
+"742
+[; ;settings.c: 742:             okButSet(set_sound_h, set_en_ds1);
+[e ( _okButSet (2 , &U _set_sound_h &U _set_en_ds1 ]
+"749
+[; ;settings.c: 749:             break;
+[e $U 544  ]
+"750
+[; ;settings.c: 750:         case 4:
+[e :U 548 ]
+"751
+[; ;settings.c: 751:             exitButSet(set_sound_h);
+[e ( _exitButSet (1 &U _set_sound_h ]
+"758
+[; ;settings.c: 758:             break;
+[e $U 544  ]
+"759
+[; ;settings.c: 759:         case 2:
+[e :U 549 ]
+"760
+[; ;settings.c: 760:             setting_Val[ENABLE_SND_HOUR]++;
+[e ++ *U + &U _setting_Val * -> . `E3968 4 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+"761
+[; ;settings.c: 761:             if (setting_Val[ENABLE_SND_HOUR] > 1) setting_Val[ENABLE_SND_HOUR] = 0;
+[e $ ! > -> *U + &U _setting_Val * -> . `E3968 4 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 1 `i 550  ]
+[e = *U + &U _setting_Val * -> . `E3968 4 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 0 `i `uc ]
+[e :U 550 ]
+"762
+[; ;settings.c: 762:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"763
+[; ;settings.c: 763:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"764
+[; ;settings.c: 764:             write_eep(4, setting_Val[ENABLE_SND_HOUR]);
+[e ( _write_eep (2 , -> -> 4 `i `uc *U + &U _setting_Val * -> . `E3968 4 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"765
+[; ;settings.c: 765:             break;
+[e $U 544  ]
+"766
+[; ;settings.c: 766:         case 3:
+[e :U 551 ]
+"767
+[; ;settings.c: 767:             setting_Val[ENABLE_SND_HOUR]--;
+[e -- *U + &U _setting_Val * -> . `E3968 4 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+"768
+[; ;settings.c: 768:             if (setting_Val[ENABLE_SND_HOUR] == 255) setting_Val[ENABLE_SND_HOUR] = 1;
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 4 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 255 `i 552  ]
+[e = *U + &U _setting_Val * -> . `E3968 4 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+[e :U 552 ]
+"769
+[; ;settings.c: 769:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"770
+[; ;settings.c: 770:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"771
+[; ;settings.c: 771:             write_eep(4, setting_Val[ENABLE_SND_HOUR]);
+[e ( _write_eep (2 , -> -> 4 `i `uc *U + &U _setting_Val * -> . `E3968 4 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"772
+[; ;settings.c: 772:             break;
+[e $U 544  ]
+"773
+[; ;settings.c: 773:     }
+}
+[e $U 544  ]
+[e :U 545 ]
+[e [\ _events , $ -> 5 `i 546
+ , $ -> 1 `i 547
+ , $ -> 4 `i 548
+ , $ -> 2 `i 549
+ , $ -> 3 `i 551
+ 544 ]
+[e :U 544 ]
+"774
+[; ;settings.c: 774:     if (en_put) {
+[e $ ! _en_put 553  ]
+{
+[v F4297 `Cuc ~T0 @X0 -> 5 `i t ]
+"775
+[; ;settings.c: 775:         putchar_b_buf(0, "Çâ:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 67C * -> -> 0 `i `x -> -> # *U :s 67C `i `x `uc -> -> &U _Font `*v `*F4297 &U _Dis_Buff ]
+[v F4299 `Cuc ~T0 @X0 -> 5 `i t ]
+"776
+[; ;settings.c: 776:         putchar_b_buf(6, "Çâ:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 68C * -> -> 1 `i `x -> -> # *U :s 68C `i `x `uc -> -> &U _Font `*v `*F4299 &U _Dis_Buff ]
+[v F4301 `Cuc ~T0 @X0 -> 5 `i t ]
+"777
+[; ;settings.c: 777:         putchar_b_buf(12, "Çâ:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 69C * -> -> 2 `i `x -> -> # *U :s 69C `i `x `uc -> -> &U _Font `*v `*F4301 &U _Dis_Buff ]
+[v F4303 `Cuc ~T0 @X0 -> 5 `i t ]
+"778
+[; ;settings.c: 778:         putchar_b_buf(18, (unsigned) setting_Val[ENABLE_SND_HOUR] % 10, (void *) pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> % -> *U + &U _setting_Val * -> . `E3968 4 `ux -> -> # *U &U _setting_Val `ui `ux `ui -> -> 10 `i `ui `uc -> -> _pFont `*v `*F4303 &U _Dis_Buff ]
+[v F4304 `Cuc ~T0 @X0 -> 5 `i t ]
+"779
+[; ;settings.c: 779:         putchar_b_buf(24, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4304 &U _Dis_Buff ]
+"780
+[; ;settings.c: 780:     }
+}
+[e :U 553 ]
+"781
+[; ;settings.c: 781:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"782
+[; ;settings.c: 782:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"784
+[; ;settings.c: 784: }
+[e :UE 543 ]
+}
+"790
+[; ;settings.c: 790: void set_en_ds1(void) {
+[v _set_en_ds1 `(v ~T0 @X0 1 ef ]
+{
+[e :U _set_en_ds1 ]
+[f ]
+"791
+[; ;settings.c: 791:     switch (events) {
+[e $U 556  ]
+{
+"792
+[; ;settings.c: 792:         case 5:
+[e :U 557 ]
+"794
+[; ;settings.c: 794:             break;
+[e $U 555  ]
+"795
+[; ;settings.c: 795:         case 1:
+[e :U 558 ]
+"796
+[; ;settings.c: 796:             okButSet(set_en_ds1, set_en_ds2);
+[e ( _okButSet (2 , &U _set_en_ds1 &U _set_en_ds2 ]
+"803
+[; ;settings.c: 803:             break;
+[e $U 555  ]
+"804
+[; ;settings.c: 804:         case 4:
+[e :U 559 ]
+"805
+[; ;settings.c: 805:             exitButSet(set_en_ds1);
+[e ( _exitButSet (1 &U _set_en_ds1 ]
+"812
+[; ;settings.c: 812:             break;
+[e $U 555  ]
+"813
+[; ;settings.c: 813:         case 2:
+[e :U 560 ]
+"814
+[; ;settings.c: 814:             setting_Val[ENABLE_DS_1] = !(setting_Val[ENABLE_DS_1]);
+[e = *U + &U _setting_Val * -> . `E3968 5 `ux -> -> # *U &U _setting_Val `ui `ux -> -> ! != -> *U + &U _setting_Val * -> . `E3968 5 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i `i `uc ]
+"815
+[; ;settings.c: 815:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"816
+[; ;settings.c: 816:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"817
+[; ;settings.c: 817:             write_eep(5, (uint8_t) setting_Val[ENABLE_DS_1]);
+[e ( _write_eep (2 , -> -> 5 `i `uc *U + &U _setting_Val * -> . `E3968 5 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"818
+[; ;settings.c: 818:             break;
+[e $U 555  ]
+"819
+[; ;settings.c: 819:         case 3:
+[e :U 561 ]
+"822
+[; ;settings.c: 822:             events = 2;
+[e = _events -> -> 2 `i `uc ]
+"824
+[; ;settings.c: 824:             break;
+[e $U 555  ]
+"826
+[; ;settings.c: 826:     }
+}
+[e $U 555  ]
+[e :U 556 ]
+[e [\ _events , $ -> 5 `i 557
+ , $ -> 1 `i 558
+ , $ -> 4 `i 559
+ , $ -> 2 `i 560
+ , $ -> 3 `i 561
+ 555 ]
+[e :U 555 ]
+"827
+[; ;settings.c: 827:     if (en_put) {
+[e $ ! _en_put 562  ]
+{
+[v F4311 `Cuc ~T0 @X0 -> 5 `i t ]
+"828
+[; ;settings.c: 828:         putchar_b_buf(0, "Ò1:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 70C * -> -> 0 `i `x -> -> # *U :s 70C `i `x `uc -> -> &U _Font `*v `*F4311 &U _Dis_Buff ]
+[v F4313 `Cuc ~T0 @X0 -> 5 `i t ]
+"829
+[; ;settings.c: 829:         putchar_b_buf(6, "Ò1:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 71C * -> -> 1 `i `x -> -> # *U :s 71C `i `x `uc -> -> &U _Font `*v `*F4313 &U _Dis_Buff ]
+[v F4315 `Cuc ~T0 @X0 -> 5 `i t ]
+"830
+[; ;settings.c: 830:         putchar_b_buf(12, "Ò1:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 72C * -> -> 2 `i `x -> -> # *U :s 72C `i `x `uc -> -> &U _Font `*v `*F4315 &U _Dis_Buff ]
+"831
+[; ;settings.c: 831:         if (setting_Val[ENABLE_DS_1])
+[e $ ! != -> *U + &U _setting_Val * -> . `E3968 5 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 563  ]
+[v F4317 `Cuc ~T0 @X0 -> 5 `i t ]
+"832
+[; ;settings.c: 832:             putchar_b_buf(18, '+', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> -> 43 `ui `uc -> -> &U _Font `*v `*F4317 &U _Dis_Buff ]
+[e $U 564  ]
+"833
+[; ;settings.c: 833:         else
+[e :U 563 ]
+[v F4319 `Cuc ~T0 @X0 -> 5 `i t ]
+"834
+[; ;settings.c: 834:             putchar_b_buf(18, '-', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> -> 45 `ui `uc -> -> &U _Font `*v `*F4319 &U _Dis_Buff ]
+[e :U 564 ]
+[v F4321 `Cuc ~T0 @X0 -> 5 `i t ]
+"835
+[; ;settings.c: 835:         putchar_b_buf(24, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4321 &U _Dis_Buff ]
+"836
+[; ;settings.c: 836:     }
+}
+[e :U 562 ]
+"837
+[; ;settings.c: 837:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"838
+[; ;settings.c: 838:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"840
+[; ;settings.c: 840: }
+[e :UE 554 ]
+}
+"846
+[; ;settings.c: 846: void set_en_ds2(void) {
+[v _set_en_ds2 `(v ~T0 @X0 1 ef ]
+{
+[e :U _set_en_ds2 ]
+[f ]
+"847
+[; ;settings.c: 847:     switch (events) {
+[e $U 567  ]
+{
+"848
+[; ;settings.c: 848:         case 5:
+[e :U 568 ]
+"850
+[; ;settings.c: 850:             break;
+[e $U 566  ]
+"851
+[; ;settings.c: 851:         case 1:
+[e :U 569 ]
+"852
+[; ;settings.c: 852:             okButSet(set_en_ds2, set_en_bmp);
+[e ( _okButSet (2 , &U _set_en_ds2 &U _set_en_bmp ]
+"859
+[; ;settings.c: 859:             break;
+[e $U 566  ]
+"860
+[; ;settings.c: 860:         case 4:
+[e :U 570 ]
+"861
+[; ;settings.c: 861:             exitButSet(set_en_ds2);
+[e ( _exitButSet (1 &U _set_en_ds2 ]
+"868
+[; ;settings.c: 868:             break;
+[e $U 566  ]
+"869
+[; ;settings.c: 869:         case 2:
+[e :U 571 ]
+"870
+[; ;settings.c: 870:             setting_Val[ENABLE_DS_2] = !(setting_Val[ENABLE_DS_2]);
+[e = *U + &U _setting_Val * -> . `E3968 6 `ux -> -> # *U &U _setting_Val `ui `ux -> -> ! != -> *U + &U _setting_Val * -> . `E3968 6 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i `i `uc ]
+"871
+[; ;settings.c: 871:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"872
+[; ;settings.c: 872:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"873
+[; ;settings.c: 873:             write_eep(6, (uint8_t) setting_Val[ENABLE_DS_2]);
+[e ( _write_eep (2 , -> -> 6 `i `uc *U + &U _setting_Val * -> . `E3968 6 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"874
+[; ;settings.c: 874:             break;
+[e $U 566  ]
+"875
+[; ;settings.c: 875:         case 3:
+[e :U 572 ]
+"878
+[; ;settings.c: 878:             events = 2;
+[e = _events -> -> 2 `i `uc ]
+"880
+[; ;settings.c: 880:             break;
+[e $U 566  ]
+"882
+[; ;settings.c: 882:     }
+}
+[e $U 566  ]
+[e :U 567 ]
+[e [\ _events , $ -> 5 `i 568
+ , $ -> 1 `i 569
+ , $ -> 4 `i 570
+ , $ -> 2 `i 571
+ , $ -> 3 `i 572
+ 566 ]
+[e :U 566 ]
+"883
+[; ;settings.c: 883:     if (en_put) {
+[e $ ! _en_put 573  ]
+{
+[v F4328 `Cuc ~T0 @X0 -> 5 `i t ]
+"884
+[; ;settings.c: 884:         putchar_b_buf(0, "Ò2:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 73C * -> -> 0 `i `x -> -> # *U :s 73C `i `x `uc -> -> &U _Font `*v `*F4328 &U _Dis_Buff ]
+[v F4330 `Cuc ~T0 @X0 -> 5 `i t ]
+"885
+[; ;settings.c: 885:         putchar_b_buf(6, "Ò2:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 74C * -> -> 1 `i `x -> -> # *U :s 74C `i `x `uc -> -> &U _Font `*v `*F4330 &U _Dis_Buff ]
+[v F4332 `Cuc ~T0 @X0 -> 5 `i t ]
+"886
+[; ;settings.c: 886:         putchar_b_buf(12, "Ò2:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 75C * -> -> 2 `i `x -> -> # *U :s 75C `i `x `uc -> -> &U _Font `*v `*F4332 &U _Dis_Buff ]
+"887
+[; ;settings.c: 887:         if (setting_Val[ENABLE_DS_2])
+[e $ ! != -> *U + &U _setting_Val * -> . `E3968 6 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 574  ]
+[v F4334 `Cuc ~T0 @X0 -> 5 `i t ]
+"888
+[; ;settings.c: 888:             putchar_b_buf(18, '+', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> -> 43 `ui `uc -> -> &U _Font `*v `*F4334 &U _Dis_Buff ]
+[e $U 575  ]
+"889
+[; ;settings.c: 889:         else
+[e :U 574 ]
+[v F4336 `Cuc ~T0 @X0 -> 5 `i t ]
+"890
+[; ;settings.c: 890:             putchar_b_buf(18, '-', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> -> 45 `ui `uc -> -> &U _Font `*v `*F4336 &U _Dis_Buff ]
+[e :U 575 ]
+[v F4338 `Cuc ~T0 @X0 -> 5 `i t ]
+"891
+[; ;settings.c: 891:         putchar_b_buf(24, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4338 &U _Dis_Buff ]
+"892
+[; ;settings.c: 892:     }
+}
+[e :U 573 ]
+"893
+[; ;settings.c: 893:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"894
+[; ;settings.c: 894:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"896
+[; ;settings.c: 896: }
+[e :UE 565 ]
+}
+"902
+[; ;settings.c: 902: void set_en_bmp(void) {
+[v _set_en_bmp `(v ~T0 @X0 1 ef ]
+{
+[e :U _set_en_bmp ]
+[f ]
+"903
+[; ;settings.c: 903:     switch (events) {
+[e $U 578  ]
+{
+"904
+[; ;settings.c: 904:         case 5:
+[e :U 579 ]
+"906
+[; ;settings.c: 906:             break;
+[e $U 577  ]
+"907
+[; ;settings.c: 907:         case 1:
+[e :U 580 ]
+"908
+[; ;settings.c: 908:             okButSet(set_en_bmp, set_en_dst);
+[e ( _okButSet (2 , &U _set_en_bmp &U _set_en_dst ]
+"915
+[; ;settings.c: 915:             break;
+[e $U 577  ]
+"916
+[; ;settings.c: 916:         case 4:
+[e :U 581 ]
+"917
+[; ;settings.c: 917:             exitButSet(set_en_bmp);
+[e ( _exitButSet (1 &U _set_en_bmp ]
+"924
+[; ;settings.c: 924:             break;
+[e $U 577  ]
+"925
+[; ;settings.c: 925:         case 2:
+[e :U 582 ]
+"926
+[; ;settings.c: 926:             setting_Val[ENABLE_BMP] = !(setting_Val[ENABLE_BMP]);
+[e = *U + &U _setting_Val * -> . `E3968 7 `ux -> -> # *U &U _setting_Val `ui `ux -> -> ! != -> *U + &U _setting_Val * -> . `E3968 7 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i `i `uc ]
+"927
+[; ;settings.c: 927:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"928
+[; ;settings.c: 928:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"929
+[; ;settings.c: 929:             write_eep(7, (uint8_t) setting_Val[ENABLE_BMP]);
+[e ( _write_eep (2 , -> -> 7 `i `uc *U + &U _setting_Val * -> . `E3968 7 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"930
+[; ;settings.c: 930:             break;
+[e $U 577  ]
+"931
+[; ;settings.c: 931:         case 3:
+[e :U 583 ]
+"934
+[; ;settings.c: 934:             events = 2;
+[e = _events -> -> 2 `i `uc ]
+"936
+[; ;settings.c: 936:             break;
+[e $U 577  ]
+"938
+[; ;settings.c: 938:     }
+}
+[e $U 577  ]
+[e :U 578 ]
+[e [\ _events , $ -> 5 `i 579
+ , $ -> 1 `i 580
+ , $ -> 4 `i 581
+ , $ -> 2 `i 582
+ , $ -> 3 `i 583
+ 577 ]
+[e :U 577 ]
+"939
+[; ;settings.c: 939:     if (en_put) {
+[e $ ! _en_put 584  ]
+{
+[v F4345 `Cuc ~T0 @X0 -> 5 `i t ]
+"940
+[; ;settings.c: 940:         putchar_b_buf(0, "Àò:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 76C * -> -> 0 `i `x -> -> # *U :s 76C `i `x `uc -> -> &U _Font `*v `*F4345 &U _Dis_Buff ]
+[v F4347 `Cuc ~T0 @X0 -> 5 `i t ]
+"941
+[; ;settings.c: 941:         putchar_b_buf(6, "Àò:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 77C * -> -> 1 `i `x -> -> # *U :s 77C `i `x `uc -> -> &U _Font `*v `*F4347 &U _Dis_Buff ]
+[v F4349 `Cuc ~T0 @X0 -> 5 `i t ]
+"942
+[; ;settings.c: 942:         putchar_b_buf(12, "Àò:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 78C * -> -> 2 `i `x -> -> # *U :s 78C `i `x `uc -> -> &U _Font `*v `*F4349 &U _Dis_Buff ]
+"943
+[; ;settings.c: 943:         if (setting_Val[ENABLE_BMP])
+[e $ ! != -> *U + &U _setting_Val * -> . `E3968 7 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 585  ]
+[v F4351 `Cuc ~T0 @X0 -> 5 `i t ]
+"944
+[; ;settings.c: 944:             putchar_b_buf(18, '+', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> -> 43 `ui `uc -> -> &U _Font `*v `*F4351 &U _Dis_Buff ]
+[e $U 586  ]
+"945
+[; ;settings.c: 945:         else
+[e :U 585 ]
+[v F4353 `Cuc ~T0 @X0 -> 5 `i t ]
+"946
+[; ;settings.c: 946:             putchar_b_buf(18, '-', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> -> 45 `ui `uc -> -> &U _Font `*v `*F4353 &U _Dis_Buff ]
+[e :U 586 ]
+[v F4355 `Cuc ~T0 @X0 -> 5 `i t ]
+"947
+[; ;settings.c: 947:         putchar_b_buf(24, 0, (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 0 `i `uc -> -> &U _Font `*v `*F4355 &U _Dis_Buff ]
+"948
+[; ;settings.c: 948:     }
+}
+[e :U 584 ]
+"949
+[; ;settings.c: 949:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"950
+[; ;settings.c: 950:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"952
+[; ;settings.c: 952: }
+[e :UE 576 ]
+}
+"959
+[; ;settings.c: 959: void set_en_dst(void) {
+[v _set_en_dst `(v ~T0 @X0 1 ef ]
+{
+[e :U _set_en_dst ]
+[f ]
+"960
+[; ;settings.c: 960:     switch (events) {
+[e $U 589  ]
+{
+"961
+[; ;settings.c: 961:         case 5:
+[e :U 590 ]
+"963
+[; ;settings.c: 963:             break;
+[e $U 588  ]
+"964
+[; ;settings.c: 964:         case 1:
+[e :U 591 ]
+"965
+[; ;settings.c: 965:             okButSet(set_en_dst, set_type_temp);
+[e ( _okButSet (2 , &U _set_en_dst &U _set_type_temp ]
+"972
+[; ;settings.c: 972:             break;
+[e $U 588  ]
+"973
+[; ;settings.c: 973:         case 4:
+[e :U 592 ]
+"974
+[; ;settings.c: 974:             exitButSet(set_en_dst);
+[e ( _exitButSet (1 &U _set_en_dst ]
+"981
+[; ;settings.c: 981:             break;
+[e $U 588  ]
+"982
+[; ;settings.c: 982:         case 2:
+[e :U 593 ]
+"983
+[; ;settings.c: 983:             setting_Val[ENABLE_DST] = !(setting_Val[ENABLE_DST]);
+[e = *U + &U _setting_Val * -> . `E3968 8 `ux -> -> # *U &U _setting_Val `ui `ux -> -> ! != -> *U + &U _setting_Val * -> . `E3968 8 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i `i `uc ]
+"984
+[; ;settings.c: 984:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"985
+[; ;settings.c: 985:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"986
+[; ;settings.c: 986:             write_eep(8, (uint8_t) setting_Val[ENABLE_DST]);
+[e ( _write_eep (2 , -> -> 8 `i `uc *U + &U _setting_Val * -> . `E3968 8 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"987
+[; ;settings.c: 987:             break;
+[e $U 588  ]
+"988
+[; ;settings.c: 988:         case 3:
+[e :U 594 ]
+"991
+[; ;settings.c: 991:             events = 2;
+[e = _events -> -> 2 `i `uc ]
+"993
+[; ;settings.c: 993:             break;
+[e $U 588  ]
+"995
+[; ;settings.c: 995:     }
+}
+[e $U 588  ]
+[e :U 589 ]
+[e [\ _events , $ -> 5 `i 590
+ , $ -> 1 `i 591
+ , $ -> 4 `i 592
+ , $ -> 2 `i 593
+ , $ -> 3 `i 594
+ 588 ]
+[e :U 588 ]
+"996
+[; ;settings.c: 996:     if (en_put) {
+[e $ ! _en_put 595  ]
+{
+[v F4362 `Cuc ~T0 @X0 -> 5 `i t ]
+"997
+[; ;settings.c: 997:         putchar_b_buf(0, "DST:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 79C * -> -> 0 `i `x -> -> # *U :s 79C `i `x `uc -> -> &U _Font `*v `*F4362 &U _Dis_Buff ]
+[v F4364 `Cuc ~T0 @X0 -> 5 `i t ]
+"998
+[; ;settings.c: 998:         putchar_b_buf(6, "DST:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 80C * -> -> 1 `i `x -> -> # *U :s 80C `i `x `uc -> -> &U _Font `*v `*F4364 &U _Dis_Buff ]
+[v F4366 `Cuc ~T0 @X0 -> 5 `i t ]
+"999
+[; ;settings.c: 999:         putchar_b_buf(12, "DST:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 81C * -> -> 2 `i `x -> -> # *U :s 81C `i `x `uc -> -> &U _Font `*v `*F4366 &U _Dis_Buff ]
+[v F4368 `Cuc ~T0 @X0 -> 5 `i t ]
+"1000
+[; ;settings.c: 1000:         putchar_b_buf(18, "DST:"[3], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 82C * -> -> 3 `i `x -> -> # *U :s 82C `i `x `uc -> -> &U _Font `*v `*F4368 &U _Dis_Buff ]
+"1001
+[; ;settings.c: 1001:         if (setting_Val[ENABLE_DST])
+[e $ ! != -> *U + &U _setting_Val * -> . `E3968 8 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 596  ]
+[v F4370 `Cuc ~T0 @X0 -> 5 `i t ]
+"1002
+[; ;settings.c: 1002:             putchar_b_buf(24, '+', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 43 `ui `uc -> -> &U _Font `*v `*F4370 &U _Dis_Buff ]
+[e $U 597  ]
+"1003
+[; ;settings.c: 1003:         else
+[e :U 596 ]
+[v F4372 `Cuc ~T0 @X0 -> 5 `i t ]
+"1004
+[; ;settings.c: 1004:             putchar_b_buf(24, '-', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 45 `ui `uc -> -> &U _Font `*v `*F4372 &U _Dis_Buff ]
+[e :U 597 ]
+"1006
+[; ;settings.c: 1006:     }
+}
+[e :U 595 ]
+"1007
+[; ;settings.c: 1007:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"1008
+[; ;settings.c: 1008:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"1012
+[; ;settings.c: 1012: }
+[e :UE 587 ]
+}
+"1019
+[; ;settings.c: 1019: void set_type_temp(void) {
+[v _set_type_temp `(v ~T0 @X0 1 ef ]
+{
+[e :U _set_type_temp ]
+[f ]
+"1020
+[; ;settings.c: 1020:     switch (events) {
+[e $U 600  ]
+{
+"1021
+[; ;settings.c: 1021:         case 5:
+[e :U 601 ]
+"1023
+[; ;settings.c: 1023:             break;
+[e $U 599  ]
+"1024
+[; ;settings.c: 1024:         case 1:
+[e :U 602 ]
+"1025
+[; ;settings.c: 1025:             okButSet(set_type_temp, set_en_am2302);
+[e ( _okButSet (2 , &U _set_type_temp &U _set_en_am2302 ]
+"1032
+[; ;settings.c: 1032:             break;
+[e $U 599  ]
+"1033
+[; ;settings.c: 1033:         case 4:
+[e :U 603 ]
+"1034
+[; ;settings.c: 1034:             exitButSet(set_type_temp);
+[e ( _exitButSet (1 &U _set_type_temp ]
+"1041
+[; ;settings.c: 1041:             break;
+[e $U 599  ]
+"1042
+[; ;settings.c: 1042:         case 2:
+[e :U 604 ]
+"1043
+[; ;settings.c: 1043:             setting_Val[TYPE_TEMP]++;
+[e ++ *U + &U _setting_Val * -> . `E3968 9 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+"1044
+[; ;settings.c: 1044:             if (setting_Val[TYPE_TEMP] == 3) setting_Val[TYPE_TEMP] = 1;
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 9 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 3 `i 605  ]
+[e = *U + &U _setting_Val * -> . `E3968 9 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+[e :U 605 ]
+"1045
+[; ;settings.c: 1045:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"1046
+[; ;settings.c: 1046:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"1047
+[; ;settings.c: 1047:             write_eep(9, setting_Val[TYPE_TEMP]);
+[e ( _write_eep (2 , -> -> 9 `i `uc *U + &U _setting_Val * -> . `E3968 9 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"1048
+[; ;settings.c: 1048:             break;
+[e $U 599  ]
+"1049
+[; ;settings.c: 1049:         case 3:
+[e :U 606 ]
+"1050
+[; ;settings.c: 1050:             setting_Val[TYPE_TEMP]--;
+[e -- *U + &U _setting_Val * -> . `E3968 9 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 1 `i `uc ]
+"1051
+[; ;settings.c: 1051:             if (setting_Val[TYPE_TEMP] == 0) setting_Val[TYPE_TEMP] = 2;
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 9 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 607  ]
+[e = *U + &U _setting_Val * -> . `E3968 9 `ux -> -> # *U &U _setting_Val `ui `ux -> -> 2 `i `uc ]
+[e :U 607 ]
+"1052
+[; ;settings.c: 1052:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"1053
+[; ;settings.c: 1053:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"1054
+[; ;settings.c: 1054:             write_eep(9, setting_Val[TYPE_TEMP]);
+[e ( _write_eep (2 , -> -> 9 `i `uc *U + &U _setting_Val * -> . `E3968 9 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"1055
+[; ;settings.c: 1055:             break;
+[e $U 599  ]
+"1057
+[; ;settings.c: 1057:     }
+}
+[e $U 599  ]
+[e :U 600 ]
+[e [\ _events , $ -> 5 `i 601
+ , $ -> 1 `i 602
+ , $ -> 4 `i 603
+ , $ -> 2 `i 604
+ , $ -> 3 `i 606
+ 599 ]
+[e :U 599 ]
+"1058
+[; ;settings.c: 1058:     if (en_put) {
+[e $ ! _en_put 608  ]
+{
+[v F4380 `Cuc ~T0 @X0 -> 5 `i t ]
+"1059
+[; ;settings.c: 1059:         putchar_b_buf(0, "ÒïÒ:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 83C * -> -> 0 `i `x -> -> # *U :s 83C `i `x `uc -> -> &U _Font `*v `*F4380 &U _Dis_Buff ]
+[v F4382 `Cuc ~T0 @X0 -> 5 `i t ]
+"1060
+[; ;settings.c: 1060:         putchar_b_buf(6, "ÒïÒ:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 84C * -> -> 1 `i `x -> -> # *U :s 84C `i `x `uc -> -> &U _Font `*v `*F4382 &U _Dis_Buff ]
+[v F4384 `Cuc ~T0 @X0 -> 5 `i t ]
+"1061
+[; ;settings.c: 1061:         putchar_b_buf(12, "ÒïÒ:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 85C * -> -> 2 `i `x -> -> # *U :s 85C `i `x `uc -> -> &U _Font `*v `*F4384 &U _Dis_Buff ]
+[v F4386 `Cuc ~T0 @X0 -> 5 `i t ]
+"1062
+[; ;settings.c: 1062:         putchar_b_buf(18, "ÒïÒ:"[3], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 86C * -> -> 3 `i `x -> -> # *U :s 86C `i `x `uc -> -> &U _Font `*v `*F4386 &U _Dis_Buff ]
+"1063
+[; ;settings.c: 1063:         putchar_b_buf(24, setting_Val[TYPE_TEMP], pFont, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc *U + &U _setting_Val * -> . `E3968 9 `ux -> -> # *U &U _setting_Val `ui `ux _pFont &U _Dis_Buff ]
+"1065
+[; ;settings.c: 1065:     }
+}
+[e :U 608 ]
+"1066
+[; ;settings.c: 1066:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"1067
+[; ;settings.c: 1067:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"1070
+[; ;settings.c: 1070: }
+[e :UE 598 ]
+}
+"1076
+[; ;settings.c: 1076: void set_en_am2302(void) {
+[v _set_en_am2302 `(v ~T0 @X0 1 ef ]
+{
+[e :U _set_en_am2302 ]
+[f ]
+"1077
+[; ;settings.c: 1077:     switch (events) {
+[e $U 611  ]
+{
+"1078
+[; ;settings.c: 1078:         case 5:
+[e :U 612 ]
+"1080
+[; ;settings.c: 1080:             break;
+[e $U 610  ]
+"1081
+[; ;settings.c: 1081:         case 1:
+[e :U 613 ]
+"1082
+[; ;settings.c: 1082:             okButSet(set_en_am2302, ip_esp);
+[e ( _okButSet (2 , &U _set_en_am2302 &U _ip_esp ]
+"1083
+[; ;settings.c: 1083:             RTOS_DeleteTask(default_state);
+[e ( _RTOS_DeleteTask (1 &U _default_state ]
+"1089
+[; ;settings.c: 1089:             if (!(setting_Val[ENABLE_ESP]))
+[e $ ! ! != -> *U + &U _setting_Val * -> . `E3968 10 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 614  ]
+"1090
+[; ;settings.c: 1090:                 memcpy(ip_buf, "WEB Âèìêíåíî", sizeof (ip_buf));
+[e ( _memcpy (3 , , -> &U _ip_buf `*v :s 87C -> * -> 16 `i # `uc `ui ]
+[e :U 614 ]
+"1091
+[; ;settings.c: 1091:             i_char = 0;
+[e = _i_char -> -> 0 `i `uc ]
+"1092
+[; ;settings.c: 1092:             i_bchar = 0;
+[e = _i_bchar -> -> 0 `i `uc ]
+"1094
+[; ;settings.c: 1094:             break;
+[e $U 610  ]
+"1095
+[; ;settings.c: 1095:         case 4:
+[e :U 615 ]
+"1096
+[; ;settings.c: 1096:             exitButSet(set_en_am2302);
+[e ( _exitButSet (1 &U _set_en_am2302 ]
+"1107
+[; ;settings.c: 1107:             break;
+[e $U 610  ]
+"1108
+[; ;settings.c: 1108:         case 2:
+[e :U 616 ]
+"1109
+[; ;settings.c: 1109:             setting_Val[ENABLE_DHT] = !(setting_Val[ENABLE_DHT]);
+[e = *U + &U _setting_Val * -> . `E3968 11 `ux -> -> # *U &U _setting_Val `ui `ux -> -> ! != -> *U + &U _setting_Val * -> . `E3968 11 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i `i `uc ]
+"1110
+[; ;settings.c: 1110:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"1111
+[; ;settings.c: 1111:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"1112
+[; ;settings.c: 1112:             write_eep(10, (uint8_t) setting_Val[ENABLE_DHT]);
+[e ( _write_eep (2 , -> -> 10 `i `uc *U + &U _setting_Val * -> . `E3968 11 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"1113
+[; ;settings.c: 1113:             break;
+[e $U 610  ]
+"1114
+[; ;settings.c: 1114:         case 3:
+[e :U 617 ]
+"1115
+[; ;settings.c: 1115:             events = 2;
+[e = _events -> -> 2 `i `uc ]
+"1120
+[; ;settings.c: 1120:             break;
+[e $U 610  ]
+"1122
+[; ;settings.c: 1122:     }
+}
+[e $U 610  ]
+[e :U 611 ]
+[e [\ _events , $ -> 5 `i 612
+ , $ -> 1 `i 613
+ , $ -> 4 `i 615
+ , $ -> 2 `i 616
+ , $ -> 3 `i 617
+ 610 ]
+[e :U 610 ]
+"1123
+[; ;settings.c: 1123:     if (en_put) {
+[e $ ! _en_put 618  ]
+{
+[v F4394 `Cuc ~T0 @X0 -> 5 `i t ]
+"1124
+[; ;settings.c: 1124:         putchar_b_buf(0, "DHT:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 88C * -> -> 0 `i `x -> -> # *U :s 88C `i `x `uc -> -> &U _Font `*v `*F4394 &U _Dis_Buff ]
+[v F4396 `Cuc ~T0 @X0 -> 5 `i t ]
+"1125
+[; ;settings.c: 1125:         putchar_b_buf(6, "DHT:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 89C * -> -> 1 `i `x -> -> # *U :s 89C `i `x `uc -> -> &U _Font `*v `*F4396 &U _Dis_Buff ]
+[v F4398 `Cuc ~T0 @X0 -> 5 `i t ]
+"1126
+[; ;settings.c: 1126:         putchar_b_buf(12, "DHT:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 90C * -> -> 2 `i `x -> -> # *U :s 90C `i `x `uc -> -> &U _Font `*v `*F4398 &U _Dis_Buff ]
+[v F4400 `Cuc ~T0 @X0 -> 5 `i t ]
+"1127
+[; ;settings.c: 1127:         putchar_b_buf(18, "DHT:"[3], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 91C * -> -> 3 `i `x -> -> # *U :s 91C `i `x `uc -> -> &U _Font `*v `*F4400 &U _Dis_Buff ]
+"1128
+[; ;settings.c: 1128:         if (setting_Val[ENABLE_DHT])
+[e $ ! != -> *U + &U _setting_Val * -> . `E3968 11 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 619  ]
+[v F4402 `Cuc ~T0 @X0 -> 5 `i t ]
+"1129
+[; ;settings.c: 1129:             putchar_b_buf(24, '+', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 43 `ui `uc -> -> &U _Font `*v `*F4402 &U _Dis_Buff ]
+[e $U 620  ]
+"1130
+[; ;settings.c: 1130:         else
+[e :U 619 ]
+[v F4404 `Cuc ~T0 @X0 -> 5 `i t ]
+"1131
+[; ;settings.c: 1131:             putchar_b_buf(24, '-', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 45 `ui `uc -> -> &U _Font `*v `*F4404 &U _Dis_Buff ]
+[e :U 620 ]
+"1133
+[; ;settings.c: 1133:     }
+}
+[e :U 618 ]
+"1134
+[; ;settings.c: 1134:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"1135
+[; ;settings.c: 1135:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"1138
+[; ;settings.c: 1138: }
+[e :UE 609 ]
+}
+"1143
+[; ;settings.c: 1143: void ip_esp(void) {
+[v _ip_esp `(v ~T0 @X0 1 ef ]
+{
+[e :U _ip_esp ]
+[f ]
+"1145
+[; ;settings.c: 1145:     switch (events) {
+[e $U 623  ]
+{
+"1146
+[; ;settings.c: 1146:         case 5:
+[e :U 624 ]
+"1148
+[; ;settings.c: 1148:             scroll_text(ip_buf);
+[e ( _scroll_text (1 &U _ip_buf ]
+"1149
+[; ;settings.c: 1149:             break;
+[e $U 622  ]
+"1150
+[; ;settings.c: 1150:         case 1:
+[e :U 625 ]
+"1151
+[; ;settings.c: 1151:             okButSet(ip_esp, en_esp);
+[e ( _okButSet (2 , &U _ip_esp &U _en_esp ]
+"1159
+[; ;settings.c: 1159:             break;
+[e $U 622  ]
+"1160
+[; ;settings.c: 1160:         case 4:
+[e :U 626 ]
+"1161
+[; ;settings.c: 1161:             exitButSet(ip_esp);
+[e ( _exitButSet (1 &U _ip_esp ]
+"1176
+[; ;settings.c: 1176:             break;
+[e $U 622  ]
+"1178
+[; ;settings.c: 1178:     }
+}
+[e $U 622  ]
+[e :U 623 ]
+[e [\ _events , $ -> 5 `i 624
+ , $ -> 1 `i 625
+ , $ -> 4 `i 626
+ 622 ]
+[e :U 622 ]
+"1181
+[; ;settings.c: 1181:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"1183
+[; ;settings.c: 1183: }
+[e :UE 621 ]
+}
+"1185
+[; ;settings.c: 1185: void en_esp(void) {
+[v _en_esp `(v ~T0 @X0 1 ef ]
+{
+[e :U _en_esp ]
+[f ]
+"1186
+[; ;settings.c: 1186:     switch (events) {
+[e $U 629  ]
+{
+"1187
+[; ;settings.c: 1187:         case 5:
+[e :U 630 ]
+"1189
+[; ;settings.c: 1189:             break;
+[e $U 628  ]
+"1190
+[; ;settings.c: 1190:         case 1:
+[e :U 631 ]
+"1192
+[; ;settings.c: 1192:             okButSet(en_esp, time_led);
+[e ( _okButSet (2 , &U _en_esp -> &U _time_led `*F4412 ]
+"1193
+[; ;settings.c: 1193:             RTOS_DeleteTask(default_state);
+[e ( _RTOS_DeleteTask (1 &U _default_state ]
+"1198
+[; ;settings.c: 1198:             break;
+[e $U 628  ]
+"1199
+[; ;settings.c: 1199:         case 4:
+[e :U 632 ]
+"1200
+[; ;settings.c: 1200:             exitButSet(en_esp);
+[e ( _exitButSet (1 &U _en_esp ]
+"1212
+[; ;settings.c: 1212:             break;
+[e $U 628  ]
+"1213
+[; ;settings.c: 1213:         case 2:
+[e :U 633 ]
+"1214
+[; ;settings.c: 1214:             events = 3;
+[e = _events -> -> 3 `i `uc ]
+"1215
+[; ;settings.c: 1215:             break;
+[e $U 628  ]
+"1216
+[; ;settings.c: 1216:         case 3:
+[e :U 634 ]
+"1217
+[; ;settings.c: 1217:             setting_Val[ENABLE_ESP] = !(setting_Val[ENABLE_ESP]);
+[e = *U + &U _setting_Val * -> . `E3968 10 `ux -> -> # *U &U _setting_Val `ui `ux -> -> ! != -> *U + &U _setting_Val * -> . `E3968 10 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i `i `uc ]
+"1218
+[; ;settings.c: 1218:             RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"1219
+[; ;settings.c: 1219:             events = 5;
+[e = _events -> -> 5 `i `uc ]
+"1220
+[; ;settings.c: 1220:             write_eep(12, (uint8_t) setting_Val[ENABLE_ESP]);
+[e ( _write_eep (2 , -> -> 12 `i `uc *U + &U _setting_Val * -> . `E3968 10 `ux -> -> # *U &U _setting_Val `ui `ux ]
+"1221
+[; ;settings.c: 1221:             if (setting_Val[ENABLE_ESP]) {
+[e $ ! != -> *U + &U _setting_Val * -> . `E3968 10 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 635  ]
+{
+"1222
+[; ;settings.c: 1222:                 RCSTAbits.SPEN = 0;
+[e = . . _RCSTAbits 0 7 -> -> 0 `i `uc ]
+"1223
+[; ;settings.c: 1223:                 TRISCbits.RC6 = 0;
+[e = . . _TRISCbits 1 4 -> -> 0 `i `uc ]
+"1224
+[; ;settings.c: 1224:                 TRISCbits.RC7 = 0;
+[e = . . _TRISCbits 1 5 -> -> 0 `i `uc ]
+"1225
+[; ;settings.c: 1225:                 PORTCbits.RC7 = 0;
+[e = . . _PORTCbits 0 7 -> -> 0 `i `uc ]
+"1226
+[; ;settings.c: 1226:                 PORTCbits.RC6 = 0;
+[e = . . _PORTCbits 0 6 -> -> 0 `i `uc ]
+"1227
+[; ;settings.c: 1227:                 _delay((unsigned long)((10)*(48000000/4000.0)));
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 48000000 `l `d .4000.0 `ul ]
+"1228
+[; ;settings.c: 1228:                 LATEbits.LE0 = 1;
+[e = . . _LATEbits 1 0 -> -> 1 `i `uc ]
+"1229
+[; ;settings.c: 1229:                 _delay((unsigned long)((100)*(48000000/4000.0)));
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 48000000 `l `d .4000.0 `ul ]
+"1230
+[; ;settings.c: 1230:                 init_uart();
+[e ( _init_uart ..  ]
+"1231
+[; ;settings.c: 1231:             } else
+}
+[e $U 636  ]
+[e :U 635 ]
+"1232
+[; ;settings.c: 1232:                 LATEbits.LE0 = 0;
+[e = . . _LATEbits 1 0 -> -> 0 `i `uc ]
+[e :U 636 ]
+"1233
+[; ;settings.c: 1233:             break;
+[e $U 628  ]
+"1235
+[; ;settings.c: 1235:     }
+}
+[e $U 628  ]
+[e :U 629 ]
+[e [\ _events , $ -> 5 `i 630
+ , $ -> 1 `i 631
+ , $ -> 4 `i 632
+ , $ -> 2 `i 633
+ , $ -> 3 `i 634
+ 628 ]
+[e :U 628 ]
+"1236
+[; ;settings.c: 1236:     if (en_put) {
+[e $ ! _en_put 637  ]
+{
+[v F4417 `Cuc ~T0 @X0 -> 5 `i t ]
+"1237
+[; ;settings.c: 1237:         putchar_b_buf(0, "ESP:"[0], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 0 `i `uc -> *U + :s 92C * -> -> 0 `i `x -> -> # *U :s 92C `i `x `uc -> -> &U _Font `*v `*F4417 &U _Dis_Buff ]
+[v F4419 `Cuc ~T0 @X0 -> 5 `i t ]
+"1238
+[; ;settings.c: 1238:         putchar_b_buf(6, "ESP:"[1], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 6 `i `uc -> *U + :s 93C * -> -> 1 `i `x -> -> # *U :s 93C `i `x `uc -> -> &U _Font `*v `*F4419 &U _Dis_Buff ]
+[v F4421 `Cuc ~T0 @X0 -> 5 `i t ]
+"1239
+[; ;settings.c: 1239:         putchar_b_buf(12, "ESP:"[2], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 12 `i `uc -> *U + :s 94C * -> -> 2 `i `x -> -> # *U :s 94C `i `x `uc -> -> &U _Font `*v `*F4421 &U _Dis_Buff ]
+[v F4423 `Cuc ~T0 @X0 -> 5 `i t ]
+"1240
+[; ;settings.c: 1240:         putchar_b_buf(18, "ESP:"[3], (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 18 `i `uc -> *U + :s 95C * -> -> 3 `i `x -> -> # *U :s 95C `i `x `uc -> -> &U _Font `*v `*F4423 &U _Dis_Buff ]
+"1241
+[; ;settings.c: 1241:         if (setting_Val[ENABLE_ESP])
+[e $ ! != -> *U + &U _setting_Val * -> . `E3968 10 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 0 `i 638  ]
+[v F4425 `Cuc ~T0 @X0 -> 5 `i t ]
+"1242
+[; ;settings.c: 1242:             putchar_b_buf(24, '+', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 43 `ui `uc -> -> &U _Font `*v `*F4425 &U _Dis_Buff ]
+[e $U 639  ]
+"1243
+[; ;settings.c: 1243:         else
+[e :U 638 ]
+[v F4427 `Cuc ~T0 @X0 -> 5 `i t ]
+"1244
+[; ;settings.c: 1244:             putchar_b_buf(24, '-', (void *) Font, Dis_Buff);
+[e ( _putchar_b_buf (4 , , , -> -> 24 `i `uc -> -> 45 `ui `uc -> -> &U _Font `*v `*F4427 &U _Dis_Buff ]
+[e :U 639 ]
+"1246
+[; ;settings.c: 1246:     }
+}
+[e :U 637 ]
+"1247
+[; ;settings.c: 1247:     Update_Matrix(Dis_Buff);
+[e ( _Update_Matrix (1 &U _Dis_Buff ]
+"1248
+[; ;settings.c: 1248:     en_put = 1;
+[e = _en_put -> -> 1 `i `b ]
+"1251
+[; ;settings.c: 1251: }
+[e :UE 627 ]
+}
+"1253
+[; ;settings.c: 1253: void default_state(void) {
+[v _default_state `(v ~T0 @X0 1 ef ]
+{
+[e :U _default_state ]
+[f ]
+"1254
+[; ;settings.c: 1254:     events = 4;
+[e = _events -> -> 4 `i `uc ]
+"1256
+[; ;settings.c: 1256: }
+[e :UE 640 ]
+}
+"1258
+[; ;settings.c: 1258: void exitButSet(void (*taskFunc)(void)) {
+[v _exitButSet `(v ~T0 @X0 1 ef1`*F4431 ]
+{
+[e :U _exitButSet ]
+[v _taskFunc `*F4433 ~T0 @X0 1 r1 ]
+[f ]
+"1259
+[; ;settings.c: 1259:     RTOS_DeleteTask(taskFunc);
+[e ( _RTOS_DeleteTask (1 _taskFunc ]
+"1260
+[; ;settings.c: 1260:     RTOS_SetTask(time_led, 0, 20);
+[e ( _RTOS_SetTask (3 , , -> &U _time_led `*F4434 -> -> 0 `i `us -> -> 20 `i `us ]
+"1261
+[; ;settings.c: 1261:     RTOS_DeleteTask(default_state);
+[e ( _RTOS_DeleteTask (1 &U _default_state ]
+"1262
+[; ;settings.c: 1262:     events = 5;
+[e = _events -> -> 5 `i `uc ]
+"1263
+[; ;settings.c: 1263:     en_put = 0;
+[e = _en_put -> -> 0 `i `b ]
+"1264
+[; ;settings.c: 1264:     clear_matrix();
+[e ( _clear_matrix ..  ]
+"1265
+[; ;settings.c: 1265:     if (setting_Val[TYPE_CLK] == 1)
+[e $ ! == -> *U + &U _setting_Val * -> . `E3968 1 `ux -> -> # *U &U _setting_Val `ui `ux `i -> 1 `i 642  ]
+"1266
+[; ;settings.c: 1266:         blk_dot = 0;
+[e = _blk_dot -> -> 0 `i `uc ]
+[e $U 643  ]
+"1267
+[; ;settings.c: 1267:     else
+[e :U 642 ]
+"1268
+[; ;settings.c: 1268:         blk_dot = 1;
+[e = _blk_dot -> -> 1 `i `uc ]
+[e :U 643 ]
+"1269
+[; ;settings.c: 1269: }
+[e :UE 641 ]
+}
+"1271
+[; ;settings.c: 1271: void okButSet(void (*DeleteFunc)(void), void (*setFunc)(void)) {
+[v _okButSet `(v ~T0 @X0 1 ef2`*F4438`*F4439 ]
+{
+[e :U _okButSet ]
+[v _DeleteFunc `*F4441 ~T0 @X0 1 r1 ]
+[v _setFunc `*F4443 ~T0 @X0 1 r2 ]
+[f ]
+"1272
+[; ;settings.c: 1272:     RTOS_DeleteTask(DeleteFunc);
+[e ( _RTOS_DeleteTask (1 _DeleteFunc ]
+"1273
+[; ;settings.c: 1273:     RTOS_SetTask(setFunc, 0, 20);
+[e ( _RTOS_SetTask (3 , , _setFunc -> -> 0 `i `us -> -> 20 `i `us ]
+"1274
+[; ;settings.c: 1274:     RTOS_SetTask(default_state, 2000, 0);
+[e ( _RTOS_SetTask (3 , , &U _default_state -> -> 2000 `i `us -> -> 0 `i `us ]
+"1275
+[; ;settings.c: 1275:     events = 5;
+[e = _events -> -> 5 `i `uc ]
+"1276
+[; ;settings.c: 1276:     en_put = 0;
+[e = _en_put -> -> 0 `i `b ]
+"1277
+[; ;settings.c: 1277:     clear_matrix();
+[e ( _clear_matrix ..  ]
+"1278
+[; ;settings.c: 1278: }
+[e :UE 644 ]
+}
+[a 79C 68 83 84 58 0 ]
+[a 80C 68 83 84 58 0 ]
+[a 81C 68 83 84 58 0 ]
+[a 82C 68 83 84 58 0 ]
+[a 88C 68 72 84 58 0 ]
+[a 89C 68 72 84 58 0 ]
+[a 90C 68 72 84 58 0 ]
+[a 91C 68 72 84 58 0 ]
+[a 92C 69 83 80 58 0 ]
+[a 93C 69 83 80 58 0 ]
+[a 94C 69 83 80 58 0 ]
+[a 95C 69 83 80 58 0 ]
+[a 73C 18446744073709551570 50 58 0 ]
+[a 74C 18446744073709551570 50 58 0 ]
+[a 75C 18446744073709551570 50 58 0 ]
+[a 70C 18446744073709551570 49 58 0 ]
+[a 71C 18446744073709551570 49 58 0 ]
+[a 72C 18446744073709551570 49 58 0 ]
+[a 76C 18446744073709551552 18446744073709551602 58 0 ]
+[a 77C 18446744073709551552 18446744073709551602 58 0 ]
+[a 78C 18446744073709551552 18446744073709551602 58 0 ]
+[a 57C 18446744073709551583 18446744073709551601 58 0 ]
+[a 58C 18446744073709551583 18446744073709551601 58 0 ]
+[a 59C 18446744073709551583 18446744073709551601 58 0 ]
+[a 64C 18446744073709551583 18446744073709551601 58 0 ]
+[a 65C 18446744073709551583 18446744073709551601 58 0 ]
+[a 66C 18446744073709551583 18446744073709551601 58 0 ]
+[a 31C 18446744073709551575 18446744073709551601 58 0 ]
+[a 32C 18446744073709551575 18446744073709551601 58 0 ]
+[a 33C 18446744073709551575 18446744073709551601 58 0 ]
+[a 4C 18446744073709551564 18446744073709551601 58 0 ]
+[a 5C 18446744073709551564 18446744073709551601 58 0 ]
+[a 6C 18446744073709551564 18446744073709551601 58 0 ]
+[a 51C 18446744073709551576 18446744073709551600 58 0 ]
+[a 52C 18446744073709551576 18446744073709551600 58 0 ]
+[a 53C 18446744073709551576 18446744073709551600 58 0 ]
+[a 54C 18446744073709551570 18446744073709551599 58 0 ]
+[a 55C 18446744073709551570 18446744073709551599 58 0 ]
+[a 56C 18446744073709551570 18446744073709551599 58 0 ]
+[a 34C 18446744073709551556 18446744073709551597 58 0 ]
+[a 35C 18446744073709551556 18446744073709551597 58 0 ]
+[a 36C 18446744073709551556 18446744073709551597 58 0 ]
+[a 1C 18446744073709551568 18446744073709551594 58 0 ]
+[a 2C 18446744073709551568 18446744073709551594 58 0 ]
+[a 3C 18446744073709551568 18446744073709551594 58 0 ]
+[a 67C 18446744073709551559 18446744073709551586 58 0 ]
+[a 68C 18446744073709551559 18446744073709551586 58 0 ]
+[a 69C 18446744073709551559 18446744073709551586 58 0 ]
+[a 83C 18446744073709551570 18446744073709551599 18446744073709551570 58 0 ]
+[a 84C 18446744073709551570 18446744073709551599 18446744073709551570 58 0 ]
+[a 85C 18446744073709551570 18446744073709551599 18446744073709551570 58 0 ]
+[a 86C 18446744073709551570 18446744073709551599 18446744073709551570 58 0 ]
+[a 7C 18446744073709551569 18446744073709551607 0 ]
+[a 8C 18446744073709551569 18446744073709551607 0 ]
+[a 43C 18446744073709551575 18446744073709551602 0 ]
+[a 44C 18446744073709551575 18446744073709551602 0 ]
+[a 45C 18446744073709551567 18446744073709551602 0 ]
+[a 46C 18446744073709551567 18446744073709551602 0 ]
+[a 9C 18446744073709551563 18446744073709551602 0 ]
+[a 10C 18446744073709551563 18446744073709551602 0 ]
+[a 39C 18446744073709551554 18446744073709551602 0 ]
+[a 40C 18446744073709551554 18446744073709551602 0 ]
+[a 62C 18446744073709551567 18446744073709551601 0 ]
+[a 63C 18446744073709551567 18446744073709551601 0 ]
+[a 27C 18446744073709551563 18446744073709551601 0 ]
+[a 28C 18446744073709551563 18446744073709551601 0 ]
+[a 17C 18446744073709551575 18446744073709551600 0 ]
+[a 18C 18446744073709551575 18446744073709551600 0 ]
+[a 15C 18446744073709551570 18446744073709551600 0 ]
+[a 16C 18446744073709551570 18446744073709551600 0 ]
+[a 21C 18446744073709551569 18446744073709551600 0 ]
+[a 22C 18446744073709551569 18446744073709551600 0 ]
+[a 41C 18446744073709551569 18446744073709551600 0 ]
+[a 42C 18446744073709551569 18446744073709551600 0 ]
+[a 29C 18446744073709551555 18446744073709551600 0 ]
+[a 30C 18446744073709551555 18446744073709551600 0 ]
+[a 23C 18446744073709551554 18446744073709551600 0 ]
+[a 24C 18446744073709551554 18446744073709551600 0 ]
+[a 11C 18446744073709551553 18446744073709551600 0 ]
+[a 12C 18446744073709551553 18446744073709551600 0 ]
+[a 19C 18446744073709551563 18446744073709551599 0 ]
+[a 20C 18446744073709551563 18446744073709551599 0 ]
+[a 87C 87 69 66 32 18446744073709551554 18446744073709551592 18446744073709551596 18446744073709551594 18446744073709551597 18446744073709551589 18446744073709551597 18446744073709551598 0 ]
+[a 37C 18446744073709551567 18446744073709551597 0 ]
+[a 38C 18446744073709551567 18446744073709551597 0 ]
+[a 49C 18446744073709551565 18446744073709551588 0 ]
+[a 50C 18446744073709551565 18446744073709551588 0 ]
+[a 13C 18446744073709551562 18446744073709551586 0 ]
+[a 14C 18446744073709551562 18446744073709551586 0 ]
+[a 25C 18446744073709551558 18446744073709551586 0 ]
+[a 26C 18446744073709551558 18446744073709551586 0 ]
+[a 60C 18446744073709551552 18446744073709551586 0 ]
+[a 61C 18446744073709551552 18446744073709551586 0 ]
+[a 47C 18446744073709551569 18446744073709551585 0 ]
+[a 48C 18446744073709551569 18446744073709551585 0 ]

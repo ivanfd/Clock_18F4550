@@ -1,0 +1,14 @@
+G04 DipTrace 5.1.0.1*
+G04 Βεπυν³ιπξημ³π.gbr*
+%MOMM*%
+G04 #@! TF.FileFunction,Drawing,Top*
+G04 #@! TF.Part,Single*
+%FSLAX35Y35*%
+G04*
+G71*
+G90*
+G75*
+G01*
+G04 TopDimension*
+%LPD*%
+M02*

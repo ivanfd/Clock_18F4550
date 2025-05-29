@@ -1,0 +1,383 @@
+[p PRO_MODE GLOBOPT AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PICREGULAR PICMID SPACEOPT ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F628A ]
+[d frameptr 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.41\pic\sources\c90\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"15 C:\Program Files\Microchip\xc8\v2.41\pic\sources\c90\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.41\pic\sources\c90\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files\Microchip\xc8\v2.41\pic\sources\c90\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"11 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\ds18b20.c
+[v _init_ds18b20 init_ds18b20 `(v  1 e 1 0 ]
+"31
+[v _readTemp_Single readTemp_Single `(uc  1 e 1 0 ]
+"19 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\main.c
+[v _main main `(v  1 e 1 0 ]
+"93
+[v _init_Cpu init_Cpu `(v  1 e 1 0 ]
+"13 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\nrf24l01p.c
+[v _nrf24_init nrf24_init `(v  1 e 1 0 ]
+"58
+[v _nrf24_powerUpRx nrf24_powerUpRx `(v  1 e 1 0 ]
+"74
+[v _nrf24_powerUpTx nrf24_powerUpTx `(v  1 e 1 0 ]
+"91
+[v _nrf24_write_reg nrf24_write_reg `(v  1 e 1 0 ]
+"101
+[v _nrf24_read_reg nrf24_read_reg `(uc  1 e 1 0 ]
+"114
+[v _nrf24_write_buf nrf24_write_buf `(v  1 e 1 0 ]
+"128
+[v _nrf24_read_buf nrf24_read_buf `(v  1 e 1 0 ]
+"142
+[v _nrf24_tx_address nrf24_tx_address `(v  1 e 1 0 ]
+"149
+[v _nrf24_rx_address nrf24_rx_address `(v  1 e 1 0 ]
+"157
+[v _nrf24_send nrf24_send `(v  1 e 1 0 ]
+"175
+[v _nrf24_isSending nrf24_isSending `(uc  1 e 1 0 ]
+"192
+[v _nrf24_getStatus nrf24_getStatus `(uc  1 e 1 0 ]
+"204
+[v _nrf24_messageStatus nrf24_messageStatus `(uc  1 e 1 0 ]
+"255
+[v _nrf24_rxFifoEmpty nrf24_rxFifoEmpty `(uc  1 e 1 0 ]
+"5 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\onewire.c
+[v _ow_reset ow_reset `(uc  1 e 1 0 ]
+"22
+[v _read_bit read_bit `(uc  1 e 1 0 ]
+"34
+[v _write_bit write_bit `(v  1 e 1 0 ]
+"50
+[v _read_byte read_byte `(uc  1 e 1 0 ]
+"66
+[v _write_byte write_byte `(v  1 e 1 0 ]
+"3 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\spi.c
+[v _spi_init spi_init `(v  1 e 1 0 ]
+"22
+[v _spi_rw spi_rw `(uc  1 e 1 0 ]
+"13 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\usart.c
+[v _init_uart init_uart `(v  1 e 1 0 ]
+"166 C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc\pic16f628a.h
+[v _PORTA PORTA `VEuc  1 e 1 @5 ]
+[s S32 . 1 `uc 1 RA0 1 0 :1:0 
+`uc 1 RA1 1 0 :1:1 
+`uc 1 RA2 1 0 :1:2 
+`uc 1 RA3 1 0 :1:3 
+`uc 1 RA4 1 0 :1:4 
+`uc 1 RA5 1 0 :1:5 
+`uc 1 RA6 1 0 :1:6 
+`uc 1 RA7 1 0 :1:7 
+]
+"183
+[u S41 . 1 `S32 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES41  1 e 1 @5 ]
+"228
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
+[s S155 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+"245
+[u S164 . 1 `S155 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES164  1 e 1 @6 ]
+[s S399 . 1 `uc 1 RX9D 1 0 :1:0 
+`uc 1 OERR 1 0 :1:1 
+`uc 1 FERR 1 0 :1:2 
+`uc 1 ADEN 1 0 :1:3 
+`uc 1 CREN 1 0 :1:4 
+`uc 1 SREN 1 0 :1:5 
+`uc 1 RX9 1 0 :1:6 
+`uc 1 SPEN 1 0 :1:7 
+]
+"703
+[s S408 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 ADDEN 1 0 :1:3 
+]
+[u S411 . 1 `S399 1 . 1 0 `S408 1 . 1 0 ]
+[v _RCSTAbits RCSTAbits `VES411  1 e 1 @24 ]
+"767
+[v _CMCON CMCON `VEuc  1 e 1 @31 ]
+[s S81 . 1 `uc 1 PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 INTEDG 1 0 :1:6 
+`uc 1 nRBPU 1 0 :1:7 
+]
+"857
+[s S88 . 1 `uc 1 PS0 1 0 :1:0 
+`uc 1 PS1 1 0 :1:1 
+`uc 1 PS2 1 0 :1:2 
+]
+[u S92 . 1 `S81 1 . 1 0 `S88 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES92  1 e 1 @129 ]
+"907
+[v _TRISA TRISA `VEuc  1 e 1 @133 ]
+[s S299 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+`uc 1 TRISA6 1 0 :1:6 
+`uc 1 TRISA7 1 0 :1:7 
+]
+"924
+[u S308 . 1 `S299 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES308  1 e 1 @133 ]
+"969
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+[s S278 . 1 `uc 1 TRISB0 1 0 :1:0 
+`uc 1 TRISB1 1 0 :1:1 
+`uc 1 TRISB2 1 0 :1:2 
+`uc 1 TRISB3 1 0 :1:3 
+`uc 1 TRISB4 1 0 :1:4 
+`uc 1 TRISB5 1 0 :1:5 
+`uc 1 TRISB6 1 0 :1:6 
+`uc 1 TRISB7 1 0 :1:7 
+]
+"986
+[u S287 . 1 `S278 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES287  1 e 1 @134 ]
+[s S378 . 1 `uc 1 TX9D 1 0 :1:0 
+`uc 1 TRMT 1 0 :1:1 
+`uc 1 BRGH 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 SYNC 1 0 :1:4 
+`uc 1 TXEN 1 0 :1:5 
+`uc 1 TX9 1 0 :1:6 
+`uc 1 CSRC 1 0 :1:7 
+]
+"1161
+[u S387 . 1 `S378 1 . 1 0 ]
+[v _TXSTAbits TXSTAbits `VES387  1 e 1 @152 ]
+"1201
+[v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
+"4 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\ds18b20.c
+[v _scratch scratch `[9]uc  1 e 9 0 ]
+"9 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\ds18b20.h
+[v _fract fract `DC[16]uc  1 e 16 0 ]
+"12 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\main.c
+[v _data_array data_array `[4]uc  1 e 4 0 ]
+"13
+[v _temp temp `uc  1 e 1 0 ]
+"15
+[v _temperature temperature `ui  1 e 2 0 ]
+"16
+[v _minus minus `uc  1 e 1 0 ]
+"3 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\nrf24l01p.c
+[v _pay_len pay_len `uc  1 e 1 0 ]
+"4
+[v _nrf_tx_address nrf_tx_address `DC[5]uc  1 e 5 0 ]
+"5
+[v _nrf_rx_address nrf_rx_address `DC[5]uc  1 e 5 0 ]
+"19 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"89
+} 0
+"31 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\ds18b20.c
+[v _readTemp_Single readTemp_Single `(uc  1 e 1 0 ]
+{
+[v readTemp_Single@buf buf `*.4ui  1 a 1 wreg ]
+"33
+[v readTemp_Single@temp temp `ui  1 a 2 3 ]
+"34
+[v readTemp_Single@i i `uc  1 a 1 2 ]
+[v readTemp_Single@tmp tmp `uc  1 a 1 1 ]
+"31
+[v readTemp_Single@buf buf `*.4ui  1 a 1 wreg ]
+[v readTemp_Single@minus minus `*.1uc  1 p 1 6 ]
+[v readTemp_Single@buf buf `*.4ui  1 a 1 0 ]
+"85
+} 0
+"50 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\onewire.c
+[v _read_byte read_byte `(uc  1 e 1 0 ]
+{
+"52
+[v read_byte@i i `uc  1 a 1 3 ]
+"53
+[v read_byte@val val `uc  1 a 1 2 ]
+"62
+} 0
+"22
+[v _read_bit read_bit `(uc  1 e 1 0 ]
+{
+"31
+} 0
+"15 C:\Program Files\Microchip\xc8\v2.41\pic\sources\c90\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+{
+"17
+[v ___wmul@product product `ui  1 a 2 4 ]
+"15
+[v ___wmul@multiplier multiplier `ui  1 p 2 0 ]
+[v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
+"53
+} 0
+"157 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\nrf24l01p.c
+[v _nrf24_send nrf24_send `(v  1 e 1 0 ]
+{
+[v nrf24_send@value value `*.4uc  1 a 1 wreg ]
+[v nrf24_send@value value `*.4uc  1 a 1 wreg ]
+"159
+[v nrf24_send@value value `*.4uc  1 a 1 9 ]
+"168
+} 0
+"74
+[v _nrf24_powerUpTx nrf24_powerUpTx `(v  1 e 1 0 ]
+{
+"81
+} 0
+"204
+[v _nrf24_messageStatus nrf24_messageStatus `(uc  1 e 1 0 ]
+{
+"205
+[v nrf24_messageStatus@r_status r_status `uc  1 a 1 3 ]
+"220
+} 0
+"175
+[v _nrf24_isSending nrf24_isSending `(uc  1 e 1 0 ]
+{
+"176
+[v nrf24_isSending@status status `uc  1 a 1 3 ]
+"187
+} 0
+"192
+[v _nrf24_getStatus nrf24_getStatus `(uc  1 e 1 0 ]
+{
+"193
+[v nrf24_getStatus@r_status r_status `uc  1 a 1 2 ]
+"198
+} 0
+"93 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\main.c
+[v _init_Cpu init_Cpu `(v  1 e 1 0 ]
+{
+"111
+} 0
+"3 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\spi.c
+[v _spi_init spi_init `(v  1 e 1 0 ]
+{
+"12
+} 0
+"13 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\nrf24l01p.c
+[v _nrf24_init nrf24_init `(v  1 e 1 0 ]
+{
+[v nrf24_init@channel channel `uc  1 a 1 wreg ]
+[v nrf24_init@channel channel `uc  1 a 1 wreg ]
+[v nrf24_init@pay_length pay_length `uc  1 p 1 8 ]
+"15
+[v nrf24_init@channel channel `uc  1 a 1 9 ]
+"52
+} 0
+"142
+[v _nrf24_tx_address nrf24_tx_address `(v  1 e 1 0 ]
+{
+[v nrf24_tx_address@adr adr `*.24uc  1 a 1 wreg ]
+[v nrf24_tx_address@adr adr `*.24uc  1 a 1 wreg ]
+"144
+[v nrf24_tx_address@adr adr `*.24uc  1 a 1 7 ]
+"146
+} 0
+"149
+[v _nrf24_rx_address nrf24_rx_address `(v  1 e 1 0 ]
+{
+[v nrf24_rx_address@adr adr `*.24uc  1 a 1 wreg ]
+[v nrf24_rx_address@adr adr `*.24uc  1 a 1 wreg ]
+"151
+[v nrf24_rx_address@adr adr `*.24uc  1 a 1 7 ]
+"152
+} 0
+"114
+[v _nrf24_write_buf nrf24_write_buf `(v  1 e 1 0 ]
+{
+[v nrf24_write_buf@reg reg `uc  1 a 1 wreg ]
+"115
+[v nrf24_write_buf@i i `uc  1 a 1 6 ]
+"114
+[v nrf24_write_buf@reg reg `uc  1 a 1 wreg ]
+[v nrf24_write_buf@pBuf pBuf `*.26uc  1 p 2 2 ]
+[v nrf24_write_buf@length length `uc  1 p 1 4 ]
+"117
+[v nrf24_write_buf@reg reg `uc  1 a 1 5 ]
+"123
+} 0
+"58
+[v _nrf24_powerUpRx nrf24_powerUpRx `(v  1 e 1 0 ]
+{
+"69
+} 0
+"91
+[v _nrf24_write_reg nrf24_write_reg `(v  1 e 1 0 ]
+{
+[v nrf24_write_reg@reg reg `uc  1 a 1 wreg ]
+[v nrf24_write_reg@reg reg `uc  1 a 1 wreg ]
+[v nrf24_write_reg@value value `uc  1 p 1 2 ]
+[v nrf24_write_reg@reg reg `uc  1 a 1 3 ]
+"96
+} 0
+"22 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\spi.c
+[v _spi_rw spi_rw `(uc  1 e 1 0 ]
+{
+[v spi_rw@value value `uc  1 a 1 wreg ]
+"23
+[v spi_rw@i i `uc  1 a 1 1 ]
+"22
+[v spi_rw@value value `uc  1 a 1 wreg ]
+"24
+[v spi_rw@value value `uc  1 a 1 0 ]
+"38
+} 0
+"13 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\usart.c
+[v _init_uart init_uart `(v  1 e 1 0 ]
+{
+"31
+} 0
+"11 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\ds18b20.c
+[v _init_ds18b20 init_ds18b20 `(v  1 e 1 0 ]
+{
+"23
+} 0
+"66 D:\Ivan\Electro\XC8\18F4525\4550\NRF24l01P_Remote\onewire.c
+[v _write_byte write_byte `(v  1 e 1 0 ]
+{
+[v write_byte@val val `uc  1 a 1 wreg ]
+"68
+[v write_byte@i i `uc  1 a 1 5 ]
+"69
+[v write_byte@temp temp `uc  1 a 1 4 ]
+"66
+[v write_byte@val val `uc  1 a 1 wreg ]
+"71
+[v write_byte@val val `uc  1 a 1 3 ]
+"79
+} 0
+"34
+[v _write_bit write_bit `(v  1 e 1 0 ]
+{
+[v write_bit@bitval bitval `uc  1 a 1 wreg ]
+[v write_bit@bitval bitval `uc  1 a 1 wreg ]
+"36
+[v write_bit@bitval bitval `uc  1 a 1 1 ]
+"46
+} 0
+"5
+[v _ow_reset ow_reset `(uc  1 e 1 0 ]
+{
+"7
+[v ow_reset@presence presence `uc  1 a 1 1 ]
+"17
+} 0

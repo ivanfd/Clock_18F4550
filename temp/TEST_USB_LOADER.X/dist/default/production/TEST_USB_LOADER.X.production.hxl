@@ -1,0 +1,37 @@
+### HEXMate logfile and output summary ###
+
+### Command-line arguments ###
+ C:\Temp\xcAs71k.\driver_tmp_3.o
+ -Odist/default/production\TEST_USB_LOADER.X.production.hex
+ -logfile=dist/default/production\TEST_USB_LOADER.X.production.hxl
+ -addressing=1
+ -break=300000
+
+### Memory Usage ###
+ Input file ranges:
+  1000h - 1005h		(C:\Temp\xcAs71k.\driver_tmp_3.o)
+  1008h - 100Dh		(C:\Temp\xcAs71k.\driver_tmp_3.o)
+  7FC8h - 7FFFh		(C:\Temp\xcAs71k.\driver_tmp_3.o)
+  300000h - 30000Dh		(C:\Temp\xcAs71k.\driver_tmp_3.o)
+ Unused ranges:
+  0h - FFFh
+  1006h - 1007h
+  100Eh - 7FC7h
+  8000h - 2FFFFFh
+
+### Hex Memory Map ###
+ Legend:
+  -- = Unused memory
+  H1 = Input file             (C:\Temp\xcAs71k.\driver_tmp_3.o)
+----------------------------------------------------------
+         | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
+----------------------------------------------------------
+00001000 | H1 H1 H1 H1 H1 H1 -- -- H1 H1 H1 H1 H1 H1 -- --
+----------------------------------------------------------
+00007FC0 | -- -- -- -- -- -- -- -- H1 H1 H1 H1 H1 H1 H1 H1
+00007FD0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00007FE0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00007FF0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+----------------------------------------------------------
+00300000 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 -- --
+00300010 | --

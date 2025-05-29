@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--***************************************-->
+<!--   File    : main_01022025.fsproj      -->
+<!--   Format  : TopoR Project file        -->
+<!--   Version : 2                         -->
+<!--   Program : TopoR Lite 7.0.18699      -->
+<!--   Date    : Monday, February 03, 2025 -->
+<!--   Time    : 09:31                     -->
+<!--***************************************-->
+
+<Project>
+   <Version current="2"/>
+   <GUID>{249FA8A0-7C38-44BB-934B-2084BC0B21F0}</GUID>
+   <Documents>
+      <Section name="PCB" isExpanded="true">
+         <File path=".\main_01022025.fsx" isopened="0" dateChange="2025-02-01 12:28:50"/>
+         <File path=".\main_01022025_3792-42sa.fsx" isopened="1" dateChange="2025-02-01 12:50:03"/>
+      </Section>
+      <Section name="AutoRouting" isExpanded="true">
+         <File path=".\autoroute_250201122910\main_01022025_3648-44sa.fsb" isopened="0" dateChange="2025-02-01 12:30:40"/>
+         <File path=".\autoroute_250201114603\main_01022025_3673-46sa.fsb" isopened="0" dateChange="2025-02-01 11:46:28"/>
+         <File path=".\autoroute_250201122910\main_01022025_3711-43sa.fsb" isopened="0" dateChange="2025-02-01 12:30:39"/>
+         <File path=".\autoroute_250201114603\main_01022025_3747-44sa.fsb" isopened="0" dateChange="2025-02-01 11:46:24"/>
+         <File path=".\autoroute_250201122910\main_01022025_3792-42sa.fsb" isopened="0" dateChange="2025-02-01 12:30:40"/>
+         <File path=".\autoroute_250201114603\main_01022025_3908-42sa.fsb" isopened="0" dateChange="2025-02-01 11:46:37"/>
+         <File path=".\autoroute_250201120029\main_01022025_4374-48sa.fsb" isopened="0" dateChange="2025-02-01 12:01:14"/>
+      </Section>
+   </Documents>
+   <Import>
+      <Specctra>
+         <Path name="D:\Ivan\Electro\XC8\18F4525\4550\scheme\toporMain\main_01022025.dsn"/>
+      </Specctra>
+   </Import>
+</Project>

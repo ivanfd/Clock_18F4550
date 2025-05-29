@@ -1,0 +1,34 @@
+ build/default/debug/eusart.d  \
+ build/default/debug/eusart.p1:  \
+ eusart.c  \
+init.h  \
+spi.h  \
+settings.h  \
+timer.h  \
+nrf24l01p.h  \
+newmain.h  \
+dispatcher.h  \
+C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8/pic/include/pic18.h  \
+FontS.h  \
+onewire.h  \
+digits_f.h  \
+i2c.h  \
+sound.h  \
+key.h  \
+pict.h  \
+ds3231.h  \
+SI7021.h  \
+time.h  \
+C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8/pic/include/pic18_chip_select.h  \
+interrupt.h  \
+Font.h  \
+eeprom.h  \
+common.h  \
+eusart.h  \
+max7221.h  \
+display.h  \
+strings.h  \
+ds18b20.h  \
+C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8/pic/include/proc/pic18f4550.h  \
+BMP_280.h  \
+events.h 

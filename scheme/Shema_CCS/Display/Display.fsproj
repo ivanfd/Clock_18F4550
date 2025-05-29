@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xsi:noNamespaceSchemaLocation="Project.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Version current="1"/>
+	<Format>Project</Format>
+	<Header>
+		<Program name="TopoR" version="6.2"/>
+		<GUID>{845EB141-C9FC-4F8B-9FAA-844057C1C121}</GUID>
+		<Annotation>Project file</Annotation>
+	</Header>
+	<Document>
+		<LocalLibrary />
+		<Pcb>
+			<File path=".\display.fsx" isopened="0"/>
+			<File path=".\display_4043-49sa.fsx" isopened="1"/>
+		</Pcb>
+		<Documents path="H:\HOBBY\PIC\CCS\MatrixClock\Shema\Display\"/>
+		<Import>
+			<Specctra>
+			<Path name="H:\HOBBY\PIC\CCS\MatrixClock\Shema\display.dsn"/>
+			</Specctra>
+		</Import>
+		<ARouteSessions>
+			<Session name="display" date="2016-02-24 10:07:09" path=".\autoroute_display_160224100709\">
+			<File path=".\autoroute_display_160224100709\display_3787-57sa.fsb" isopened="0"/>
+			<File path=".\autoroute_display_160224100709\display_3800-55sa.fsb" isopened="0"/>
+			<File path=".\autoroute_display_160224100709\display_3943-50sa.fsb" isopened="0"/>
+			<File path=".\autoroute_display_160224100709\display_4043-49sa.fsb" isopened="0"/>
+			</Session>
+		</ARouteSessions>
+	</Document>
+</Project>
