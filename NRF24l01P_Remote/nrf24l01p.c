@@ -16,8 +16,8 @@ void nrf24_init(uint8_t channel, uint8_t pay_length) {
     SPI_CE = 0;
     pay_len = pay_length;
 
-    nrf24_tx_address(&nrf_tx_address);
-    nrf24_rx_address(&nrf_rx_address);
+    nrf24_tx_address(nrf_tx_address);
+    nrf24_rx_address(nrf_rx_address);
 
     nrf24_write_reg(NRF24_RF_CH, channel); // пишемо номер каналу
 
@@ -55,7 +55,7 @@ void nrf24_init(uint8_t channel, uint8_t pay_length) {
     Режим прийомника
  ******************************/
 
-void nrf24_powerUpRx() {
+void nrf24_powerUpRx(void) {
     SPI_CSN = 0;
     spi_rw(FLUSH_RX); // очистити прийомний буфер
     SPI_CSN = 1;
@@ -71,7 +71,7 @@ void nrf24_powerUpRx() {
 /*******************************
     Режим передачі
  ******************************/
-void nrf24_powerUpTx() {
+void nrf24_powerUpTx(void) {
     //nrf24_write_reg(FLUSH_TX, 0); //flush Tx
 
     nrf24_write_reg(NRF24_STATUS, (1 << RX_DR) | (1 << TX_DS) | (1 << MAX_RT));
@@ -80,7 +80,7 @@ void nrf24_powerUpTx() {
     __delay_us(135);
 }
 
-void nrf24_powerDown() {
+void nrf24_powerDown(void) {
     SPI_CE = 0;
     nrf24_write_reg(NRF24_CONFIG, CONFIG_SET);
 }
@@ -111,7 +111,7 @@ uint8_t nrf24_read_reg(uint8_t reg) {
 /***************************************
  Пишемо length даних в регістр
  ***************************************/
-void nrf24_write_buf(uint8_t reg, uint8_t *pBuf, uint8_t length) {
+void nrf24_write_buf(uint8_t reg, const uint8_t *pBuf, uint8_t length) {
     uint8_t i;
 
     SPI_CSN = 0; // Set CSN low, init SPI tranaction
@@ -139,14 +139,14 @@ void nrf24_read_buf(uint8_t reg, uint8_t *pBuf, uint8_t length) {
 }
 
 /* Встановлюємо адресу передачика */
-void  nrf24_tx_address(uint8_t *adr) {
+void  nrf24_tx_address(const uint8_t *adr) {
     //RX_ADDR_PO - повинен бути такий самий, як адреса передатчика
     nrf24_write_buf(W_REGISTER | NRF24_RX_ADDR_P0, adr, NRF24_ADDR_LEN);
     nrf24_write_buf(W_REGISTER | NRF24_TX_ADDR, adr, NRF24_ADDR_LEN);
 }
 
 /* Встановлюємо адресу приймача */
-void nrf24_rx_address(uint8_t *adr) {
+void nrf24_rx_address(const uint8_t *adr) {
 
     nrf24_write_buf(W_REGISTER | NRF24_RX_ADDR_P1, adr, NRF24_ADDR_LEN);
 }
@@ -172,7 +172,7 @@ void nrf24_send(uint8_t *value) {
  *  Повертає 0, якщо передало або
  * перевищений ліміт ретрансляцій.
  *****************************/
-uint8_t nrf24_isSending() {
+uint8_t nrf24_isSending(void) {
     uint8_t status;
 
     // читаємо поточний стан
@@ -189,7 +189,7 @@ uint8_t nrf24_isSending() {
 /********************************
  *  Отримати регістр STATUS
  ********************************/
-uint8_t nrf24_getStatus() {
+uint8_t nrf24_getStatus(void) {
     uint8_t r_status;
     SPI_CSN = 0;
     r_status = spi_rw(NRF_NOP);
@@ -201,7 +201,7 @@ uint8_t nrf24_getStatus() {
  *   Визначаємо стан переданого пакету
  **************************************/
 
-uint8_t nrf24_messageStatus() {
+uint8_t nrf24_messageStatus(void) {
     uint8_t r_status;
 
     r_status = nrf24_getStatus();
@@ -223,7 +223,7 @@ uint8_t nrf24_messageStatus() {
  *    Повертає кількість ретрансляцій
  *      пакету
  ****************************************/
-uint8_t nrf24_retransmissionCount() {
+uint8_t nrf24_retransmissionCount(void) {
     uint8_t r_count;
     r_count = nrf24_read_reg(NRF24_OBSERVE_TX);
     r_count = r_count & 0x0F;
@@ -242,7 +242,7 @@ void nrf24_getData(uint8_t* data) {
 }
 
 /* Повертає довжину пакету */
-uint8_t nrf24_payloadLength() {
+uint8_t nrf24_payloadLength(void) {
     uint8_t status;
     SPI_CSN = 0;
     spi_rw(R_RX_PL_WID);
@@ -252,7 +252,7 @@ uint8_t nrf24_payloadLength() {
 }
 
 /* Перевіряємо, чи порожній прийомний буфер */
-uint8_t nrf24_rxFifoEmpty() {
+uint8_t nrf24_rxFifoEmpty(void) {
     uint8_t fifoStatus;
 
     fifoStatus = nrf24_read_reg(NRF24_FIFO_STATUS);
@@ -264,7 +264,7 @@ uint8_t nrf24_rxFifoEmpty() {
 /* Перевіряємо чи доступні дані для читання на прийомі */
 
 /* Повертає 1, якщо доступні */
-uint8_t nrf24_dataReady() {
+uint8_t nrf24_dataReady(void) {
     uint8_t status = nrf24_getStatus();
 
 

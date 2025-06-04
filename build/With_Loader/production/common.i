@@ -6946,8 +6946,8 @@ uint8_t blk_dot = 0;
 
 uint8_t day_mess = 0;
 uint8_t dst_flag = 0;
-uint8_t const compile_date[12] = "May 29 2025";
-uint8_t const compile_time[9] = "13:43:35";
+uint8_t const compile_date[12] = "Jun  1 2025";
+uint8_t const compile_time[9] = "20:48:47";
 uint8_t valuesAM[5];
 uint8_t ErrAM;
 
@@ -7909,18 +7909,18 @@ void usart_r() {
 
                             EUSART_Write('(');
 
-                            for (j = 0; j < strlen("1.0.38"); j++)
-                                EUSART_Write("1.0.38"[j]);
+                            for (j = 0; j < strlen("1.0.45"); j++)
+                                EUSART_Write("1.0.45"[j]);
                             EUSART_Write(')');
                             EUSART_Write(' ');
                             EUSART_Write(' ');
 
-                            for (j = 0; j < strlen("29.05.2025"); j++)
-                                EUSART_Write("29.05.2025"[j]);
+                            for (j = 0; j < strlen("01.06.2025"); j++)
+                                EUSART_Write("01.06.2025"[j]);
                             EUSART_Write(' ');
 
-                            for (j = 0; j < strlen("13:43:32"); j++)
-                                EUSART_Write("13:43:32"[j]);
+                            for (j = 0; j < strlen("20:48:45"); j++)
+                                EUSART_Write("20:48:45"[j]);
                             EUSART_Write('\r');
                             EUSART_Write('\n');
                             break;
@@ -8078,7 +8078,7 @@ void TMR1_ISR(void) {
 
 
 void radioRead(void) {
-    static uint8_t data_array[4] = {0, 0, 0, 0};
+    static uint8_t data_array[5] = {0, 0, 0, 0, 0};
 
     if (nrf24_dataReady()) {
         nrf24_getData(data_array);
@@ -8086,6 +8086,7 @@ void radioRead(void) {
         nrf24_powerUpRx();
         data_Val[T_RADIO] = data_array[1] | (uint16_t) (data_array[2] << 8);
         minus_radio = data_array[0];
+        data_Val[DS18_ERR] = data_array[3] | (uint16_t) (data_array[4] << 8);
         err_ds_count = 0;
         err_ds18 = 0;
     } else
@@ -8096,8 +8097,8 @@ void radioRead(void) {
         err_ds_count = 0;
         err_ds18 = 1;
 
-        nrf24_init(100, 4);
-        data_Val[DS18_ERR]++;
+        nrf24_init(100, 5);
+
     }
 
 }

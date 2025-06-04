@@ -1,12 +1,8 @@
- build/default/production/onewire.d  \
- build/default/production/onewire.p1:  \
- onewire.c  \
-spi.h  \
-C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8/pic/include/pic.h  \
-nrf24l01p.h  \
-main.h  \
+build/default/production/onewire.p1:  \
+onewire.c  \
 onewire.h  \
+main.h  \
+nrf24l01p.h  \
+spi.h  \
 usart.h  \
-C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8/pic/include/pic_chip_select.h  \
-ds18b20.h  \
-C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8/pic/include/proc/pic16f628a.h 
+ds18b20.h 

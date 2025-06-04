@@ -1,6 +1,6 @@
 #include "spi.h"
 
-void spi_init() {
+void spi_init(void) {
     MISO_INPUT();
     MOSI_OUTPUT();
     CE_OUTPUT();

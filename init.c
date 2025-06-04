@@ -54,7 +54,7 @@ void SYSTEM_Initialize(void) // ініціалізація контролера
     set_font();
     sound_init();
     spi_init();
-    nrf24_init(100, 4);
+    nrf24_init(100, 5);
     RTOS_SetTask(usart_r, 40, cycle_main); // ЗАДАЧА ОПИТУВАННЯ КОМ ПОРТА
     RTOS_SetTask(GetTime, 80, cycle_main); // Задача зчитування даних з RTC
     setting_Val[ENABLE_SND_HOUR] = read_eep(EE_EN_SND_H);

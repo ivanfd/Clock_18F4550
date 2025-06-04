@@ -41,7 +41,7 @@ void nrf24_init(uint8_t channel, uint8_t pay_length) {
     nrf24_write_reg(NRF24_EN_RXADDR, (1 << ERX_P0) | (1 << ERX_P1) | (0 << ERX_P2) | (0 << ERX_P3) | (0 << ERX_P4) | (0 << ERX_P5));
 
     // затримка автоповтору: 1000 мкс 15 спроб
-    nrf24_write_reg(NRF24_SETUP_RETR, (0x04 << ARD) | (0x0F << ARC));
+    nrf24_write_reg(NRF24_SETUP_RETR, (0x0F << ARD) | (0x0F << ARC));
 
     // Dynamic length configurations: No dynamic length
     nrf24_write_reg(NRF24_DYNPD, (0 << DPL_P0) | (0 << DPL_P1) | (0 << DPL_P2) | (0 << DPL_P3) | (0 << DPL_P4) | (0 << DPL_P5));

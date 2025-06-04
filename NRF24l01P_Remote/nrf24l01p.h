@@ -137,22 +137,22 @@
 void nrf24_init(uint8_t channel, uint8_t pay_length);
 void nrf24_write_reg(uint8_t reg, uint8_t value);
 uint8_t nrf24_read_reg(uint8_t reg);
-void nrf24_powerUpRx();
-void nrf24_powerUpTx();
-void nrf24_powerDown();
-void nrf24_write_buf(uint8_t reg, uint8_t *pBuf, uint8_t length);
-void nrf24_read_buf(uint8_t reg, uint8_t *pBuf, uint8_t length);
-void nrf24_tx_address(uint8_t *adr);
-void nrf24_rx_address(uint8_t *adr);
+void nrf24_powerUpRx(void);
+void nrf24_powerUpTx(void);
+void nrf24_powerDown(void);
+void nrf24_write_buf(uint8_t reg, const uint8_t *pBuf, uint8_t length);
+void nrf24_read_buf(uint8_t reg,  uint8_t *pBuf, uint8_t length);
+void nrf24_tx_address(const uint8_t *adr);
+void nrf24_rx_address(const uint8_t *adr);
 void nrf24_send(uint8_t *value);
-uint8_t nrf24_isSending();
-uint8_t nrf24_getStatus();
-uint8_t nrf24_messageStatus();
-uint8_t nrf24_retransmissionCount();
+uint8_t nrf24_isSending(void);
+uint8_t nrf24_getStatus(void);
+uint8_t nrf24_messageStatus(void);
+uint8_t nrf24_retransmissionCount(void);
 void nrf24_getData(uint8_t* data);
-uint8_t nrf24_payloadLength();
-uint8_t nrf24_rxFifoEmpty();
-uint8_t nrf24_dataReady();
+uint8_t nrf24_payloadLength(void);
+uint8_t nrf24_rxFifoEmpty(void);
+uint8_t nrf24_dataReady(void);
 
 
 #endif	/* XC_HEADER_TEMPLATE_H */

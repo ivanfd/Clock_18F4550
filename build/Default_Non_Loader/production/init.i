@@ -6951,7 +6951,7 @@ void SYSTEM_Initialize(void)
     set_font();
     sound_init();
     spi_init();
-    nrf24_init(100, 4);
+    nrf24_init(100, 5);
     RTOS_SetTask(usart_r, 40, 20);
     RTOS_SetTask(GetTime, 80, 20);
     setting_Val[ENABLE_SND_HOUR] = read_eep(4);

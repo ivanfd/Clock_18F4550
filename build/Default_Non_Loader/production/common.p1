@@ -3318,16 +3318,16 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ]
 "40
-[; ;common.c: 40: uint8_t const compile_date[12] = "May 28 2025";
+[; ;common.c: 40: uint8_t const compile_date[12] = "Jun  1 2025";
 [v _compile_date `Cuc ~T0 @X0 -> 12 `i e ]
 [i _compile_date
 :U ..
--> 77 `c
--> 97 `c
--> 121 `c
+-> 74 `c
+-> 117 `c
+-> 110 `c
 -> 32 `c
--> 50 `c
--> 56 `c
+-> 32 `c
+-> 49 `c
 -> 32 `c
 -> 50 `c
 -> 48 `c
@@ -3337,18 +3337,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ]
 "41
-[; ;common.c: 41: uint8_t const compile_time[9] = "22:07:06";
+[; ;common.c: 41: uint8_t const compile_time[9] = "19:08:00";
 [v _compile_time `Cuc ~T0 @X0 -> 9 `i e ]
 [i _compile_time
 :U ..
--> 50 `c
--> 50 `c
+-> 49 `c
+-> 57 `c
 -> 58 `c
 -> 48 `c
--> 55 `c
+-> 56 `c
 -> 58 `c
 -> 48 `c
--> 55 `c
+-> 49 `c
 -> 0 `c
 ..
 ]
@@ -5625,13 +5625,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;common.c: 1113:                             EUSART_Write('(');
 [e ( _EUSART_Write (1 -> -> 40 `ui `uc ]
 "1115
-[; ;common.c: 1115:                             for (j = 0; j < strlen("1.0.36"); j++)
+[; ;common.c: 1115:                             for (j = 0; j < strlen("1.0.42"); j++)
 {
 [e = _j -> -> 0 `i `uc ]
 [e $U 572  ]
 [e :U 569 ]
 "1116
-[; ;common.c: 1116:                                 EUSART_Write("1.0.36"[j]);
+[; ;common.c: 1116:                                 EUSART_Write("1.0.42"[j]);
 [e ( _EUSART_Write (1 -> *U + :s 2C * -> _j `ux -> -> # *U :s 2C `ui `ux `uc ]
 [e ++ _j -> -> 1 `i `uc ]
 [e :U 572 ]
@@ -5648,13 +5648,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;common.c: 1119:                             EUSART_Write(' ');
 [e ( _EUSART_Write (1 -> -> 32 `ui `uc ]
 "1121
-[; ;common.c: 1121:                             for (j = 0; j < strlen("28.05.2025"); j++)
+[; ;common.c: 1121:                             for (j = 0; j < strlen("01.06.2025"); j++)
 {
 [e = _j -> -> 0 `i `uc ]
 [e $U 576  ]
 [e :U 573 ]
 "1122
-[; ;common.c: 1122:                                 EUSART_Write("28.05.2025"[j]);
+[; ;common.c: 1122:                                 EUSART_Write("01.06.2025"[j]);
 [e ( _EUSART_Write (1 -> *U + :s 4C * -> _j `ux -> -> # *U :s 4C `ui `ux `uc ]
 [e ++ _j -> -> 1 `i `uc ]
 [e :U 576 ]
@@ -5665,13 +5665,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;common.c: 1123:                             EUSART_Write(' ');
 [e ( _EUSART_Write (1 -> -> 32 `ui `uc ]
 "1125
-[; ;common.c: 1125:                             for (j = 0; j < strlen("22:07:03"); j++)
+[; ;common.c: 1125:                             for (j = 0; j < strlen("19:07:58"); j++)
 {
 [e = _j -> -> 0 `i `uc ]
 [e $U 580  ]
 [e :U 577 ]
 "1126
-[; ;common.c: 1126:                                 EUSART_Write("22:07:03"[j]);
+[; ;common.c: 1126:                                 EUSART_Write("19:07:58"[j]);
 [e ( _EUSART_Write (1 -> *U + :s 6C * -> _j `ux -> -> # *U :s 6C `ui `ux `uc ]
 [e ++ _j -> -> 1 `i `uc ]
 [e :U 580 ]
@@ -6068,10 +6068,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _radioRead ]
 [f ]
 "1378
-[; ;common.c: 1378:     static uint8_t data_array[4] = {0, 0, 0, 0};
-[v F4219 `uc ~T0 @X0 -> 4 `i s data_array ]
+[; ;common.c: 1378:     static uint8_t data_array[5] = {0, 0, 0, 0, 0};
+[v F4219 `uc ~T0 @X0 -> 5 `i s data_array ]
 [i F4219
 :U ..
+-> -> 0 `i `uc
 -> -> 0 `i `uc
 -> -> 0 `i `uc
 -> -> 0 `i `uc
@@ -6095,60 +6096,60 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;common.c: 1385:         minus_radio = data_array[0];
 [e = _minus_radio *U + &U F4219 * -> -> -> 0 `i `ui `ux -> -> # *U &U F4219 `ui `ux ]
 "1386
-[; ;common.c: 1386:         err_ds_count = 0;
-[e = _err_ds_count -> -> 0 `i `us ]
+[; ;common.c: 1386:         data_Val[DS18_ERR] = data_array[3] | (uint16_t) (data_array[4] << 8);
+[e = *U + &U _data_Val * -> . `E3989 7 `ux -> -> # *U &U _data_Val `ui `ux -> | -> *U + &U F4219 * -> -> -> 3 `i `ui `ux -> -> # *U &U F4219 `ui `ux `ui -> -> << -> *U + &U F4219 * -> -> -> 4 `i `ui `ux -> -> # *U &U F4219 `ui `ux `i -> 8 `i `us `ui `us ]
 "1387
-[; ;common.c: 1387:         err_ds18 = 0;
-[e = _err_ds18 -> -> 0 `i `uc ]
+[; ;common.c: 1387:         err_ds_count = 0;
+[e = _err_ds_count -> -> 0 `i `us ]
 "1388
-[; ;common.c: 1388:     } else
+[; ;common.c: 1388:         err_ds18 = 0;
+[e = _err_ds18 -> -> 0 `i `uc ]
+"1389
+[; ;common.c: 1389:     } else
 }
 [e $U 612  ]
 [e :U 611 ]
-"1389
-[; ;common.c: 1389:         err_ds_count++;
+"1390
+[; ;common.c: 1390:         err_ds_count++;
 [e ++ _err_ds_count -> -> 1 `i `us ]
 [e :U 612 ]
-"1391
-[; ;common.c: 1391:     if (err_ds_count > 15000)
-[e $ ! > -> _err_ds_count `ui -> -> 15000 `i `ui 613  ]
 "1392
-[; ;common.c: 1392:     {
-{
+[; ;common.c: 1392:     if (err_ds_count > 15000)
+[e $ ! > -> _err_ds_count `ui -> -> 15000 `i `ui 613  ]
 "1393
-[; ;common.c: 1393:         err_ds_count = 0;
-[e = _err_ds_count -> -> 0 `i `us ]
+[; ;common.c: 1393:     {
+{
 "1394
-[; ;common.c: 1394:         err_ds18 = 1;
+[; ;common.c: 1394:         err_ds_count = 0;
+[e = _err_ds_count -> -> 0 `i `us ]
+"1395
+[; ;common.c: 1395:         err_ds18 = 1;
 [e = _err_ds18 -> -> 1 `i `uc ]
-"1396
-[; ;common.c: 1396:         nrf24_init(100, 4);
-[e ( _nrf24_init (2 , -> -> 100 `i `uc -> -> 4 `i `uc ]
 "1397
-[; ;common.c: 1397:         data_Val[DS18_ERR]++;
-[e ++ *U + &U _data_Val * -> . `E3989 7 `ux -> -> # *U &U _data_Val `ui `ux -> -> 1 `i `us ]
-"1398
-[; ;common.c: 1398:     }
+[; ;common.c: 1397:         nrf24_init(100, 5);
+[e ( _nrf24_init (2 , -> -> 100 `i `uc -> -> 5 `i `uc ]
+"1399
+[; ;common.c: 1399:     }
 }
 [e :U 613 ]
-"1400
-[; ;common.c: 1400: }
+"1401
+[; ;common.c: 1401: }
 [e :UE 610 ]
 }
-"1404
-[; ;common.c: 1404: void sendDataSensors(void) {
+"1405
+[; ;common.c: 1405: void sendDataSensors(void) {
 [v _sendDataSensors `(v ~T0 @X0 1 ef ]
 {
 [e :U _sendDataSensors ]
 [f ]
-"1405
-[; ;common.c: 1405:     EUSART_Write('$');
-[e ( _EUSART_Write (1 -> -> 36 `ui `uc ]
 "1406
-[; ;common.c: 1406:     EUSART_Write('D');
-[e ( _EUSART_Write (1 -> -> 68 `ui `uc ]
+[; ;common.c: 1406:     EUSART_Write('$');
+[e ( _EUSART_Write (1 -> -> 36 `ui `uc ]
 "1407
-[; ;common.c: 1407:     for (uint8_t j = 0; j < NUM_VALUES_DAT; j++) {
+[; ;common.c: 1407:     EUSART_Write('D');
+[e ( _EUSART_Write (1 -> -> 68 `ui `uc ]
+"1408
+[; ;common.c: 1408:     for (uint8_t j = 0; j < NUM_VALUES_DAT; j++) {
 {
 [v _j `uc ~T0 @X0 1 a ]
 [e = _j -> -> 0 `i `uc ]
@@ -6156,37 +6157,37 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 616  ]
 [e :U 615 ]
 {
-"1408
-[; ;common.c: 1408:         EUSART_Write(data_Val[j]& 0xFF);
-[e ( _EUSART_Write (1 -> & -> *U + &U _data_Val * -> _j `ux -> -> # *U &U _data_Val `ui `ux `ui -> -> 255 `i `ui `uc ]
 "1409
-[; ;common.c: 1409:         EUSART_Write((data_Val[j] >> 8)& 0xFF);
-[e ( _EUSART_Write (1 -> & >> -> *U + &U _data_Val * -> _j `ux -> -> # *U &U _data_Val `ui `ux `ui -> 8 `i -> -> 255 `i `ui `uc ]
+[; ;common.c: 1409:         EUSART_Write(data_Val[j]& 0xFF);
+[e ( _EUSART_Write (1 -> & -> *U + &U _data_Val * -> _j `ux -> -> # *U &U _data_Val `ui `ux `ui -> -> 255 `i `ui `uc ]
 "1410
-[; ;common.c: 1410:     }
+[; ;common.c: 1410:         EUSART_Write((data_Val[j] >> 8)& 0xFF);
+[e ( _EUSART_Write (1 -> & >> -> *U + &U _data_Val * -> _j `ux -> -> # *U &U _data_Val `ui `ux `ui -> 8 `i -> -> 255 `i `ui `uc ]
+"1411
+[; ;common.c: 1411:     }
 }
 [e ++ _j -> -> 1 `i `uc ]
 [e $ < -> _j `i -> . `E3989 8 `i 615  ]
 [e :U 616 ]
 }
-"1411
-[; ;common.c: 1411:     EUSART_Write(minus_radio);
-[e ( _EUSART_Write (1 _minus_radio ]
 "1412
-[; ;common.c: 1412:     EUSART_Write('\r');
-[e ( _EUSART_Write (1 -> -> 13 `ui `uc ]
+[; ;common.c: 1412:     EUSART_Write(minus_radio);
+[e ( _EUSART_Write (1 _minus_radio ]
 "1413
-[; ;common.c: 1413:     EUSART_Write('\n');
+[; ;common.c: 1413:     EUSART_Write('\r');
+[e ( _EUSART_Write (1 -> -> 13 `ui `uc ]
+"1414
+[; ;common.c: 1414:     EUSART_Write('\n');
 [e ( _EUSART_Write (1 -> -> 10 `ui `uc ]
-"1415
-[; ;common.c: 1415: }
+"1416
+[; ;common.c: 1416: }
 [e :UE 614 ]
 }
-[a 1C 49 46 48 46 51 54 0 ]
-[a 2C 49 46 48 46 51 54 0 ]
-[a 3C 50 56 46 48 53 46 50 48 50 53 0 ]
-[a 4C 50 56 46 48 53 46 50 48 50 53 0 ]
-[a 5C 50 50 58 48 55 58 48 51 0 ]
-[a 6C 50 50 58 48 55 58 48 51 0 ]
+[a 5C 49 57 58 48 55 58 53 56 0 ]
+[a 6C 49 57 58 48 55 58 53 56 0 ]
+[a 3C 48 49 46 48 54 46 50 48 50 53 0 ]
+[a 4C 48 49 46 48 54 46 50 48 50 53 0 ]
+[a 1C 49 46 48 46 52 50 0 ]
+[a 2C 49 46 48 46 52 50 0 ]
 [a 7C 67 108 111 99 107 32 118 51 46 48 46 49 32 98 121 32 73 118 97 110 95 102 100 32 0 ]
 [a 8C 32 0 ]

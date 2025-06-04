@@ -6948,7 +6948,7 @@ void nrf24_init(uint8_t channel, uint8_t pay_length) {
     nrf24_write_reg(0x02, (1 << 0) | (1 << 1) | (0 << 2) | (0 << 3) | (0 << 4) | (0 << 5));
 
 
-    nrf24_write_reg(0x04, (0x04 << 4) | (0x0F << 0));
+    nrf24_write_reg(0x04, (0x0F << 4) | (0x0F << 0));
 
 
     nrf24_write_reg(0x1C, (0 << 0) | (0 << 1) | (0 << 2) | (0 << 3) | (0 << 4) | (0 << 5));

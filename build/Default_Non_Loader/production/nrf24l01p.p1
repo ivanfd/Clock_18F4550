@@ -3028,8 +3028,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;nrf24l01p.c: 41:     nrf24_write_reg(0x02, (1 << 0) | (1 << 1) | (0 << 2) | (0 << 3) | (0 << 4) | (0 << 5));
 [e ( _nrf24_write_reg (2 , -> -> 2 `i `uc -> | | | | | << -> 1 `i -> 0 `i << -> 1 `i -> 1 `i << -> 0 `i -> 2 `i << -> 0 `i -> 3 `i << -> 0 `i -> 4 `i << -> 0 `i -> 5 `i `uc ]
 "44
-[; ;nrf24l01p.c: 44:     nrf24_write_reg(0x04, (0x04 << 4) | (0x0F << 0));
-[e ( _nrf24_write_reg (2 , -> -> 4 `i `uc -> | << -> 4 `i -> 4 `i << -> 15 `i -> 0 `i `uc ]
+[; ;nrf24l01p.c: 44:     nrf24_write_reg(0x04, (0x0F << 4) | (0x0F << 0));
+[e ( _nrf24_write_reg (2 , -> -> 4 `i `uc -> | << -> 15 `i -> 4 `i << -> 15 `i -> 0 `i `uc ]
 "47
 [; ;nrf24l01p.c: 47:     nrf24_write_reg(0x1C, (0 << 0) | (0 << 1) | (0 << 2) | (0 << 3) | (0 << 4) | (0 << 5));
 [e ( _nrf24_write_reg (2 , -> -> 28 `i `uc -> | | | | | << -> 0 `i -> 0 `i << -> 0 `i -> 1 `i << -> 0 `i -> 2 `i << -> 0 `i -> 3 `i << -> 0 `i -> 4 `i << -> 0 `i -> 5 `i `uc ]

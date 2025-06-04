@@ -1375,7 +1375,7 @@ void TMR1_ISR(void) {
 //=============================================================================
 
 void radioRead(void) {
-    static uint8_t data_array[4] = {0, 0, 0, 0}; // робимо статичною, бо комп≥л€тор не в≥рно
+    static uint8_t data_array[5] = {0, 0, 0, 0, 0}; // робимо статичною, бо комп≥л€тор не в≥рно
     // читаЇмо рад≥одатчик                              ставить адреси перем≥нних
     if (nrf24_dataReady()) {
         nrf24_getData(data_array);
@@ -1383,6 +1383,7 @@ void radioRead(void) {
         nrf24_powerUpRx();
         data_Val[T_RADIO] = data_array[1] | (uint16_t) (data_array[2] << 8);
         minus_radio = data_array[0];
+        data_Val[DS18_ERR] = data_array[3] | (uint16_t) (data_array[4] << 8);
         err_ds_count = 0;
         err_ds18 = 0;
     } else
@@ -1393,8 +1394,8 @@ void radioRead(void) {
         err_ds_count = 0; // починаЇмо знову рахувати
         err_ds18 = 1; // то ставимо признак помилки рад≥одатчика
         //nrf24_powerUpRx(); // ѕереводимо датчик у режим прийому, та скидаЇмо вс≥ перериванн€
-        nrf24_init(100, 4); // ўе раз ≥н≥ц≥ал≥зуЇмо
-        data_Val[DS18_ERR]++;
+        nrf24_init(100, 5); // ўе раз ≥н≥ц≥ал≥зуЇмо
+       // data_Val[DS18_ERR]++;
     }
 
 }

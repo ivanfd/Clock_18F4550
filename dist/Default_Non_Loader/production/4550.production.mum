@@ -1,7 +1,7 @@
 
 18F4550 Memory Summary:
-    Program space        used  5E31h ( 24113) of  8000h bytes   ( 73.6%)
-    Data space           used   3B2h (   946) of   800h bytes   ( 46.2%)
+    Program space        used  5E33h ( 24115) of  8000h bytes   ( 73.6%)
+    Data space           used   3B3h (   947) of   800h bytes   ( 46.2%)
     Configuration bits   used     7h (     7) of     7h words   (100.0%)
     EEPROM space         used    10h (    16) of   100h bytes   (  6.2%)
     ID Location space    used     0h (     0) of     8h bytes   (  0.0%)

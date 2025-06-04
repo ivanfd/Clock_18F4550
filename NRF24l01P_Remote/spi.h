@@ -22,7 +22,7 @@
 #define SCK_OUTPUT()   TRISBbits.TRISB4 = 0
 #define IRQ_INPUT()    TRISBbits.TRISB5 = 1
 
-void spi_init();
+void spi_init(void);
 uint8_t spi_rw(uint8_t value);
 
 

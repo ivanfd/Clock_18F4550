@@ -3269,8 +3269,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;init.c: 56:     spi_init();
 [e ( _spi_init ..  ]
 "57
-[; ;init.c: 57:     nrf24_init(100, 4);
-[e ( _nrf24_init (2 , -> -> 100 `i `uc -> -> 4 `i `uc ]
+[; ;init.c: 57:     nrf24_init(100, 5);
+[e ( _nrf24_init (2 , -> -> 100 `i `uc -> -> 5 `i `uc ]
 "58
 [; ;init.c: 58:     RTOS_SetTask(usart_r, 40, 20);
 [e ( _RTOS_SetTask (3 , , -> &U _usart_r `*F4063 -> -> 40 `i `us -> -> 20 `i `us ]
