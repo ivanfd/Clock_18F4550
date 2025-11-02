@@ -128,6 +128,7 @@
 #include "nrf24l01p.h"
 #include <stdlib.h>
 #include "SI7021.h"
+#include "display.h"
 
 #define EN_ESP8266 LATEbits.LE0
 

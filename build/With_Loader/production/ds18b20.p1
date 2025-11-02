@@ -1,8 +1,16 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"34 ./display.h
-[; ;./display.h: 34: {
-[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr ]
+"35 ./display.h
+[; ;./display.h: 35: {
+[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr TyrC ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[c E3675 0 1 2 3 4 .. ]
+[n E3675 . NEXT_NONE NEXT_PRESSURE NEXT_TEMP_HOME NEXT_TEMP_VUL NEXT_HUM  ]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[c E3683 0 1 2 3 4 5 .. ]
+[n E3683 . EFFECT_NONE EFFECT_SCROLL_LEFT EFFECT_SCROLL_RIGHT EFFECT_SCROLL_DOWN EFFECT_DISSOLVE EFFECT_HIDE_TWO_SIDE  ]
 "12 ./onewire.h
 [; ;./onewire.h: 12: uint8_t ow_reset(void);
 [v _ow_reset `(uc ~T0 @X0 0 ef ]
@@ -2878,14 +2886,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"31 ./display.h
-[; ;./display.h: 31: uint8_t i_char, i_bchar;
+"32 ./display.h
+[; ;./display.h: 32: uint8_t i_char, i_bchar;
 [v _i_char `uc ~T0 @X0 1 e ]
 [v _i_bchar `uc ~T0 @X0 1 e ]
-"42
-[; ;./display.h: 42: } TTime, TSTime;
+"44
+[; ;./display.h: 44: } TTime, TSTime;
 [v _TTime `S370 ~T0 @X0 1 e ]
 [v _TSTime `S370 ~T0 @X0 1 e ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[v _nextAfterEffect `E3675 ~T0 @X0 1 e ]
+[i _nextAfterEffect
+. `E3675 0
+]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[v _currentEffect `E3683 ~T0 @X0 1 e ]
+[i _currentEffect
+. `E3683 0
+]
 "70 ./init.h
 [p x PLLDIV      =  5          ]
 "71
@@ -2945,43 +2965,66 @@ Version 4.0 HI-TECH Software Intermediate Code
 "4 ds18b20.c
 [; ;ds18b20.c: 4: uint8_t scratch[9];
 [v _scratch `uc ~T0 @X0 -> 9 `i e ]
-"13
-[; ;ds18b20.c: 13: void init_ds18b20(void) {
+"6
+[; ;ds18b20.c: 6: const char fractS[] = {0, 1, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 8, 9, 9};
+[v _fractS `Cuc ~T0 @X0 -> 16 `i e ]
+[i _fractS
+:U ..
+-> -> 0 `i `uc
+-> -> 1 `i `uc
+-> -> 1 `i `uc
+-> -> 2 `i `uc
+-> -> 2 `i `uc
+-> -> 3 `i `uc
+-> -> 4 `i `uc
+-> -> 4 `i `uc
+-> -> 5 `i `uc
+-> -> 6 `i `uc
+-> -> 6 `i `uc
+-> -> 7 `i `uc
+-> -> 7 `i `uc
+-> -> 8 `i `uc
+-> -> 9 `i `uc
+-> -> 9 `i `uc
+..
+]
+"14
+[; ;ds18b20.c: 14: void init_ds18b20(void) {
 [v _init_ds18b20 `(v ~T0 @X0 1 ef ]
 {
 [e :U _init_ds18b20 ]
 [f ]
-"15
-[; ;ds18b20.c: 15:     if (!ow_reset())
-[e $ ! ! != -> ( _ow_reset ..  `i -> 0 `i 375  ]
 "16
-[; ;ds18b20.c: 16:     {
+[; ;ds18b20.c: 16:     if (!ow_reset())
+[e $ ! ! != -> ( _ow_reset ..  `i -> 0 `i 375  ]
+"17
+[; ;ds18b20.c: 17:     {
 {
-"18
-[; ;ds18b20.c: 18:         write_byte(0xCC);
-[e ( _write_byte (1 -> -> 204 `i `uc ]
 "19
-[; ;ds18b20.c: 19:         write_byte(0x4E);
-[e ( _write_byte (1 -> -> 78 `i `uc ]
+[; ;ds18b20.c: 19:         write_byte(0xCC);
+[e ( _write_byte (1 -> -> 204 `i `uc ]
 "20
-[; ;ds18b20.c: 20:         write_byte(0x00);
-[e ( _write_byte (1 -> -> 0 `i `uc ]
+[; ;ds18b20.c: 20:         write_byte(0x4E);
+[e ( _write_byte (1 -> -> 78 `i `uc ]
 "21
 [; ;ds18b20.c: 21:         write_byte(0x00);
 [e ( _write_byte (1 -> -> 0 `i `uc ]
 "22
-[; ;ds18b20.c: 22:         write_byte(0x7F);
-[e ( _write_byte (1 -> -> 127 `i `uc ]
+[; ;ds18b20.c: 22:         write_byte(0x00);
+[e ( _write_byte (1 -> -> 0 `i `uc ]
 "23
-[; ;ds18b20.c: 23:     }
+[; ;ds18b20.c: 23:         write_byte(0x7F);
+[e ( _write_byte (1 -> -> 127 `i `uc ]
+"24
+[; ;ds18b20.c: 24:     }
 }
 [e :U 375 ]
-"24
-[; ;ds18b20.c: 24: }
+"25
+[; ;ds18b20.c: 25: }
 [e :UE 374 ]
 }
-"32
-[; ;ds18b20.c: 32: uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8_t *timer_val) {
+"33
+[; ;ds18b20.c: 33: uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8_t *timer_val) {
 [v _readTemp_Single `(uc ~T0 @X0 1 ef4`*us`*uc`*uc`*uc ]
 {
 [e :U _readTemp_Single ]
@@ -2990,11 +3033,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _time_flag `*uc ~T0 @X0 1 r3 ]
 [v _timer_val `*uc ~T0 @X0 1 r4 ]
 [f ]
-[v F4069 `Cuc ~T0 @X0 -> 16 `i s ]
-[i F4069
+[v F4123 `Cuc ~T0 @X0 -> 16 `i s ]
+[i F4123
 :U ..
-"34
-[; ;ds18b20.c: 34:     const char fract[] = {0, 1, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 8, 9, 9};
+"35
+[; ;ds18b20.c: 35:     const char fract[] = {0, 1, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 8, 9, 9};
 -> -> 0 `i `uc
 -> -> 1 `i `uc
 -> -> 1 `i `uc
@@ -3014,147 +3057,147 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ]
 [v _fract `Cuc ~T0 @X0 -> 16 `i a ]
-[e = _fract F4069 ]
-"37
-[; ;ds18b20.c: 37:     uint16_t temp = 0;
+[e = _fract F4123 ]
+"38
+[; ;ds18b20.c: 38:     uint16_t temp = 0;
 [v _temp `us ~T0 @X0 1 a ]
 [e = _temp -> -> 0 `i `us ]
-"38
-[; ;ds18b20.c: 38:     uint8_t i, tmp, fptmp;
+"39
+[; ;ds18b20.c: 39:     uint8_t i, tmp, fptmp;
 [v _i `uc ~T0 @X0 1 a ]
 [v _tmp `uc ~T0 @X0 1 a ]
 [v _fptmp `uc ~T0 @X0 1 a ]
-"40
-[; ;ds18b20.c: 40:     *minus = '+';
+"41
+[; ;ds18b20.c: 41:     *minus = '+';
 [e = *U _minus -> -> 43 `ui `uc ]
-"42
-[; ;ds18b20.c: 42:     switch (*time_flag) {
+"43
+[; ;ds18b20.c: 43:     switch (*time_flag) {
 [e $U 378  ]
 {
-"43
-[; ;ds18b20.c: 43:         case 0:
-[e :U 379 ]
 "44
-[; ;ds18b20.c: 44:             if (!ow_reset())
-[e $ ! ! != -> ( _ow_reset ..  `i -> 0 `i 380  ]
+[; ;ds18b20.c: 44:         case 0:
+[e :U 379 ]
 "45
-[; ;ds18b20.c: 45:             {
+[; ;ds18b20.c: 45:             if (!ow_reset())
+[e $ ! ! != -> ( _ow_reset ..  `i -> 0 `i 380  ]
+"46
+[; ;ds18b20.c: 46:             {
 {
-"52
-[; ;ds18b20.c: 52:                 write_byte(0xCC);
-[e ( _write_byte (1 -> -> 204 `i `uc ]
 "53
-[; ;ds18b20.c: 53:                 write_byte(0x44);
-[e ( _write_byte (1 -> -> 68 `i `uc ]
+[; ;ds18b20.c: 53:                 write_byte(0xCC);
+[e ( _write_byte (1 -> -> 204 `i `uc ]
 "54
-[; ;ds18b20.c: 54:                 *timer_val = 0;
-[e = *U _timer_val -> -> 0 `i `uc ]
+[; ;ds18b20.c: 54:                 write_byte(0x44);
+[e ( _write_byte (1 -> -> 68 `i `uc ]
 "55
-[; ;ds18b20.c: 55:                 *time_flag = 2;
-[e = *U _time_flag -> -> 2 `i `uc ]
+[; ;ds18b20.c: 55:                 *timer_val = 0;
+[e = *U _timer_val -> -> 0 `i `uc ]
 "56
-[; ;ds18b20.c: 56:                 T1CONbits.TMR1ON = 1;
+[; ;ds18b20.c: 56:                 *time_flag = 2;
+[e = *U _time_flag -> -> 2 `i `uc ]
+"57
+[; ;ds18b20.c: 57:                 T1CONbits.TMR1ON = 1;
 [e = . . _T1CONbits 1 0 -> -> 1 `i `uc ]
-"58
-[; ;ds18b20.c: 58:                 return 0;
+"59
+[; ;ds18b20.c: 59:                 return 0;
 [e ) -> -> 0 `i `uc ]
 [e $UE 376  ]
-"59
-[; ;ds18b20.c: 59:             }
+"60
+[; ;ds18b20.c: 60:             }
 }
 [e :U 380 ]
-"60
-[; ;ds18b20.c: 60:             break;
-[e $U 377  ]
 "61
-[; ;ds18b20.c: 61:         case 1:
+[; ;ds18b20.c: 61:             break;
+[e $U 377  ]
+"62
+[; ;ds18b20.c: 62:         case 1:
 [e :U 381 ]
-"75
-[; ;ds18b20.c: 75:             ow_reset();
-[e ( _ow_reset ..  ]
 "76
-[; ;ds18b20.c: 76:             write_byte(0xCC);
-[e ( _write_byte (1 -> -> 204 `i `uc ]
+[; ;ds18b20.c: 76:             ow_reset();
+[e ( _ow_reset ..  ]
 "77
-[; ;ds18b20.c: 77:             write_byte(0xBE);
-[e ( _write_byte (1 -> -> 190 `i `uc ]
+[; ;ds18b20.c: 77:             write_byte(0xCC);
+[e ( _write_byte (1 -> -> 204 `i `uc ]
 "78
-[; ;ds18b20.c: 78:             for (i = 0; i < 2; i++)
+[; ;ds18b20.c: 78:             write_byte(0xBE);
+[e ( _write_byte (1 -> -> 190 `i `uc ]
+"79
+[; ;ds18b20.c: 79:             for (i = 0; i < 2; i++)
 {
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 2 `i 382  ]
 [e $U 383  ]
 [e :U 382 ]
-"79
-[; ;ds18b20.c: 79:             {
-{
 "80
-[; ;ds18b20.c: 80:                 scratch[i] = read_byte();
-[e = *U + &U _scratch * -> _i `ux -> -> # *U &U _scratch `ui `ux ( _read_byte ..  ]
+[; ;ds18b20.c: 80:             {
+{
 "81
-[; ;ds18b20.c: 81:             }
+[; ;ds18b20.c: 81:                 scratch[i] = read_byte();
+[e = *U + &U _scratch * -> _i `ux -> -> # *U &U _scratch `ui `ux ( _read_byte ..  ]
+"82
+[; ;ds18b20.c: 82:             }
 }
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 2 `i 382  ]
 [e :U 383 ]
 }
-"83
-[; ;ds18b20.c: 83:             temp = (((uint16_t) scratch[1]) << 8) | ((uint16_t) scratch[0]);
+"84
+[; ;ds18b20.c: 84:             temp = (((uint16_t) scratch[1]) << 8) | ((uint16_t) scratch[0]);
 [e = _temp -> | << -> -> *U + &U _scratch * -> -> -> 1 `i `ui `ux -> -> # *U &U _scratch `ui `ux `us `ui -> 8 `i -> -> *U + &U _scratch * -> -> -> 0 `i `ui `ux -> -> # *U &U _scratch `ui `ux `us `ui `us ]
-"86
-[; ;ds18b20.c: 86:             if (temp & 0x8000) {
+"87
+[; ;ds18b20.c: 87:             if (temp & 0x8000) {
 [e $ ! != & -> _temp `ui -> 32768 `ui -> -> 0 `i `ui 385  ]
 {
-"87
-[; ;ds18b20.c: 87:                 temp = -temp;
-[e = _temp -> -U -> _temp `ui `us ]
 "88
-[; ;ds18b20.c: 88:                 *minus = '-';
-[e = *U _minus -> -> 45 `ui `uc ]
+[; ;ds18b20.c: 88:                 temp = -temp;
+[e = _temp -> -U -> _temp `ui `us ]
 "89
-[; ;ds18b20.c: 89:             }
+[; ;ds18b20.c: 89:                 *minus = '-';
+[e = *U _minus -> -> 45 `ui `uc ]
+"90
+[; ;ds18b20.c: 90:             }
 }
 [e :U 385 ]
-"91
-[; ;ds18b20.c: 91:             tmp = temp & 0x0f;
-[e = _tmp -> & -> _temp `ui -> -> 15 `i `ui `uc ]
 "92
-[; ;ds18b20.c: 92:             tmp = fract[tmp];
-[e = _tmp -> *U + &U _fract * -> _tmp `ux -> -> # *U &U _fract `ui `ux `uc ]
+[; ;ds18b20.c: 92:             tmp = temp & 0x0f;
+[e = _tmp -> & -> _temp `ui -> -> 15 `i `ui `uc ]
 "93
-[; ;ds18b20.c: 93:             temp = temp >> 4;
-[e = _temp -> >> -> _temp `ui -> 4 `i `us ]
+[; ;ds18b20.c: 93:             tmp = fract[tmp];
+[e = _tmp -> *U + &U _fract * -> _tmp `ux -> -> # *U &U _fract `ui `ux `uc ]
 "94
-[; ;ds18b20.c: 94:             temp = (temp & 0x00ff) * 10;
-[e = _temp -> * & -> _temp `ui -> -> 255 `i `ui -> -> 10 `i `ui `us ]
+[; ;ds18b20.c: 94:             temp = temp >> 4;
+[e = _temp -> >> -> _temp `ui -> 4 `i `us ]
 "95
-[; ;ds18b20.c: 95:             temp = temp + tmp;
+[; ;ds18b20.c: 95:             temp = (temp & 0x00ff) * 10;
+[e = _temp -> * & -> _temp `ui -> -> 255 `i `ui -> -> 10 `i `ui `us ]
+"96
+[; ;ds18b20.c: 96:             temp = temp + tmp;
 [e = _temp -> + -> _temp `ui -> _tmp `ui `us ]
-"108
-[; ;ds18b20.c: 108:             *buf = temp;
-[e = *U _buf _temp ]
 "109
-[; ;ds18b20.c: 109:             *time_flag = 0;
+[; ;ds18b20.c: 109:             *buf = temp;
+[e = *U _buf _temp ]
+"110
+[; ;ds18b20.c: 110:             *time_flag = 0;
 [e = *U _time_flag -> -> 0 `i `uc ]
-"111
-[; ;ds18b20.c: 111:             return 1;
+"112
+[; ;ds18b20.c: 112:             return 1;
 [e ) -> -> 1 `i `uc ]
 [e $UE 376  ]
-"112
-[; ;ds18b20.c: 112:             break;
-[e $U 377  ]
 "113
-[; ;ds18b20.c: 113:         case 2:
-[e :U 386 ]
+[; ;ds18b20.c: 113:             break;
+[e $U 377  ]
 "114
-[; ;ds18b20.c: 114:             return 0;
+[; ;ds18b20.c: 114:         case 2:
+[e :U 386 ]
+"115
+[; ;ds18b20.c: 115:             return 0;
 [e ) -> -> 0 `i `uc ]
 [e $UE 376  ]
-"116
-[; ;ds18b20.c: 116:             break;
-[e $U 377  ]
 "117
-[; ;ds18b20.c: 117:     }
+[; ;ds18b20.c: 117:             break;
+[e $U 377  ]
+"118
+[; ;ds18b20.c: 118:     }
 }
 [e $U 377  ]
 [e :U 378 ]
@@ -3163,11 +3206,122 @@ Version 4.0 HI-TECH Software Intermediate Code
  , $ -> 2 `i 386
  377 ]
 [e :U 377 ]
-"118
-[; ;ds18b20.c: 118:     return 0;
+"119
+[; ;ds18b20.c: 119:     return 0;
 [e ) -> -> 0 `i `uc ]
 [e $UE 376  ]
-"119
-[; ;ds18b20.c: 119: }
+"120
+[; ;ds18b20.c: 120: }
 [e :UE 376 ]
+}
+"122
+[; ;ds18b20.c: 122: void ds18b20_start_conversion(void) {
+[v _ds18b20_start_conversion `(v ~T0 @X0 1 ef ]
+{
+[e :U _ds18b20_start_conversion ]
+[f ]
+"123
+[; ;ds18b20.c: 123:     if (!ow_reset())
+[e $ ! ! != -> ( _ow_reset ..  `i -> 0 `i 388  ]
+"124
+[; ;ds18b20.c: 124:     {
+{
+"125
+[; ;ds18b20.c: 125:         write_byte(0xCC);
+[e ( _write_byte (1 -> -> 204 `i `uc ]
+"126
+[; ;ds18b20.c: 126:         write_byte(0x44);
+[e ( _write_byte (1 -> -> 68 `i `uc ]
+"127
+[; ;ds18b20.c: 127:     }
+}
+[e :U 388 ]
+"128
+[; ;ds18b20.c: 128: }
+[e :UE 387 ]
+}
+"130
+[; ;ds18b20.c: 130: uint16_t ds18b20_read_temperature(uint8_t *minus) {
+[v _ds18b20_read_temperature `(us ~T0 @X0 1 ef1`*uc ]
+{
+[e :U _ds18b20_read_temperature ]
+[v _minus `*uc ~T0 @X0 1 r1 ]
+[f ]
+"131
+[; ;ds18b20.c: 131:     uint16_t temp = 0;
+[v _temp `us ~T0 @X0 1 a ]
+[e = _temp -> -> 0 `i `us ]
+"132
+[; ;ds18b20.c: 132:     uint8_t i, tmp, fptmp;
+[v _i `uc ~T0 @X0 1 a ]
+[v _tmp `uc ~T0 @X0 1 a ]
+[v _fptmp `uc ~T0 @X0 1 a ]
+"134
+[; ;ds18b20.c: 134:     ow_reset();
+[e ( _ow_reset ..  ]
+"135
+[; ;ds18b20.c: 135:     write_byte(0xCC);
+[e ( _write_byte (1 -> -> 204 `i `uc ]
+"136
+[; ;ds18b20.c: 136:     write_byte(0xBE);
+[e ( _write_byte (1 -> -> 190 `i `uc ]
+"137
+[; ;ds18b20.c: 137:     for (i = 0; i < 2; i++)
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 2 `i 390  ]
+[e $U 391  ]
+[e :U 390 ]
+"138
+[; ;ds18b20.c: 138:     {
+{
+"139
+[; ;ds18b20.c: 139:         scratch[i] = read_byte();
+[e = *U + &U _scratch * -> _i `ux -> -> # *U &U _scratch `ui `ux ( _read_byte ..  ]
+"140
+[; ;ds18b20.c: 140:     }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 2 `i 390  ]
+[e :U 391 ]
+}
+"142
+[; ;ds18b20.c: 142:     temp = (((uint16_t) scratch[1]) << 8) | ((uint16_t) scratch[0]);
+[e = _temp -> | << -> -> *U + &U _scratch * -> -> -> 1 `i `ui `ux -> -> # *U &U _scratch `ui `ux `us `ui -> 8 `i -> -> *U + &U _scratch * -> -> -> 0 `i `ui `ux -> -> # *U &U _scratch `ui `ux `us `ui `us ]
+"144
+[; ;ds18b20.c: 144:     if (temp & 0x8000) {
+[e $ ! != & -> _temp `ui -> 32768 `ui -> -> 0 `i `ui 393  ]
+{
+"145
+[; ;ds18b20.c: 145:         temp = -temp;
+[e = _temp -> -U -> _temp `ui `us ]
+"146
+[; ;ds18b20.c: 146:         *minus = '-';
+[e = *U _minus -> -> 45 `ui `uc ]
+"147
+[; ;ds18b20.c: 147:     }
+}
+[e :U 393 ]
+"149
+[; ;ds18b20.c: 149:     tmp = temp & 0x0f;
+[e = _tmp -> & -> _temp `ui -> -> 15 `i `ui `uc ]
+"150
+[; ;ds18b20.c: 150:     tmp = fractS[tmp];
+[e = _tmp -> *U + &U _fractS * -> _tmp `ux -> -> # *U &U _fractS `ui `ux `uc ]
+"151
+[; ;ds18b20.c: 151:     temp = temp >> 4;
+[e = _temp -> >> -> _temp `ui -> 4 `i `us ]
+"152
+[; ;ds18b20.c: 152:     temp = (temp & 0x00ff) * 10;
+[e = _temp -> * & -> _temp `ui -> -> 255 `i `ui -> -> 10 `i `ui `us ]
+"153
+[; ;ds18b20.c: 153:     temp = temp + tmp;
+[e = _temp -> + -> _temp `ui -> _tmp `ui `us ]
+"155
+[; ;ds18b20.c: 155:     return temp;
+[e ) _temp ]
+[e $UE 389  ]
+"156
+[; ;ds18b20.c: 156: }
+[e :UE 389 ]
 }

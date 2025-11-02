@@ -7,14 +7,7 @@
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "main.c" 2
-
-
-
-
-
-
-
-
+# 15 "main.c"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1179,7 +1172,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 29 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 2 3
-# 10 "main.c" 2
+# 16 "main.c" 2
 # 1 "./main.h" 1
 # 13 "./main.h"
 #pragma config FOSC = INTOSCIO
@@ -1432,7 +1425,8 @@ void init_ds18b20(void);
 # 28 "./main.h" 2
 # 37 "./main.h"
 void init_Cpu(void);
-# 11 "main.c" 2
+uint8_t reliable_send(uint8_t *data);
+# 17 "main.c" 2
 
 uint8_t data_array[5];
 uint8_t temp;
@@ -1441,6 +1435,9 @@ uint16_t temperature;
 uint16_t error_send = 0;
 uint8_t minus;
 uint8_t count = 0;
+
+
+
 
 void main(void) {
     uint8_t temp_flag;
@@ -1456,7 +1453,6 @@ void main(void) {
         data_array[3] = error_send & 0xFF;
         data_array[4] = (uint8_t) (error_send >> 8);
         if (readTemp_Single(&temperature, &minus)) {
-
             data_array[0] = minus;
             data_array[1] = temperature & 0xFF;
             data_array[2] = (uint8_t) (temperature >> 8);
@@ -1466,18 +1462,14 @@ void main(void) {
             data_array[1] = 0xFF;
             data_array[2] = 0xFF;
         }
-
-
-
         __asm("clrwdt");
-        nrf24_send(data_array);
-
-        while (nrf24_isSending());
 
 
-        temp = nrf24_messageStatus();
-
-        if (temp == 0) {
+        spi_init();
+        nrf24_init(123, 5);
+        _delay((unsigned long)((5)*(4000000/4000.0)));
+# 66 "main.c"
+        if (reliable_send(data_array)) {
             PORTAbits.RA0 = 0;
             _delay((unsigned long)((8)*(4000000/4000.0)));
             PORTAbits.RA0 = 1;
@@ -1494,7 +1486,7 @@ void main(void) {
 
             error_send ++;
         }
-# 84 "main.c"
+# 95 "main.c"
         nrf24_powerDown();
 
         PORTAbits.RA0 = 1;
@@ -1502,15 +1494,13 @@ void main(void) {
         PORTB = 0;
         TRISA = 0b00001000;
         PORTA = 0b00000001;
-loop:
-        __asm("sleep");
-        count++;
-        if (count < 7) goto loop;
+
         count = 0;
-
-
-        spi_init();
-# 108 "main.c"
+        do {
+            __asm("sleep");
+            count++;
+        } while (count < 10);
+# 118 "main.c"
     }
     return;
 }
@@ -1528,9 +1518,26 @@ void init_Cpu(void) {
 
     spi_init();
     init_ds18b20();
-    nrf24_init(100, 5);
+    nrf24_init(123, 5);
     init_uart();
 
 
 
+}
+
+
+
+
+
+uint8_t reliable_send(uint8_t *data) {
+    for (uint8_t i = 0; i < 3; i++) {
+        nrf24_send(data);
+        while (nrf24_isSending());
+        temp = nrf24_messageStatus();
+        if (temp == 0)
+            return 1;
+        else if (temp == 1)
+        _delay((unsigned long)((100)*(4000000/4000.0)));
+    }
+    return 0;
 }

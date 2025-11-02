@@ -1,8 +1,14 @@
 /*
- * File:   main.c
- * Author: Ivan_fd
- *
+ *  File:   main.c
+ *  Author: Ivan_fd
+ *  Передавач по радіо каналу температури    
+ *  Використовується модуль NRF24L01+
+ *  Канал 123, довжина пакету 5 байт
+ *  0 - знак температури + чи -
+ *  1,2 - МОЛОДШИЙ І СТАРШИЙ БАЙТ ТЕМПЕРАТУРИ   
+ *  3,4 - МОЛОДШИЙ І СТАРШИЙ БАЙТ ПОМИЛОК
  * 
+ *  Остання модифікація 02.11.2025
  */
 
 
@@ -16,6 +22,9 @@ uint16_t temperature;
 uint16_t error_send = 0; // будемо рахувати і передавати на сервер кількість помилок
 uint8_t minus;
 uint8_t count = 0; // скільки сидимо в сні
+
+#define NRF_CHANNEL 123
+#define NRF_LEN 5
 
 void main(void) {
     uint8_t temp_flag; // чи присутній датчик
@@ -31,7 +40,6 @@ void main(void) {
         data_array[3] = error_send & 0xFF;
         data_array[4] = (uint8_t) (error_send >> 8);
         if (readTemp_Single(&temperature, &minus)) {
-            //data_array[0] = temperature; // пишемо в буфер температуру
             data_array[0] = minus;
             data_array[1] = temperature & 0xFF;
             data_array[2] = (uint8_t) (temperature >> 8);
@@ -41,25 +49,28 @@ void main(void) {
             data_array[1] = 0xFF;
             data_array[2] = 0xFF;
         }
-        // data_array[2] = 0x19;
-        //data_array[3] = 0x79;
-        //LED = 0; // засвітити світлодіод
         CLRWDT();
-        nrf24_send(data_array);
 
-        while (nrf24_isSending()); // чекаємо поки передасть
+        //  Розбудити NRF24 перед відправкою
+        spi_init(); //  Ініціалізація SPI (після сну лінії неактивні)
+        nrf24_init(NRF_CHANNEL, NRF_LEN); //  Повна ініціалізація радіо (канал 100, адреса 5)
+        __delay_ms(5); //  Дати NRF24 стабілізуватися після power-up
+        
+//        nrf24_send(data_array);
+//
+//        while (nrf24_isSending()); // чекаємо поки передасть
+//
+//        /* Make analysis on last tranmission attempt */
+//        temp = nrf24_messageStatus();
 
-        /* Make analysis on last tranmission attempt */
-        temp = nrf24_messageStatus();
-
-        if (temp == NRF24_TRANSMISSON_OK) {
+        if (reliable_send(data_array)) { // якщо передало
             LED = 0;
-            __delay_ms(8);
+            __delay_ms(8); // то мигнемо раз діодом
             LED = 1;
             //            printf("> Tranmission went OK\r\n");
-        } else if (temp == NRF24_MESSAGE_LOST) {
+        } else if (temp == NRF24_MESSAGE_LOST) { // якщо не передало
             LED = 0;
-            __delay_ms(2);
+            __delay_ms(2);  // то мигнемо два рази
             LED = 1;
             __delay_ms(150);
             LED = 0;
@@ -88,23 +99,22 @@ void main(void) {
         PORTB = 0;
         TRISA = 0b00001000;
         PORTA = 0b00000001;
-loop:
-        SLEEP();
-        count++;
-        if (count < 7) goto loop;
+       
         count = 0;
-        /* Wait a little ... */
-        //_delay_ms(10);
-        spi_init();
-        //        CLRWDT();
-        //        __delay_ms(250);
-        //        CLRWDT();
-        //        __delay_ms(250);
-        //        CLRWDT();
-        //        __delay_ms(250);
-        //        CLRWDT();
-        //        __delay_ms(250);
-        //        CLRWDT();
+        do {
+            SLEEP();
+            count++;
+        } while (count < 10);
+
+//loop:
+//        SLEEP();
+//        count++;
+//        if (count < 10) goto loop;
+//        count = 0;
+//        /* Wait a little ... */
+//        //_delay_ms(10);
+//        spi_init();
+
     }
     return;
 }
@@ -122,9 +132,26 @@ void init_Cpu(void) {
 
     spi_init();
     init_ds18b20();
-    nrf24_init(100, 5);
+    nrf24_init(NRF_CHANNEL, NRF_LEN);
     init_uart();
 #ifdef DEBUG
     printf("-USART READY- \n\r");
 #endif
+}
+
+//==================================================
+//  передаємо пакет до 3-х раз, якщо невдало
+//==================================================
+
+uint8_t reliable_send(uint8_t *data) {
+    for (uint8_t i = 0; i < 3; i++) {
+        nrf24_send(data);
+        while (nrf24_isSending()); // чекаємо поки передасть
+        temp = nrf24_messageStatus();
+        if (temp == NRF24_TRANSMISSON_OK)
+            return 1;
+        else if (temp == NRF24_MESSAGE_LOST)
+        __delay_ms(100);
+    }
+    return 0;
 }

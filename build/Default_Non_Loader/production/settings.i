@@ -6368,7 +6368,7 @@ extern uint8_t day_in_m[];
 void dst_time(struct Time_Get *pTime, uint8_t *dst);
 uint8_t DayOfWeek (uint8_t day, uint8_t month, uint8_t year);
 # 16 "./display.h" 2
-# 27 "./display.h"
+# 28 "./display.h"
 extern uint8_t text_buf[];
 extern uint8_t Dis_Buff[];
 extern const uint8_t(*pFont)[5];
@@ -6384,9 +6384,36 @@ struct Time_Get
     uint8_t Tdt;
     uint8_t Tmt;
     uint8_t Tyr;
+    uint8_t TyrC;
 } TTime, TSTime;
-# 57 "./display.h"
+# 72 "./display.h"
 typedef void (*p_MyFunc)();
+
+typedef enum {
+    NEXT_NONE,
+    NEXT_PRESSURE,
+    NEXT_TEMP_HOME,
+    NEXT_TEMP_VUL,
+    NEXT_HUM
+} NextAction;
+
+NextAction nextAfterEffect = NEXT_NONE;
+
+
+
+typedef enum {
+    EFFECT_NONE = 0,
+    EFFECT_SCROLL_LEFT,
+    EFFECT_SCROLL_RIGHT,
+    EFFECT_SCROLL_DOWN,
+    EFFECT_DISSOLVE,
+    EFFECT_HIDE_TWO_SIDE,
+
+} EffectType;
+
+
+EffectType currentEffect = EFFECT_NONE;
+
 
 
 
@@ -6412,6 +6439,19 @@ void fill_buff_t(uint16_t data);
 void center_two_side(void);
 void scroll_down_one(void);
 void scroll_text_temp(uint8_t pos);
+void start_scroll_text(uint8_t *buf);
+void task_scroll_text(void);
+void start_scroll_left(void);
+uint8_t update_scroll_left(void);
+void start_hide_two_side(void);
+uint8_t update_hide_two_side(void);
+void start_scroll_right(void);
+uint8_t update_scroll_right(void);
+void start_dissolve(void);
+uint8_t update_dissolve(void);
+void start_scroll_down_one(void);
+uint8_t update_scroll_down_one(void);
+void task_effect_runner(void);
 # 9 "./interrupt.h" 2
 # 1 "./timer.h" 1
 
@@ -6641,6 +6681,7 @@ uint16_t si7021_Temp(void);
 
 
 
+
 void SYSTEM_Initialize(void);
 void Port_Init(void);
 void Interrupt_Init(void);
@@ -6711,6 +6752,8 @@ void RTOS_DispatchTask (void);
 
 uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8_t *timer_val);
 void init_ds18b20(void);
+void ds18b20_start_conversion(void);
+uint16_t ds18b20_read_temperature(uint8_t *minus);
 # 18 "./common.h" 2
 
 
@@ -6779,7 +6822,7 @@ size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
 
 void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 24 "./common.h" 2
-# 85 "./common.h"
+# 91 "./common.h"
 enum datIdx {
     T_RADIO,
     T_HOME,
@@ -6805,6 +6848,7 @@ enum setIdx {
     TYPE_TEMP,
     ENABLE_ESP,
     ENABLE_DHT,
+    ENABLE_DATE,
     NUM_VALUES
 };
 
@@ -6826,6 +6870,9 @@ enum brgMan {
     VAL_BRG_NUM_7,
     VAL_BRG_NUM_8
 };
+
+
+
 extern uint8_t setting_Val[NUM_VALUES];
 extern uint8_t blk_dot;
 
@@ -6848,32 +6895,38 @@ extern uint8_t ip_buf[16];
 
 
 
- void INT0_ISR(void);
- void GetTime(void);
+void INT0_ISR(void);
+void GetTime(void);
 
 
 
- void TMR1_ISR(void);
- void time_led();
- void version(void);
+void TMR1_ISR(void);
+void time_led();
+void version(void);
 
- void home_temp(void);
- void set_font(void);
+void home_temp(void);
+void set_font(void);
 
- void pressure(void);
- void pre_ref_dis(void);
+void pressure(void);
+void pre_ref_dis(void);
 
- void radio_temp(void);
- void read_adc(void);
- void adj_brig(void);
+void radio_temp(void);
+void read_adc(void);
+void adj_brig(void);
 
- void usart_r();
+void usart_r();
 
- void hum(void);
- void radioRead(void);
- void usartOk(void);
- void usartEr(void);
- void sendDataSensors(void);
+void hum(void);
+void radioRead(void);
+void usartOk(void);
+void usartEr(void);
+void sendDataSensors(void);
+void appendNumber(char* buffer, int number);
+void buildDateString(uint8_t* dest, uint8_t dayOfWeek, uint8_t day, uint8_t month, int year);
+uint8_t crc8(const uint8_t *data, uint8_t len);
+void readTemp(void);
+void convertTemp(void);
+void buildDateStringSafe(uint8_t* txt_buf_date);
 # 7 "./settings.h" 2
 
 
@@ -7075,6 +7128,7 @@ void time_set_yr(void) {
 
             break;
         case 1:
+            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             okButSet(time_set_yr, time_set_mt);
 
 
@@ -7096,22 +7150,28 @@ void time_set_yr(void) {
             if (TSTime.Tyr > 99) TSTime.Tyr = 0;
             RTOS_SetTask(default_state, 2000, 0);
             events = 5;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+
             break;
         case 3:
             TSTime.Tyr--;
             if (TSTime.Tyr == 255) TSTime.Tyr = 99;
             RTOS_SetTask(default_state, 2000, 0);
             events = 5;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+
             break;
     }
     if (en_put) {
         putchar_b_buf(0, "Ðê:"[0], (void *) Font, Dis_Buff);
-        putchar_b_buf(6, "Ðê:"[1], (void *) Font, Dis_Buff);
-        putchar_b_buf(12, "Ðê:"[2], (void *) Font, Dis_Buff);
-        putchar_b_buf(18, (unsigned) (TSTime.Tyr / 10) % 10, pFont, Dis_Buff);
-        putchar_b_buf(24, (unsigned) TSTime.Tyr % 10, pFont, Dis_Buff);
+        Dis_Buff[5] = 0;
+        Dis_Buff[6] = 0x36;
+        Dis_Buff[7] = 0x36;
+        Dis_Buff[8] = 0;
+
+
+        putchar_b_buf(9, (unsigned) (TSTime.TyrC / 10) % 10, pFont, Dis_Buff);
+        putchar_b_buf(15, (unsigned) TSTime.TyrC % 10, pFont, Dis_Buff);
+        putchar_b_buf(21, (unsigned) (TSTime.Tyr / 10) % 10, pFont, Dis_Buff);
+        putchar_b_buf(27, (unsigned) TSTime.Tyr % 10, pFont, Dis_Buff);
     }
     Update_Matrix(Dis_Buff);
     en_put = 1;
@@ -7128,6 +7188,7 @@ void time_set_mt(void) {
 
             break;
         case 1:
+            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             okButSet(time_set_mt, time_set_dt);
 
 
@@ -7149,14 +7210,14 @@ void time_set_mt(void) {
             if (TSTime.Tmt > 12) TSTime.Tmt = 1;
             RTOS_SetTask(default_state, 2000, 0);
             events = 5;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+
             break;
         case 3:
             TSTime.Tmt--;
             if (TSTime.Tmt == 0) TSTime.Tmt = 12;
             RTOS_SetTask(default_state, 2000, 0);
             events = 5;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+
             break;
     }
     if (en_put) {
@@ -7229,6 +7290,7 @@ void time_set_dt(void) {
 
             break;
         case 1:
+            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             okButSet(time_set_dt, time_set_dy);
 
 
@@ -7257,7 +7319,7 @@ void time_set_dt(void) {
 
             RTOS_SetTask(default_state, 2000, 0);
             events = 5;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+
             break;
         case 3:
             TSTime.Tdt--;
@@ -7275,7 +7337,7 @@ void time_set_dt(void) {
 
             RTOS_SetTask(default_state, 2000, 0);
             events = 5;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+
             break;
     }
     if (en_put) {
@@ -7300,6 +7362,7 @@ void time_set_dy(void) {
 
             break;
         case 1:
+            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             okButSet(time_set_dy, set_font_set);
 
 
@@ -7321,14 +7384,14 @@ void time_set_dy(void) {
             if (TSTime.Tdy > 7) TSTime.Tdy = 1;
             RTOS_SetTask(default_state, 2000, 0);
             events = 5;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+
             break;
         case 3:
             TSTime.Tdy--;
             if (TSTime.Tdy == 0) TSTime.Tdy = 7;
             RTOS_SetTask(default_state, 2000, 0);
             events = 5;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+
             break;
     }
     if (en_put) {
@@ -7445,7 +7508,7 @@ void set_type_clk(void) {
             break;
         case 4:
             exitButSet(set_type_clk);
-# 575 "settings.c"
+# 585 "settings.c"
             break;
         case 2:
             setting_Val[TYPE_CLK]++;
@@ -7968,7 +8031,7 @@ void set_en_am2302(void) {
             break;
         case 4:
             exitButSet(set_en_am2302);
-# 1107 "settings.c"
+# 1117 "settings.c"
             break;
         case 2:
             setting_Val[ENABLE_DHT] = !(setting_Val[ENABLE_DHT]);
@@ -8024,7 +8087,7 @@ void ip_esp(void) {
             break;
         case 4:
             exitButSet(ip_esp);
-# 1176 "settings.c"
+# 1186 "settings.c"
             break;
 
     }
@@ -8050,7 +8113,7 @@ void en_esp(void) {
             break;
         case 4:
             exitButSet(en_esp);
-# 1212 "settings.c"
+# 1222 "settings.c"
             break;
         case 2:
             events = 3;

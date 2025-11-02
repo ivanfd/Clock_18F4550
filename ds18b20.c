@@ -3,7 +3,8 @@
 
 uint8_t scratch[9];
 //bit minus = 0;      // знак температури
-
+const char fractS[] = {0, 1, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 8, 9, 9}; // дискретність, знак після коми
+//  0/16..., 1/16..., 2/16......
 
 
 //===================================================
@@ -116,6 +117,42 @@ uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8
             break;
     }
     return FALSE;
+}
+
+void ds18b20_start_conversion(void) {
+    if (!ow_reset()) // якщо датчик присутній
+    {
+        write_byte(0xCC); //  команда пропуск ROM
+        write_byte(0x44); //  конвертувати температуру
+    }
+}
+
+uint16_t ds18b20_read_temperature(uint8_t *minus) {
+    uint16_t temp = 0; // температура
+    uint8_t i, tmp, fptmp;
+
+    ow_reset();
+    write_byte(0xCC); //  команда пропуск ROM
+    write_byte(0xBE); // Read scratch pad command
+    for (i = 0; i < 2; i++)//  читаємо два байти температури
+    {
+        scratch[i] = read_byte();
+    }
+
+    temp = (((uint16_t) scratch[1]) << 8) | ((uint16_t) scratch[0]);
+
+    if (temp & 0x8000) {
+        temp = -temp; // якщо від`ємна 
+        *minus = '-';
+    }
+
+    tmp = temp & 0x0f; // десяті вибираємо
+    tmp = fractS[tmp]; //  цифра після коми
+    temp = temp >> 4; //  формуємо кінцеву температуру
+    temp = (temp & 0x00ff) * 10;
+    temp = temp + tmp;
+
+    return temp;
 }
 
 

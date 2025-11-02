@@ -191,6 +191,7 @@ void time_set_yr(void) {
 
             break;
         case KEY_OK_EVENT:
+            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             okButSet(time_set_yr, time_set_mt);
             //            RTOS_DeleteTask(time_set_yr);
             //            RTOS_SetTask(time_set_mt, 0, cycle_main);
@@ -212,22 +213,28 @@ void time_set_yr(void) {
             if (TSTime.Tyr > 99) TSTime.Tyr = 0;
             RTOS_SetTask(default_state, 2000, 0); // 10 секунд для виходу
             events = MAIN_EVENT;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+           // setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             break;
         case KEY_DOWN_EVENT:
             TSTime.Tyr--;
             if (TSTime.Tyr == 255) TSTime.Tyr = 99;
             RTOS_SetTask(default_state, 2000, 0); // 10 секунд для виходу
             events = MAIN_EVENT;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+          //  setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             break;
     }
     if (en_put) {
         putchar_b_buf(0, STR_YR[0], (void *) Font, Dis_Buff);
-        putchar_b_buf(6, STR_YR[1], (void *) Font, Dis_Buff);
-        putchar_b_buf(12, STR_YR[2], (void *) Font, Dis_Buff);
-        putchar_b_buf(18, (unsigned) (TSTime.Tyr / 10) % 10, pFont, Dis_Buff);
-        putchar_b_buf(24, (unsigned) TSTime.Tyr % 10, pFont, Dis_Buff);
+        Dis_Buff[5] = 0;
+        Dis_Buff[6] = 0x36;
+        Dis_Buff[7] = 0x36;
+        Dis_Buff[8] = 0;
+        // putchar_b_buf(6, STR_YR[1], (void *) Font, Dis_Buff);
+        // putchar_b_buf(12, STR_YR[2], (void *) Font, Dis_Buff);
+        putchar_b_buf(9, (unsigned) (TSTime.TyrC / 10) % 10, pFont, Dis_Buff);
+        putchar_b_buf(15, (unsigned) TSTime.TyrC % 10, pFont, Dis_Buff);
+        putchar_b_buf(21, (unsigned) (TSTime.Tyr / 10) % 10, pFont, Dis_Buff);
+        putchar_b_buf(27, (unsigned) TSTime.Tyr % 10, pFont, Dis_Buff);
     }
     Update_Matrix(Dis_Buff); // обновити дані на дисплеї
     en_put = 1;
@@ -244,6 +251,7 @@ void time_set_mt(void) {
 
             break;
         case KEY_OK_EVENT:
+            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             okButSet(time_set_mt, time_set_dt);
             //            RTOS_DeleteTask(time_set_mt);
             //            RTOS_SetTask(time_set_dt, 0, cycle_main);
@@ -265,14 +273,14 @@ void time_set_mt(void) {
             if (TSTime.Tmt > 12) TSTime.Tmt = 1;
             RTOS_SetTask(default_state, 2000, 0); // 10 секунд для виходу
             events = MAIN_EVENT;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+            //setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             break;
         case KEY_DOWN_EVENT:
             TSTime.Tmt--;
             if (TSTime.Tmt == 0) TSTime.Tmt = 12;
             RTOS_SetTask(default_state, 2000, 0); // 10 секунд для виходу
             events = MAIN_EVENT;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+            //setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             break;
     }
     if (en_put) {
@@ -345,6 +353,7 @@ void time_set_dt(void) {
 
             break;
         case KEY_OK_EVENT:
+            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             okButSet(time_set_dt, time_set_dy);
             //            RTOS_DeleteTask(time_set_dt);
             //            RTOS_SetTask(time_set_dy, 0, cycle_main);
@@ -373,7 +382,7 @@ void time_set_dt(void) {
             //if (TSTime.Tdt > 31) TSTime.Tdt = 1;
             RTOS_SetTask(default_state, 2000, 0); // 10 секунд для виходу
             events = MAIN_EVENT;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+            //setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             break;
         case KEY_DOWN_EVENT:
             TSTime.Tdt--;
@@ -391,7 +400,7 @@ void time_set_dt(void) {
             //if (TSTime.Tdt == 0) TSTime.Tdt = 31;
             RTOS_SetTask(default_state, 2000, 0); // 10 секунд для виходу
             events = MAIN_EVENT;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+           // setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             break;
     }
     if (en_put) {
@@ -416,6 +425,7 @@ void time_set_dy(void) {
 
             break;
         case KEY_OK_EVENT:
+            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             okButSet(time_set_dy, set_font_set);
             //            RTOS_DeleteTask(time_set_dy);
             //            RTOS_SetTask(set_font_set, 0, cycle_main);
@@ -437,14 +447,14 @@ void time_set_dy(void) {
             if (TSTime.Tdy > 7) TSTime.Tdy = 1;
             RTOS_SetTask(default_state, 2000, 0); // 10 секунд для виходу
             events = MAIN_EVENT;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+            //setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             break;
         case KEY_DOWN_EVENT:
             TSTime.Tdy--;
             if (TSTime.Tdy == 0) TSTime.Tdy = 7;
             RTOS_SetTask(default_state, 2000, 0); // 10 секунд для виходу
             events = MAIN_EVENT;
-            setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
+            //setDate(TSTime.Tdy, TSTime.Tdt, TSTime.Tmt, TSTime.Tyr);
             break;
     }
     if (en_put) {

@@ -20,6 +20,7 @@
 #define BUF_SIZE COUNT_MATRIX * 8
 #define BUF_SIZE_TEMP BUF_SIZE + 17
 #define SPEED_STRING 70     // швидкість бігучої строки, підібрати
+#define SPEED_STRING_TEXT 13     // швидкість бігучої строки, підібрати
 #define DELAY_SHIFT_DOWN 35 // швидкість ефекту зсуву вниз
 
 
@@ -39,7 +40,21 @@ struct Time_Get // структура для годин
     uint8_t Tdt; // число   
     uint8_t Tmt; // місяць         
     uint8_t Tyr; // рік
+    uint8_t TyrC;// перші дві цифри року
 } TTime, TSTime;
+
+//typedef struct {
+//    uint8_t Ts;   // секунди
+//    uint8_t Tmin; // хвилини
+//    uint8_t Thr;  // години
+//    uint8_t Tdy;  // день тижня
+//    uint8_t Tdt;  // число
+//    uint8_t Tmt;  // місяць
+//    uint8_t Tyr;  // рік
+//    uint8_t TyrC; // перші дві цифри року
+//} Time_Get;
+//
+//extern Time_Get TTime, TSTime;
 
 
 
@@ -55,6 +70,32 @@ struct Time_Get // структура для годин
 //} TTimeConv ;
 
 typedef void (*p_MyFunc)();
+
+typedef enum { // яка задача буде наступною піля виконання ефекту
+    NEXT_NONE,
+    NEXT_PRESSURE,
+    NEXT_TEMP_HOME,
+    NEXT_TEMP_VUL,
+    NEXT_HUM
+} NextAction;
+
+NextAction nextAfterEffect = NEXT_NONE;
+
+// Перелік усіх можливих ефектів
+
+typedef enum {
+    EFFECT_NONE = 0,
+    EFFECT_SCROLL_LEFT,
+    EFFECT_SCROLL_RIGHT,
+    EFFECT_SCROLL_DOWN,
+    EFFECT_DISSOLVE,
+    EFFECT_HIDE_TWO_SIDE,
+    // додати інші за потреби
+} EffectType;
+
+// Поточний активний ефект
+EffectType currentEffect = EFFECT_NONE;
+
 
 
 //void FillBufS(uint8_t *buf, uint8_t edit_Flag, uint8_t scr_flag);       
@@ -80,7 +121,19 @@ void fill_buff_t(uint16_t data);
 void center_two_side(void);
 void scroll_down_one(void);
 void scroll_text_temp(uint8_t pos);
-
+void start_scroll_text(uint8_t *buf);
+void task_scroll_text(void);
+void start_scroll_left(void);
+uint8_t update_scroll_left(void);
+void start_hide_two_side(void);
+uint8_t update_hide_two_side(void);
+void start_scroll_right(void);
+uint8_t update_scroll_right(void);
+void start_dissolve(void);
+uint8_t update_dissolve(void);
+void start_scroll_down_one(void);
+uint8_t update_scroll_down_one(void);
+void task_effect_runner(void);
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

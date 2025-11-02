@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>MatrixClock</name>
+            <name>MatrixClock4550</name>
             <creation-uuid>bf9b99fe-f85c-4229-8beb-ef056d52020a</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>windows-1251</sourceEncoding>

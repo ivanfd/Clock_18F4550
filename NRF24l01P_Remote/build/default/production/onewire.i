@@ -1412,6 +1412,7 @@ void init_ds18b20(void);
 # 28 "./main.h" 2
 # 37 "./main.h"
 void init_Cpu(void);
+uint8_t reliable_send(uint8_t *data);
 # 7 "./onewire.h" 2
 
 

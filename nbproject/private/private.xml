@@ -4,11 +4,23 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Ivan/Electro/XC8/4550/common.c</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/common.h</file>
             <file>file:/D:/Ivan/Electro/XC8/4550/display.c</file>
             <file>file:/D:/Ivan/Electro/XC8/4550/build.h</file>
             <file>file:/D:/Ivan/Electro/XC8/4550/nrf24l01p.h</file>
             <file>file:/D:/Ivan/Electro/XC8/4550/nrf24l01p.c</file>
             <file>file:/D:/Ivan/Electro/XC8/4550/init.c</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/strings.h</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/Font.h</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/display.h</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/settings.c</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/init.h</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/time.c</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/ds18b20.c</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/newmain.c</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/dispatcher.h</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/BMP_280.c</file>
+            <file>file:/D:/Ivan/Electro/XC8/4550/max7221.c</file>
         </group>
     </open-files>
 </project-private>

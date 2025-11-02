@@ -1,13 +1,21 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"34 ./display.h
-[; ;./display.h: 34: {
-[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr ]
+"35 ./display.h
+[; ;./display.h: 35: {
+[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr TyrC ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[c E3675 0 1 2 3 4 .. ]
+[n E3675 . NEXT_NONE NEXT_PRESSURE NEXT_TEMP_HOME NEXT_TEMP_VUL NEXT_HUM  ]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[c E3683 0 1 2 3 4 5 .. ]
+[n E3683 . EFFECT_NONE EFFECT_SCROLL_LEFT EFFECT_SCROLL_RIGHT EFFECT_SCROLL_DOWN EFFECT_DISSOLVE EFFECT_HIDE_TWO_SIDE  ]
 "2453 C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 2453: extern volatile unsigned char PORTB __attribute__((address(0xF81)));
 [v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
-"142 ./common.h
-[; ;./common.h: 142: extern uint8_t events;
+"152 ./common.h
+[; ;./common.h: 152: extern uint8_t events;
 [v _events `uc ~T0 @X0 0 e ]
 "21 ./sound.h
 [; ;./sound.h: 21: extern uint8_t play_sound;
@@ -2855,14 +2863,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"31 ./display.h
-[; ;./display.h: 31: uint8_t i_char, i_bchar;
+"32 ./display.h
+[; ;./display.h: 32: uint8_t i_char, i_bchar;
 [v _i_char `uc ~T0 @X0 1 e ]
 [v _i_bchar `uc ~T0 @X0 1 e ]
-"42
-[; ;./display.h: 42: } TTime, TSTime;
+"44
+[; ;./display.h: 44: } TTime, TSTime;
 [v _TTime `S370 ~T0 @X0 1 e ]
 [v _TSTime `S370 ~T0 @X0 1 e ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[v _nextAfterEffect `E3675 ~T0 @X0 1 e ]
+[i _nextAfterEffect
+. `E3675 0
+]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[v _currentEffect `E3683 ~T0 @X0 1 e ]
+[i _currentEffect
+. `E3683 0
+]
 "70 ./init.h
 [p x PLLDIV      =  5          ]
 "71
@@ -2930,8 +2950,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "10
 [; ;key.c: 10:     static uint16_t count = 0;
-[v F4064 `us ~T0 @X0 1 s count ]
-[i F4064
+[v F4117 `us ~T0 @X0 1 s count ]
+[i F4117
 -> -> 0 `i `us
 ]
 "11
@@ -2984,11 +3004,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 "26
 [; ;key.c: 26:         if (count > 300) {
-[e $ ! > -> F4064 `ui -> -> 300 `i `ui 384  ]
+[e $ ! > -> F4117 `ui -> -> 300 `i `ui 384  ]
 {
 "27
 [; ;key.c: 27:             count = 300 - 20;
-[e = F4064 -> - -> 300 `i -> 20 `i `us ]
+[e = F4117 -> - -> 300 `i -> 20 `i `us ]
 "29
 [; ;key.c: 29:             events = key;
 [e = _events _key ]
@@ -3003,11 +3023,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e $U 385  ]
 [e :U 384 ]
-[e ++ F4064 -> -> 1 `i `us ]
+[e ++ F4117 -> -> 1 `i `us ]
 [e :U 385 ]
 "35
 [; ;key.c: 35:         if (count == 15) {
-[e $ ! == -> F4064 `ui -> -> 15 `i `ui 386  ]
+[e $ ! == -> F4117 `ui -> -> 15 `i `ui 386  ]
 {
 "37
 [; ;key.c: 37:             events = key;
@@ -3027,7 +3047,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e $U 387  ]
 [e :U 383 ]
-[e = F4064 -> -> 0 `i `us ]
+[e = F4117 -> -> 0 `i `us ]
 [e :U 387 ]
 "43
 [; ;key.c: 43: }

@@ -10,7 +10,7 @@ uint16_t err_ds18_count = 0; // для тестування помилок датчика
 uint16_t err_ds_count = 0;
 uint8_t timer_val = 0, time_flag = 0; // для конвертування температури
 //extern uint8_t(*pFont)[][5];
-uint8_t setting_Val[NUM_VALUES] = {FONT_1, TYPE_CLK_1, TYPE_BRG_AUTO, VAL_BRG_NUM_3, ENABLE_SND_HR_ON, DS_ON, DS_ON, BMP_ON, DST_ON, ESP_ON, DHT_ON}; // масив з значеннями налаштувань
+uint8_t setting_Val[NUM_VALUES] = {FONT_1, TYPE_CLK_1, TYPE_BRG_AUTO, VAL_BRG_NUM_3, ENABLE_SND_HR_ON, DS_ON, DS_ON, BMP_ON, DST_ON, TYPE_TEMP_1, ESP_ON, DHT_ON, DATE_ON}; // масив з значеннями налаштувань
 uint16_t data_Val[NUM_VALUES_DAT] = {0, 0, 0, 0, 0, 0, 0, 0}; // значення датчиків 
 uint8_t minus; // знак температури
 uint8_t minus_radio = '+'; // знак температури
@@ -46,6 +46,45 @@ uint8_t ErrAM; //  помилка датчика AM2302
 uint8_t ip_buf[16] = {"192.168.4.1"};
 __bit flagUpdateTime;
 uint8_t messageComplete = FALSE;
+uint8_t txt_buf_date[48]; // буфер для біг строки, дата
+uint8_t buf_data_uart[NUM_VALUES_DAT * 2 + 1]; // 2 байти на кожне значення + 1 на minus_radio
+
+//const char* daysOfWeek[] = {
+//    "Неділя",
+//    "Понеділок",
+//    "Вівторок",
+//    "Середа",
+//    "Четвер",
+//    "П'ятниця",
+//    "Субота"
+//
+//};
+
+static unsigned char* daysOfWeek[] = {
+    "",          // [0] не використовується
+    "Неділя",    // [1]
+    "Понеділок", // [2]
+    "Вівторок",  // [3]
+    "Середа",    // [4]
+    "Четвер",    // [5]
+    "П'ятниця",  // [6]
+    "Субота"     // [7]
+};
+// Масив вказівників на символи (рядків) для місяців
+const char* monthsOfYear[] = {
+    "січня",
+    "лютого",
+    "березня",
+    "квітня",
+    "травня",
+    "червня",
+    "липня",
+    "серпня",
+    "вересня",
+    "жовтня",
+    "листопада",
+    "грудня"
+};
 
 __EEPROM_DATA(4, 2, 1, 2, 1, 1, 1, 1); // ініціалізація еепром, 
 // 0 - тип шрифту (від 1 до 5)
@@ -56,14 +95,14 @@ __EEPROM_DATA(4, 2, 1, 2, 1, 1, 1, 1); // ініціалізація еепром,
 // 5 - чи показувати температуру з датчика 1 (кімнатний)
 // 6 - чи показувати температуру з датчика 2 (радіодатчик)
 // 7 - чи показувати атмосферний тиск
-__EEPROM_DATA(1, 2, 1, 0, ESP_ON, 0, 0, 0); // ініціалізація еепром, (слідуючі комірки пам'яті) 
-// 0 - автоматичний перехід на літній час
-// 1 - тип показу температури
-// 2 - датчик AM2302
-// 3 - чи відбувався перехід на літній час
-// 4 - ESP8266
-
-// читаємо з DS3231 години, хвилини, секунди та дату
+__EEPROM_DATA(1, 2, 1, 0, ESP_ON, 20, DATE_ON, 0); // ініціалізація еепром, (слідуючі комірки пам'яті) 
+// 8 - автоматичний перехід на літній час
+// 9 - тип показу температури
+// 10 - датчик AM2302
+// 11- чи відбувався перехід на літній час
+// 12 - ESP8266
+// 13 - перші цифри року
+// 14 - чи показувати дату
 // 
 
 void GetTime(void) {
@@ -85,6 +124,7 @@ void GetTime(void) {
 
     if ((TTime.Thr >= 7)&&(TTime.Thr <= 23)&&(TTime.Tmin == 0)&&(TTime.Ts == 0)&&(snd_flag))
         h_snd_t = 1; //щогодинний сигнал
+   // buildDateString(txt_buf_date, TTime.Tdy, TTime.Tdt, TTime.Tmt, (TTime.TyrC * 100 + TTime.Tyr));
 }
 
 
@@ -181,18 +221,24 @@ void home_temp(void) {
             break;
         case KEY_EXIT_EVENT: // повертаємось в показ часу
             events = MAIN_EVENT;
-            Rand_ef(); // випадковий ефект
-            //scroll_right();
-            //pre_ref_dis();
             RTOS_DeleteTask(default_state);
             RTOS_DeleteTask(home_temp);
-            if (setting_Val[ENABLE_DS_2])
-                RTOS_SetTask(radio_temp, 0, cycle_main);
+
+            //scroll_right();
+            //pre_ref_dis();
+
+            if (setting_Val[ENABLE_DS_2]) {
+                nextAfterEffect = NEXT_TEMP_VUL; // виконати після ефекту
+                Rand_ef(); // випадковий ефект
+            }//                RTOS_SetTask(radio_temp, 0, cycle_main);
             else {
-                RTOS_SetTask(time_led, 0, cycle_main);
-                pre_ref_dis();
+                nextAfterEffect = NEXT_NONE; // виконати після ефекту
+                Rand_ef(); // випадковий ефект
+                //                RTOS_SetTask(time_led, 0, cycle_main);
+                //                pre_ref_dis();
             }
             break;
+
 
     }
 }
@@ -299,15 +345,27 @@ void radio_temp(void) {
         case KEY_EXIT_EVENT: // повертаємось в показ часу
             events = MAIN_EVENT;
 
+
+
+
+
+            RTOS_DeleteTask(default_state);
+            RTOS_DeleteTask(radio_temp);
+
+            //scroll_right();
+            //pre_ref_dis();
+
+            nextAfterEffect = NEXT_NONE; // виконати після ефекту
             Rand_ef(); // випадковий ефект
             //hide_two_side();
             //scroll_left();
-            pre_ref_dis();
-            RTOS_DeleteTask(default_state);
-            RTOS_DeleteTask(radio_temp);
-            RTOS_SetTask(time_led, 0, cycle_main);
+            //            pre_ref_dis();
+            //            RTOS_DeleteTask(default_state);
+            //            RTOS_DeleteTask(radio_temp);
+            //            RTOS_SetTask(time_led, 0, cycle_main);
             // clear_matrix();
             break;
+
     }
 }
 
@@ -387,23 +445,32 @@ void pressure(void) {
         case KEY_EXIT_EVENT: // повертаємось в показ часу
             events = MAIN_EVENT;
             //
+            RTOS_DeleteTask(default_state);
+            RTOS_DeleteTask(pressure);
+
+
             if (setting_Val[ENABLE_DHT]) {
                 //sprintf(text_buf, "мм.рт.ст.");
                 //interval_scroll_text(&text_buf);
+                nextAfterEffect = NEXT_HUM; // виконати після ефекту
                 Rand_ef(); // випадковий ефект
-                RTOS_DeleteTask(default_state);
-                RTOS_DeleteTask(pressure);
-                RTOS_SetTask(hum, 0, cycle_main);
-            } else {
-                Rand_ef(); // випадковий ефект
+                // RTOS_DeleteTask(default_state);
+                //RTOS_DeleteTask(pressure);
 
-                pre_ref_dis();
-                RTOS_DeleteTask(default_state);
-                RTOS_DeleteTask(pressure);
-                RTOS_SetTask(time_led, 0, cycle_main);
+                //RTOS_SetTask(hum, 0, cycle_main);
+            } else {
+                nextAfterEffect = NEXT_NONE; // виконати після ефекту
+                Rand_ef(); // випадковий ефект
+                //Rand_ef(); // випадковий ефект
+
+                //pre_ref_dis();
+                //  RTOS_DeleteTask(default_state);
+                //RTOS_DeleteTask(pressure);
+                //RTOS_SetTask(time_led, 0, cycle_main);
             }
             //clear_matrix();
             break;
+
     }
 }
 
@@ -447,14 +514,21 @@ void hum(void) {
         case KEY_EXIT_EVENT: // повертаємось в показ часу
             events = MAIN_EVENT;
 
-            Rand_ef(); // випадковий ефект
-            pre_ref_dis();
+
+
             RTOS_DeleteTask(default_state);
             RTOS_DeleteTask(hum);
-            RTOS_SetTask(time_led, 0, cycle_main);
+
+            nextAfterEffect = NEXT_NONE; // виконати після ефекту
+            Rand_ef(); // випадковий ефект
+
+            //Rand_ef(); // випадковий ефект
+            //pre_ref_dis();
+            //            RTOS_SetTask(time_led, 0, cycle_main);
 
             //clear_matrix();
             break;
+
     }
 }
 
@@ -519,17 +593,17 @@ void time_led() {
                 blk_dot = 1;
             else
                 blk_dot = 0;
-            if ((TTime.Ts > 5)&&(TTime.Ts < 7)) //прочитаємо температуру
-            {
-                readTemp_Single(&data_Val[T_HOME], &minus, &time_flag, &timer_val);
-#ifdef DEBUG_TEMP
-                temperature = 19;
-#endif
-            }
+            //            if ((TTime.Ts > 5)&&(TTime.Ts < 7)) //прочитаємо температуру
+            //            {
+            //                readTemp_Single(&data_Val[T_HOME], &minus, &time_flag, &timer_val);
+            //#ifdef DEBUG_TEMP
+            //                temperature = 19;
+            //#endif
+            //            }
             if (((TTime.Ts > 14)&&(TTime.Ts < 16)))// ||((TTime.Ts>45)&&(TTime.Ts<47)))    //  виведемо температуру
                 events = KEY_DOWN_EVENT;
             if ((TTime.Ts > 39)&&(TTime.Ts < 41)) { //  виведемо атмосферний тиск
-                if ((setting_Val[ENABLE_BMP]) &&((TTime.Tmin % 2) == 0)) // якщо можна виводити атм. тиск
+                if ((setting_Val[ENABLE_BMP]) && ((TTime.Tmin % 2) == 0)) // якщо можна виводити атм. тиск
                     events = KEY_UP_EVENT;
                 else
                     events = KEY_DOWN_EVENT;
@@ -578,61 +652,55 @@ void time_led() {
             break;
         case KEY_UP_EVENT:
             //         asm("nop");
-            blk_dot = 0;
-            flagUpdateTime = 0; // не можна оновлювати час через уарт
+            if ((setting_Val[ENABLE_BMP]) || setting_Val[ENABLE_DHT]) { // якщо ввімкнуто відображати тиск, або вологість
+                blk_dot = 0;
+                flagUpdateTime = 0; // не можна оновлювати час через уарт
 
-            data_Val[HUM] = si7021_Hum();
-            data_Val[T_HUM] = si7021_Temp();
+                if (setting_Val[TYPE_CLK] == TYPE_CLK_2)
+                    putchar_b_buf(13, 23, Font, Dis_Buff);
 
-            //bmp280Convert(&data_Val[PRESS], &data_Val[T_PRESS]);
-            data_Val[T_PRESS] = (uint16_t) bmp280_compensate_T_int32();
-            data_Val[PRESS] = (uint16_t) bmp280_compensate_P_int32();
-            if (setting_Val[TYPE_CLK] == TYPE_CLK_2)
-                putchar_b_buf(13, 23, Font, Dis_Buff);
-            //scroll_right();
-            Rand_ef(); // випадковий ефект
-            if (setting_Val[ENABLE_BMP]) {
-                RTOS_DeleteTask(time_led); //видаляємо задачу
-                RTOS_SetTask(pressure, 0, cycle_main); //додаємо задачу 
+                RTOS_DeleteTask(time_led); // зупиняємо автозапуск
                 events = MAIN_EVENT;
                 en_put = 0;
-            } else {
-                RTOS_DeleteTask(time_led); //видаляємо задачу
-                RTOS_SetTask(hum, 0, cycle_main); //додаємо задачу 
-                events = MAIN_EVENT;
-                en_put = 0;
+                if (setting_Val[ENABLE_BMP]) {
+                    nextAfterEffect = NEXT_PRESSURE; // виконати після ефекту
+                } else {
+                    nextAfterEffect = NEXT_HUM;
+                }
+                //scroll_right();
+                Rand_ef(); // випадковий ефект
+
             }
+
+
 
             break;
         case KEY_DOWN_EVENT:
-            flagUpdateTime = 0; // не можна оновлювати час через уарт
-            if (setting_Val[ENABLE_DS_1]) {
+            if ((setting_Val[ENABLE_DS_1]) || setting_Val[ENABLE_DS_2]) { // якщо ввімкнуто відображати температуру в домі, або на вулиці
                 blk_dot = 0;
-                // temperature_radio = data_array[1] | (uint16_t) (data_array[2] << 8);
-                if (setting_Val[TYPE_CLK] == TYPE_CLK_2)
-                    putchar_b_buf(13, 23, Font, Dis_Buff);
-                //scroll_left();
-                //dissolve();
-                //scroll_down_one();
-                Rand_ef();
-                RTOS_DeleteTask(time_led); //видаляємо задачу
-                RTOS_SetTask(home_temp, 0, cycle_main); //додаємо задачу 
+                flagUpdateTime = 0; // не можна оновлювати час через уарт
+                RTOS_DeleteTask(time_led); // зупиняємо автозапуск
                 events = MAIN_EVENT;
                 en_put = 0;
-            } else if (setting_Val[ENABLE_DS_2]) {
-                blk_dot = 0;
-                if (setting_Val[TYPE_CLK] == TYPE_CLK_2)
-                    putchar_b_buf(13, 23, Font, Dis_Buff);
-                //scroll_left();
-                //dissolve();
-                Rand_ef();
-                RTOS_DeleteTask(time_led); //видаляємо задачу
-                RTOS_SetTask(radio_temp, 0, cycle_main); //додаємо задачу 
-                events = MAIN_EVENT;
-                en_put = 0;
+                if (setting_Val[ENABLE_DS_1]) {
+                    if (setting_Val[TYPE_CLK] == TYPE_CLK_2)
+                        putchar_b_buf(13, 23, Font, Dis_Buff);
+                    nextAfterEffect = NEXT_TEMP_HOME; // виконати після ефекту
+
+
+
+
+                } else if (setting_Val[ENABLE_DS_2]) {
+                    if (setting_Val[TYPE_CLK] == TYPE_CLK_2)
+                        putchar_b_buf(13, 23, Font, Dis_Buff);
+                    nextAfterEffect = NEXT_TEMP_VUL; // виконати після ефекту
+                }
+                Rand_ef(); // випадковий ефект
             }
-            events = MAIN_EVENT;
+
+
             break;
+
         case KEY_EXIT_EVENT:
             events = MAIN_EVENT;
             RTOS_DeleteTask(default_state);
@@ -642,7 +710,20 @@ void time_led() {
             break;
     }
     if (en_put)
-        Update_Matrix(Dis_Buff); // обновити дані на дисплеї
+        Update_Matrix(Dis_Buff); // оновити дані на дисплеї
+
+    // бігуча строка дата
+    if (((TTime.Tmin % 3) == 0) && (TTime.Ts == 7) && setting_Val[ENABLE_DATE]) { // один раз в 3 хвилин
+        //buildDateString(txt_buf_date, TTime.Tdy, TTime.Tdt, TTime.Tmt, (TTime.TyrC * 100 + TTime.Tyr));
+        buildDateStringSafe(txt_buf_date);
+        blk_dot = 0;
+        RTOS_DeleteTask(time_led); //видаляємо задачу
+        start_scroll_text(txt_buf_date); // буфер рядка дати
+        //interval_scroll_text(txt_buf_date);
+        //   pre_ref_dis();
+        //   blk_dot = 1;
+
+    }
 
     // яскравість
     if (setting_Val[TYPE_BRG]) {
@@ -655,31 +736,16 @@ void time_led() {
     }
     en_put = 1;
 
-    // читаємо радіодатчик
-    //        if (nrf24_dataReady()) {
-    //            nrf24_getData(&data_array);
-    //            //spi_rw(FLUSH_RX); // очистити прийомний буфер
-    //            nrf24_powerUpRx();
-    //            temperature_radio = data_array[1] | (uint16_t) (data_array[2] << 8);
-    //            minus_radio = data_array[0];
-    //            err_ds_count = 0;
-    //            err_ds18 = 0;
-    //        } else
-    //            err_ds_count++;
-    //
-    //
-    //        if (err_ds_count > 1000) // чекаємо ~1.6 хвилини. Якщо не було ні одного зчитування
-    //        {
-    //            err_ds18 = 1; // то ставимо признак помилки радіодатчика
-    //            //nrf24_powerUpRx(); // Переводимо датчик у режим прийому, та скидаємо всі переривання
-    //            nrf24_init(100, 4); // Ще раз ініціалізуємо
-    //        }
     if (TTime.Tdt == day_mess) { // будемо виводити строку. Наприклад - привітання.
         if (((TTime.Tmin % 5) == 0) && (TTime.Ts == 35) && mess_show) { // один раз в 5 хвилин
             blk_dot = 0;
-            putchar_b_buf(13, 23, Font, Dis_Buff);
-            interval_scroll_text(rs_text_buf);
-            blk_dot = 1;
+            RTOS_DeleteTask(time_led); //видаляємо задачу
+            start_scroll_text(rs_text_buf); // буфер рядка дати
+            //  putchar_b_buf(13, 23, Font, Dis_Buff);
+            //  interval_scroll_text(rs_text_buf);
+            //  pre_ref_dis();
+            //  blk_dot = 1;
+
         }
     } else
         mess_show = 0;
@@ -697,6 +763,19 @@ void time_led() {
     //#endif  
 
 
+}
+
+// Безпечна обгортка для buildDateString
+void buildDateStringSafe(uint8_t* txt_buf_date)
+{
+    // Локальні копії значень RTC
+    uint8_t dayOfWeek = TTime.Tdy;
+    uint8_t day       = TTime.Tdt;
+    uint8_t month     = TTime.Tmt;
+    int year          = TTime.TyrC * 100 + TTime.Tyr;
+
+    // Виклик оригінальної функції з локальними копіями
+    buildDateString(txt_buf_date, dayOfWeek, day, month, year);
 }
 
 //=======================================================
@@ -721,6 +800,10 @@ void usart_r() {
             messageComplete = TRUE;
             break; // Виходимо, якщо отримано \r\n
         }
+        if (sizeof (usart_data) <= i) {
+            i = 0;
+        }
+
     }
     if (!EUSART_DataReady) {
         reinit_rx();
@@ -773,6 +856,18 @@ void usart_r() {
                         } else
                             setTime(TSTime.Thr, TSTime.Tmin, TSTime.Ts);
                         // setTime(TSTime.Thr, TSTime.Tmin, 0);
+                        usartOk();
+                    } else {
+                        usartEr();
+                    }
+
+                    break;
+                case 'T': // налаштування вивід строки з датою (Виводимо, чи ні)
+                    // формат "$Tx" x - 1 Yes, x - 0 No
+
+                    if ((usart_data[2] - 48 == DATE_ON) || (usart_data[2] - 48 == DATE_OFF)) {
+                        setting_Val[ENABLE_DATE] = usart_data[2] - 48;
+                        write_eep(EE_EN_DATE, setting_Val[ENABLE_DATE]);
                         usartOk();
                     } else {
                         usartEr();
@@ -851,11 +946,13 @@ void usart_r() {
                     break;
                 case 'd': // налаштування через синій зуб дата
                     // формат "$dDYDTMNYR  DY - день тижня(1 - неділя), DT - число, MN - місяць, YR - рік "
-                    // наприклад - $d01270917 - неділя,27 вересня 17 року
+                    // наприклад - $d0127092025 - неділя,27 вересня 2025 року
                     setDate((((usart_data[2] - 48)*10) + usart_data[3] - 48),
                             (((usart_data[4] - 48)*10) + usart_data[5] - 48),
                             (((usart_data[6] - 48)*10) + usart_data[7] - 48),
-                            (((usart_data[8] - 48)*10)+(usart_data[9] - 48)));
+                            (((usart_data[10] - 48)*10)+(usart_data[11] - 48)));
+                    TTime.TyrC = (((usart_data[8] - 48)*10)+(usart_data[9] - 48));
+                    write_eep(EE_CENTURY_YEAR, TTime.TyrC);
                     usartOk();
                     //                EUSART_Write('O');
                     //                EUSART_Write('K');
@@ -1061,6 +1158,8 @@ void usart_r() {
                         rs_text_buf[0] = ' ';
                         for (j = 1; j <= (strlen((const char *) usart_data)) - 3; j++)
                             rs_text_buf[j] = usart_data[j + 2];
+                        rs_text_buf[j] = '\0'; // ? Додаємо нуль-термінатор
+                        // buildDateString(rs_text_buf, TTime.Tdy, TTime.Tdt, TTime.Tmt, (TTime.TyrC * 100 + TTime.Tyr));
                     } else if (usart_data[2] == 'o') {
                         mess_show = 0; // вимикаємо вивід строки
                         usartOk();
@@ -1083,10 +1182,14 @@ void usart_r() {
                     RTOS_DeleteTask(radio_temp); //видаляємо задачу
                     RTOS_DeleteTask(pressure);
                     RTOS_DeleteTask(hum);
-                    interval_scroll_text(rs_text_buf);
-                    RTOS_SetTask(time_led, 0, cycle_main); //додаємо задачу
-                    pre_ref_dis();
-                    blk_dot = 1;
+                    RTOS_DeleteTask(time_led); //видаляємо задачу
+                    RTOS_DeleteTask(task_effect_runner);
+                    start_scroll_text(rs_text_buf); // буфер рядка дати
+                    //interval_scroll_text(rs_text_buf);
+                    //RTOS_SetTask(time_led, 0, cycle_main); //додаємо задачу
+                    //pre_ref_dis();
+                    //blk_dot = 1;
+
                     break;
 
                 case 'r': // читаємо тестові значення
@@ -1358,16 +1461,6 @@ void TMR1_ISR(void) {
 
     }
 
-    //     delay_digit++;
-    //     if(delay_digit > 30)
-    //     {
-    //         delay_digit = 0;
-    //         show_digit = ~show_digit;
-    //     }
-
-    //Update_Matrix(Dis_Buff);          // обновити дані на дисплеї
-    //        RTOS_SetTask(GetTime, 0, 0); // додаємо одноразовий запуск задачі в диспетчер
-    // кожні 500мс.
 }
 
 //=============================================================================
@@ -1389,13 +1482,13 @@ void radioRead(void) {
     } else
         err_ds_count++;
 
-    if (err_ds_count > 15000) // чекаємо ~5хв. Якщо не було ні одного зчитування
+    if (err_ds_count > 720) // чекаємо ~5хв. Якщо не було ні одного зчитування
     {
         err_ds_count = 0; // починаємо знову рахувати
         err_ds18 = 1; // то ставимо признак помилки радіодатчика
         //nrf24_powerUpRx(); // Переводимо датчик у режим прийому, та скидаємо всі переривання
-        nrf24_init(100, 5); // Ще раз ініціалізуємо
-       // data_Val[DS18_ERR]++;
+        nrf24_init(123, 5); // Ще раз ініціалізуємо
+        // data_Val[DS18_ERR]++;
     }
 
 }
@@ -1403,14 +1496,124 @@ void radioRead(void) {
 // передача по уарт показів датчиків
 
 void sendDataSensors(void) {
+    //uint8_t buf[NUM_VALUES_DAT * 2 + 1]; // 2 байти на кожне значення + 1 на minus_radio
+    static uint8_t idx;
+
+    idx = 0;
+
+    for (uint8_t j = 0; j < NUM_VALUES_DAT; j++) {
+        buf_data_uart[idx++] = data_Val[j] & 0xFF;
+        buf_data_uart[idx++] = (data_Val[j] >> 8) & 0xFF;
+    }
+    buf_data_uart[idx++] = minus_radio;
+
+    uint8_t crc = crc8(buf_data_uart, idx); // обчислюємо CRC8
+
     EUSART_Write('$');
     EUSART_Write('D');
-    for (uint8_t j = 0; j < NUM_VALUES_DAT; j++) {
-        EUSART_Write(data_Val[j]& 0xFF); //висилаємо молодший байт;
-        EUSART_Write((data_Val[j] >> 8)& 0xFF); //висилаємо старший байт;
+    for (uint8_t i = 0; i < idx; i++) {
+        EUSART_Write(buf_data_uart[i]);
     }
-    EUSART_Write(minus_radio);
+    EUSART_Write(crc); // надсилаємо CRC8
     EUSART_Write('\r');
     EUSART_Write('\n');
+
+}
+
+// Перетворює число (0–9999) у текст і додає до буфера
+
+void appendNumber(char* buffer, int number) {
+    unsigned char temp[6];
+    unsigned char* p = temp;
+
+    // Перетворення числа у символи (в зворотному порядку)
+    if (number == 0) {
+        *p++ = '0';
+    } else {
+        while (number > 0) {
+            *p++ = (char) ((unsigned int) (number % 10) + '0');
+            number /= 10;
+        }
+    }
+    *p = '\0';
+
+    // Перевертаємо і копіюємо до buffer
+    int len = p - temp;
+    for (int i = 0; i < len; i++) {
+        *buffer++ = temp[len - i - 1];
+    }
+    *buffer = '\0';
+}
+
+// Формування рядка дати
+
+void buildDateString(uint8_t* dest, uint8_t dayOfWeek, uint8_t day, uint8_t month, int year) {
+    char* p = (char*) dest;
+
+    *p++ = ' ';
+// ---- День тижня ----
+    if (dayOfWeek >= 1 && dayOfWeek <= 7) {
+        strcpy(p, daysOfWeek[dayOfWeek]);   // напряму, бо масив з 1 по 7
+    } else {
+        strcpy(p, "?");   // якщо некоректне значення
+    }
+    p += strlen(p);
+    *p++ = ',';
+    *p++ = ' ';
+
+    // Додаємо число дня
+    char dayStr[3];
+    appendNumber(dayStr, day);
+    strcpy(p, dayStr);
+    p += strlen(p);
+    *p++ = ' ';
+
+    // Додаємо місяць
+    strcpy(p, monthsOfYear[(month - 1) % 12]);
+    p += strlen(p);
+    *p++ = ' ';
+
+    // Додаємо рік
+    char yearStr[6];
+    appendNumber(yearStr, year);
+    strcpy(p, yearStr);
+    p += strlen(p);
+
+    // Додаємо " року"
+    strcpy(p, " року");
+}
+
+uint8_t crc8(const uint8_t *data, uint8_t len) {
+    uint8_t crc = 0x00;
+    for (uint8_t i = 0; i < len; i++) {
+        crc ^= data[i];
+        for (uint8_t j = 0; j < 8; j++) {
+            if (crc & 0x80)
+                crc = (crc << 1) ^ 0x31; // поліном x^8 + x^5 + x^4 + 1
+            else
+                crc <<= 1;
+        }
+    }
+    return crc;
+}
+
+
+// раз в хвилину читаємо температуру
+
+void readTemp(void) {
+    ds18b20_start_conversion();
+    RTOS_SetTask(convertTemp, 170, 6000); // чекаємо 750мс і читаємо температуру
+
+    data_Val[HUM] = si7021_Hum();
+    data_Val[T_HUM] = si7021_Temp();
+    data_Val[T_PRESS] = (uint16_t) bmp280_compensate_T_int32();
+    data_Val[PRESS] = (uint16_t) bmp280_compensate_P_int32();
+
+}
+
+void convertTemp(void) {
+    RTOS_DeleteTask(convertTemp);
+    data_Val[T_HOME] = ds18b20_read_temperature(&minus);
+    sendDataSensors(); // пересилаємо всі виміряні дані у веб
 
 }

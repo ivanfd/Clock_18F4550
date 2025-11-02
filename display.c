@@ -17,6 +17,313 @@ const uint8_t(*pFont)[5] = dFont1; // вказівник на шрифт цифр для показу годин
 static void (*function) (void); // вказівник на функцію
 //void (*p_MyFunc[4])(void) = {dissolve, scroll_left, scroll_right, hide_two_side};
 const p_MyFunc my_func[5] = {dissolve, scroll_left, scroll_right, hide_two_side, scroll_down_one}; //масив вказівників на функції
+
+typedef struct { // структура стану для бігучої строки
+    uint8_t *buf;
+    uint8_t active;
+} ScrollTextState;
+
+ScrollTextState scrollText = {0, 0};
+
+typedef struct { // структура стану зсуву вліво
+    uint8_t k;
+    uint8_t speed;
+    uint8_t active;
+} ScrollLeftState;
+
+ScrollLeftState scrollLeft = {0, 20, 0};
+
+typedef struct {
+    uint8_t step;
+    uint8_t active;
+} HideTwoSideState;
+
+HideTwoSideState hideTwo = {0, 0};
+
+typedef struct {
+    uint8_t k;
+    uint8_t speed;
+    uint8_t active;
+} ScrollRightState;
+
+ScrollRightState scrollRight = {0, 20, 0};
+
+typedef struct { // структура ефекту затухання
+    uint8_t z;
+    uint8_t n;
+    uint8_t active;
+} DissolveState;
+
+DissolveState dissolve_ = {0, 0, 0};
+
+typedef struct {
+    uint8_t i; // колонка
+    uint8_t j; // бітовий зсув
+    uint8_t active; // чи активний ефект
+} ScrollDownState;
+
+ScrollDownState scrollDown = {0, 0, 0};
+
+//const uint8_t dissolve_arr[8] = {253, 191, 239, 127, 251, 223, 247, 254};
+
+// стартова функція ефекту спадання вниз по одному рядку
+
+void start_scroll_down_one(void) {
+    scrollDown.i = 0;
+    scrollDown.j = 0;
+    scrollDown.active = 1;
+}
+
+uint8_t update_scroll_down_one(void) {
+    if (!scrollDown.active)
+        return 0;
+
+    while (scrollDown.i <= 31 && Dis_Buff[scrollDown.i] == 0) {
+        scrollDown.i++; // пропускаємо порожні колонки
+        scrollDown.j = 0;
+    }
+
+    if (scrollDown.i > 31) {
+        scrollDown.active = 0;
+        return 0; // завершено
+    }
+
+    // зсуваємо вниз (тобто ліво), якщо колонка не пуста
+    Dis_Buff[scrollDown.i] <<= 1;
+    Update_Matrix(Dis_Buff);
+
+    scrollDown.j++;
+    if (scrollDown.j >= 8) {
+        scrollDown.j = 0;
+        scrollDown.i++; // далі наступна колонка
+    }
+
+    return 1; // ще триває
+}
+
+
+// стартова функція ефекту затухання
+
+void start_dissolve(void) {
+    dissolve_.z = 0;
+    dissolve_.n = 0;
+    dissolve_.active = 1;
+}
+
+// Оновлення одного кроку ефекту затухання
+
+uint8_t update_dissolve(void) {
+    uint8_t dissolve_arr[8] = {253, 191, 239, 127, 251, 223, 247, 254}; //масив для ефекту затухання
+    if (!dissolve_.active) return 0;
+
+    for (uint8_t i = 0; i <= 31; i++) {
+        uint8_t index = (dissolve_.n + dissolve_.z) & 0x07; // те саме що (n + z) % 8
+        Dis_Buff[i] &= dissolve_arr[index];
+        dissolve_.n++;
+        if (dissolve_.n > 7) dissolve_.n = 0;
+    }
+
+    Update_Matrix(Dis_Buff);
+
+    dissolve_.z++;
+    if (dissolve_.z > 7) {
+        dissolve_.active = 0;
+        return 0;
+    }
+
+    return 1;
+}
+
+// запуск зсуву праворуч
+
+void start_scroll_right(void) {
+    scrollRight.k = 0;
+    scrollRight.speed = 20;
+    scrollRight.active = 1;
+}
+
+//=========================
+
+uint8_t update_scroll_right(void) {
+    if (!scrollRight.active) return 0;
+
+    for (uint8_t i = 31; i > 0; i--) {
+        Dis_Buff[i] = Dis_Buff[i - 1];
+    }
+    Dis_Buff[0] = 0;
+
+    Update_Matrix(Dis_Buff);
+
+    scrollRight.k++;
+    if (scrollRight.speed > 2) {
+        scrollRight.speed -= 2;
+    }
+
+    if (scrollRight.k >= 32) {
+        scrollRight.active = 0;
+        return 0; // ефект завершено
+    }
+
+    return 1; // продовжувати
+}
+
+// Функція запуску ефекту затухання з двох сторін
+
+void start_hide_two_side(void) {
+    hideTwo.step = 0;
+    hideTwo.active = 1;
+}
+
+// виконання одного кроку hide_two_side
+
+uint8_t update_hide_two_side(void) {
+    if (!hideTwo.active) return 0;
+
+    uint8_t a = hideTwo.step;
+    uint8_t b = 31 - hideTwo.step;
+
+    Dis_Buff[a] = 0;
+    Dis_Buff[b] = 0;
+
+    Update_Matrix(Dis_Buff);
+
+    hideTwo.step++;
+    if (hideTwo.step > 15) {
+        hideTwo.active = 0;
+        return 0; // завершено
+    }
+
+    return 1; // ще триває
+}
+
+//================================================
+// Функція запуску ефекту зсув вліво
+
+void start_scroll_left(void) {
+    scrollLeft.k = 0;
+    scrollLeft.speed = 20;
+    scrollLeft.active = 1;
+}
+
+// Функція одного кроку — update_scroll_left()
+
+uint8_t update_scroll_left(void) {
+    if (!scrollLeft.active) return 0;
+
+    // Зсунути всі байти на один вліво
+    for (uint8_t i = 0; i < 31; i++) {
+        Dis_Buff[i] = Dis_Buff[i + 1];
+    }
+    Dis_Buff[31] = 0;
+
+    Update_Matrix(Dis_Buff);
+
+    scrollLeft.k++;
+    if (scrollLeft.speed > 2) {
+        scrollLeft.speed -= 2;
+    }
+
+    if (scrollLeft.k >= 32) {
+        scrollLeft.active = 0;
+        return 0; // ефект завершено
+    }
+
+    return 1; // ще триває
+}
+
+// старт ефекту бігучої строки
+
+void start_scroll_text(uint8_t *buf) {
+    scrollText.buf = buf;
+    scrollText.active = 1;
+    RTOS_SetTask(task_scroll_text, 0, 1); // запустити перший крок
+}
+
+// виконання ефекту бігуча строка без delay_ms
+
+void task_scroll_text(void) {
+    if (!scrollText.active) return;
+
+    if (scroll_text(scrollText.buf)) {
+        Update_Matrix(Dis_Buff);
+        RTOS_SetTask(task_scroll_text, SPEED_STRING_TEXT, 1); // продовжити через затримку 70 ms
+    } else {
+        scrollText.active = 0;
+        RTOS_SetTask(time_led, 0, cycle_main); // ефект завершився, повертаємось до циклу
+        RTOS_DeleteTask(task_scroll_text); //видаляємо задачу
+        pre_ref_dis();
+    }
+}
+
+
+//=================================
+// функція виконання ефектів
+//=================================
+
+void task_effect_runner(void) {
+    uint8_t still_running = 0;
+    uint8_t delay = 5;
+
+    switch (currentEffect) {
+        case EFFECT_SCROLL_LEFT:
+            still_running = update_scroll_left();
+            delay = scrollLeft.speed;
+            break;
+        case EFFECT_HIDE_TWO_SIDE:
+            still_running = update_hide_two_side();
+            delay = 6;
+            break;
+        case EFFECT_SCROLL_RIGHT:
+            still_running = update_scroll_right();
+            delay = scrollRight.speed;
+            break;
+        case EFFECT_DISSOLVE:
+            still_running = update_dissolve();
+            delay = 20;
+            break;
+        case EFFECT_SCROLL_DOWN:
+            still_running = update_scroll_down_one();
+            delay = 1; // 5 мс — як у тебе було
+            break;
+
+            // інші ефекти тут...
+    }
+
+    if (still_running) {
+        RTOS_SetTask(task_effect_runner, delay, 1);
+    } else {
+        currentEffect = EFFECT_NONE;
+        RTOS_DeleteTask(task_effect_runner);
+
+        //  ВИКОНАТИ після ефекту:
+        switch (nextAfterEffect) {
+            case NEXT_PRESSURE:
+                //RTOS_DeleteTask(task_effect_runner);
+                RTOS_SetTask(pressure, 50, cycle_main);
+                break;
+            case NEXT_HUM:
+                //RTOS_DeleteTask(task_effect_runner);
+                RTOS_SetTask(hum, 50, cycle_main);
+                break;
+            case NEXT_TEMP_HOME:
+                //RTOS_DeleteTask(task_effect_runner);
+                RTOS_SetTask(home_temp, 50, cycle_main);
+                break;
+            case NEXT_TEMP_VUL:
+                //RTOS_DeleteTask(task_effect_runner);
+                RTOS_SetTask(radio_temp, 50, cycle_main);
+                break;
+            default:
+                //RTOS_DeleteTask(task_effect_runner);
+                RTOS_SetTask(time_led, 0, cycle_main); // резерв
+                pre_ref_dis();
+                break;
+        }
+
+        nextAfterEffect = NEXT_NONE;
+    }
+}
+
 //*****************************************
 //       засвітити піксель на матриці
 //*****************************************
@@ -49,7 +356,7 @@ void pic_to_led(uint8_t x, uint8_t pic, uint8_t *buf) {
             } else {
                 pixel_off(x + i, j, buf);
             };
-            mask = (uint8_t) (mask <<  1);
+            mask = (uint8_t) (mask << 1);
         };
         mask = 0x01;
     };
@@ -72,7 +379,7 @@ void putchar_b_buf(uint8_t x, uint8_t symbol, const uint8_t(*pF)[5], uint8_t *bu
             else //якщо ні
                 pixel_off(x + i, j, buf); //гасимо
 
-            mask = (uint8_t) (mask <<  1); // 
+            mask = (uint8_t) (mask << 1); // 
         };
         //пройшли всі 8 біт стовбця, переходимо на наступний
         mask = 0x01;
@@ -119,7 +426,7 @@ void putchar_down(uint8_t x, uint8_t symbol, const uint8_t(*pF)[5]) {
 
         for (k = 0; k < DELAY_SHIFT_DOWN; k++)
             __delay_ms(1);
-        Update_Matrix(Dis_Buff); // обновити дані на дисплеї
+        Update_Matrix(Dis_Buff); // оновити дані на дисплеї
 
     }
 
@@ -364,7 +671,7 @@ void scroll_left(void) {
             Dis_Buff[i] = Dis_Buff[i + 1];
 
         Dis_Buff[31] = 0;
-        Update_Matrix(Dis_Buff); // обновити дані на дисплеї
+        Update_Matrix(Dis_Buff); // оновити дані на дисплеї
         for (j = 0; j < speed; j++)
             __delay_ms(1);
         if (speed > 10) speed -= 10;
@@ -388,7 +695,7 @@ void scroll_right(void) {
             Dis_Buff[i] = Dis_Buff[i - 1];
 
         Dis_Buff[0] = 0;
-        Update_Matrix(Dis_Buff); // обновити дані на дисплеї
+        Update_Matrix(Dis_Buff); // оновити дані на дисплеї
         for (j = 0; j < speed; j++)
             __delay_ms(1);
         if (speed > 10) speed -= 10;
@@ -404,14 +711,14 @@ void scroll_right(void) {
 
 void interval_scroll_text(uint8_t *buf) {
     uint8_t i;
-    INTERRUPT_GlobalInterruptDisable();
+    //  INTERRUPT_GlobalInterruptDisable();
     while (scroll_text(buf)) {
-        Update_Matrix(Dis_Buff); // обновити дані на дисплеї
+        Update_Matrix(Dis_Buff); // оновити дані на дисплеї
         for (i = 0; i < SPEED_STRING; i++)
             __delay_ms(1);
 
     }
-    INTERRUPT_GlobalInterruptEnable();
+    //  INTERRUPT_GlobalInterruptEnable();
 
 }
 
@@ -487,15 +794,50 @@ void scroll_down_one(void) {
 //=========================================
 
 void Rand_ef(void) {
+    static uint8_t last_effect = 0;
     static uint8_t eff = 0;
     static uint8_t old_eff = 0;
+    const uint8_t effect_table[10] = {0, 1, 2, 3, 4, 0, 1, 2, 3, 4};
 
-    while (old_eff == eff) {
-        eff = (0 + rand() % 5);
+    //uint8_t index = rand16() & 0x07;  // лише 3 молодші біти
+    eff = last_effect;
+    last_effect++;
+    if (last_effect >= 5) last_effect = 0;
+
+    //    while (old_eff == eff) {
+    //        //eff = (uint8_t) (0 + rand() % 5);
+    //        eff = effect_table[(rand16() >> 2) % 10]; 
+    //    }
+    //    old_eff = eff;
+
+    switch (eff) {
+        case 0:
+            start_scroll_left();
+            currentEffect = EFFECT_SCROLL_LEFT;
+            break;
+        case 1:
+            start_hide_two_side();
+            currentEffect = EFFECT_HIDE_TWO_SIDE;
+            break;
+        case 2:
+            start_scroll_right();
+            currentEffect = EFFECT_SCROLL_RIGHT;
+            break;
+        case 3:
+            start_dissolve();
+            currentEffect = EFFECT_DISSOLVE;
+            break;
+        case 4:
+            start_scroll_down_one();
+            currentEffect = EFFECT_SCROLL_DOWN;
+            break;
     }
-    old_eff = eff;
-    function = my_func[eff];
-    (*function)(); // виконуємо задачу
+    //start_scroll_left();
+    //currentEffect = EFFECT_SCROLL_LEFT;
+    RTOS_SetTask(task_effect_runner, 0, 1);
+
+    //    function = my_func[eff];
+    //    (*function)(); // виконуємо задачу
 }
 
 //*******************************************

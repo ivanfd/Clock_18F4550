@@ -6,15 +6,19 @@ Version 4.0 HI-TECH Software Intermediate Code
 "12 ./ds18b20.h
 [; ;./ds18b20.h: 12: uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus);
 [v _readTemp_Single `(uc ~T0 @X0 0 ef2`*us`*uc ]
-"147 ./nrf24l01p.h
-[; ;./nrf24l01p.h: 147: void nrf24_send(uint8_t *value);
-[v _nrf24_send `(v ~T0 @X0 0 ef1`*uc ]
-"148
-[; ;./nrf24l01p.h: 148: uint8_t nrf24_isSending(void);
-[v _nrf24_isSending `(uc ~T0 @X0 0 ef ]
-"150
-[; ;./nrf24l01p.h: 150: uint8_t nrf24_messageStatus(void);
-[v _nrf24_messageStatus `(uc ~T0 @X0 0 ef ]
+"25 ./spi.h
+[; ;./spi.h: 25: void spi_init(void);
+[v _spi_init `(v ~T0 @X0 0 ef ]
+"137 ./nrf24l01p.h
+[; ;./nrf24l01p.h: 137: void nrf24_init(uint8_t channel, uint8_t pay_length);
+[v _nrf24_init `(v ~T0 @X0 0 ef2`uc`uc ]
+[v F164 `(v ~T0 @X0 1 tf1`ul ]
+"20 C:\Program Files\Microchip\xc8\v3.00\pic\include/builtins.h
+[v __delay `JF164 ~T0 @X0 0 e ]
+[p i __delay ]
+"38 ./main.h
+[; ;./main.h: 38: uint8_t reliable_send(uint8_t *data);
+[v _reliable_send `(uc ~T0 @X0 0 ef1`*uc ]
 "172 C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc/pic16f628a.h
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc/pic16f628a.h: 172:     struct {
 [s S10 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -26,10 +30,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "183
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc/pic16f628a.h: 183: extern volatile PORTAbits_t PORTAbits __attribute__((address(0x005)));
 [v _PORTAbits `VS9 ~T0 @X0 0 e@5 ]
-[v F164 `(v ~T0 @X0 1 tf1`ul ]
-"20 C:\Program Files\Microchip\xc8\v3.00\pic\include/builtins.h
-[v __delay `JF164 ~T0 @X0 0 e ]
-[p i __delay ]
 "142 ./nrf24l01p.h
 [; ;./nrf24l01p.h: 142: void nrf24_powerDown(void);
 [v _nrf24_powerDown `(v ~T0 @X0 0 ef ]
@@ -45,10 +45,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "166
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc/pic16f628a.h: 166: extern volatile unsigned char PORTA __attribute__((address(0x005)));
 [v _PORTA `Vuc ~T0 @X0 0 e@5 ]
-"25 ./spi.h
-[; ;./spi.h: 25: void spi_init(void);
-[v _spi_init `(v ~T0 @X0 0 ef ]
-"767 C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc/pic16f628a.h
+"767
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc/pic16f628a.h: 767: extern volatile unsigned char CMCON __attribute__((address(0x01F)));
 [v _CMCON `Vuc ~T0 @X0 0 e@31 ]
 "843
@@ -69,12 +66,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "13 ./ds18b20.h
 [; ;./ds18b20.h: 13: void init_ds18b20(void);
 [v _init_ds18b20 `(v ~T0 @X0 0 ef ]
-"137 ./nrf24l01p.h
-[; ;./nrf24l01p.h: 137: void nrf24_init(uint8_t channel, uint8_t pay_length);
-[v _nrf24_init `(v ~T0 @X0 0 ef2`uc`uc ]
 "9 ./usart.h
 [; ;./usart.h: 9: void init_uart(void);
 [v _init_uart `(v ~T0 @X0 0 ef ]
+"147 ./nrf24l01p.h
+[; ;./nrf24l01p.h: 147: void nrf24_send(uint8_t *value);
+[v _nrf24_send `(v ~T0 @X0 0 ef1`*uc ]
+"148
+[; ;./nrf24l01p.h: 148: uint8_t nrf24_isSending(void);
+[v _nrf24_isSending `(uc ~T0 @X0 0 ef ]
+"150
+[; ;./nrf24l01p.h: 150: uint8_t nrf24_messageStatus(void);
+[v _nrf24_messageStatus `(uc ~T0 @X0 0 ef ]
 "54 C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc/pic16f628a.h
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc/pic16f628a.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -225,265 +228,320 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 9 `i `uc
 ..
 ]
-"12 main.c
-[; ;main.c: 12: uint8_t data_array[5];
+"18 main.c
+[; ;main.c: 18: uint8_t data_array[5];
 [v _data_array `uc ~T0 @X0 -> 5 `i e ]
-"13
-[; ;main.c: 13: uint8_t temp;
+"19
+[; ;main.c: 19: uint8_t temp;
 [v _temp `uc ~T0 @X0 1 e ]
-"15
-[; ;main.c: 15: uint16_t temperature;
+"21
+[; ;main.c: 21: uint16_t temperature;
 [v _temperature `us ~T0 @X0 1 e ]
-"16
-[; ;main.c: 16: uint16_t error_send = 0;
+"22
+[; ;main.c: 22: uint16_t error_send = 0;
 [v _error_send `us ~T0 @X0 1 e ]
 [i _error_send
 -> -> 0 `i `us
 ]
-"17
-[; ;main.c: 17: uint8_t minus;
+"23
+[; ;main.c: 23: uint8_t minus;
 [v _minus `uc ~T0 @X0 1 e ]
-"18
-[; ;main.c: 18: uint8_t count = 0;
+"24
+[; ;main.c: 24: uint8_t count = 0;
 [v _count `uc ~T0 @X0 1 e ]
 [i _count
 -> -> 0 `i `uc
 ]
 [v $root$_main `(v ~T0 @X0 0 e ]
-"20
-[; ;main.c: 20: void main(void) {
+"29
+[; ;main.c: 29: void main(void) {
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"21
-[; ;main.c: 21:     uint8_t temp_flag;
+"30
+[; ;main.c: 30:     uint8_t temp_flag;
 [v _temp_flag `uc ~T0 @X0 1 a ]
-"22
-[; ;main.c: 22:     init_Cpu();
+"31
+[; ;main.c: 31:     init_Cpu();
 [e ( _init_Cpu ..  ]
-"23
-[; ;main.c: 23:     data_array[0] = 0xFF;
+"32
+[; ;main.c: 32:     data_array[0] = 0xFF;
 [e = *U + &U _data_array * -> -> -> 0 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> -> 255 `i `uc ]
-"24
-[; ;main.c: 24:     data_array[1] = 0xFF;
+"33
+[; ;main.c: 33:     data_array[1] = 0xFF;
 [e = *U + &U _data_array * -> -> -> 1 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> -> 255 `i `uc ]
-"25
-[; ;main.c: 25:     data_array[2] = 0xFF;
+"34
+[; ;main.c: 34:     data_array[2] = 0xFF;
 [e = *U + &U _data_array * -> -> -> 2 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> -> 255 `i `uc ]
-"26
-[; ;main.c: 26:     data_array[3] = 0x00;
+"35
+[; ;main.c: 35:     data_array[3] = 0x00;
 [e = *U + &U _data_array * -> -> -> 3 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> -> 0 `i `uc ]
-"27
-[; ;main.c: 27:     data_array[4] = 0x00;
+"36
+[; ;main.c: 36:     data_array[4] = 0x00;
 [e = *U + &U _data_array * -> -> -> 4 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> -> 0 `i `uc ]
-"28
-[; ;main.c: 28:     while (1) {
+"37
+[; ;main.c: 37:     while (1) {
 [e :U 59 ]
 {
-"29
-[; ;main.c: 29:         __asm("clrwdt");
+"38
+[; ;main.c: 38:         __asm("clrwdt");
 [; <" clrwdt ;# ">
-"31
-[; ;main.c: 31:         data_array[3] = error_send & 0xFF;
+"40
+[; ;main.c: 40:         data_array[3] = error_send & 0xFF;
 [e = *U + &U _data_array * -> -> -> 3 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> & -> _error_send `ui -> -> 255 `i `ui `uc ]
-"32
-[; ;main.c: 32:         data_array[4] = (uint8_t) (error_send >> 8);
+"41
+[; ;main.c: 41:         data_array[4] = (uint8_t) (error_send >> 8);
 [e = *U + &U _data_array * -> -> -> 4 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> >> -> _error_send `ui -> 8 `i `uc ]
-"33
-[; ;main.c: 33:         if (readTemp_Single(&temperature, &minus)) {
+"42
+[; ;main.c: 42:         if (readTemp_Single(&temperature, &minus)) {
 [e $ ! != -> ( _readTemp_Single (2 , &U _temperature &U _minus `i -> 0 `i 61  ]
 {
-"35
-[; ;main.c: 35:             data_array[0] = minus;
+"43
+[; ;main.c: 43:             data_array[0] = minus;
 [e = *U + &U _data_array * -> -> -> 0 `i `ui `ux -> -> # *U &U _data_array `ui `ux _minus ]
-"36
-[; ;main.c: 36:             data_array[1] = temperature & 0xFF;
+"44
+[; ;main.c: 44:             data_array[1] = temperature & 0xFF;
 [e = *U + &U _data_array * -> -> -> 1 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> & -> _temperature `ui -> -> 255 `i `ui `uc ]
-"37
-[; ;main.c: 37:             data_array[2] = (uint8_t) (temperature >> 8);
+"45
+[; ;main.c: 45:             data_array[2] = (uint8_t) (temperature >> 8);
 [e = *U + &U _data_array * -> -> -> 2 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> >> -> _temperature `ui -> 8 `i `uc ]
-"38
-[; ;main.c: 38:         } else {
+"46
+[; ;main.c: 46:         } else {
 }
 [e $U 62  ]
 [e :U 61 ]
 {
-"40
-[; ;main.c: 40:             data_array[0] = 0xFF;
+"48
+[; ;main.c: 48:             data_array[0] = 0xFF;
 [e = *U + &U _data_array * -> -> -> 0 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> -> 255 `i `uc ]
-"41
-[; ;main.c: 41:             data_array[1] = 0xFF;
+"49
+[; ;main.c: 49:             data_array[1] = 0xFF;
 [e = *U + &U _data_array * -> -> -> 1 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> -> 255 `i `uc ]
-"42
-[; ;main.c: 42:             data_array[2] = 0xFF;
+"50
+[; ;main.c: 50:             data_array[2] = 0xFF;
 [e = *U + &U _data_array * -> -> -> 2 `i `ui `ux -> -> # *U &U _data_array `ui `ux -> -> 255 `i `uc ]
-"43
-[; ;main.c: 43:         }
+"51
+[; ;main.c: 51:         }
 }
 [e :U 62 ]
-"47
-[; ;main.c: 47:         __asm("clrwdt");
+"52
+[; ;main.c: 52:         __asm("clrwdt");
 [; <" clrwdt ;# ">
-"48
-[; ;main.c: 48:         nrf24_send(data_array);
-[e ( _nrf24_send (1 &U _data_array ]
-"50
-[; ;main.c: 50:         while (nrf24_isSending());
-[e $U 63  ]
-[e :U 64 ]
-[e :U 63 ]
-[e $ != -> ( _nrf24_isSending ..  `i -> 0 `i 64  ]
-[e :U 65 ]
-"53
-[; ;main.c: 53:         temp = nrf24_messageStatus();
-[e = _temp ( _nrf24_messageStatus ..  ]
 "55
-[; ;main.c: 55:         if (temp == 0) {
-[e $ ! == -> _temp `i -> 0 `i 66  ]
-{
-"56
-[; ;main.c: 56:             PORTAbits.RA0 = 0;
-[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
-"57
-[; ;main.c: 57:             _delay((unsigned long)((8)*(4000000/4000.0)));
-[e ( __delay (1 -> * -> -> 8 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-"58
-[; ;main.c: 58:             PORTAbits.RA0 = 1;
-[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
-"60
-[; ;main.c: 60:         } else if (temp == 1) {
-}
-[e $U 67  ]
-[e :U 66 ]
-[e $ ! == -> _temp `i -> 1 `i 68  ]
-{
-"61
-[; ;main.c: 61:             PORTAbits.RA0 = 0;
-[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
-"62
-[; ;main.c: 62:             _delay((unsigned long)((2)*(4000000/4000.0)));
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-"63
-[; ;main.c: 63:             PORTAbits.RA0 = 1;
-[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
-"64
-[; ;main.c: 64:             _delay((unsigned long)((150)*(4000000/4000.0)));
-[e ( __delay (1 -> * -> -> 150 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-"65
-[; ;main.c: 65:             PORTAbits.RA0 = 0;
-[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
-"66
-[; ;main.c: 66:             _delay((unsigned long)((2)*(4000000/4000.0)));
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-"67
-[; ;main.c: 67:             PORTAbits.RA0 = 1;
-[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
-"68
-[; ;main.c: 68:             _delay((unsigned long)((20)*(4000000/4000.0)));
-[e ( __delay (1 -> * -> -> 20 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-"70
-[; ;main.c: 70:             error_send ++;
-[e ++ _error_send -> -> 1 `i `us ]
-"71
-[; ;main.c: 71:         }
-}
-[e :U 68 ]
-[e :U 67 ]
-"84
-[; ;main.c: 84:         nrf24_powerDown();
-[e ( _nrf24_powerDown ..  ]
-"86
-[; ;main.c: 86:         PORTAbits.RA0 = 1;
-[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
-"87
-[; ;main.c: 87:         TRISB = 0;
-[e = _TRISB -> -> 0 `i `uc ]
-"88
-[; ;main.c: 88:         PORTB = 0;
-[e = _PORTB -> -> 0 `i `uc ]
-"89
-[; ;main.c: 89:         TRISA = 0b00001000;
-[e = _TRISA -> -> 8 `i `uc ]
-"90
-[; ;main.c: 90:         PORTA = 0b00000001;
-[e = _PORTA -> -> 1 `i `uc ]
-"91
-[; ;main.c: 91: loop:
-[e :U 69 ]
-"92
-[; ;main.c: 92:         __asm("sleep");
-[; <" sleep ;# ">
-"93
-[; ;main.c: 93:         count++;
-[e ++ _count -> -> 1 `i `uc ]
-"94
-[; ;main.c: 94:         if (count < 7) goto loop;
-[e $ ! < -> _count `i -> 7 `i 70  ]
-[e $U 69  ]
-[e :U 70 ]
-"95
-[; ;main.c: 95:         count = 0;
-[e = _count -> -> 0 `i `uc ]
-"98
-[; ;main.c: 98:         spi_init();
+[; ;main.c: 55:         spi_init();
 [e ( _spi_init ..  ]
-"108
-[; ;main.c: 108:     }
+"56
+[; ;main.c: 56:         nrf24_init(123, 5);
+[e ( _nrf24_init (2 , -> -> 123 `i `uc -> -> 5 `i `uc ]
+"57
+[; ;main.c: 57:         _delay((unsigned long)((5)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"66
+[; ;main.c: 66:         if (reliable_send(data_array)) {
+[e $ ! != -> ( _reliable_send (1 &U _data_array `i -> 0 `i 63  ]
+{
+"67
+[; ;main.c: 67:             PORTAbits.RA0 = 0;
+[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
+"68
+[; ;main.c: 68:             _delay((unsigned long)((8)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 8 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"69
+[; ;main.c: 69:             PORTAbits.RA0 = 1;
+[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
+"71
+[; ;main.c: 71:         } else if (temp == 1) {
+}
+[e $U 64  ]
+[e :U 63 ]
+[e $ ! == -> _temp `i -> 1 `i 65  ]
+{
+"72
+[; ;main.c: 72:             PORTAbits.RA0 = 0;
+[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
+"73
+[; ;main.c: 73:             _delay((unsigned long)((2)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"74
+[; ;main.c: 74:             PORTAbits.RA0 = 1;
+[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
+"75
+[; ;main.c: 75:             _delay((unsigned long)((150)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 150 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"76
+[; ;main.c: 76:             PORTAbits.RA0 = 0;
+[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
+"77
+[; ;main.c: 77:             _delay((unsigned long)((2)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"78
+[; ;main.c: 78:             PORTAbits.RA0 = 1;
+[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
+"79
+[; ;main.c: 79:             _delay((unsigned long)((20)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 20 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"81
+[; ;main.c: 81:             error_send ++;
+[e ++ _error_send -> -> 1 `i `us ]
+"82
+[; ;main.c: 82:         }
+}
+[e :U 65 ]
+[e :U 64 ]
+"95
+[; ;main.c: 95:         nrf24_powerDown();
+[e ( _nrf24_powerDown ..  ]
+"97
+[; ;main.c: 97:         PORTAbits.RA0 = 1;
+[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
+"98
+[; ;main.c: 98:         TRISB = 0;
+[e = _TRISB -> -> 0 `i `uc ]
+"99
+[; ;main.c: 99:         PORTB = 0;
+[e = _PORTB -> -> 0 `i `uc ]
+"100
+[; ;main.c: 100:         TRISA = 0b00001000;
+[e = _TRISA -> -> 8 `i `uc ]
+"101
+[; ;main.c: 101:         PORTA = 0b00000001;
+[e = _PORTA -> -> 1 `i `uc ]
+"103
+[; ;main.c: 103:         count = 0;
+[e = _count -> -> 0 `i `uc ]
+"104
+[; ;main.c: 104:         do {
+[e :U 68 ]
+{
+"105
+[; ;main.c: 105:             __asm("sleep");
+[; <" sleep ;# ">
+"106
+[; ;main.c: 106:             count++;
+[e ++ _count -> -> 1 `i `uc ]
+"107
+[; ;main.c: 107:         } while (count < 10);
+}
+[e $ < -> _count `i -> 10 `i 68  ]
+[e :U 67 ]
+"118
+[; ;main.c: 118:     }
 }
 [e :U 58 ]
 [e $U 59  ]
 [e :U 60 ]
-"109
-[; ;main.c: 109:     return;
+"119
+[; ;main.c: 119:     return;
 [e $UE 57  ]
-"110
-[; ;main.c: 110: }
+"120
+[; ;main.c: 120: }
 [e :UE 57 ]
 }
-"112
-[; ;main.c: 112: void init_Cpu(void) {
+"122
+[; ;main.c: 122: void init_Cpu(void) {
 [v _init_Cpu `(v ~T0 @X0 1 ef ]
 {
 [e :U _init_Cpu ]
 [f ]
-"113
-[; ;main.c: 113:     PORTA = 0b00000001;
-[e = _PORTA -> -> 1 `i `uc ]
-"114
-[; ;main.c: 114:     CMCON = 0x07;
-[e = _CMCON -> -> 7 `i `uc ]
-"115
-[; ;main.c: 115:     TRISA = 0;
-[e = _TRISA -> -> 0 `i `uc ]
-"116
-[; ;main.c: 116:     OPTION_REGbits.PSA = 1;
-[e = . . _OPTION_REGbits 0 1 -> -> 1 `i `uc ]
-"117
-[; ;main.c: 117:     OPTION_REGbits.PS0 = 1;
-[e = . . _OPTION_REGbits 1 0 -> -> 1 `i `uc ]
-"118
-[; ;main.c: 118:     OPTION_REGbits.PS1 = 1;
-[e = . . _OPTION_REGbits 1 1 -> -> 1 `i `uc ]
-"119
-[; ;main.c: 119:     OPTION_REGbits.PS2 = 1;
-[e = . . _OPTION_REGbits 1 2 -> -> 1 `i `uc ]
-"121
-[; ;main.c: 121:     PORTAbits.RA3 = 1;
-[e = . . _PORTAbits 0 3 -> -> 1 `i `uc ]
 "123
-[; ;main.c: 123:     spi_init();
-[e ( _spi_init ..  ]
+[; ;main.c: 123:     PORTA = 0b00000001;
+[e = _PORTA -> -> 1 `i `uc ]
 "124
-[; ;main.c: 124:     init_ds18b20();
-[e ( _init_ds18b20 ..  ]
+[; ;main.c: 124:     CMCON = 0x07;
+[e = _CMCON -> -> 7 `i `uc ]
 "125
-[; ;main.c: 125:     nrf24_init(100, 5);
-[e ( _nrf24_init (2 , -> -> 100 `i `uc -> -> 5 `i `uc ]
+[; ;main.c: 125:     TRISA = 0;
+[e = _TRISA -> -> 0 `i `uc ]
 "126
-[; ;main.c: 126:     init_uart();
+[; ;main.c: 126:     OPTION_REGbits.PSA = 1;
+[e = . . _OPTION_REGbits 0 1 -> -> 1 `i `uc ]
+"127
+[; ;main.c: 127:     OPTION_REGbits.PS0 = 1;
+[e = . . _OPTION_REGbits 1 0 -> -> 1 `i `uc ]
+"128
+[; ;main.c: 128:     OPTION_REGbits.PS1 = 1;
+[e = . . _OPTION_REGbits 1 1 -> -> 1 `i `uc ]
+"129
+[; ;main.c: 129:     OPTION_REGbits.PS2 = 1;
+[e = . . _OPTION_REGbits 1 2 -> -> 1 `i `uc ]
+"131
+[; ;main.c: 131:     PORTAbits.RA3 = 1;
+[e = . . _PORTAbits 0 3 -> -> 1 `i `uc ]
+"133
+[; ;main.c: 133:     spi_init();
+[e ( _spi_init ..  ]
+"134
+[; ;main.c: 134:     init_ds18b20();
+[e ( _init_ds18b20 ..  ]
+"135
+[; ;main.c: 135:     nrf24_init(123, 5);
+[e ( _nrf24_init (2 , -> -> 123 `i `uc -> -> 5 `i `uc ]
+"136
+[; ;main.c: 136:     init_uart();
 [e ( _init_uart ..  ]
-"130
-[; ;main.c: 130: }
-[e :UE 71 ]
+"140
+[; ;main.c: 140: }
+[e :UE 69 ]
+}
+"146
+[; ;main.c: 146: uint8_t reliable_send(uint8_t *data) {
+[v _reliable_send `(uc ~T0 @X0 1 ef1`*uc ]
+{
+[e :U _reliable_send ]
+[v _data `*uc ~T0 @X0 1 r1 ]
+[f ]
+"147
+[; ;main.c: 147:     for (uint8_t i = 0; i < 3; i++) {
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 3 `i 71  ]
+[e $U 72  ]
+[e :U 71 ]
+{
+"148
+[; ;main.c: 148:         nrf24_send(data);
+[e ( _nrf24_send (1 _data ]
+"149
+[; ;main.c: 149:         while (nrf24_isSending());
+[e $U 74  ]
+[e :U 75 ]
+[e :U 74 ]
+[e $ != -> ( _nrf24_isSending ..  `i -> 0 `i 75  ]
+[e :U 76 ]
+"150
+[; ;main.c: 150:         temp = nrf24_messageStatus();
+[e = _temp ( _nrf24_messageStatus ..  ]
+"151
+[; ;main.c: 151:         if (temp == 0)
+[e $ ! == -> _temp `i -> 0 `i 77  ]
+"152
+[; ;main.c: 152:             return 1;
+[e ) -> -> 1 `i `uc ]
+[e $UE 70  ]
+[e $U 78  ]
+"153
+[; ;main.c: 153:         else if (temp == 1)
+[e :U 77 ]
+[e $ ! == -> _temp `i -> 1 `i 79  ]
+"154
+[; ;main.c: 154:         _delay((unsigned long)((100)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[e :U 79 ]
+[e :U 78 ]
+"155
+[; ;main.c: 155:     }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 3 `i 71  ]
+[e :U 72 ]
+}
+"156
+[; ;main.c: 156:     return 0;
+[e ) -> -> 0 `i `uc ]
+[e $UE 70  ]
+"157
+[; ;main.c: 157: }
+[e :UE 70 ]
 }

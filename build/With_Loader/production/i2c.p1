@@ -1,8 +1,16 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"34 ./display.h
-[; ;./display.h: 34: {
-[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr ]
+"35 ./display.h
+[; ;./display.h: 35: {
+[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr TyrC ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[c E3656 0 1 2 3 4 .. ]
+[n E3656 . NEXT_NONE NEXT_PRESSURE NEXT_TEMP_HOME NEXT_TEMP_VUL NEXT_HUM  ]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[c E3664 0 1 2 3 4 5 .. ]
+[n E3664 . EFFECT_NONE EFFECT_SCROLL_LEFT EFFECT_SCROLL_RIGHT EFFECT_SCROLL_DOWN EFFECT_DISSOLVE EFFECT_HIDE_TWO_SIDE  ]
 "3625 C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 3625: extern volatile unsigned char TRISB __attribute__((address(0xF93)));
 [v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
@@ -2882,14 +2890,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"31 ./display.h
-[; ;./display.h: 31: uint8_t i_char, i_bchar;
+"32 ./display.h
+[; ;./display.h: 32: uint8_t i_char, i_bchar;
 [v _i_char `uc ~T0 @X0 1 e ]
 [v _i_bchar `uc ~T0 @X0 1 e ]
-"42
-[; ;./display.h: 42: } TTime, TSTime;
+"44
+[; ;./display.h: 44: } TTime, TSTime;
 [v _TTime `S370 ~T0 @X0 1 e ]
 [v _TSTime `S370 ~T0 @X0 1 e ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[v _nextAfterEffect `E3656 ~T0 @X0 1 e ]
+[i _nextAfterEffect
+. `E3656 0
+]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[v _currentEffect `E3664 ~T0 @X0 1 e ]
+[i _currentEffect
+. `E3664 0
+]
 "70 ./init.h
 [p x PLLDIV      =  5          ]
 "71

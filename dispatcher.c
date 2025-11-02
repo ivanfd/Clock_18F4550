@@ -139,7 +139,7 @@ void RTOS_DispatchTask()
     // Clear the TMR0 interrupt flag
     INTCONbits.TMR0IF = 0;
     TMR0 = TIMER_START;
-    Timer0Interrupt = 1; // ставимо признак пенреривання
+    Timer0Interrupt = 1; // ставимо признак переривання
    
    
 

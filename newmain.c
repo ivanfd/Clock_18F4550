@@ -36,9 +36,10 @@ void main(void) {
 
     INTERRUPT_GlobalInterruptDisable();
     RTOS_SetTask(time_led, 100, cycle_main); // додаємо задачу, запуск кожних 100мс, затримка перед запуском 500ms
-    RTOS_SetTask(radioRead, 150, 4); // додаємо задачу, запуск кожних 20мс, затримка перед запуском 750ms
+    RTOS_SetTask(radioRead, 150, 200); // додаємо задачу, запуск кожних 20мс, затримка перед запуском 750ms
     RTOS_SetTask(key_press, 0, 1); // опитування кнопок кожні 5 мс.
-    RTOS_SetTask(sendDataSensors, 4000, 2000); // відсилання показів датчиків на web server, кожні 20 сек, затримка 20 сек
+    //RTOS_SetTask(sendDataSensors, 4000, 2000); // відсилання показів датчиків на web server, кожні 20 сек, затримка 20 сек
+        RTOS_SetTask(readTemp, 1000, 10000); // вимірювання температури 1 раз в хвилину  
     INTERRUPT_GlobalInterruptEnable();
 
     while (1) {

@@ -1402,6 +1402,7 @@ void init_ds18b20(void);
 # 28 "./main.h" 2
 # 37 "./main.h"
 void init_Cpu(void);
+uint8_t reliable_send(uint8_t *data);
 # 11 "./nrf24l01p.h" 2
 # 137 "./nrf24l01p.h"
 void nrf24_init(uint8_t channel, uint8_t pay_length);

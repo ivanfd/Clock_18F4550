@@ -6414,7 +6414,7 @@ extern uint8_t day_in_m[];
 void dst_time(struct Time_Get *pTime, uint8_t *dst);
 uint8_t DayOfWeek (uint8_t day, uint8_t month, uint8_t year);
 # 16 "./display.h" 2
-# 27 "./display.h"
+# 28 "./display.h"
 extern uint8_t text_buf[];
 extern uint8_t Dis_Buff[];
 extern const uint8_t(*pFont)[5];
@@ -6430,9 +6430,36 @@ struct Time_Get
     uint8_t Tdt;
     uint8_t Tmt;
     uint8_t Tyr;
+    uint8_t TyrC;
 } TTime, TSTime;
-# 57 "./display.h"
+# 72 "./display.h"
 typedef void (*p_MyFunc)();
+
+typedef enum {
+    NEXT_NONE,
+    NEXT_PRESSURE,
+    NEXT_TEMP_HOME,
+    NEXT_TEMP_VUL,
+    NEXT_HUM
+} NextAction;
+
+NextAction nextAfterEffect = NEXT_NONE;
+
+
+
+typedef enum {
+    EFFECT_NONE = 0,
+    EFFECT_SCROLL_LEFT,
+    EFFECT_SCROLL_RIGHT,
+    EFFECT_SCROLL_DOWN,
+    EFFECT_DISSOLVE,
+    EFFECT_HIDE_TWO_SIDE,
+
+} EffectType;
+
+
+EffectType currentEffect = EFFECT_NONE;
+
 
 
 
@@ -6458,6 +6485,19 @@ void fill_buff_t(uint16_t data);
 void center_two_side(void);
 void scroll_down_one(void);
 void scroll_text_temp(uint8_t pos);
+void start_scroll_text(uint8_t *buf);
+void task_scroll_text(void);
+void start_scroll_left(void);
+uint8_t update_scroll_left(void);
+void start_hide_two_side(void);
+uint8_t update_hide_two_side(void);
+void start_scroll_right(void);
+uint8_t update_scroll_right(void);
+void start_dissolve(void);
+uint8_t update_dissolve(void);
+void start_scroll_down_one(void);
+uint8_t update_scroll_down_one(void);
+void task_effect_runner(void);
 # 9 "./interrupt.h" 2
 # 1 "./timer.h" 1
 
@@ -6678,6 +6718,7 @@ uint16_t si7021_Temp(void);
 
 
 
+
 void SYSTEM_Initialize(void);
 void Port_Init(void);
 void Interrupt_Init(void);
@@ -6748,6 +6789,8 @@ void RTOS_DispatchTask (void);
 
 uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8_t *timer_val);
 void init_ds18b20(void);
+void ds18b20_start_conversion(void);
+uint16_t ds18b20_read_temperature(uint8_t *minus);
 # 18 "./common.h" 2
 
 
@@ -6812,7 +6855,7 @@ size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
 
 void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 24 "./common.h" 2
-# 85 "./common.h"
+# 91 "./common.h"
 enum datIdx {
     T_RADIO,
     T_HOME,
@@ -6838,6 +6881,7 @@ enum setIdx {
     TYPE_TEMP,
     ENABLE_ESP,
     ENABLE_DHT,
+    ENABLE_DATE,
     NUM_VALUES
 };
 
@@ -6859,6 +6903,9 @@ enum brgMan {
     VAL_BRG_NUM_7,
     VAL_BRG_NUM_8
 };
+
+
+
 extern uint8_t setting_Val[NUM_VALUES];
 extern uint8_t blk_dot;
 
@@ -6881,32 +6928,38 @@ extern uint8_t ip_buf[16];
 
 
 
- void INT0_ISR(void);
- void GetTime(void);
+void INT0_ISR(void);
+void GetTime(void);
 
 
 
- void TMR1_ISR(void);
- void time_led();
- void version(void);
+void TMR1_ISR(void);
+void time_led();
+void version(void);
 
- void home_temp(void);
- void set_font(void);
+void home_temp(void);
+void set_font(void);
 
- void pressure(void);
- void pre_ref_dis(void);
+void pressure(void);
+void pre_ref_dis(void);
 
- void radio_temp(void);
- void read_adc(void);
- void adj_brig(void);
+void radio_temp(void);
+void read_adc(void);
+void adj_brig(void);
 
- void usart_r();
+void usart_r();
 
- void hum(void);
- void radioRead(void);
- void usartOk(void);
- void usartEr(void);
- void sendDataSensors(void);
+void hum(void);
+void radioRead(void);
+void usartOk(void);
+void usartEr(void);
+void sendDataSensors(void);
+void appendNumber(char* buffer, int number);
+void buildDateString(uint8_t* dest, uint8_t dayOfWeek, uint8_t day, uint8_t month, int year);
+uint8_t crc8(const uint8_t *data, uint8_t len);
+void readTemp(void);
+void convertTemp(void);
+void buildDateStringSafe(uint8_t* txt_buf_date);
 # 2 "common.c" 2
 
 uint8_t events = 5;
@@ -6919,7 +6972,7 @@ uint16_t err_ds18_count = 0;
 uint16_t err_ds_count = 0;
 uint8_t timer_val = 0, time_flag = 0;
 
-uint8_t setting_Val[NUM_VALUES] = {FONT_1, 1, 1, VAL_BRG_NUM_3, 1, 1, 1, 1, 1, 1, 1};
+uint8_t setting_Val[NUM_VALUES] = {FONT_1, 1, 1, VAL_BRG_NUM_3, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 uint16_t data_Val[NUM_VALUES_DAT] = {0, 0, 0, 0, 0, 0, 0, 0};
 uint8_t minus;
 uint8_t minus_radio = '+';
@@ -6946,8 +6999,8 @@ uint8_t blk_dot = 0;
 
 uint8_t day_mess = 0;
 uint8_t dst_flag = 0;
-uint8_t const compile_date[12] = "Jun  1 2025";
-uint8_t const compile_time[9] = "20:48:47";
+uint8_t const compile_date[12] = "Oct 10 2025";
+uint8_t const compile_time[9] = "21:33:19";
 uint8_t valuesAM[5];
 uint8_t ErrAM;
 
@@ -6955,11 +7008,39 @@ uint8_t ErrAM;
 uint8_t ip_buf[16] = {"192.168.4.1"};
 __bit flagUpdateTime;
 uint8_t messageComplete = 0;
+uint8_t txt_buf_date[48];
+uint8_t buf_data_uart[NUM_VALUES_DAT * 2 + 1];
+# 63 "common.c"
+static unsigned char* daysOfWeek[] = {
+    "",
+    "Неділя",
+    "Понеділок",
+    "Вівторок",
+    "Середа",
+    "Четвер",
+    "П'ятниця",
+    "Субота"
+};
+
+const char* monthsOfYear[] = {
+    "січня",
+    "лютого",
+    "березня",
+    "квітня",
+    "травня",
+    "червня",
+    "липня",
+    "серпня",
+    "вересня",
+    "жовтня",
+    "листопада",
+    "грудня"
+};
 
 __asm("\tpsect eeprom_data,class=EEDATA,noexec"); __asm("\tdb\t" "4" "," "2" "," "1" "," "2" "," "1" "," "1" "," "1" "," "1");
-# 59 "common.c"
-__asm("\tpsect eeprom_data,class=EEDATA,noexec"); __asm("\tdb\t" "1" "," "2" "," "1" "," "0" "," "1" "," "0" "," "0" "," "0");
-# 69 "common.c"
+# 98 "common.c"
+__asm("\tpsect eeprom_data,class=EEDATA,noexec"); __asm("\tdb\t" "1" "," "2" "," "1" "," "0" "," "1" "," "20" "," "1" "," "0");
+# 108 "common.c"
 void GetTime(void) {
     oldsec = TTime.Ts;
 
@@ -6979,6 +7060,7 @@ void GetTime(void) {
 
     if ((TTime.Thr >= 7)&&(TTime.Thr <= 23)&&(TTime.Tmin == 0)&&(TTime.Ts == 0)&&(snd_flag))
         h_snd_t = 1;
+
 }
 
 
@@ -7075,18 +7157,24 @@ void home_temp(void) {
             break;
         case 4:
             events = 5;
-            Rand_ef();
-
-
             RTOS_DeleteTask(default_state);
             RTOS_DeleteTask(home_temp);
-            if (setting_Val[ENABLE_DS_2])
-                RTOS_SetTask(radio_temp, 0, 20);
+
+
+
+
+            if (setting_Val[ENABLE_DS_2]) {
+                nextAfterEffect = NEXT_TEMP_VUL;
+                Rand_ef();
+            }
             else {
-                RTOS_SetTask(time_led, 0, 20);
-                pre_ref_dis();
+                nextAfterEffect = NEXT_NONE;
+                Rand_ef();
+
+
             }
             break;
+
 
     }
 }
@@ -7193,15 +7281,27 @@ void radio_temp(void) {
         case 4:
             events = 5;
 
+
+
+
+
+            RTOS_DeleteTask(default_state);
+            RTOS_DeleteTask(radio_temp);
+
+
+
+
+            nextAfterEffect = NEXT_NONE;
             Rand_ef();
 
 
-            pre_ref_dis();
-            RTOS_DeleteTask(default_state);
-            RTOS_DeleteTask(radio_temp);
-            RTOS_SetTask(time_led, 0, 20);
+
+
+
+
 
             break;
+
     }
 }
 
@@ -7281,23 +7381,32 @@ void pressure(void) {
         case 4:
             events = 5;
 
+            RTOS_DeleteTask(default_state);
+            RTOS_DeleteTask(pressure);
+
+
             if (setting_Val[ENABLE_DHT]) {
 
 
-                Rand_ef();
-                RTOS_DeleteTask(default_state);
-                RTOS_DeleteTask(pressure);
-                RTOS_SetTask(hum, 0, 20);
-            } else {
+                nextAfterEffect = NEXT_HUM;
                 Rand_ef();
 
-                pre_ref_dis();
-                RTOS_DeleteTask(default_state);
-                RTOS_DeleteTask(pressure);
-                RTOS_SetTask(time_led, 0, 20);
+
+
+
+            } else {
+                nextAfterEffect = NEXT_NONE;
+                Rand_ef();
+
+
+
+
+
+
             }
 
             break;
+
     }
 }
 
@@ -7341,14 +7450,21 @@ void hum(void) {
         case 4:
             events = 5;
 
-            Rand_ef();
-            pre_ref_dis();
+
+
             RTOS_DeleteTask(default_state);
             RTOS_DeleteTask(hum);
-            RTOS_SetTask(time_led, 0, 20);
+
+            nextAfterEffect = NEXT_NONE;
+            Rand_ef();
+
+
+
+
 
 
             break;
+
     }
 }
 
@@ -7413,23 +7529,23 @@ void time_led() {
                 blk_dot = 1;
             else
                 blk_dot = 0;
-            if ((TTime.Ts > 5)&&(TTime.Ts < 7))
-            {
-                readTemp_Single(&data_Val[T_HOME], &minus, &time_flag, &timer_val);
 
 
 
-            }
+
+
+
+
             if (((TTime.Ts > 14)&&(TTime.Ts < 16)))
                 events = 3;
             if ((TTime.Ts > 39)&&(TTime.Ts < 41)) {
-                if ((setting_Val[ENABLE_BMP]) &&((TTime.Tmin % 2) == 0))
+                if ((setting_Val[ENABLE_BMP]) && ((TTime.Tmin % 2) == 0))
                     events = 2;
                 else
                     events = 3;
 
             }
-# 546 "common.c"
+# 620 "common.c"
             break;
         case 1:
             flagUpdateTime = 0;
@@ -7437,7 +7553,7 @@ void time_led() {
             EUSART_Write('P');
             EUSART_Write('\r');
             EUSART_Write('\n');
-# 567 "common.c"
+# 641 "common.c"
             RTOS_DeleteTask(time_led);
             RTOS_SetTask(time_set_min, 0, 50);
             RTOS_SetTask(default_state, 2000, 0);
@@ -7452,61 +7568,55 @@ void time_led() {
             break;
         case 2:
 
-            blk_dot = 0;
-            flagUpdateTime = 0;
+            if ((setting_Val[ENABLE_BMP]) || setting_Val[ENABLE_DHT]) {
+                blk_dot = 0;
+                flagUpdateTime = 0;
 
-            data_Val[HUM] = si7021_Hum();
-            data_Val[T_HUM] = si7021_Temp();
+                if (setting_Val[TYPE_CLK] == 2)
+                    putchar_b_buf(13, 23, Font, Dis_Buff);
 
-
-            data_Val[T_PRESS] = (uint16_t) bmp280_compensate_T_int32();
-            data_Val[PRESS] = (uint16_t) bmp280_compensate_P_int32();
-            if (setting_Val[TYPE_CLK] == 2)
-                putchar_b_buf(13, 23, Font, Dis_Buff);
-
-            Rand_ef();
-            if (setting_Val[ENABLE_BMP]) {
                 RTOS_DeleteTask(time_led);
-                RTOS_SetTask(pressure, 0, 20);
                 events = 5;
                 en_put = 0;
-            } else {
-                RTOS_DeleteTask(time_led);
-                RTOS_SetTask(hum, 0, 20);
-                events = 5;
-                en_put = 0;
+                if (setting_Val[ENABLE_BMP]) {
+                    nextAfterEffect = NEXT_PRESSURE;
+                } else {
+                    nextAfterEffect = NEXT_HUM;
+                }
+
+                Rand_ef();
+
             }
+
+
 
             break;
         case 3:
-            flagUpdateTime = 0;
-            if (setting_Val[ENABLE_DS_1]) {
+            if ((setting_Val[ENABLE_DS_1]) || setting_Val[ENABLE_DS_2]) {
                 blk_dot = 0;
-
-                if (setting_Val[TYPE_CLK] == 2)
-                    putchar_b_buf(13, 23, Font, Dis_Buff);
-
-
-
-                Rand_ef();
+                flagUpdateTime = 0;
                 RTOS_DeleteTask(time_led);
-                RTOS_SetTask(home_temp, 0, 20);
                 events = 5;
                 en_put = 0;
-            } else if (setting_Val[ENABLE_DS_2]) {
-                blk_dot = 0;
-                if (setting_Val[TYPE_CLK] == 2)
-                    putchar_b_buf(13, 23, Font, Dis_Buff);
+                if (setting_Val[ENABLE_DS_1]) {
+                    if (setting_Val[TYPE_CLK] == 2)
+                        putchar_b_buf(13, 23, Font, Dis_Buff);
+                    nextAfterEffect = NEXT_TEMP_HOME;
 
 
+
+
+                } else if (setting_Val[ENABLE_DS_2]) {
+                    if (setting_Val[TYPE_CLK] == 2)
+                        putchar_b_buf(13, 23, Font, Dis_Buff);
+                    nextAfterEffect = NEXT_TEMP_VUL;
+                }
                 Rand_ef();
-                RTOS_DeleteTask(time_led);
-                RTOS_SetTask(radio_temp, 0, 20);
-                events = 5;
-                en_put = 0;
             }
-            events = 5;
+
+
             break;
+
         case 4:
             events = 5;
             RTOS_DeleteTask(default_state);
@@ -7519,6 +7629,19 @@ void time_led() {
         Update_Matrix(Dis_Buff);
 
 
+    if (((TTime.Tmin % 3) == 0) && (TTime.Ts == 7) && setting_Val[ENABLE_DATE]) {
+
+        buildDateStringSafe(txt_buf_date);
+        blk_dot = 0;
+        RTOS_DeleteTask(time_led);
+        start_scroll_text(txt_buf_date);
+
+
+
+
+    }
+
+
     if (setting_Val[TYPE_BRG]) {
         if ((TTime.Ts % 2 == 0)&&(oldsec_flag)) {
             oldsec_flag = 0;
@@ -7528,17 +7651,34 @@ void time_led() {
 
     }
     en_put = 1;
-# 677 "common.c"
+
     if (TTime.Tdt == day_mess) {
         if (((TTime.Tmin % 5) == 0) && (TTime.Ts == 35) && mess_show) {
             blk_dot = 0;
-            putchar_b_buf(13, 23, Font, Dis_Buff);
-            interval_scroll_text(rs_text_buf);
-            blk_dot = 1;
+            RTOS_DeleteTask(time_led);
+            start_scroll_text(rs_text_buf);
+
+
+
+
+
         }
     } else
         mess_show = 0;
-# 700 "common.c"
+# 766 "common.c"
+}
+
+
+void buildDateStringSafe(uint8_t* txt_buf_date)
+{
+
+    uint8_t dayOfWeek = TTime.Tdy;
+    uint8_t day = TTime.Tdt;
+    uint8_t month = TTime.Tmt;
+    int year = TTime.TyrC * 100 + TTime.Tyr;
+
+
+    buildDateString(txt_buf_date, dayOfWeek, day, month, year);
 }
 
 
@@ -7549,13 +7689,17 @@ void usart_r() {
 
     static uint8_t i = 0;
     uint8_t j;
-# 718 "common.c"
+# 797 "common.c"
     while ((eusartRxCount)) {
         usart_data[i++] = EUSART_Read();
         if (i >= 2 && usart_data[i - 1] == '\n' && usart_data[i - 2] == '\r') {
             messageComplete = 1;
             break;
         }
+        if (sizeof (usart_data) <= i) {
+            i = 0;
+        }
+
     }
     if (!(eusartRxCount)) {
         reinit_rx();
@@ -7567,7 +7711,7 @@ void usart_r() {
                 case 'D':
 
                     sendDataSensors();
-# 745 "common.c"
+# 828 "common.c"
                     break;
                 case 'J':
 
@@ -7599,6 +7743,18 @@ void usart_r() {
                         } else
                             setTime(TSTime.Thr, TSTime.Tmin, TSTime.Ts);
 
+                        usartOk();
+                    } else {
+                        usartEr();
+                    }
+
+                    break;
+                case 'T':
+
+
+                    if ((usart_data[2] - 48 == 1) || (usart_data[2] - 48 == 0)) {
+                        setting_Val[ENABLE_DATE] = usart_data[2] - 48;
+                        write_eep(14, setting_Val[ENABLE_DATE]);
                         usartOk();
                     } else {
                         usartEr();
@@ -7681,7 +7837,9 @@ void usart_r() {
                     setDate((((usart_data[2] - 48)*10) + usart_data[3] - 48),
                             (((usart_data[4] - 48)*10) + usart_data[5] - 48),
                             (((usart_data[6] - 48)*10) + usart_data[7] - 48),
-                            (((usart_data[8] - 48)*10)+(usart_data[9] - 48)));
+                            (((usart_data[10] - 48)*10)+(usart_data[11] - 48)));
+                    TTime.TyrC = (((usart_data[8] - 48)*10)+(usart_data[9] - 48));
+                    write_eep(13, TTime.TyrC);
                     usartOk();
 
 
@@ -7858,7 +8016,7 @@ void usart_r() {
                     __asm("reset");
 
                     break;
-# 1057 "common.c"
+# 1154 "common.c"
                 case 'S':
 
 
@@ -7866,6 +8024,8 @@ void usart_r() {
                         rs_text_buf[0] = ' ';
                         for (j = 1; j <= (strlen((const char *) usart_data)) - 3; j++)
                             rs_text_buf[j] = usart_data[j + 2];
+                        rs_text_buf[j] = '\0';
+
                     } else if (usart_data[2] == 'o') {
                         mess_show = 0;
                         usartOk();
@@ -7888,16 +8048,20 @@ void usart_r() {
                     RTOS_DeleteTask(radio_temp);
                     RTOS_DeleteTask(pressure);
                     RTOS_DeleteTask(hum);
-                    interval_scroll_text(rs_text_buf);
-                    RTOS_SetTask(time_led, 0, 20);
-                    pre_ref_dis();
-                    blk_dot = 1;
+                    RTOS_DeleteTask(time_led);
+                    RTOS_DeleteTask(task_effect_runner);
+                    start_scroll_text(rs_text_buf);
+
+
+
+
+
                     break;
 
                 case 'r':
 
                     switch (usart_data[2]) {
-# 1104 "common.c"
+# 1207 "common.c"
                         case 'v':
 
 
@@ -7909,22 +8073,22 @@ void usart_r() {
 
                             EUSART_Write('(');
 
-                            for (j = 0; j < strlen("1.0.45"); j++)
-                                EUSART_Write("1.0.45"[j]);
+                            for (j = 0; j < strlen("1.0.116"); j++)
+                                EUSART_Write("1.0.116"[j]);
                             EUSART_Write(')');
                             EUSART_Write(' ');
                             EUSART_Write(' ');
 
-                            for (j = 0; j < strlen("01.06.2025"); j++)
-                                EUSART_Write("01.06.2025"[j]);
+                            for (j = 0; j < strlen("10.10.2025"); j++)
+                                EUSART_Write("10.10.2025"[j]);
                             EUSART_Write(' ');
 
-                            for (j = 0; j < strlen("20:48:45"); j++)
-                                EUSART_Write("20:48:45"[j]);
+                            for (j = 0; j < strlen("21:33:15"); j++)
+                                EUSART_Write("21:33:15"[j]);
                             EUSART_Write('\r');
                             EUSART_Write('\n');
                             break;
-# 1148 "common.c"
+# 1251 "common.c"
                         default:
                             usartEr();
 
@@ -7978,7 +8142,7 @@ void version(void) {
     strcat((char *) text_buf, (const char *) " ");
     strcat((char *) text_buf, (const char *) compile_time);
     interval_scroll_text(text_buf);
-# 1209 "common.c"
+# 1312 "common.c"
 }
 
 
@@ -7997,7 +8161,7 @@ void read_adc(void) {
 
 
 }
-# 1275 "common.c"
+# 1378 "common.c"
 void adj_brig(void) {
 
     if (data_Val[ADC_RES] >= 600)
@@ -8006,7 +8170,7 @@ void adj_brig(void) {
         Cmd7221(0x0A, 0x03);
     else if (data_Val[ADC_RES] <= 50)
         Cmd7221(0x0A, 0x00);
-# 1297 "common.c"
+# 1400 "common.c"
 }
 
 
@@ -8070,7 +8234,7 @@ void TMR1_ISR(void) {
         T1CONbits.TMR1ON = 0;
 
     }
-# 1371 "common.c"
+
 }
 
 
@@ -8092,12 +8256,12 @@ void radioRead(void) {
     } else
         err_ds_count++;
 
-    if (err_ds_count > 15000)
+    if (err_ds_count > 720)
     {
         err_ds_count = 0;
         err_ds18 = 1;
 
-        nrf24_init(100, 5);
+        nrf24_init(123, 5);
 
     }
 
@@ -8106,14 +8270,124 @@ void radioRead(void) {
 
 
 void sendDataSensors(void) {
+
+    static uint8_t idx;
+
+    idx = 0;
+
+    for (uint8_t j = 0; j < NUM_VALUES_DAT; j++) {
+        buf_data_uart[idx++] = data_Val[j] & 0xFF;
+        buf_data_uart[idx++] = (data_Val[j] >> 8) & 0xFF;
+    }
+    buf_data_uart[idx++] = minus_radio;
+
+    uint8_t crc = crc8(buf_data_uart, idx);
+
     EUSART_Write('$');
     EUSART_Write('D');
-    for (uint8_t j = 0; j < NUM_VALUES_DAT; j++) {
-        EUSART_Write(data_Val[j]& 0xFF);
-        EUSART_Write((data_Val[j] >> 8)& 0xFF);
+    for (uint8_t i = 0; i < idx; i++) {
+        EUSART_Write(buf_data_uart[i]);
     }
-    EUSART_Write(minus_radio);
+    EUSART_Write(crc);
     EUSART_Write('\r');
     EUSART_Write('\n');
+
+}
+
+
+
+void appendNumber(char* buffer, int number) {
+    unsigned char temp[6];
+    unsigned char* p = temp;
+
+
+    if (number == 0) {
+        *p++ = '0';
+    } else {
+        while (number > 0) {
+            *p++ = (char) ((unsigned int) (number % 10) + '0');
+            number /= 10;
+        }
+    }
+    *p = '\0';
+
+
+    int len = p - temp;
+    for (int i = 0; i < len; i++) {
+        *buffer++ = temp[len - i - 1];
+    }
+    *buffer = '\0';
+}
+
+
+
+void buildDateString(uint8_t* dest, uint8_t dayOfWeek, uint8_t day, uint8_t month, int year) {
+    char* p = (char*) dest;
+
+    *p++ = ' ';
+
+    if (dayOfWeek >= 1 && dayOfWeek <= 7) {
+        strcpy(p, daysOfWeek[dayOfWeek]);
+    } else {
+        strcpy(p, "?");
+    }
+    p += strlen(p);
+    *p++ = ',';
+    *p++ = ' ';
+
+
+    char dayStr[3];
+    appendNumber(dayStr, day);
+    strcpy(p, dayStr);
+    p += strlen(p);
+    *p++ = ' ';
+
+
+    strcpy(p, monthsOfYear[(month - 1) % 12]);
+    p += strlen(p);
+    *p++ = ' ';
+
+
+    char yearStr[6];
+    appendNumber(yearStr, year);
+    strcpy(p, yearStr);
+    p += strlen(p);
+
+
+    strcpy(p, " року");
+}
+
+uint8_t crc8(const uint8_t *data, uint8_t len) {
+    uint8_t crc = 0x00;
+    for (uint8_t i = 0; i < len; i++) {
+        crc ^= data[i];
+        for (uint8_t j = 0; j < 8; j++) {
+            if (crc & 0x80)
+                crc = (crc << 1) ^ 0x31;
+            else
+                crc <<= 1;
+        }
+    }
+    return crc;
+}
+
+
+
+
+void readTemp(void) {
+    ds18b20_start_conversion();
+    RTOS_SetTask(convertTemp, 170, 6000);
+
+    data_Val[HUM] = si7021_Hum();
+    data_Val[T_HUM] = si7021_Temp();
+    data_Val[T_PRESS] = (uint16_t) bmp280_compensate_T_int32();
+    data_Val[PRESS] = (uint16_t) bmp280_compensate_P_int32();
+
+}
+
+void convertTemp(void) {
+    RTOS_DeleteTask(convertTemp);
+    data_Val[T_HOME] = ds18b20_read_temperature(&minus);
+    sendDataSensors();
 
 }

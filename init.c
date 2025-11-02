@@ -54,7 +54,7 @@ void SYSTEM_Initialize(void) // ініціалізація контролера
     set_font();
     sound_init();
     spi_init();
-    nrf24_init(100, 5);
+    nrf24_init(123, 5);
     RTOS_SetTask(usart_r, 40, cycle_main); // ЗАДАЧА ОПИТУВАННЯ КОМ ПОРТА
     RTOS_SetTask(GetTime, 80, cycle_main); // Задача зчитування даних з RTC
     setting_Val[ENABLE_SND_HOUR] = read_eep(EE_EN_SND_H);
@@ -63,6 +63,8 @@ void SYSTEM_Initialize(void) // ініціалізація контролера
     setting_Val[ENABLE_BMP] = read_eep(EE_EN_BMP);
     setting_Val[ENABLE_DST] = read_eep(EE_EN_DST); // перехід на літній час
     setting_Val[TYPE_TEMP] = read_eep(EE_TYPE_TEMP); // тип показу температури
+    TTime.TyrC = read_eep(EE_CENTURY_YEAR);
+    setting_Val[ENABLE_DATE] = read_eep(EE_EN_DATE); // чи виводити дату?
 
     setting_Val[ENABLE_DHT] = read_eep(EE_EN_AM2302);
     //    if (en_am2302)
@@ -70,7 +72,7 @@ void SYSTEM_Initialize(void) // ініціалізація контролера
     //    else
     //        EN_ESP8266 = 0;
     // dst_yn = read_eep(EE_DST_YN);
-    srand(3);
+    //srand(3);
 }
 
 void Port_Init(void) // ініціалізація портів

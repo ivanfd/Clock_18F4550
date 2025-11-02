@@ -35,6 +35,7 @@
 #define LED PORTAbits.RA0
 
 void init_Cpu(void);
+uint8_t reliable_send(uint8_t *data);
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

@@ -1,8 +1,16 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"34 ./display.h
-[; ;./display.h: 34: {
-[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr ]
+"35 ./display.h
+[; ;./display.h: 35: {
+[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr TyrC ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[c E3675 0 1 2 3 4 .. ]
+[n E3675 . NEXT_NONE NEXT_PRESSURE NEXT_TEMP_HOME NEXT_TEMP_VUL NEXT_HUM  ]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[c E3683 0 1 2 3 4 5 .. ]
+[n E3683 . EFFECT_NONE EFFECT_SCROLL_LEFT EFFECT_SCROLL_RIGHT EFFECT_SCROLL_DOWN EFFECT_DISSOLVE EFFECT_HIDE_TWO_SIDE  ]
 "11047 C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 11047: extern volatile __bit TXIF __attribute__((address(0x7CF4)));
 [v _TXIF `Vb ~T0 @X0 0 e@31988 ]
@@ -2968,14 +2976,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"31 ./display.h
-[; ;./display.h: 31: uint8_t i_char, i_bchar;
+"32 ./display.h
+[; ;./display.h: 32: uint8_t i_char, i_bchar;
 [v _i_char `uc ~T0 @X0 1 e ]
 [v _i_bchar `uc ~T0 @X0 1 e ]
-"42
-[; ;./display.h: 42: } TTime, TSTime;
+"44
+[; ;./display.h: 44: } TTime, TSTime;
 [v _TTime `S370 ~T0 @X0 1 e ]
 [v _TSTime `S370 ~T0 @X0 1 e ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[v _nextAfterEffect `E3675 ~T0 @X0 1 e ]
+[i _nextAfterEffect
+. `E3675 0
+]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[v _currentEffect `E3683 ~T0 @X0 1 e ]
+[i _currentEffect
+. `E3683 0
+]
 "70 ./init.h
 [p x PLLDIV      =  5          ]
 "71

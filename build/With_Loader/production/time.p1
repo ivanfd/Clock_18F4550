@@ -1,8 +1,16 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"34 ./display.h
-[; ;./display.h: 34: {
-[s S371 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S371 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr ]
+"35 ./display.h
+[; ;./display.h: 35: {
+[s S371 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S371 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr TyrC ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[c E4020 0 1 2 3 4 .. ]
+[n E4020 . NEXT_NONE NEXT_PRESSURE NEXT_TEMP_HOME NEXT_TEMP_VUL NEXT_HUM  ]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[c E4028 0 1 2 3 4 5 .. ]
+[n E4028 . EFFECT_NONE EFFECT_SCROLL_LEFT EFFECT_SCROLL_RIGHT EFFECT_SCROLL_DOWN EFFECT_DISSOLVE EFFECT_HIDE_TWO_SIDE  ]
 "17 ./time.h
 [; ;./time.h: 17: uint8_t DayOfWeek (uint8_t day, uint8_t month, uint8_t year);
 [v _DayOfWeek `(uc ~T0 @X0 0 ef3`uc`uc`uc ]
@@ -2372,10 +2380,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [p x EBTR1        =  OFF ]
 "113
 [p x EBTRB        =  OFF ]
-[v F3967 `Cuc ~T0 @X0 -> 3 `i t ]
+[v F3987 `Cuc ~T0 @X0 -> 3 `i t ]
 "3 ./FontS.h
 [; ;./FontS.h: 3: const unsigned char FontS[][3] = {
-[v _FontS `F3967 ~T0 @X0 -> 11 `i e ]
+[v _FontS `F3987 ~T0 @X0 -> 11 `i e ]
 [i _FontS
 :U ..
 :U ..
@@ -2435,10 +2443,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-[v F3969 `Cuc ~T0 @X0 -> 8 `i t ]
+[v F3989 `Cuc ~T0 @X0 -> 8 `i t ]
 "3 ./pict.h
 [; ;./pict.h: 3: const unsigned char pic7x8[][8]=
-[v _pic7x8 `F3969 ~T0 @X0 -> 8 `i e ]
+[v _pic7x8 `F3989 ~T0 @X0 -> 8 `i e ]
 [i _pic7x8
 :U ..
 :U ..
@@ -2515,10 +2523,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-[v F3971 `Cuc ~T0 @X0 -> 5 `i t ]
+[v F3991 `Cuc ~T0 @X0 -> 5 `i t ]
 "10 ./digits_f.h
 [; ;./digits_f.h: 10: const uint8_t dFont1[][5] = {
-[v _dFont1 `F3971 ~T0 @X0 -> 10 `i e ]
+[v _dFont1 `F3991 ~T0 @X0 -> 10 `i e ]
 [i _dFont1
 :U ..
 :U ..
@@ -2593,10 +2601,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-[v F3973 `Cuc ~T0 @X0 -> 5 `i t ]
+[v F3993 `Cuc ~T0 @X0 -> 5 `i t ]
 "23
 [; ;./digits_f.h: 23: const uint8_t dFont2[][5] = {
-[v _dFont2 `F3973 ~T0 @X0 -> 10 `i e ]
+[v _dFont2 `F3993 ~T0 @X0 -> 10 `i e ]
 [i _dFont2
 :U ..
 :U ..
@@ -2671,10 +2679,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-[v F3975 `Cuc ~T0 @X0 -> 5 `i t ]
+[v F3995 `Cuc ~T0 @X0 -> 5 `i t ]
 "36
 [; ;./digits_f.h: 36: const uint8_t dFont3[][5] = {
-[v _dFont3 `F3975 ~T0 @X0 -> 10 `i e ]
+[v _dFont3 `F3995 ~T0 @X0 -> 10 `i e ]
 [i _dFont3
 :U ..
 :U ..
@@ -2749,10 +2757,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-[v F3977 `Cuc ~T0 @X0 -> 5 `i t ]
+[v F3997 `Cuc ~T0 @X0 -> 5 `i t ]
 "49
 [; ;./digits_f.h: 49: const uint8_t dFont4[][5] = {
-[v _dFont4 `F3977 ~T0 @X0 -> 10 `i e ]
+[v _dFont4 `F3997 ~T0 @X0 -> 10 `i e ]
 [i _dFont4
 :U ..
 :U ..
@@ -2827,10 +2835,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-[v F3979 `Cuc ~T0 @X0 -> 5 `i t ]
+[v F3999 `Cuc ~T0 @X0 -> 5 `i t ]
 "62
 [; ;./digits_f.h: 62: const uint8_t dFont5[][5] = {
-[v _dFont5 `F3979 ~T0 @X0 -> 10 `i e ]
+[v _dFont5 `F3999 ~T0 @X0 -> 10 `i e ]
 [i _dFont5
 :U ..
 :U ..
@@ -2905,14 +2913,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"31 ./display.h
-[; ;./display.h: 31: uint8_t i_char, i_bchar;
+"32 ./display.h
+[; ;./display.h: 32: uint8_t i_char, i_bchar;
 [v _i_char `uc ~T0 @X0 1 e ]
 [v _i_bchar `uc ~T0 @X0 1 e ]
-"42
-[; ;./display.h: 42: } TTime, TSTime;
+"44
+[; ;./display.h: 44: } TTime, TSTime;
 [v _TTime `S371 ~T0 @X0 1 e ]
 [v _TSTime `S371 ~T0 @X0 1 e ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[v _nextAfterEffect `E4020 ~T0 @X0 1 e ]
+[i _nextAfterEffect
+. `E4020 0
+]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[v _currentEffect `E4028 ~T0 @X0 1 e ]
+[i _currentEffect
+. `E4028 0
+]
 "4 time.c
 [; ;time.c: 4: uint8_t day_in_m[] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 [v _day_in_m `uc ~T0 @X0 -> 12 `i e ]

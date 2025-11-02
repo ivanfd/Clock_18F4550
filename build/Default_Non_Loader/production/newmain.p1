@@ -1,18 +1,26 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"34 ./display.h
-[; ;./display.h: 34: {
-[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr ]
+"35 ./display.h
+[; ;./display.h: 35: {
+[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr TyrC ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[c E3656 0 1 2 3 4 .. ]
+[n E3656 . NEXT_NONE NEXT_PRESSURE NEXT_TEMP_HOME NEXT_TEMP_VUL NEXT_HUM  ]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[c E3664 0 1 2 3 4 5 .. ]
+[n E3664 . EFFECT_NONE EFFECT_SCROLL_LEFT EFFECT_SCROLL_RIGHT EFFECT_SCROLL_DOWN EFFECT_DISSOLVE EFFECT_HIDE_TWO_SIDE  ]
 [p mainexit ]
 [v F205 `(v ~T0 @X0 1 tf1`ul ]
 "20 C:\Program Files\Microchip\xc8\v3.00\pic\include/builtins.h
 [v __delay `JF205 ~T0 @X0 0 e ]
 [p i __delay ]
-"134 ./init.h
-[; ;./init.h: 134: void SYSTEM_Initialize(void);
+"135 ./init.h
+[; ;./init.h: 135: void SYSTEM_Initialize(void);
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"68 ./display.h
-[; ;./display.h: 68: void clear_matrix(void);
+"109 ./display.h
+[; ;./display.h: 109: void clear_matrix(void);
 [v _clear_matrix `(v ~T0 @X0 0 ef ]
 "8588 C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8588:     struct {
@@ -33,23 +41,23 @@ Version 4.0 HI-TECH Software Intermediate Code
 "8614
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8614: extern volatile INTCONbits_t INTCONbits __attribute__((address(0xFF2)));
 [v _INTCONbits `VS359 ~T0 @X0 0 e@4082 ]
-[v F3726 `(v ~T0 @X0 0 tf ]
+[v F3759 `(v ~T0 @X0 0 tf ]
 "26 ./dispatcher.h
 [; ;./dispatcher.h: 26: void RTOS_SetTask (void (*taskFunc)(void), uint16_t taskDelay, uint16_t taskPeriod);
-[v _RTOS_SetTask `(v ~T0 @X0 0 ef3`*F3726`us`us ]
-"159 ./common.h
-[; ;./common.h: 159:  void time_led();
+[v _RTOS_SetTask `(v ~T0 @X0 0 ef3`*F3759`us`us ]
+"169 ./common.h
+[; ;./common.h: 169: void time_led();
 [v _time_led `(v ~T0 @X0 0 e? ]
-[v F4063 `(v ~T0 @X0 0 tf ]
-"175
-[; ;./common.h: 175:  void radioRead(void);
+[v F4116 `(v ~T0 @X0 0 tf ]
+"185
+[; ;./common.h: 185: void radioRead(void);
 [v _radioRead `(v ~T0 @X0 0 ef ]
 "26 ./key.h
 [; ;./key.h: 26: void key_press(void);
 [v _key_press `(v ~T0 @X0 0 ef ]
-"178 ./common.h
-[; ;./common.h: 178:  void sendDataSensors(void);
-[v _sendDataSensors `(v ~T0 @X0 0 ef ]
+"192 ./common.h
+[; ;./common.h: 192: void readTemp(void);
+[v _readTemp `(v ~T0 @X0 0 ef ]
 "28 ./dispatcher.h
 [; ;./dispatcher.h: 28: void RTOS_DispatchTask (void);
 [v _RTOS_DispatchTask `(v ~T0 @X0 0 ef ]
@@ -2952,14 +2960,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"31 ./display.h
-[; ;./display.h: 31: uint8_t i_char, i_bchar;
+"32 ./display.h
+[; ;./display.h: 32: uint8_t i_char, i_bchar;
 [v _i_char `uc ~T0 @X0 1 e ]
 [v _i_bchar `uc ~T0 @X0 1 e ]
-"42
-[; ;./display.h: 42: } TTime, TSTime;
+"44
+[; ;./display.h: 44: } TTime, TSTime;
 [v _TTime `S370 ~T0 @X0 1 e ]
 [v _TSTime `S370 ~T0 @X0 1 e ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[v _nextAfterEffect `E3656 ~T0 @X0 1 e ]
+[i _nextAfterEffect
+. `E3656 0
+]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[v _currentEffect `E3664 ~T0 @X0 1 e ]
+[i _currentEffect
+. `E3664 0
+]
 [v $root$_main `(v ~T0 @X0 0 e ]
 "21 newmain.c
 [; ;newmain.c: 21: void main(void) {
@@ -2981,36 +3001,36 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
 "38
 [; ;newmain.c: 38:     RTOS_SetTask(time_led, 100, 20);
-[e ( _RTOS_SetTask (3 , , -> &U _time_led `*F4063 -> -> 100 `i `us -> -> 20 `i `us ]
+[e ( _RTOS_SetTask (3 , , -> &U _time_led `*F4116 -> -> 100 `i `us -> -> 20 `i `us ]
 "39
-[; ;newmain.c: 39:     RTOS_SetTask(radioRead, 150, 4);
-[e ( _RTOS_SetTask (3 , , &U _radioRead -> -> 150 `i `us -> -> 4 `i `us ]
+[; ;newmain.c: 39:     RTOS_SetTask(radioRead, 150, 200);
+[e ( _RTOS_SetTask (3 , , &U _radioRead -> -> 150 `i `us -> -> 200 `i `us ]
 "40
 [; ;newmain.c: 40:     RTOS_SetTask(key_press, 0, 1);
 [e ( _RTOS_SetTask (3 , , &U _key_press -> -> 0 `i `us -> -> 1 `i `us ]
-"41
-[; ;newmain.c: 41:     RTOS_SetTask(sendDataSensors, 4000, 2000);
-[e ( _RTOS_SetTask (3 , , &U _sendDataSensors -> -> 4000 `i `us -> -> 2000 `i `us ]
 "42
-[; ;newmain.c: 42:     (INTCONbits.GIE = 1);
+[; ;newmain.c: 42:         RTOS_SetTask(readTemp, 1000, 10000);
+[e ( _RTOS_SetTask (3 , , &U _readTemp -> -> 1000 `i `us -> -> 10000 `i `us ]
+"43
+[; ;newmain.c: 43:     (INTCONbits.GIE = 1);
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-"44
-[; ;newmain.c: 44:     while (1) {
+"45
+[; ;newmain.c: 45:     while (1) {
 [e :U 376 ]
 {
-"45
-[; ;newmain.c: 45:         RTOS_DispatchTask();
+"46
+[; ;newmain.c: 46:         RTOS_DispatchTask();
 [e ( _RTOS_DispatchTask ..  ]
-"47
-[; ;newmain.c: 47:     }
+"48
+[; ;newmain.c: 48:     }
 }
 [e :U 375 ]
 [e $U 376  ]
 [e :U 377 ]
-"48
-[; ;newmain.c: 48:     return;
-[e $UE 374  ]
 "49
-[; ;newmain.c: 49: }
+[; ;newmain.c: 49:     return;
+[e $UE 374  ]
+"50
+[; ;newmain.c: 50: }
 [e :UE 374 ]
 }

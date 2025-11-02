@@ -6461,6 +6461,8 @@ uint8_t si7021_init(void);
 uint16_t si7021_Hum(void);
 uint16_t si7021_Temp(void);
 # 131 "./init.h" 2
+# 1 "./display.h" 1
+# 132 "./init.h" 2
 
 
 
@@ -6543,6 +6545,8 @@ void RTOS_DispatchTask (void);
 
 uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8_t *timer_val);
 void init_ds18b20(void);
+void ds18b20_start_conversion(void);
+uint16_t ds18b20_read_temperature(uint8_t *minus);
 # 18 "./common.h" 2
 
 
@@ -6671,7 +6675,7 @@ size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
 
 void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 24 "./common.h" 2
-# 85 "./common.h"
+# 91 "./common.h"
 enum datIdx {
     T_RADIO,
     T_HOME,
@@ -6697,6 +6701,7 @@ enum setIdx {
     TYPE_TEMP,
     ENABLE_ESP,
     ENABLE_DHT,
+    ENABLE_DATE,
     NUM_VALUES
 };
 
@@ -6718,6 +6723,9 @@ enum brgMan {
     VAL_BRG_NUM_7,
     VAL_BRG_NUM_8
 };
+
+
+
 extern uint8_t setting_Val[NUM_VALUES];
 extern uint8_t blk_dot;
 
@@ -6740,32 +6748,38 @@ extern uint8_t ip_buf[16];
 
 
 
- void INT0_ISR(void);
- void GetTime(void);
+void INT0_ISR(void);
+void GetTime(void);
 
 
 
- void TMR1_ISR(void);
- void time_led();
- void version(void);
+void TMR1_ISR(void);
+void time_led();
+void version(void);
 
- void home_temp(void);
- void set_font(void);
+void home_temp(void);
+void set_font(void);
 
- void pressure(void);
- void pre_ref_dis(void);
+void pressure(void);
+void pre_ref_dis(void);
 
- void radio_temp(void);
- void read_adc(void);
- void adj_brig(void);
+void radio_temp(void);
+void read_adc(void);
+void adj_brig(void);
 
- void usart_r();
+void usart_r();
 
- void hum(void);
- void radioRead(void);
- void usartOk(void);
- void usartEr(void);
- void sendDataSensors(void);
+void hum(void);
+void radioRead(void);
+void usartOk(void);
+void usartEr(void);
+void sendDataSensors(void);
+void appendNumber(char* buffer, int number);
+void buildDateString(uint8_t* dest, uint8_t dayOfWeek, uint8_t day, uint8_t month, int year);
+uint8_t crc8(const uint8_t *data, uint8_t len);
+void readTemp(void);
+void convertTemp(void);
+void buildDateStringSafe(uint8_t* txt_buf_date);
 # 8 "./display.h" 2
 
 
@@ -6869,7 +6883,7 @@ const uint8_t dFont5[][5] = {
     {0x26,0x49,0x49,0x7F,0x3E}
 };
 # 14 "./display.h" 2
-# 27 "./display.h"
+# 28 "./display.h"
 extern uint8_t text_buf[];
 extern uint8_t Dis_Buff[];
 extern const uint8_t(*pFont)[5];
@@ -6885,9 +6899,36 @@ struct Time_Get
     uint8_t Tdt;
     uint8_t Tmt;
     uint8_t Tyr;
+    uint8_t TyrC;
 } TTime, TSTime;
-# 57 "./display.h"
+# 72 "./display.h"
 typedef void (*p_MyFunc)();
+
+typedef enum {
+    NEXT_NONE,
+    NEXT_PRESSURE,
+    NEXT_TEMP_HOME,
+    NEXT_TEMP_VUL,
+    NEXT_HUM
+} NextAction;
+
+NextAction nextAfterEffect = NEXT_NONE;
+
+
+
+typedef enum {
+    EFFECT_NONE = 0,
+    EFFECT_SCROLL_LEFT,
+    EFFECT_SCROLL_RIGHT,
+    EFFECT_SCROLL_DOWN,
+    EFFECT_DISSOLVE,
+    EFFECT_HIDE_TWO_SIDE,
+
+} EffectType;
+
+
+EffectType currentEffect = EFFECT_NONE;
+
 
 
 
@@ -6913,6 +6954,19 @@ void fill_buff_t(uint16_t data);
 void center_two_side(void);
 void scroll_down_one(void);
 void scroll_text_temp(uint8_t pos);
+void start_scroll_text(uint8_t *buf);
+void task_scroll_text(void);
+void start_scroll_left(void);
+uint8_t update_scroll_left(void);
+void start_hide_two_side(void);
+uint8_t update_hide_two_side(void);
+void start_scroll_right(void);
+uint8_t update_scroll_right(void);
+void start_dissolve(void);
+uint8_t update_dissolve(void);
+void start_scroll_down_one(void);
+uint8_t update_scroll_down_one(void);
+void task_effect_runner(void);
 # 3 "display.c" 2
 
 uint8_t Dis_Buff[4 * 8 + 17];
@@ -6931,6 +6985,313 @@ const uint8_t(*pFont)[5] = dFont1;
 static void (*function) (void);
 
 const p_MyFunc my_func[5] = {dissolve, scroll_left, scroll_right, hide_two_side, scroll_down_one};
+
+typedef struct {
+    uint8_t *buf;
+    uint8_t active;
+} ScrollTextState;
+
+ScrollTextState scrollText = {0, 0};
+
+typedef struct {
+    uint8_t k;
+    uint8_t speed;
+    uint8_t active;
+} ScrollLeftState;
+
+ScrollLeftState scrollLeft = {0, 20, 0};
+
+typedef struct {
+    uint8_t step;
+    uint8_t active;
+} HideTwoSideState;
+
+HideTwoSideState hideTwo = {0, 0};
+
+typedef struct {
+    uint8_t k;
+    uint8_t speed;
+    uint8_t active;
+} ScrollRightState;
+
+ScrollRightState scrollRight = {0, 20, 0};
+
+typedef struct {
+    uint8_t z;
+    uint8_t n;
+    uint8_t active;
+} DissolveState;
+
+DissolveState dissolve_ = {0, 0, 0};
+
+typedef struct {
+    uint8_t i;
+    uint8_t j;
+    uint8_t active;
+} ScrollDownState;
+
+ScrollDownState scrollDown = {0, 0, 0};
+
+
+
+
+
+void start_scroll_down_one(void) {
+    scrollDown.i = 0;
+    scrollDown.j = 0;
+    scrollDown.active = 1;
+}
+
+uint8_t update_scroll_down_one(void) {
+    if (!scrollDown.active)
+        return 0;
+
+    while (scrollDown.i <= 31 && Dis_Buff[scrollDown.i] == 0) {
+        scrollDown.i++;
+        scrollDown.j = 0;
+    }
+
+    if (scrollDown.i > 31) {
+        scrollDown.active = 0;
+        return 0;
+    }
+
+
+    Dis_Buff[scrollDown.i] <<= 1;
+    Update_Matrix(Dis_Buff);
+
+    scrollDown.j++;
+    if (scrollDown.j >= 8) {
+        scrollDown.j = 0;
+        scrollDown.i++;
+    }
+
+    return 1;
+}
+
+
+
+
+void start_dissolve(void) {
+    dissolve_.z = 0;
+    dissolve_.n = 0;
+    dissolve_.active = 1;
+}
+
+
+
+uint8_t update_dissolve(void) {
+    uint8_t dissolve_arr[8] = {253, 191, 239, 127, 251, 223, 247, 254};
+    if (!dissolve_.active) return 0;
+
+    for (uint8_t i = 0; i <= 31; i++) {
+        uint8_t index = (dissolve_.n + dissolve_.z) & 0x07;
+        Dis_Buff[i] &= dissolve_arr[index];
+        dissolve_.n++;
+        if (dissolve_.n > 7) dissolve_.n = 0;
+    }
+
+    Update_Matrix(Dis_Buff);
+
+    dissolve_.z++;
+    if (dissolve_.z > 7) {
+        dissolve_.active = 0;
+        return 0;
+    }
+
+    return 1;
+}
+
+
+
+void start_scroll_right(void) {
+    scrollRight.k = 0;
+    scrollRight.speed = 20;
+    scrollRight.active = 1;
+}
+
+
+
+uint8_t update_scroll_right(void) {
+    if (!scrollRight.active) return 0;
+
+    for (uint8_t i = 31; i > 0; i--) {
+        Dis_Buff[i] = Dis_Buff[i - 1];
+    }
+    Dis_Buff[0] = 0;
+
+    Update_Matrix(Dis_Buff);
+
+    scrollRight.k++;
+    if (scrollRight.speed > 2) {
+        scrollRight.speed -= 2;
+    }
+
+    if (scrollRight.k >= 32) {
+        scrollRight.active = 0;
+        return 0;
+    }
+
+    return 1;
+}
+
+
+
+void start_hide_two_side(void) {
+    hideTwo.step = 0;
+    hideTwo.active = 1;
+}
+
+
+
+uint8_t update_hide_two_side(void) {
+    if (!hideTwo.active) return 0;
+
+    uint8_t a = hideTwo.step;
+    uint8_t b = 31 - hideTwo.step;
+
+    Dis_Buff[a] = 0;
+    Dis_Buff[b] = 0;
+
+    Update_Matrix(Dis_Buff);
+
+    hideTwo.step++;
+    if (hideTwo.step > 15) {
+        hideTwo.active = 0;
+        return 0;
+    }
+
+    return 1;
+}
+
+
+
+
+void start_scroll_left(void) {
+    scrollLeft.k = 0;
+    scrollLeft.speed = 20;
+    scrollLeft.active = 1;
+}
+
+
+
+uint8_t update_scroll_left(void) {
+    if (!scrollLeft.active) return 0;
+
+
+    for (uint8_t i = 0; i < 31; i++) {
+        Dis_Buff[i] = Dis_Buff[i + 1];
+    }
+    Dis_Buff[31] = 0;
+
+    Update_Matrix(Dis_Buff);
+
+    scrollLeft.k++;
+    if (scrollLeft.speed > 2) {
+        scrollLeft.speed -= 2;
+    }
+
+    if (scrollLeft.k >= 32) {
+        scrollLeft.active = 0;
+        return 0;
+    }
+
+    return 1;
+}
+
+
+
+void start_scroll_text(uint8_t *buf) {
+    scrollText.buf = buf;
+    scrollText.active = 1;
+    RTOS_SetTask(task_scroll_text, 0, 1);
+}
+
+
+
+void task_scroll_text(void) {
+    if (!scrollText.active) return;
+
+    if (scroll_text(scrollText.buf)) {
+        Update_Matrix(Dis_Buff);
+        RTOS_SetTask(task_scroll_text, 13, 1);
+    } else {
+        scrollText.active = 0;
+        RTOS_SetTask(time_led, 0, 20);
+        RTOS_DeleteTask(task_scroll_text);
+        pre_ref_dis();
+    }
+}
+
+
+
+
+
+
+void task_effect_runner(void) {
+    uint8_t still_running = 0;
+    uint8_t delay = 5;
+
+    switch (currentEffect) {
+        case EFFECT_SCROLL_LEFT:
+            still_running = update_scroll_left();
+            delay = scrollLeft.speed;
+            break;
+        case EFFECT_HIDE_TWO_SIDE:
+            still_running = update_hide_two_side();
+            delay = 6;
+            break;
+        case EFFECT_SCROLL_RIGHT:
+            still_running = update_scroll_right();
+            delay = scrollRight.speed;
+            break;
+        case EFFECT_DISSOLVE:
+            still_running = update_dissolve();
+            delay = 20;
+            break;
+        case EFFECT_SCROLL_DOWN:
+            still_running = update_scroll_down_one();
+            delay = 1;
+            break;
+
+
+    }
+
+    if (still_running) {
+        RTOS_SetTask(task_effect_runner, delay, 1);
+    } else {
+        currentEffect = EFFECT_NONE;
+        RTOS_DeleteTask(task_effect_runner);
+
+
+        switch (nextAfterEffect) {
+            case NEXT_PRESSURE:
+
+                RTOS_SetTask(pressure, 50, 20);
+                break;
+            case NEXT_HUM:
+
+                RTOS_SetTask(hum, 50, 20);
+                break;
+            case NEXT_TEMP_HOME:
+
+                RTOS_SetTask(home_temp, 50, 20);
+                break;
+            case NEXT_TEMP_VUL:
+
+                RTOS_SetTask(radio_temp, 50, 20);
+                break;
+            default:
+
+                RTOS_SetTask(time_led, 0, 20);
+                pre_ref_dis();
+                break;
+        }
+
+        nextAfterEffect = NEXT_NONE;
+    }
+}
+
 
 
 
@@ -6992,7 +7353,7 @@ void putchar_b_buf(uint8_t x, uint8_t symbol, const uint8_t(*pF)[5], uint8_t *bu
         mask = 0x01;
     };
 }
-# 110 "display.c"
+# 417 "display.c"
 void putchar_down(uint8_t x, uint8_t symbol, const uint8_t(*pF)[5]) {
     uint8_t i, j, k;
 
@@ -7137,7 +7498,7 @@ void FillBuf(uint8_t type) {
 
 
 }
-# 300 "display.c"
+# 607 "display.c"
 uint8_t scroll_text(uint8_t *buf) {
     uint8_t i;
 
@@ -7245,14 +7606,14 @@ void scroll_right(void) {
 
 void interval_scroll_text(uint8_t *buf) {
     uint8_t i;
-    (INTCONbits.GIE = 0);
+
     while (scroll_text(buf)) {
         Update_Matrix(Dis_Buff);
         for (i = 0; i < 70; i++)
             _delay((unsigned long)((1)*(48000000/4000.0)));
 
     }
-    (INTCONbits.GIE = 1);
+
 
 }
 
@@ -7328,15 +7689,50 @@ void scroll_down_one(void) {
 
 
 void Rand_ef(void) {
+    static uint8_t last_effect = 0;
     static uint8_t eff = 0;
     static uint8_t old_eff = 0;
+    const uint8_t effect_table[10] = {0, 1, 2, 3, 4, 0, 1, 2, 3, 4};
 
-    while (old_eff == eff) {
-        eff = (0 + rand() % 5);
+
+    eff = last_effect;
+    last_effect++;
+    if (last_effect >= 5) last_effect = 0;
+
+
+
+
+
+
+
+    switch (eff) {
+        case 0:
+            start_scroll_left();
+            currentEffect = EFFECT_SCROLL_LEFT;
+            break;
+        case 1:
+            start_hide_two_side();
+            currentEffect = EFFECT_HIDE_TWO_SIDE;
+            break;
+        case 2:
+            start_scroll_right();
+            currentEffect = EFFECT_SCROLL_RIGHT;
+            break;
+        case 3:
+            start_dissolve();
+            currentEffect = EFFECT_DISSOLVE;
+            break;
+        case 4:
+            start_scroll_down_one();
+            currentEffect = EFFECT_SCROLL_DOWN;
+            break;
     }
-    old_eff = eff;
-    function = my_func[eff];
-    (*function)();
+
+
+    RTOS_SetTask(task_effect_runner, 0, 1);
+
+
+
 }
 
 

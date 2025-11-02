@@ -1,9 +1,9 @@
 #ifndef BUILD_H
 #define BUILD_H
 
-#define BuildTime "20:48:45"
-#define BuildDate "01.06.2025"
-#define BuildVersion "1.0.45"
-#define BuildNumber 45
+#define BuildTime "21:33:15"
+#define BuildDate "10.10.2025"
+#define BuildVersion "1.0.116"
+#define BuildNumber 116
 
 #endif // BUILD_H

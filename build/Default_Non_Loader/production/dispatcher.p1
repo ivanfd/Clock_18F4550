@@ -1,12 +1,20 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"34 ./display.h
-[; ;./display.h: 34: {
-[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr ]
-[v F4044 `(v ~T0 @X0 0 tf ]
+"35 ./display.h
+[; ;./display.h: 35: {
+[s S370 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S370 Time_Get Ts Tmin Thr Tdy Tdt Tmt Tyr TyrC ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[c E3675 0 1 2 3 4 .. ]
+[n E3675 . NEXT_NONE NEXT_PRESSURE NEXT_TEMP_HOME NEXT_TEMP_VUL NEXT_HUM  ]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[c E3683 0 1 2 3 4 5 .. ]
+[n E3683 . EFFECT_NONE EFFECT_SCROLL_LEFT EFFECT_SCROLL_RIGHT EFFECT_SCROLL_DOWN EFFECT_DISSOLVE EFFECT_HIDE_TWO_SIDE  ]
+[v F4097 `(v ~T0 @X0 0 tf ]
 "14 ./dispatcher.h
 [; ;./dispatcher.h: 14: {
-[s S373 `*F4044 1 `us 1 `us 1 `us 1 ]
+[s S373 `*F4097 1 `us 1 `us 1 `us 1 ]
 [n S373 task pFunc delay period run ]
 "8069 C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8069: extern volatile unsigned char T0CON __attribute__((address(0xFD5)));
@@ -33,12 +41,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 "8139
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 8139: extern volatile unsigned short TMR0 __attribute__((address(0xFD6)));
 [v _TMR0 `Vus ~T0 @X0 0 e@4054 ]
-[v F4067 `(v ~T0 @X0 0 tf ]
-[v F4069 `(v ~T0 @X0 0 tf ]
-[v F4073 `(v ~T0 @X0 0 tf ]
-[v F4080 `(v ~T0 @X0 0 tf ]
-[v F4082 `(v ~T0 @X0 0 tf ]
-[v F4090 `(v ~T0 @X0 0 tf ]
+[v F4120 `(v ~T0 @X0 0 tf ]
+[v F4122 `(v ~T0 @X0 0 tf ]
+[v F4126 `(v ~T0 @X0 0 tf ]
+[v F4133 `(v ~T0 @X0 0 tf ]
+[v F4135 `(v ~T0 @X0 0 tf ]
+[v F4143 `(v ~T0 @X0 0 tf ]
 "54 C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h
 [; ;C:/Users/User/.mchp_packs/Microchip/PIC18Fxxxx_DFP/1.6.159/xc8\pic\include\proc/pic18f4550.h: 54: __asm("SPPDATA equ 0F62h");
 [; <" SPPDATA equ 0F62h ;# ">
@@ -2882,14 +2890,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"31 ./display.h
-[; ;./display.h: 31: uint8_t i_char, i_bchar;
+"32 ./display.h
+[; ;./display.h: 32: uint8_t i_char, i_bchar;
 [v _i_char `uc ~T0 @X0 1 e ]
 [v _i_bchar `uc ~T0 @X0 1 e ]
-"42
-[; ;./display.h: 42: } TTime, TSTime;
+"44
+[; ;./display.h: 44: } TTime, TSTime;
 [v _TTime `S370 ~T0 @X0 1 e ]
 [v _TSTime `S370 ~T0 @X0 1 e ]
+"82
+[; ;./display.h: 82: NextAction nextAfterEffect = NEXT_NONE;
+[v _nextAfterEffect `E3675 ~T0 @X0 1 e ]
+[i _nextAfterEffect
+. `E3675 0
+]
+"97
+[; ;./display.h: 97: EffectType currentEffect = EFFECT_NONE;
+[v _currentEffect `E3683 ~T0 @X0 1 e ]
+[i _currentEffect
+. `E3683 0
+]
 "70 ./init.h
 [p x PLLDIV      =  5          ]
 "71
@@ -2981,14 +3001,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 "30
 [; ;dispatcher.c: 30: void RTOS_SetTask (void (*taskFunc)(void), uint16_t taskDelay, uint16_t taskPeriod)
-[v _RTOS_SetTask `(v ~T0 @X0 1 ef3`*F4067`us`us ]
+[v _RTOS_SetTask `(v ~T0 @X0 1 ef3`*F4120`us`us ]
 "31
 [; ;dispatcher.c: 31: {
 {
 [e :U _RTOS_SetTask ]
 "30
 [; ;dispatcher.c: 30: void RTOS_SetTask (void (*taskFunc)(void), uint16_t taskDelay, uint16_t taskPeriod)
-[v _taskFunc `*F4069 ~T0 @X0 1 r1 ]
+[v _taskFunc `*F4122 ~T0 @X0 1 r1 ]
 [v _taskDelay `us ~T0 @X0 1 r2 ]
 [v _taskPeriod `us ~T0 @X0 1 r3 ]
 "31
@@ -2999,7 +3019,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _i `uc ~T0 @X0 1 a ]
 "34
 [; ;dispatcher.c: 34:    if(!taskFunc) return;
-[e $ ! ! != _taskFunc -> -> 0 `i `*F4073 376  ]
+[e $ ! ! != _taskFunc -> -> 0 `i `*F4126 376  ]
 [e $UE 375  ]
 [e :U 376 ]
 "35
@@ -3084,14 +3104,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 "67
 [; ;dispatcher.c: 67: void RTOS_DeleteTask (void (*taskFunc)(void))
-[v _RTOS_DeleteTask `(v ~T0 @X0 1 ef1`*F4080 ]
+[v _RTOS_DeleteTask `(v ~T0 @X0 1 ef1`*F4133 ]
 "68
 [; ;dispatcher.c: 68: {
 {
 [e :U _RTOS_DeleteTask ]
 "67
 [; ;dispatcher.c: 67: void RTOS_DeleteTask (void (*taskFunc)(void))
-[v _taskFunc `*F4082 ~T0 @X0 1 r1 ]
+[v _taskFunc `*F4135 ~T0 @X0 1 r1 ]
 "68
 [; ;dispatcher.c: 68: {
 [f ]
@@ -3168,7 +3188,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _j `uc ~T0 @X0 1 a ]
 "95
 [; ;dispatcher.c: 95:    void (*function) (void);
-[v _function `*F4090 ~T0 @X0 1 a ]
+[v _function `*F4143 ~T0 @X0 1 a ]
 "97
 [; ;dispatcher.c: 97:    if (Timer0Interrupt)
 [e $ ! != -> _Timer0Interrupt `i -> 0 `i 391  ]

@@ -6420,7 +6420,7 @@ extern uint8_t day_in_m[];
 void dst_time(struct Time_Get *pTime, uint8_t *dst);
 uint8_t DayOfWeek (uint8_t day, uint8_t month, uint8_t year);
 # 16 "./display.h" 2
-# 27 "./display.h"
+# 28 "./display.h"
 extern uint8_t text_buf[];
 extern uint8_t Dis_Buff[];
 extern const uint8_t(*pFont)[5];
@@ -6436,9 +6436,36 @@ struct Time_Get
     uint8_t Tdt;
     uint8_t Tmt;
     uint8_t Tyr;
+    uint8_t TyrC;
 } TTime, TSTime;
-# 57 "./display.h"
+# 72 "./display.h"
 typedef void (*p_MyFunc)();
+
+typedef enum {
+    NEXT_NONE,
+    NEXT_PRESSURE,
+    NEXT_TEMP_HOME,
+    NEXT_TEMP_VUL,
+    NEXT_HUM
+} NextAction;
+
+NextAction nextAfterEffect = NEXT_NONE;
+
+
+
+typedef enum {
+    EFFECT_NONE = 0,
+    EFFECT_SCROLL_LEFT,
+    EFFECT_SCROLL_RIGHT,
+    EFFECT_SCROLL_DOWN,
+    EFFECT_DISSOLVE,
+    EFFECT_HIDE_TWO_SIDE,
+
+} EffectType;
+
+
+EffectType currentEffect = EFFECT_NONE;
+
 
 
 
@@ -6464,6 +6491,19 @@ void fill_buff_t(uint16_t data);
 void center_two_side(void);
 void scroll_down_one(void);
 void scroll_text_temp(uint8_t pos);
+void start_scroll_text(uint8_t *buf);
+void task_scroll_text(void);
+void start_scroll_left(void);
+uint8_t update_scroll_left(void);
+void start_hide_two_side(void);
+uint8_t update_hide_two_side(void);
+void start_scroll_right(void);
+uint8_t update_scroll_right(void);
+void start_dissolve(void);
+uint8_t update_dissolve(void);
+void start_scroll_down_one(void);
+uint8_t update_scroll_down_one(void);
+void task_effect_runner(void);
 # 9 "./interrupt.h" 2
 # 1 "./timer.h" 1
 
@@ -6684,6 +6724,7 @@ uint16_t si7021_Temp(void);
 
 
 
+
 void SYSTEM_Initialize(void);
 void Port_Init(void);
 void Interrupt_Init(void);
@@ -6804,7 +6845,7 @@ size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
 
 void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 24 "./common.h" 2
-# 85 "./common.h"
+# 91 "./common.h"
 enum datIdx {
     T_RADIO,
     T_HOME,
@@ -6830,6 +6871,7 @@ enum setIdx {
     TYPE_TEMP,
     ENABLE_ESP,
     ENABLE_DHT,
+    ENABLE_DATE,
     NUM_VALUES
 };
 
@@ -6851,6 +6893,9 @@ enum brgMan {
     VAL_BRG_NUM_7,
     VAL_BRG_NUM_8
 };
+
+
+
 extern uint8_t setting_Val[NUM_VALUES];
 extern uint8_t blk_dot;
 
@@ -6873,32 +6918,38 @@ extern uint8_t ip_buf[16];
 
 
 
- void INT0_ISR(void);
- void GetTime(void);
+void INT0_ISR(void);
+void GetTime(void);
 
 
 
- void TMR1_ISR(void);
- void time_led();
- void version(void);
+void TMR1_ISR(void);
+void time_led();
+void version(void);
 
- void home_temp(void);
- void set_font(void);
+void home_temp(void);
+void set_font(void);
 
- void pressure(void);
- void pre_ref_dis(void);
+void pressure(void);
+void pre_ref_dis(void);
 
- void radio_temp(void);
- void read_adc(void);
- void adj_brig(void);
+void radio_temp(void);
+void read_adc(void);
+void adj_brig(void);
 
- void usart_r();
+void usart_r();
 
- void hum(void);
- void radioRead(void);
- void usartOk(void);
- void usartEr(void);
- void sendDataSensors(void);
+void hum(void);
+void radioRead(void);
+void usartOk(void);
+void usartEr(void);
+void sendDataSensors(void);
+void appendNumber(char* buffer, int number);
+void buildDateString(uint8_t* dest, uint8_t dayOfWeek, uint8_t day, uint8_t month, int year);
+uint8_t crc8(const uint8_t *data, uint8_t len);
+void readTemp(void);
+void convertTemp(void);
+void buildDateStringSafe(uint8_t* txt_buf_date);
 # 7 "./ds18b20.h" 2
 
 
@@ -6907,11 +6958,21 @@ extern uint8_t ip_buf[16];
 
 uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8_t *timer_val);
 void init_ds18b20(void);
+void ds18b20_start_conversion(void);
+uint16_t ds18b20_read_temperature(uint8_t *minus);
 # 2 "ds18b20.c" 2
 
 
 uint8_t scratch[9];
-# 13 "ds18b20.c"
+
+const char fractS[] = {0, 1, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7, 7, 8, 9, 9};
+
+
+
+
+
+
+
 void init_ds18b20(void) {
 
     if (!ow_reset())
@@ -6961,7 +7022,7 @@ uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8
             }
             break;
         case 1:
-# 75 "ds18b20.c"
+# 76 "ds18b20.c"
             ow_reset();
             write_byte(0xCC);
             write_byte(0xBE);
@@ -6983,7 +7044,7 @@ uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8
             temp = temp >> 4;
             temp = (temp & 0x00ff) * 10;
             temp = temp + tmp;
-# 108 "ds18b20.c"
+# 109 "ds18b20.c"
             *buf = temp;
             *time_flag = 0;
 
@@ -6995,4 +7056,40 @@ uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8
             break;
     }
     return 0;
+}
+
+void ds18b20_start_conversion(void) {
+    if (!ow_reset())
+    {
+        write_byte(0xCC);
+        write_byte(0x44);
+    }
+}
+
+uint16_t ds18b20_read_temperature(uint8_t *minus) {
+    uint16_t temp = 0;
+    uint8_t i, tmp, fptmp;
+
+    ow_reset();
+    write_byte(0xCC);
+    write_byte(0xBE);
+    for (i = 0; i < 2; i++)
+    {
+        scratch[i] = read_byte();
+    }
+
+    temp = (((uint16_t) scratch[1]) << 8) | ((uint16_t) scratch[0]);
+
+    if (temp & 0x8000) {
+        temp = -temp;
+        *minus = '-';
+    }
+
+    tmp = temp & 0x0f;
+    tmp = fractS[tmp];
+    temp = temp >> 4;
+    temp = (temp & 0x00ff) * 10;
+    temp = temp + tmp;
+
+    return temp;
 }

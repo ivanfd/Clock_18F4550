@@ -11,6 +11,9 @@
 
 uint8_t readTemp_Single(uint16_t *buf, uint8_t *minus, uint8_t *time_flag, uint8_t *timer_val);
 void init_ds18b20(void);
+void ds18b20_start_conversion(void);
+uint16_t ds18b20_read_temperature(uint8_t *minus);
+
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 
